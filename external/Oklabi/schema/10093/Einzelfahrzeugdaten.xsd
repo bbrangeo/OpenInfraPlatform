@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Einzelfahrzeugdaten.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1009/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Einzelfahrzeugdaten:v1.009">Einzelfahrzeugdaten.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.009, Schema Einzelfahrzeugdaten
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Einzelfahrzeugdaten                                                           = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Einzelfahrzeugdatenerfassung" type="okstra:EinzelfahrzeugdatenerfassungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="zugehoerige_Fahrzeugklasse" type="okstra:zugehoerige_FahrzeugklasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="zugehoeriger_Zeitpunkt" type="okstra:zugehoeriger_ZeitpunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="fahrzeugbezogene_Achslastdaten" type="okstra:fahrzeugbezogene_AchslastdatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ueberladung" type="okstra:UeberladungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="achsbezogene_Daten" type="okstra:achsbezogene_DatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Einzelfahrzeugdaten                                                               = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="EinzelfahrzeugdatenerfassungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Einzelfahrzeugdatenerfassung -->
+                    <element name="Nettozeitluecke_z_vorherig_FZ" 
+                        type="okstra:Millisekunden" minOccurs="0"/>
+                    <element name="Geschwindigkeit" 
+                        type="okstra:Stundenkilometer"/>
+                    <element name="Fahrzeuglaenge" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="Abstand_zum_vorausfahrenden_FZ" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="hat_zugehoerige_Fahrzeugklasse" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zugehoerige_Fahrzeugklasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Einzelfahrzeugdatenerfassg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_zugehoerigen_Zeitpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zugehoeriger_Zeitpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Einzelfahrzeugdatenerfassg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_fahrzeugbez_Achslastdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>fahrzeugbezogene_Achslastdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Einzelfahrzeugdatenerfassg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_achsbezogene_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>achsbezogene_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Einzelfahrzeugdatenerfassg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="zugehoerige_FahrzeugklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zugehoerige_Fahrzeugklasse -->
+                    <element name="Klasse" 
+                        type="string"/>
+                    <element name="Typ" 
+                        type="string"/>
+                    <element name="von_Einzelfahrzeugdatenerfassg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einzelfahrzeugdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zugehoerige_Fahrzeugklasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="zugehoeriger_ZeitpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zugehoeriger_Zeitpunkt -->
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="Uhrzeit" 
+                        type="okstra:Uhrzeit"/>
+                    <element name="von_Einzelfahrzeugdatenerfassg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einzelfahrzeugdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zugehoerigen_Zeitpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="fahrzeugbezogene_AchslastdatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften fahrzeugbezogene_Achslastdaten -->
+                    <element name="Anzahl_der_Achsen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Gesamtgewicht" 
+                        type="okstra:Kilogramm"/>
+                    <element name="hat_Ueberladung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ueberladung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_achsbezogenen_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Einzelfahrzeugdatenerfassg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einzelfahrzeugdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_fahrzeugbez_Achslastdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UeberladungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ueberladung -->
+                    <element name="Ueberladung_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Ueberladung" 
+                        type="okstra:Kilogramm" minOccurs="0"/>
+                    <element name="von_fahrzeugbez_Achslastdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>fahrzeugbezogene_Achslastdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ueberladung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_achsbezogenen_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>achsbezogene_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ueberladung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="achsbezogene_DatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften achsbezogene_Daten -->
+                    <element name="Achsabstand_zur_Vorderachse" 
+                        type="okstra:Zentimeter"/>
+                    <element name="Achslast" 
+                        type="okstra:Kilogramm"/>
+                    <element name="Achstyp" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Ueberladung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ueberladung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_achsbezogenen_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Einzelfahrzeugdatenerfassg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einzelfahrzeugdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_achsbezogene_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

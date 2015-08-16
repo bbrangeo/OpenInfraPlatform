@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Achslastdaten.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1011/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1011/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.011">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Achslastdaten:v1.011">Achslastdaten.xsd v1.011</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.011, Schema Achslastdaten
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Achslastdaten                                                                 = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Achslastdatenerfassung" type="okstra:AchslastdatenerfassungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="abgel_Werte_und_Verteilungen" type="okstra:abgel_Werte_und_VerteilungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="GG_Verteilung_einer_FZ_Klasse" type="okstra:GG_Verteilung_einer_FZ_KlasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="GG_Klasse" type="okstra:GG_KlasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Achstyp" type="okstra:AchstypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Achslastverteilung_e_Achstyps" type="okstra:Achslastverteilung_e_AchstypsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Klasse_AL" type="okstra:Klasse_ALType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Achslastdaten                                                                     = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="AchslastdatenerfassungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Achslastdatenerfassung -->
+                    <element name="hat_GG_Verteilung_e_FZ_Klasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GG_Verteilung_einer_FZ_Klasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Achslastdatenerfassung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Achslastvertlg_e_Achstyps" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achslastverteilung_e_Achstyps</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Achslastdatenerfassung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_abgel_Werte_und_Vertlgen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>abgel_Werte_und_Verteilungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Achslastdatenerfassung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="abgel_Werte_und_VerteilungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften abgel_Werte_und_Verteilungen -->
+                    <element name="von_Achslastdatenerfassung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achslastdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_abgel_Werte_und_Vertlgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GG_Verteilung_einer_FZ_KlasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften GG_Verteilung_einer_FZ_Klasse -->
+                    <element name="Fahrzeugklasse" 
+                        type="integer"/>
+                    <element name="Anzahl_der_GG_Klassen_FZ_Kl_3" 
+                        type="integer"/>
+                    <element name="Anzahl_der_GG_Klassen_FZ_Kl_4" 
+                        type="integer"/>
+                    <element name="Anzahl_der_GG_Klassen_FZ_Kl_5" 
+                        type="integer"/>
+                    <element name="Anzahl_Ueberladungen" 
+                        type="okstra:Anzahl"/>
+                    <element name="hat_GG_Klasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GG_Klasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_GG_Verteilung_e_FZ_Klasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Achslastdatenerfassung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achslastdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GG_Verteilung_e_FZ_Klasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GG_KlasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften GG_Klasse -->
+                    <element name="Klassennummer" 
+                        type="integer"/>
+                    <element name="Klassengrenze" 
+                        type="okstra:Groesse"/>
+                    <element name="Klassenwert" 
+                        type="okstra:Klassenwert"/>
+                    <element name="von_GG_Verteilung_e_FZ_Klasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GG_Verteilung_einer_FZ_Klasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GG_Klasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AchstypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Achslastverteilung_e_AchstypsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Achslastverteilung_e_Achstyps -->
+                    <element name="Achstyp" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Anz_d_Klassen_f_Einzelachsen" 
+                        type="okstra:Anzahl_Klassen"/>
+                    <element name="Anz_d_Klassen_f_Doppelachsen" 
+                        type="okstra:Anzahl_Klassen"/>
+                    <element name="Anz_d_Klassen_f_Dreifachachsen" 
+                        type="okstra:Anzahl_Klassen"/>
+                    <element name="hat_Klasse_AL" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Klasse_AL</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Achslastvertlg_e_Achstyps</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Achslastdatenerfassung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achslastdatenerfassung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Achslastvertlg_e_Achstyps</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Klasse_ALType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Klasse_AL -->
+                    <element name="Klassennummer" 
+                        type="integer"/>
+                    <element name="Klassengrenze" 
+                        type="okstra:Groesse"/>
+                    <element name="Klassenwert" 
+                        type="okstra:Klassenwert"/>
+                    <element name="von_Achslastvertlg_e_Achstyps" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achslastverteilung_e_Achstyps</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Klasse_AL</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

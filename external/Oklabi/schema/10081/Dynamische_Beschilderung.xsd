@@ -1,0 +1,1570 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Dynamische_Beschilderung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1008/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1008/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.008">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Dynamische_Beschilderung:v1.008">Dynamische_Beschilderung.xsd v1.008</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.008, Schema Dynamische_Beschilderung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Dynamische_Beschilderung                                                      = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Kombination_von_Anlagentypen" type="okstra:Kombination_von_AnlagentypenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="verwaltungstechn_Zuordnung_dyn" type="okstra:verwaltungstechn_Zuordnung_dynType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Einsatzdauer" type="okstra:EinsatzdauerType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Dauer" type="okstra:Art_der_DauerType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Streckenbeeinflussung" type="okstra:StreckenbeeinflussungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="SB_Anlagentyp" type="okstra:SB_AnlagentypType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_SB_Anlagentyp" type="okstra:Tab_SB_AnlagentypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="SB_Anzeigezustaende" type="okstra:SB_AnzeigezustaendeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="SB_Wirkungsbereiche" type="okstra:SB_WirkungsbereicheType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Tab_Wirkungsbereich" type="okstra:Tab_WirkungsbereichType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wirkungsbereich_SP" type="okstra:Wirkungsbereich_SPType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Wechselwegweisung" type="okstra:WechselwegweisungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="WW_Anzeigezustaende" type="okstra:WW_AnzeigezustaendeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="WW_Anlagentyp" type="okstra:WW_AnlagentypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="WW_Wirkungsbereiche" type="okstra:WW_WirkungsbereicheType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Knotenpunktbeeinflussung" type="okstra:KnotenpunktbeeinflussungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="KB_Anlagentyp" type="okstra:KB_AnlagentypType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_KB_Anlagentyp" type="okstra:Tab_KB_AnlagentypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="KB_Anzeigezustaende" type="okstra:KB_AnzeigezustaendeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="KB_Wirkungsbereich" type="okstra:KB_WirkungsbereichType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tab_KB_Wirkungsbereich" type="okstra:Tab_KB_WirkungsbereichType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="richtungsbezogener_WB" type="okstra:richtungsbezogener_WBType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="astbezogener_WB" type="okstra:astbezogener_WBType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Angaben_zum_Knotenpunkt" type="okstra:Angaben_zum_KnotenpunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Richtungswechselbetrieb" type="okstra:RichtungswechselbetriebType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Betriebsform" type="okstra:BetriebsformType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="RW_Anzeigezustaende" type="okstra:RW_AnzeigezustaendeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="RW_Wirkungsbereich" type="okstra:RW_WirkungsbereichType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Anlagenausstattung" type="okstra:AnlagenausstattungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Stromversorgung" type="okstra:Art_der_StromversorgungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Art_der_Stromversorgung" type="okstra:Tab_Art_der_StromversorgungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Steuerung" type="okstra:SteuerungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="manuelle_Steuerung" type="okstra:manuelle_SteuerungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Steuerung" type="okstra:Tab_SteuerungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Datenuebertragungssystem" type="okstra:DatenuebertragungssystemType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Datenuebertragung_SST_UZ" type="okstra:Datenuebertragung_SST_UZType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Datenuebertragung_UZ_VRZ" type="okstra:Datenuebertragung_UZ_VRZType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Unterzentrale" type="okstra:UnterzentraleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Existenz_Unterzentrale" type="okstra:Existenz_UnterzentraleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrsrechnerzentrale" type="okstra:VerkehrsrechnerzentraleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Exist_Verkehrsrechnerzentrale" type="okstra:Exist_VerkehrsrechnerzentraleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ueberwachung_der_Anlage" type="okstra:Ueberwachung_der_AnlageType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Anzeigesystem" type="okstra:AnzeigesystemType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wechselverkehrszeichen" type="okstra:WechselverkehrszeichenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Bauart_des_Zeichens" type="okstra:Bauart_des_ZeichensType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Aufstellvorrichtung" type="okstra:AufstellvorrichtungType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Art_der_Aufstellung" type="okstra:Art_der_AufstellungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Art_der_Aufstellung" type="okstra:Tab_Art_der_AufstellungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anzahl_der_Anzeigequerschnitte" type="okstra:Anzahl_der_AnzeigequerschnitteType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Datenerfassungseinrichtungen" type="okstra:DatenerfassungseinrichtungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Detektionsmethode" type="okstra:DetektionsmethodeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Methode_VDE" type="okstra:Methode_VDEType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Methode_UDE" type="okstra:Methode_UDEType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anordnung_des_Messsystems" type="okstra:Anordnung_des_MesssystemsType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Art_der_Anordnung" type="okstra:Art_der_AnordnungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Art_der_Anordnung" type="okstra:Tab_Art_der_AnordnungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_erfassten_Daten" type="okstra:Art_der_erfassten_DatenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Anzahl_der_Messquerschnitte" type="okstra:Anzahl_der_MessquerschnitteType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Gueltigkeitsbereich" type="okstra:GueltigkeitsbereichType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Dynamische_Beschilderung                                                          = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Kombination_von_AnlagentypenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Kombination_von_Anlagentypen -->
+                    <element name="gehoert_zu_dyn_verkehrsr_Besch" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="4">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Kombination_v_Anlagentypen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="verwaltungstechn_Zuordnung_dynType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung -->
+                    <element name="hat_Strassenbaudienststelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung_dyn -->
+                    <element name="von_dynam_verkehrsreg_Beschild" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinsatzdauerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Einsatzdauer -->
+                    <element name="Dauer_Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Dauer_Laenge" 
+                        type="string"/>
+                    <element name="von_dynam_verkehrsreg_Beschild" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Einsatzdauer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_DauerType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="StreckenbeeinflussungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften dyn_verkehrsreg_Beschilderung -->
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Kombination_v_Anlagentypen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kombination_von_Anlagentypen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_dyn_verkehrsr_Besch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_dyn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anlagenausstattung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Einsatzdauer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einsatzdauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Streckenbeeinflussung -->
+                    <element name="hat_Anlagentyp" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>SB_Anlagentyp</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Streckenbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzeigezustaende" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>SB_Anzeigezustaende</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Streckenbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wirkungsbereiche" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>SB_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Streckenbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SB_AnlagentypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften SB_Anlagentyp -->
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Streckenbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streckenbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anlagentyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_SB_AnlagentypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="SB_AnzeigezustaendeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften SB_Anzeigezustaende -->
+                    <element name="StVO_Zeichen" 
+                        type="string"/>
+                    <element name="Zusatzzeichen" 
+                        type="string"/>
+                    <element name="von_Streckenbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streckenbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzeigezustaende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SB_WirkungsbereicheType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften SB_Wirkungsbereiche -->
+                    <element name="Bereich" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Richtungsangabe" 
+                        type="string" minOccurs="0"/>
+                    <element name="beginnt_bei_Strassenpunkt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wirkungsbereich_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_RW_Wirkunsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Strassenpunkt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wirkungsbereich_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_RW_Wirkunsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Streckenbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streckenbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wirkungsbereiche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_WirkungsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Wirkungsbereich_SPType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften Wirkungsbereich_SP -->
+                    <element name="Beginn_von_SB_Wirkunsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>SB_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_SB_Wirkunsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>SB_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von_RW_Wirkunsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>RW_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_RW_Wirkunsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>RW_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WechselwegweisungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften dyn_verkehrsreg_Beschilderung -->
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Kombination_v_Anlagentypen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kombination_von_Anlagentypen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_dyn_verkehrsr_Besch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_dyn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anlagenausstattung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Einsatzdauer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einsatzdauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wechselwegweisung -->
+                    <element name="Anlagentyp" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Anzeigezustaende" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>WW_Anzeigezustaende</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Wechselwegweisung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wirkungsbereiche" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>WW_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Wechselwegweisung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WW_AnzeigezustaendeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften WW_Anzeigezustaende -->
+                    <element name="Anzeigezustand" 
+                        type="string"/>
+                    <element name="von_Wechselwegweisung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wechselwegweisung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzeigezustaende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WW_AnlagentypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WW_WirkungsbereicheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften WW_Wirkungsbereiche -->
+                    <element name="Bereich" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Richtungsangabe" 
+                        type="string" minOccurs="0"/>
+                    <element name="betroffene_BAB" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="beginnt_bei_Netzknoten" 
+                        type="okstra:ObjectRefType" minOccurs="2" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Netzknoten" 
+                        type="okstra:ObjectRefType" minOccurs="2" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Wechselwegweisung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wechselwegweisung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wirkungsbereiche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KnotenpunktbeeinflussungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften dyn_verkehrsreg_Beschilderung -->
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Kombination_v_Anlagentypen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kombination_von_Anlagentypen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_dyn_verkehrsr_Besch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_dyn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anlagenausstattung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Einsatzdauer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einsatzdauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Knotenpunktbeeinflussung -->
+                    <element name="hat_Anlagentyp" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Anlagentyp</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Knotenpunktbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzeigezustaende" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Anzeigezustaende</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Knotenpunktbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wirkungsbereich" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Knotenpunktbeeinflussung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KB_AnlagentypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften KB_Anlagentyp -->
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Knotenpunktbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Knotenpunktbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anlagentyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_KB_AnlagentypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="KB_AnzeigezustaendeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften KB_Anzeigezustaende -->
+                    <element name="Anzeigezustand" 
+                        type="string"/>
+                    <element name="von_Knotenpunktbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Knotenpunktbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzeigezustaende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KB_WirkungsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften KB_Wirkungsbereich -->
+                    <element name="Bereich" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="ist_richtungsbezogener_WB" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>richtungsbezogener_WB</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_KB_Wirkungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_astbezogener_WB" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>astbezogener_WB</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_KB_Wirkungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zum_Knotenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Knotenpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_KB_Wirkungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Knotenpunktbeeinflussung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Knotenpunktbeeinflussung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wirkungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_KB_WirkungsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="richtungsbezogener_WBType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften richtungsbezogener_WB -->
+                    <element name="Richtung_1" 
+                        type="string"/>
+                    <element name="Richtung_2" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_KB_Wirkungsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_richtungsbezogener_WB</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="astbezogener_WBType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften astbezogener_WB -->
+                    <element name="Rampenbezeichnung" 
+                        type="string"/>
+                    <element name="Astkennung" 
+                        type="string" minOccurs="0" maxOccurs="5"/>
+                    <element name="von_KB_Wirkungsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_astbezogener_WB</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zum_KnotenpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zum_Knotenpunkt -->
+                    <element name="Netzknotenangabe_1" 
+                        type="integer"/>
+                    <element name="Netzknotenangabe_2" 
+                        type="integer"/>
+                    <element name="Netzknotenangabe_3" 
+                        type="integer"/>
+                    <element name="von_KB_Wirkungsbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>KB_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zum_Knotenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RichtungswechselbetriebType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften dyn_verkehrsreg_Beschilderung -->
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Kombination_v_Anlagentypen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kombination_von_Anlagentypen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_dyn_verkehrsr_Besch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_dyn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anlagenausstattung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Einsatzdauer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Einsatzdauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_dynam_verkehrsreg_Beschild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Richtungswechselbetrieb -->
+                    <element name="hat_Betriebsform" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Betriebsform</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Richtungswechselbetrieb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzeigezustaende" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>RW_Anzeigezustaende</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Richtungswechselbetrieb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_RW_Wirkungsbereich" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>RW_Wirkungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Richtungswechselbetrieb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BetriebsformType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Betriebsform -->
+                    <element name="Betriebsform" 
+                        type="string"/>
+                    <element name="von_Richtungswechselbetrieb" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Richtungswechselbetrieb</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Betriebsform</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RW_AnzeigezustaendeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften RW_Anzeigezustaende -->
+                    <element name="Anzeigezustand" 
+                        type="string"/>
+                    <element name="von_Richtungswechselbetrieb" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Richtungswechselbetrieb</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzeigezustaende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RW_WirkungsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften RW_Wirkungsbereich -->
+                    <element name="Bereich" 
+                        type="string" minOccurs="0"/>
+                    <element name="beginnt_bei_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wirkungsbereich_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_RW_Wirkunsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wirkungsbereich_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_RW_Wirkunsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Richtungswechselbetrieb" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Richtungswechselbetrieb</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_RW_Wirkungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AnlagenausstattungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anlagenausstattung -->
+                    <element name="hat_Art_der_Stromversorgung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_Stromversorgung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Steuerung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Steuerung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ueberwachung_der_Anlage" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ueberwachung_der_Anlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Datenuebertragungssystem" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenuebertragungssystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Unterzentrale" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unterzentrale</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Verkehrsrechnerzentrale" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsrechnerzentrale</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzeigesystem" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzeigesystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_dynam_verkehrsreg_Beschild" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anlagenausstattung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_StromversorgungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Stromversorgung -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_der_Stromversorgung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Art_der_StromversorgungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="SteuerungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Steuerung -->
+                    <element name="automatische_Steuerung" 
+                        type="integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_manuelle_Steuerung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Steuerung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Steuerung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Steuerung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="manuelle_SteuerungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften manuelle_Steuerung -->
+                    <element name="Steuerung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Bedienung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Steuerung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Steuerung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_manuelle_Steuerung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_SteuerungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="DatenuebertragungssystemType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Datenuebertragungssystem -->
+                    <element name="Datenuebertragung_SST_UZ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Datenuebertragung_UZ_VRZ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Datenuebertragungssystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenuebertragung_SST_UZType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenuebertragung_UZ_VRZType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="UnterzentraleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Unterzentrale -->
+                    <element name="Existenz" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Lage" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Unterzentrale</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Existenz_UnterzentraleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsrechnerzentraleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrsrechnerzentrale -->
+                    <element name="Existenz" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Lage" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verkehrsrechnerzentrale</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Exist_VerkehrsrechnerzentraleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ueberwachung_der_AnlageType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ueberwachung_der_Anlage -->
+                    <element name="Art_der_Ueberwachung" 
+                        type="string"/>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ueberwachung_der_Anlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AnzeigesystemType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anzeigesystem -->
+                    <element name="hat_Gueltigkeitsbereich" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gueltigkeitsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wechselverkehrszeichen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wechselverkehrszeichen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzahl_der_Anzeigequerschn" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzahl_der_Anzeigequerschnitte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WechselverkehrszeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Wechselverkehrszeichen -->
+                    <element name="Bauart_des_Zeichens" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="von_Anzeigesystem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzeigesystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wechselverkehrszeichen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bauart_des_ZeichensType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="AufstellvorrichtungType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Aufstellvorrichtung -->
+                    <element name="Vorrichtung" 
+                        type="integer"/>
+                    <element name="hat_Art_der_Aufstellung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_Aufstellung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Aufstellvorrichtung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Anzeigesystem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzeigesystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Aufstellvorrichtung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AufstellungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Aufstellung -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_der_Aufstellung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Art_der_AufstellungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_der_AnzeigequerschnitteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anzahl_der_Anzeigequerschnitte -->
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="von_Anzeigesystem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzeigesystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzahl_der_Anzeigequerschn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DatenerfassungseinrichtungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Datenerfassungseinrichtungen -->
+                    <element name="hat_Gueltigkeitsbereich" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gueltigkeitsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anzeigesystem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Detektionsmethode" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Detektionsmethode</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Datenerfassungseinrichtgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anordnung_des_Messsystems" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anordnung_des_Messsystems</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Datenerfassungseinrichtgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Art_der_erfassten_Daten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_erfassten_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Datenerfassungseinrichtgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anzahl_d_Messquerschnitte" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzahl_der_Messquerschnitte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Datenerfassungseinrichtgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Anlagenausstattung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anlagenausstattung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Datenerfassungseinrichtgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DetektionsmethodeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Detektionsmethode -->
+                    <element name="Methode_VDE" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="Methode_UDE" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Detektionsmethode</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Methode_VDEType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Methode_UDEType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Anordnung_des_MesssystemsType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften Anordnung_des_Messsystems -->
+                    <element name="hat_Art_der_Anordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_Anordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Anordnung_des_Messsystems</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anordnung_des_Messsystems</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AnordnungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Anordnung -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Anordnung_des_Messsystems" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anordnung_des_Messsystems</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_der_Anordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Art_der_AnordnungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_erfassten_DatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_erfassten_Daten -->
+                    <element name="Verkehrsdaten" 
+                        type="string"/>
+                    <element name="Umfelddaten" 
+                        type="string"/>
+                    <element name="von_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_der_erfassten_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_der_MessquerschnitteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anzahl_der_Messquerschnitte -->
+                    <element name="Anzahl_d_Messquerschnitte_VDE" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_d_Messquerschnitte_UDE" 
+                        type="okstra:Anzahl"/>
+                    <element name="von_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzahl_d_Messquerschnitte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GueltigkeitsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Gueltigkeitsbereich -->
+                    <element name="Aufstelldatum" 
+                        type="okstra:Datum"/>
+                    <element name="Hersteller" 
+                        type="string"/>
+                    <element name="Abbaudatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="von_Datenerfassungseinrichtgen" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Datenerfassungseinrichtungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gueltigkeitsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Anzeigesystem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzeigesystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gueltigkeitsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

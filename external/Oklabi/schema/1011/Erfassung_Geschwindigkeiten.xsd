@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Erfassung_Geschwindigkeiten.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1011/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1011/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.011">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Erfassung_Geschwindigkeiten:v1.011">Erfassung_Geschwindigkeiten.xsd v1.011</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.011, Schema Erfassung_Geschwindigkeiten
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Erfassung_Geschwindigkeiten                                                   = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Erfassung_Geschwindigkeiten" type="okstra:Erfassung_GeschwindigkeitenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="V_Verteilungen" type="okstra:V_VerteilungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Anzahl_V_Klassen" type="okstra:Anzahl_V_KlassenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="V_Klassen" type="okstra:V_KlassenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="abgel_Werte_u_Verteilgen_VK" type="okstra:abgel_Werte_u_Verteilgen_VKType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="aggregierte_Werte" type="okstra:aggregierte_WerteType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="mittlere_Geschwindigkeit" type="okstra:mittlere_GeschwindigkeitType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="abgeleitete_Werte_VM" type="okstra:abgeleitete_Werte_VMType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Erfassung_Geschwindigkeiten                                                       = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Erfassung_GeschwindigkeitenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Erfassung_Geschwindigkeiten -->
+                    <element name="zugehoerige_Fahrzeugklasse" 
+                        type="integer"/>
+                    <element name="hat_V_Verteilungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>V_Verteilungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erfassung_Geschwindigktn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_aggregierte_Werte" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>aggregierte_Werte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erfassung_Geschwindigkeit</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="V_VerteilungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften V_Verteilungen -->
+                    <element name="hat_Anzahl_V_Klassen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anzahl_V_Klassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_V_Verteilungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_V_Klassen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>V_Klassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_V_Klassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Erfassung_Geschwindigktn" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassung_Geschwindigkeiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_V_Verteilungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_V_KlassenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Anzahl_V_Klassen -->
+                    <element name="Fahrzeugklasse" 
+                        type="integer"/>
+                    <element name="Anzahl_V_Klassen" 
+                        type="okstra:Anzahl"/>
+                    <element name="von_V_Verteilungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>V_Verteilungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzahl_V_Klassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="V_KlassenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften V_Klassen -->
+                    <element name="Klassennummer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Klassengrenze" 
+                        type="integer"/>
+                    <element name="Klassenwert" 
+                        type="integer"/>
+                    <element name="hat_abgel_Werte_und_Verteilgen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>abgel_Werte_u_Verteilgen_VK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_V_Klassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_V_Klassen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>V_Verteilungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_V_Klassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="abgel_Werte_u_Verteilgen_VKType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften abgel_Werte_u_Verteilgen_VK -->
+                    <element name="von_V_Klassen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>V_Klassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_abgel_Werte_und_Verteilgen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="aggregierte_WerteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften aggregierte_Werte -->
+                    <element name="Standardabweichung" 
+                        type="okstra:Stundenkilometer" minOccurs="0"/>
+                    <element name="v85" 
+                        type="okstra:Stundenkilometer" minOccurs="0"/>
+                    <element name="hat_mittlere_Geschwindigkeit" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>mittlere_Geschwindigkeit</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_aggregierten_Werten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Erfassung_Geschwindigkeit" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassung_Geschwindigkeiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_aggregierte_Werte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="mittlere_GeschwindigkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften mittlere_Geschwindigkeit -->
+                    <element name="Geschwindigkeit" 
+                        type="okstra:Stundenkilometer"/>
+                    <element name="hat_abgeleitete_Werte" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>abgeleitete_Werte_VM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_mittlerer_Geschwindigkeit</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_aggregierten_Werten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>aggregierte_Werte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_mittlere_Geschwindigkeit</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="abgeleitete_Werte_VMType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften abgeleitete_Werte_VM -->
+                    <element name="von_mittlerer_Geschwindigkeit" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>mittlere_Geschwindigkeit</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_abgeleitete_Werte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Allgemeine_Objekte.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Allgemeine_Objekte:v1.010">Allgemeine_Objekte.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Allgemeine_Objekte
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Allgemeine_Objekte                                                            = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Wochentag" type="okstra:WochentagType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Waehrungsangabe" type="okstra:WaehrungsangabeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Waehrungsbetrag" type="okstra:WaehrungsbetragType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="einfacher_Zeitraum" type="okstra:einfacher_ZeitraumType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Startdatum" type="okstra:StartdatumType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Dauer" type="okstra:DauerType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="komplexer_Zeitraum" type="okstra:komplexer_ZeitraumType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Operator" type="okstra:OperatorType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Vorzeichen" type="okstra:VorzeichenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Objekt_ID" type="okstra:Objekt_IDType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Dokument" type="okstra:DokumentType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="geometrische_Auspraegung" type="okstra:geometrische_AuspraegungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="geometrische_Auspraegung_Punkt" type="okstra:geometrische_Auspraegung_PunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="geometrische_Auspraegung_Linie" type="okstra:geometrische_Auspraegung_LinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="geometrische_Auspraegung_Flaeche" type="okstra:geometrische_Auspraegung_FlaecheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Sensor" type="okstra:SensorType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Sensor" type="okstra:Art_SensorType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Sensorstandort" type="okstra:SensorstandortType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Sensorstandpunkt" type="okstra:SensorstandpunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Sensorstandlinie" type="okstra:SensorstandlinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Foto" type="okstra:FotoType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="fotografisches_Verfahren" type="okstra:fotografisches_VerfahrenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fotostandpunkt" type="okstra:FotostandpunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Allgemeine_Objekte                                                                = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="WochentagType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WaehrungsangabeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WaehrungsbetragType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Waehrungsbetrag -->
+                    <element name="Betrag" 
+                        type="double"/>
+                    <element name="Waehrungsangabe" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="einfacher_ZeitraumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Zeitraum -->
+                    <element name="erster_in" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ersten_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zweiter_in" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zweiten_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften einfacher_Zeitraum -->
+                    <element name="hat_Startdatum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Startdatum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_einfachem_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dauer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_einfachem_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StartdatumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Startdatum -->
+                    <element name="Jahr" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Monat_im_Jahr" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Woche_im_Jahr" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Tag_im_Monat" 
+                        type="integer" minOccurs="0"/>
+                    <element name="vorwaerts_oder_rueckwaerts" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Woche_im_Monat" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Tag_in_der_Woche" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Stunde_am_Tag" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Minute_in_der_Stunde" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Sekunde_in_der_Minute" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_einfachem_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>einfacher_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Startdatum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DauerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Dauer -->
+                    <element name="Jahre" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Monate" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Wochen" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Tage" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Stunden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Minuten" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Sekunden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_einfachem_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>einfacher_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dauer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="komplexer_ZeitraumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Zeitraum -->
+                    <element name="erster_in" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ersten_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zweiter_in" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zweiten_Zeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften komplexer_Zeitraum -->
+                    <element name="hat_ersten_Zeitraum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erster_in</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_zweiten_Zeitraum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zweiter_in</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Operator" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="OperatorType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="VorzeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Objekt_IDType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Objekt_ID -->
+                    <element name="ID" 
+                        type="string"/>
+                    <element name="Namensraum_Verfahren" 
+                        type="string"/>
+                    <element name="von_Objekt_mit_ID" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Objekt_mit_ID</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Objekt_ID</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DokumentType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Dokument -->
+                    <element name="Kennzeichen_Aktenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="URI" 
+                        type="string" minOccurs="0"/>
+                    <element name="Seite" 
+                        type="integer" minOccurs="0"/>
+                    <element name="verfuegt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="von_Benutzer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Wirksamkeitsdatum_Dokument" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Inhalt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Text" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Strassenentwaesserung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenentwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grundlage_fuer_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument_zur_Erlaeuterung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Kostenberechnung_nach_AKS" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenberechnung_nach_AKS</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Ausschr_u_Vergabe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ausschreibung_und_Vergabe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Abrechnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abrechnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ASB_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ASB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Fotodokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Netzknotenskizze_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Netzknotenskizze</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Einmessskizze_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Einmessskizze</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Verkehrszeichenplan_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verkehrliche_Angaben_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verkehrszeichenplan</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_verkehrsrechtl_Anordn_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verkehrliche_Angaben_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verkehrsrechtl_Anordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="geometrische_AuspraegungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften geometrische_Auspraegung -->
+                    <element name="hat_Auspraegung_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung_Punkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_geometrischer_Auspraegung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Auspraegung_Linie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung_Linie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_geometrischer_Auspraegung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Auspraegung_Flaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung_Flaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_geometrischer_Auspraegung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bewuchs" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bewuchs</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Auspraegungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="geometrische_Auspraegung_PunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften geometrische_Auspraegung_Punkt -->
+                    <element name="von_geometrischer_Auspraegung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Auspraegung_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="geometrische_Auspraegung_LinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften geometrische_Auspraegung_Linie -->
+                    <element name="von_geometrischer_Auspraegung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Auspraegung_Linie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="geometrische_Auspraegung_FlaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften geometrische_Auspraegung_Flaeche -->
+                    <element name="von_geometrischer_Auspraegung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Auspraegung_Flaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SensorType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Sensor -->
+                    <element name="Wirkungsrichtung_horizontal" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Wirkungsrichtung_vertikal" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Typbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hoehe_ueber_Boden" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="hat_Sensorstandort" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Sensor</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_SensorType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="SensorstandortType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Sensorstandort -->
+                    <element name="hat_Erfassungsqualitaet" 
+                        type="okstra:Erfassungsqualitaet"/>
+                    <element name="hat_Sensorstandpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Sensorstandort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Sensorstandlinie" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandlinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Sensorstandort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Sensor" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensor</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Sensorstandort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SensorstandpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Sensorstandpunkt -->
+                    <element name="von_Sensorstandort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Sensorstandpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SensorstandlinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Sensorstandlinie -->
+                    <element name="von_Sensorstandort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Sensorstandlinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FotoType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Foto -->
+                    <element name="erstellt_von" 
+                        type="string" minOccurs="0"/>
+                    <element name="physikalische_Aufloesung" 
+                        type="okstra:dpi" minOccurs="0"/>
+                    <element name="Farbspektrum" 
+                        type="okstra:Farbtiefe" minOccurs="0"/>
+                    <element name="Datei" 
+                        type="string" minOccurs="0"/>
+                    <element name="inhaltliche_Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Startdatum" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="verwendetes_Verfahren" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Aufbewahrungsort_Medium_analog" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Fotostandpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fotostandpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Foto</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="fotografisches_VerfahrenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="FotostandpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Sensor -->
+                    <element name="Wirkungsrichtung_horizontal" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Wirkungsrichtung_vertikal" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Typbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hoehe_ueber_Boden" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="hat_Sensorstandort" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sensorstandort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Sensor</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Fotostandpunkt -->
+                    <element name="von_Foto" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Foto</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Fotostandpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

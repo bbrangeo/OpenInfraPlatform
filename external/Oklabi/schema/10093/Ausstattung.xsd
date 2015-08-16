@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Ausstattung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1009/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Ausstattung:v1.009">Ausstattung.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.009, Schema Ausstattung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Ausstattung                                                                   = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Beschilderung_Lichtsignalanl" type="okstra:Beschilderung_LichtsignalanlType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Fahrbahnmarkierungen" type="okstra:FahrbahnmarkierungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Schutz_und_Leiteinrichtungen" type="okstra:Schutz_und_LeiteinrichtungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Ausstattung                                                                       = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Beschilderung_LichtsignalanlType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Punktobjekt_o_Bereichsobjekt -->
+                    <element name="ist_Punktobjekt" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <element name="ist_Bereichsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Punktobjekt_o_Bereichsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften allgemeine_Eigenschaften -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnmarkierungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Punktobjekt_o_Bereichsobjekt -->
+                    <element name="ist_Punktobjekt" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <element name="ist_Bereichsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Punktobjekt_o_Bereichsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften allgemeine_Eigenschaften -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schutz_und_LeiteinrichtungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Punktobjekt_o_Bereichsobjekt -->
+                    <element name="ist_Punktobjekt" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <element name="ist_Bereichsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Punktobjekt_o_Bereichsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften allgemeine_Eigenschaften -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

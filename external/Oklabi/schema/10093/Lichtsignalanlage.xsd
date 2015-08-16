@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Lichtsignalanlage.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1009/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Lichtsignalanlage:v1.009">Lichtsignalanlage.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.009, Schema Lichtsignalanlage
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Lichtsignalanlage                                                             = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Lichtsignalanlage" type="okstra:LichtsignalanlageType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Rotlichtueberwachung" type="okstra:RotlichtueberwachungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Angaben_zum_Knotenpunkt_LSA" type="okstra:Angaben_zum_Knotenpunkt_LSAType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Markierungspfeile" type="okstra:MarkierungspfeileType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundlage_und_Inbetriebn_daten" type="okstra:Grundlage_und_Inbetriebn_datenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Einsatzzeiten" type="okstra:EinsatzzeitenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zu_Verkehrsdaten" type="okstra:Angaben_zu_VerkehrsdatenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Softwarekomponenten" type="okstra:SoftwarekomponentenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Signalprogrammparameter" type="okstra:SignalprogrammparameterType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="hinterlegte_Programme" type="okstra:hinterlegte_ProgrammeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Auswahlverfahren" type="okstra:AuswahlverfahrenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="OePNV_Berechtigung" type="okstra:OePNV_BerechtigungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hardwarekomponenten" type="okstra:HardwarekomponentenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="akust_oder_taktile_Signalgeber" type="okstra:akust_oder_taktile_SignalgeberType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Position_SG" type="okstra:Position_SGType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zum_Steuergeraet" type="okstra:Angaben_zum_SteuergeraetType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Koordinierung" type="okstra:KoordinierungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zur_Verkabelung" type="okstra:Angaben_zur_VerkabelungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Verbindung_NK" type="okstra:Verbindung_NKType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_z_Aufstellvorrichtung" type="okstra:Angaben_z_AufstellvorrichtungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="optische_Signalgeber" type="okstra:optische_SignalgeberType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Erfassungseinrichtungen_IV" type="okstra:Erfassungseinrichtungen_IVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Erfassungseinrichtungen_OeV" type="okstra:Erfassungseinrichtungen_OeVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="uebergeordnete_Zentrale" type="okstra:uebergeordnete_ZentraleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Typ_UeZ" type="okstra:Typ_UeZType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Eingriffsmoeglichkeit" type="okstra:EingriffsmoeglichkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="oertliche_Zuordnung_LS" type="okstra:oertliche_Zuordnung_LSType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Lichtsignalanlage                                                                 = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="LichtsignalanlageType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Lichtsignalanlage -->
+                    <element name="hat_Rotlichtueberwachung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rotlichtueberwachung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zum_Knotenpunkt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Knotenpunkt_LSA</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Grundl_u_Inbetriebn_daten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundlage_und_Inbetriebn_daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zu_Verkehrsdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Verkehrsdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_oertliche_Zuordnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_LS</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Softwarekomponenten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Softwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_uebergeordnete_Zentrale" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>uebergeordnete_Zentrale</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Lichtsignalanlage</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RotlichtueberwachungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Rotlichtueberwachung -->
+                    <element name="Ueberwachung" 
+                        type="integer"/>
+                    <element name="Fahrtrichtung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Rotlichtueberwachung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zum_Knotenpunkt_LSAType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zum_Knotenpunkt_LSA -->
+                    <element name="Name" 
+                        type="string"/>
+                    <element name="Zahl_der_Knotenarme" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Hauptrichtung" 
+                        type="string"/>
+                    <element name="Markierungspfeile" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zum_Knotenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MarkierungspfeileType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundlage_und_Inbetriebn_datenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Grundlage_und_Inbetriebn_daten -->
+                    <element name="Einsatzzeiten" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Nummer" 
+                        type="integer"/>
+                    <element name="Nummer_Nachbar_LSA" 
+                        type="integer" minOccurs="0" maxOccurs="4"/>
+                    <element name="Baulasttraeger" 
+                        type="string"/>
+                    <element name="Stoerungsstelle" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_Installation" 
+                        type="okstra:Datum"/>
+                    <element name="Wartungszyklus" 
+                        type="string"/>
+                    <element name="Datum_Zwischenzeitmatrix" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Datum_VZ_Plan" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Datum_Signalprogramme" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Grundl_u_Inbetriebn_daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinsatzzeitenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zu_VerkehrsdatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zu_Verkehrsdaten -->
+                    <element name="Datum_VZ" 
+                        type="okstra:Datum"/>
+                    <element name="Verkehrsstroeme" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="OePNV_Frequenzen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Fussgaengerzaehlung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zu_Verkehrsdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SoftwarekomponentenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Softwarekomponenten -->
+                    <element name="Hersteller" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Signalprogrammparameter" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Signalprogrammparameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Softwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_hinterlegte_Programme" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>hinterlegte_Programme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Softwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Softwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SignalprogrammparameterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Signalprogrammparameter -->
+                    <element name="Zwischenzeit" 
+                        type="string"/>
+                    <element name="maximale_Freigabezeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Umlaufzeit" 
+                        type="string"/>
+                    <element name="maximale_Wartezeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitluecke_Belegung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Berechnungsverfahren" 
+                        type="string" minOccurs="0"/>
+                    <element name="Mindestfreigabezeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Versatzzeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Radfahrerberuecksichtigung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="OePNV_Beruecksichtigung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Softwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Softwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Signalprogrammparameter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="hinterlegte_ProgrammeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften hinterlegte_Programme -->
+                    <element name="Steuerungsverfahren" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="Auswahlverfahren" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Art_der_Programme" 
+                        type="string" minOccurs="0"/>
+                    <element name="OePNV_Berechtigung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Darstellung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Softwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Softwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_hinterlegte_Programme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AuswahlverfahrenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="OePNV_BerechtigungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HardwarekomponentenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Hardwarekomponenten -->
+                    <element name="Hersteller" 
+                        type="string"/>
+                    <element name="Signalgruppen" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_akust_o_taktile_Signalgeb" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>akust_oder_taktile_Signalgeber</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zum_Steuergeraet" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Steuergeraet</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zur_Verkabelung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_Verkabelung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angab_z_Aufstellvorrichtg" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Aufstellvorrichtung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_optische_Signalgeber" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>optische_Signalgeber</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erfassungseinrichtungen_IV" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungseinrichtungen_IV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erfassungseinrichtungn_OeV" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungseinrichtungen_OeV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Hardwarekomponenten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="akust_oder_taktile_SignalgeberType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften akust_oder_taktile_Signalgeber -->
+                    <element name="Anzahl_1" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_2" 
+                        type="okstra:Anzahl"/>
+                    <element name="Position_1" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Position_2" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_akust_o_taktile_Signalgeb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Position_SGType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zum_SteuergeraetType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zum_Steuergeraet -->
+                    <element name="Geraetebezeichnung" 
+                        type="string"/>
+                    <element name="max_Programmzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="max_SG_Anzahl_Kfz" 
+                        type="okstra:Anzahl"/>
+                    <element name="max_SG_Anzahl_Fussgaenger" 
+                        type="okstra:Anzahl"/>
+                    <element name="max_SG_Anzahl_OeV" 
+                        type="okstra:Anzahl"/>
+                    <element name="max_SG_Anzahl_Zusatzsignalgeb" 
+                        type="okstra:Anzahl"/>
+                    <element name="max_Anzahl_Kanaele" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Programmierbarkeit" 
+                        type="integer"/>
+                    <element name="Spannungsversorgung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anordnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verkehrszaehlspeicher" 
+                        type="string" minOccurs="0"/>
+                    <element name="Schliesssystem" 
+                        type="string" minOccurs="0"/>
+                    <element name="Handbedienteil" 
+                        type="integer" minOccurs="0"/>
+                    <element name="BUeSTRA" 
+                        type="integer"/>
+                    <element name="Koordinierung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Telefonbuchse" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Messschreiberanschluss" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Heizung_Luefter" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zum_Steuergeraet</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KoordinierungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zur_VerkabelungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zur_Verkabelung -->
+                    <element name="Rohrbelegung" 
+                        type="integer"/>
+                    <element name="Verbindung_NK" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zur_Verkabelung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verbindung_NKType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_z_AufstellvorrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_z_Aufstellvorrichtung -->
+                    <element name="Art" 
+                        type="string"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="Ausleger_Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Ausleger_Anzahl" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Gruendung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angab_z_Aufstellvorrichtg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="optische_SignalgeberType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften optische_Signalgeber -->
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="Durchmesser" 
+                        type="string" minOccurs="0"/>
+                    <element name="Blendensymbol" 
+                        type="string"/>
+                    <element name="Position" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_optische_Signalgeber</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erfassungseinrichtungen_IVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassungseinrichtungen_IV -->
+                    <element name="Art_der_Erfassung" 
+                        type="string"/>
+                    <element name="Anzahl_1" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_2" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="zu_erkennende_Fz" 
+                        type="string" minOccurs="0"/>
+                    <element name="Funktion" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gestaltung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassungseinrichtungen_IV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erfassungseinrichtungen_OeVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassungseinrichtungen_OeV -->
+                    <element name="Art_der_Erfassung" 
+                        type="string"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl"/>
+                    <element name="Position" 
+                        type="string" minOccurs="0"/>
+                    <element name="Funktion" 
+                        type="string"/>
+                    <element name="Verbindung" 
+                        type="integer"/>
+                    <element name="von_Hardwarekomponenten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hardwarekomponenten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassungseinrichtungn_OeV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="uebergeordnete_ZentraleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften uebergeordnete_Zentrale -->
+                    <element name="Lage" 
+                        type="string"/>
+                    <element name="Schnittstellendef_bekannt" 
+                        type="integer"/>
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Eingriffsmoeglichkeit" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Hersteller_des_Steuerrechners" 
+                        type="string" minOccurs="0"/>
+                    <element name="Typ_des_Steuerrechners" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_uebergeordnete_Zentrale</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Typ_UeZType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="EingriffsmoeglichkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="oertliche_Zuordnung_LSType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften oertliche_Zuordnung -->
+                    <element name="liegt_auf_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_auf_nicht_klass_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>nicht_nach_ASB_klass_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften oertliche_Zuordnung_LS -->
+                    <element name="von_Lichtsignalanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lichtsignalanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_oertliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

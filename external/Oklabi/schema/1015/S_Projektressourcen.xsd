@@ -1,0 +1,2699 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Projektressourcen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1015/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1015/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.015">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Projektressourcen:v1.015">S_Projektressourcen.xsd v1.015</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.015, Schema S_Projektressourcen
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ========================================================== -->
+    <!-- = globale Elemente fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Projektressourcen                                    = -->
+    <!-- ========================================================== -->
+    <!-- -->
+    <element name="CSBF_Meldung_Info" type="okstra:CSBF_Meldung_InfoType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Abnahme" type="okstra:AbnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Baubeginn" type="okstra:BaubeginnType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nachtrag" type="okstra:NachtragType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ausgabestand" type="okstra:AusgabestandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Schlusszahlung" type="okstra:SchlusszahlungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Projekt_Strassenbau" type="okstra:Projekt_StrassenbauType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Teilprojekt" type="okstra:TeilprojektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Administrative_Massnahme" type="okstra:Administrative_MassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Baumassnahme" type="okstra:BaumassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Rb_teilmassnahme_Str" type="okstra:Rb_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ub_teilmassnahme_Str" type="okstra:Ub_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ab_teilmassnahme_Str" type="okstra:Ab_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erw_teilmassnahme_Str" type="okstra:Erw_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Nb_teilmassnahme_Str" type="okstra:Nb_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erh_teilmassnahme_Str" type="okstra:Erh_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Rb_teilmassnahme_Bwk" type="okstra:Rb_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erw_teilmassnahme_Bwk" type="okstra:Erw_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ub_teilmassnahme_Bwk" type="okstra:Ub_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ab_teilmassnahme_Bwk" type="okstra:Ab_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Nb_teilmassnahme_Bwk" type="okstra:Nb_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erh_teilmassnahme_Bwk" type="okstra:Erh_teilmassnahme_BwkType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Rb_teilmassnahme_sonst_AT" type="okstra:Rb_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erw_teilmassnahme_sonst_AT" type="okstra:Erw_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ub_teilmassnahme_sonst_AT" type="okstra:Ub_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ab_teilmassnahme_sonst_AT" type="okstra:Ab_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Nb_teilmassnahme_sonst_AT" type="okstra:Nb_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erh_teilmassnahme_sonst_AT" type="okstra:Erh_teilmassnahme_sonst_ATType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erstellg_Entwurfsunterlagen" type="okstra:Erstellg_EntwurfsunterlagenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erstellg_Vergabeunterlagen" type="okstra:Erstellg_VergabeunterlagenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ausschreibungsverfahren" type="okstra:AusschreibungsverfahrenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Vergabeverfahren" type="okstra:VergabeverfahrenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nachpruefungsverfahren" type="okstra:NachpruefungsverfahrenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Angebot" type="okstra:AngebotType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zuschlag" type="okstra:ZuschlagType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Objektbetreuung" type="okstra:ObjektbetreuungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Firmenkonstrukt" type="okstra:FirmenkonstruktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Firma" type="okstra:FirmaType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Projektressourcen                                        = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="CSBF_Meldung_InfoType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften CSBF_Meldung_Info -->
+                    <element name="CSBF_Identnummer" 
+                        type="okstra:CSBF_IdentnummerPropertyType"/>
+                    <element name="E_Mail_Benachrichtigung" 
+                        type="string"/>
+                    <element name="hat_Formular" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formular</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_CSBF_Meldung_Info</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_CSBF_Meldung_Info</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AbnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Abnahme -->
+                    <element name="Gesamtabnahme" 
+                        type="integer"/>
+                    <element name="Teilabnahme" 
+                        type="integer"/>
+                    <element name="Daten_zur_Gesamtabnahme" 
+                        type="okstra:Daten_zur_GesamtabnahmePropertyType" minOccurs="0"/>
+                    <element name="Lfd_Nummer_Teilabnahme" 
+                        type="integer"/>
+                    <element name="Datum_Abnahme" 
+                        type="okstra:Datum"/>
+                    <element name="Gemeinsame_Abnahme_AG_AN" 
+                        type="integer"/>
+                    <element name="Anzahl_Maengel" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_ABRU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_EBAU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_KBAU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_OBAU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_STBAU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anz_wesentliche_Maengel_SOARB" 
+                        type="okstra:Anzahl"/>
+                    <element name="Frist_Maengelansprueche" 
+                        type="okstra:Frist_MaengelanspruechePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="durch_Dienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuehrt_Abnahme_durch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teilnehmer_Abnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>nimmt_an_Abnahme_teil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Abnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaubeginnType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Baubeginn -->
+                    <element name="Datum_Baubeginn_real" 
+                        type="okstra:Datum"/>
+                    <element name="Praesenz_oertl_Bauueberwachung" 
+                        type="okstra:Stunden_pro_Woche"/>
+                    <element name="Anz_Nachunternehmer_Zuschlag" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Nachunternehmer_bei_Zuschlag" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Nachunternehmer_Zuschlag_bei</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="AN_Bauoberleitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>AN_Bauoberleitung_bei</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="AN_oertliche_Bauueberwachung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>AN_oertl_Bauueberwachung_bei</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Baudienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zustaendig_bei_Baubeginn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baubeginn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NachtragType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nachtrag -->
+                    <element name="Lfd_Nummer_Nachtrag" 
+                        type="integer"/>
+                    <element name="Lfd_Nummer_Nachtrag_Zusatz" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_Abschluss_Nachtrag" 
+                        type="okstra:Datum"/>
+                    <element name="Mehr_Minder_Kosten_real" 
+                        type="okstra:EURO"/>
+                    <element name="Auftragsvolumen_nach_Nachtrag" 
+                        type="okstra:EURO"/>
+                    <element name="Neues_Datum_Bauende" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Neue_Bauzeit_Wochentage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nachtrag</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AusgabestandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ausgabestand -->
+                    <element name="Datum_Ausgabestand" 
+                        type="okstra:Datum"/>
+                    <element name="Ausgabestand_Quartalsende" 
+                        type="okstra:EURO"/>
+                    <element name="aktueller_Auftragnehmer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ausgabestand</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ausgabestand</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchlusszahlungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schlusszahlung -->
+                    <element name="Datum_Schlussrechnung_real" 
+                        type="okstra:Datum"/>
+                    <element name="Datum_Schlusszahlung" 
+                        type="okstra:Datum"/>
+                    <element name="Schlussabrechnungssumme" 
+                        type="okstra:EURO"/>
+                    <element name="Anteil_LV_Mengenaend_gr_10_vH" 
+                        type="okstra:Prozent"/>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schlusszahlung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Projekt_StrassenbauType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Projekt_Strassenbau -->
+                    <element name="Projekt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="umfasst_Teilprojekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilprojekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Projekt_Strassenbau</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="umfasst_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Projekt_Strassenbau</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TeilprojektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilprojekt -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="umfasst_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Teilprojekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Projekt_Strassenbau" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projekt_Strassenbau</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>umfasst_Teilprojekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Administrative_MassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Baumassnahme -->
+                    <element name="Massnahme_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Baumassnahme" 
+                        type="okstra:Art_BaumassnahmePropertyType" minOccurs="0"/>
+                    <element name="Art_Baulasttraeger" 
+                        type="okstra:Art_BaulasttraegerPropertyType" minOccurs="0"/>
+                    <element name="Landesschluessel" 
+                        type="okstra:LandesschluesselPropertyType" minOccurs="0"/>
+                    <element name="Art_des_betroffenen_Objekts" 
+                        type="okstra:Objekt_BaumassnahmePropertyType" minOccurs="0"/>
+                    <element name="Status" 
+                        type="okstra:Status_BaumassnahmePropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Kosten_nach_AKS" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Stand_AKS" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="NUTS_Code" 
+                        type="string" minOccurs="0"/>
+                    <element name="DEGES_Vergabe" 
+                        type="string"/>
+                    <element name="auf_Strassenteilstueck" 
+                        type="okstra:StrassenteilstueckPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="betrifft_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erstellg_Entwurfsunterl" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erstellg_Entwurfsunterlagen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erstellg_Vergabeunterl" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erstellg_Vergabeunterlagen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ausschreibungsverfahren" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ausschreibungsverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Vergabeverfahren" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vergabeverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zuschlag" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zuschlag</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Baubeginn" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baubeginn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ausgabestand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ausgabestand</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nachtrag" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nachtrag</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Schlusszahlung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schlusszahlung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Abnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Objektbetreuung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Objektbetreuung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Baudienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zustaendig_fuer_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Vergabe_Dienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Vergabedienststelle_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_CSBF_Meldung_Info" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>CSBF_Meldung_Info</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Teilprojekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilprojekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>umfasst_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Projekt_Strassenbau" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projekt_Strassenbau</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>umfasst_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Rb_teilmassnahme_Str -->
+                    <element name="Art" 
+                        type="okstra:Art_Rb_massnahme_StrPropertyType" minOccurs="0"/>
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Rb_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ub_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Erw_Uab_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ab_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Erw_Uab_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erw_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Erw_Uab_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nb_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Nb_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Str -->
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erh_teilmassnahme_Str -->
+                    <element name="Art" 
+                        type="okstra:Art_Erh_massnahme_StrPropertyType" minOccurs="0"/>
+                    <element name="Ursache" 
+                        type="okstra:Ursache_Erh_massnahme_StrPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_teilmassnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_Bwk -->
+                    <element name="betrifft_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme_Bwk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_teilmassnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vollendung_spaetest_Werktage" 
+                        type="okstra:Tage" minOccurs="0"/>
+                    <element name="Vollendung_spaetestens_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsstrafe_Vollendung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilmassnahme_sonst_AT -->
+                    <element name="betroffenes_Anlagenteil" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erstellg_EntwurfsunterlagenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erstellg_Entwurfsunterlagen -->
+                    <element name="wird_extern_durchgefuehrt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="erfolgt_durch_Dienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Erstellg_Entwurfsunterlagen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erfolgt_durch_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Erstellg_Entwurfsunterlagen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erstellg_Entwurfsunterl</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erstellg_VergabeunterlagenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erstellg_Vergabeunterlagen -->
+                    <element name="wird_extern_durchgefuehrt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="erfolgt_durch_Dienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Erstellg_Vergabeunterlagen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erfolgt_durch_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Erstellg_Vergabeunterlagen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erstellg_Vergabeunterl</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AusschreibungsverfahrenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ausschreibungsverfahren -->
+                    <element name="Ausschreibungsart" 
+                        type="okstra:AusschreibungsartPropertyType"/>
+                    <element name="STLK_LB_Nummer" 
+                        type="integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="CPV_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschleunigungsverguetung" 
+                        type="integer"/>
+                    <element name="Lohngleitklausel" 
+                        type="integer"/>
+                    <element name="Stoffpreisgleitklausel" 
+                        type="integer"/>
+                    <element name="Vereinbarung_Vertragsstrafen" 
+                        type="integer"/>
+                    <element name="Losweise_Vergabe" 
+                        type="integer"/>
+                    <element name="Vertragsart_I" 
+                        type="okstra:Vertragsart_IPropertyType"/>
+                    <element name="Vertragsart_II" 
+                        type="okstra:Vertragsart_IIPropertyType"/>
+                    <element name="Nebenangebote_zugelassen" 
+                        type="okstra:Nebenangebote_zugelassenPropertyType"/>
+                    <element name="Nebenangebote_Erlaeuterung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gruende_Teilnahmewettbewerb" 
+                        type="okstra:Gruende_TeilnahmewettbewerbPropertyType" minOccurs="0"/>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ausschreibungsverfahren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VergabeverfahrenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Vergabeverfahren -->
+                    <element name="Datum_Vergabebekanntmachung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Eroeffnungstermin" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Datum_Zuschlagserteilung" 
+                        type="okstra:Datum"/>
+                    <element name="Datum_Bieterinformation" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Nachpruefung_beantragt" 
+                        type="integer"/>
+                    <element name="Anzahl_Bewerber_D" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bewerber_EU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bewerber_SO" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_D" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_EU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_SO" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_ausgeschloss_D" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_ausgeschloss_EU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Bieter_ausgeschloss_SO" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Hauptangebote_D" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Hauptangebote_EU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Hauptangebote_SO" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Nebenangebote_D" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Nebenangebote_EU" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Nebenangebote_SO" 
+                        type="okstra:Anzahl"/>
+                    <element name="Wertungskriterium" 
+                        type="okstra:WertungskriteriumPropertyType"/>
+                    <element name="hat_Angebot" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angebot</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vergabeverfahren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nachpruefungsverfahren" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nachpruefungsverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vergabeverfahren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="an_Wertung_mitwirkende_Firma" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>wirkt_an_Wertung_mit_in</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Vergabeverfahren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NachpruefungsverfahrenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nachpruefungsverfahren -->
+                    <element name="Dauer_Nachpruefung" 
+                        type="okstra:DauerPropertyType"/>
+                    <element name="Art_Abschluss_Nachpruefung" 
+                        type="okstra:Art_Abschluss_NachpruefungPropertyType"/>
+                    <element name="Aenderung_durch_Nachpruefung" 
+                        type="integer"/>
+                    <element name="Mehrkosten_durch_Nachpruefung" 
+                        type="okstra:EURO"/>
+                    <element name="Nicht_verausgabte_HH_Mittel" 
+                        type="okstra:EURO"/>
+                    <element name="hat_Antragsteller" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Antragsteller_zu_Nachpruefung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Beigeladenen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beigeladener_zu_Nachpruefung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Vergabeverfahren" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vergabeverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nachpruefungsverfahren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AngebotType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Angebot -->
+                    <element name="Summe_nach_Submission" 
+                        type="okstra:EURO"/>
+                    <element name="Summe_nachgerechnet" 
+                        type="okstra:EURO"/>
+                    <element name="Wertungspunkte" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Wertungssumme_gesamt" 
+                        type="okstra:EURO"/>
+                    <element name="Nachlass" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Nebenangebote_bei_Submission" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Nebenangebot_ohne_Hauptangebot" 
+                        type="integer"/>
+                    <element name="Nebenangebote_nach_Wertung" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Rangplatz_Nachrechnung" 
+                        type="integer"/>
+                    <element name="Rangplatz_Zuschlagserteilung" 
+                        type="integer"/>
+                    <element name="von_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>macht_Angebot</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Vergabeverfahren" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vergabeverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angebot</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZuschlagType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuschlag -->
+                    <element name="Auftragssumme_Brutto" 
+                        type="okstra:EURO"/>
+                    <element name="Auftragserteilung_HA_o_NA" 
+                        type="okstra:Auftragserteilung_HA_o_NAPropertyType"/>
+                    <element name="Bauzeit_in_Werktagen" 
+                        type="okstra:Tage"/>
+                    <element name="Anteil_ABRU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_EBAU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_KBAU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_OBAU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_STBAU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_SOARB" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Summe_Mittelstand" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Summe_Grossunternehmen" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Auftragssumme_D_Ost" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Auftragssumme_D_West" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Auftragssumme_EU" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Anteil_Auftragssumme_SO" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="fuer_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erhaelt_Zuschlag</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zuschlag</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ObjektbetreuungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Objektbetreuung -->
+                    <element name="wird_extern_durchgefuehrt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="erfolgt_durch_Dienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuehrt_Objektbetreuung_durch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erfolgt_durch_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuehrt_Objektbetreuung_durch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Objektbetreuung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FirmenkonstruktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Firmenkonstrukt -->
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="Adresse" 
+                        type="okstra:AdressdatenPropertyType" minOccurs="0"/>
+                    <element name="U_Steuernummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="ARGE" 
+                        type="integer" minOccurs="0"/>
+                    <element name="wird_vertreten_durch_Firma" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firma</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>vertritt_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="weitere_Firma" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firma</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beteiligt_an_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="macht_Angebot" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angebot</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erhaelt_Zuschlag" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zuschlag</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuer_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Erstellg_Entwurfsunterlagen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erstellg_Entwurfsunterlagen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erfolgt_durch_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Erstellg_Vergabeunterlagen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erstellg_Vergabeunterlagen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erfolgt_durch_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="wirkt_an_Wertung_mit_in" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vergabeverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>an_Wertung_mitwirkende_Firma</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="fuehrt_Objektbetreuung_durch" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Objektbetreuung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erfolgt_durch_Firmenkonstrukt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Antragsteller_zu_Nachpruefung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nachpruefungsverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Antragsteller</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beigeladener_zu_Nachpruefung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nachpruefungsverfahren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Beigeladenen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nimmt_an_Abnahme_teil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teilnehmer_Abnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Ausgabestand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ausgabestand</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>aktueller_Auftragnehmer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Nachunternehmer_Zuschlag_bei" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baubeginn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Nachunternehmer_bei_Zuschlag</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="AN_Bauoberleitung_bei" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baubeginn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>AN_Bauoberleitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="AN_oertl_Bauueberwachung_bei" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baubeginn</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>AN_oertliche_Bauueberwachung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FirmaType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Firma -->
+                    <element name="Name" 
+                        type="string"/>
+                    <element name="Adresse" 
+                        type="okstra:AdressdatenPropertyType" minOccurs="0"/>
+                    <element name="U_Steuernummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Firmenart" 
+                        type="okstra:FirmenartPropertyType" minOccurs="0"/>
+                    <element name="beteiligt_an_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>weitere_Firma</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="vertritt_Firmenkonstrukt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firmenkonstrukt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>wird_vertreten_durch_Firma</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

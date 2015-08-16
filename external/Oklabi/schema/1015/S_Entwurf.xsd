@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Entwurf.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1015/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1015/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.015">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Entwurf:v1.015">S_Entwurf.xsd v1.015</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.015, Schema S_Entwurf
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ========================================================== -->
+    <!-- = globale Elemente fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Entwurf                                              = -->
+    <!-- ========================================================== -->
+    <!-- -->
+    <element name="Trasse" type="okstra:TrasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Achse" type="okstra:AchseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Achselement" type="okstra:AchselementType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Achshauptpunkt" type="okstra:AchshauptpunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gradiente" type="okstra:GradienteType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Horizontlinie" type="okstra:HorizontlinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Querprofil" type="okstra:QuerprofilType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Profillinie" type="okstra:ProfillinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Deckenbuch" type="okstra:DeckenbuchType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Spur" type="okstra:SpurType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hochbordspur" type="okstra:HochbordspurType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Breitenband" type="okstra:BreitenbandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Abstand_Achse_Linie" type="okstra:Abstand_Achse_LinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Querneigungsband" type="okstra:QuerneigungsbandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Geschwindigkeitsband" type="okstra:GeschwindigkeitsbandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Sichtweiten" type="okstra:SichtweitenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hoehenzug" type="okstra:HoehenzugType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hoehe_Linie" type="okstra:Hoehe_LinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Entwurf                                                  = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="TrasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Trasse -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Geodaetisches_Datum" 
+                        type="okstra:geodaetisches_DatumPropertyType" minOccurs="0"/>
+                    <element name="Koordinatensystem" 
+                        type="okstra:KoordinatensystemPropertyType" minOccurs="0"/>
+                    <element name="hat_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Trasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AchseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Achse -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Art_Achse" 
+                        type="okstra:Art_AchsePropertyType"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Netzfunktion" 
+                        type="okstra:Netzfunktion_AchsePropertyType" minOccurs="0"/>
+                    <element name="Strassenkategorie" 
+                        type="okstra:Strassenkategorie_RAS_N_RINPropertyType" minOccurs="0"/>
+                    <element name="hat_Achselement" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Deckenbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Deckenbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Querprofil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querprofil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Sichtweiten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sichtweiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Horizontlinie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Horizontlinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Gradiente" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gradiente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Geschwindigkeitsband" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Geschwindigkeitsband</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Trasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Trasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Achse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AchselementType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Achselement -->
+                    <element name="Elementtyp" 
+                        type="okstra:AchselementtypPropertyType"/>
+                    <element name="Anfangsstation_rechnerisch" 
+                        type="okstra:Meter"/>
+                    <element name="Laenge" 
+                        type="okstra:Meter"/>
+                    <element name="Richtung" 
+                        type="okstra:Winkel"/>
+                    <element name="Parameter" 
+                        type="okstra:Groesse"/>
+                    <element name="Radius_zu_Beginn" 
+                        type="okstra:Meter"/>
+                    <element name="Radius_am_Ende" 
+                        type="okstra:Meter"/>
+                    <element name="beginnt_bei_Achshauptpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achshauptpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Achselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Achshauptpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achshauptpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Achselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Achselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AchshauptpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Achshauptpunkt -->
+                    <element name="Beginn_von_Achselement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Achshauptpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Achselement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Achshauptpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GradienteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Gradiente -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Art_Gradiente" 
+                        type="okstra:Art_GradientePropertyType"/>
+                    <element name="hat_Grad_Koor" 
+                        type="okstra:Grad_KoorPropertyType" maxOccurs="unbounded"/>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gradiente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HorizontlinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Horizontlinie -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Art_Horizontlinie" 
+                        type="okstra:Art_HorizontliniePropertyType"/>
+                    <element name="abs_Abstand" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="hat_Hor_Koor" 
+                        type="okstra:Hor_KoorPropertyType" maxOccurs="unbounded"/>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Horizontlinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="QuerprofilType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Querprofil -->
+                    <element name="Station" 
+                        type="okstra:Meter"/>
+                    <element name="hat_Profillinie" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Profillinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Querprofil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Querprofil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ProfillinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Profillinie -->
+                    <element name="Art_des_Horizonts" 
+                        type="okstra:Art_des_HorizontsPropertyType"/>
+                    <element name="Horizontkennzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_Profillinie" 
+                        type="okstra:Art_ProfilliniePropertyType"/>
+                    <element name="hat_QP_Punkt" 
+                        type="okstra:QP_PunktPropertyType" maxOccurs="unbounded"/>
+                    <element name="gehoert_zu_Querprofil" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querprofil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Profillinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DeckenbuchType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Deckenbuch -->
+                    <element name="Station_1" 
+                        type="okstra:Meter"/>
+                    <element name="Station_2" 
+                        type="okstra:Meter"/>
+                    <element name="hat_verallg_Spur" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verallg_Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Deckenbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Deckenbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SpurType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften verallg_Spur -->
+                    <element name="Spurnummer" 
+                        type="integer"/>
+                    <element name="Art_verallg_Spur" 
+                        type="okstra:Art_verallg_SpurPropertyType"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Deckenbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Deckenbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verallg_Spur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Spur -->
+                    <element name="hat_Querneigungsband" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querneigungsband</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Spur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Breitenband" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Breitenband</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Spur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehenzug" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehenzug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Spur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Fahrspur_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sichtweiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Fahrspur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Gegenspur_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sichtweiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gegenspur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HochbordspurType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften verallg_Spur -->
+                    <element name="Spurnummer" 
+                        type="integer"/>
+                    <element name="Art_verallg_Spur" 
+                        type="okstra:Art_verallg_SpurPropertyType"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Deckenbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Deckenbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verallg_Spur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hochbordspur -->
+                    <element name="hat_HB_Punkt" 
+                        type="okstra:HB_PunktPropertyType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BreitenbandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Breitenband -->
+                    <element name="hat_BR_Punkt" 
+                        type="okstra:BR_PunktPropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Spur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Breitenband</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Abstand_Achse_LinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="QuerneigungsbandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Querneigungsband -->
+                    <element name="hat_QN_Punkt" 
+                        type="okstra:QN_PunktPropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Spur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Querneigungsband</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GeschwindigkeitsbandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Geschwindigkeitsband -->
+                    <element name="Art_Geschwindigkeitsband" 
+                        type="okstra:Art_GeschwindigkeitsbandPropertyType"/>
+                    <element name="hat_V_Koor" 
+                        type="okstra:V_KoorPropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Geschwindigkeitsband</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SichtweitenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Sichtweiten -->
+                    <element name="Art_Sichtweiten" 
+                        type="okstra:Art_SichtweitenPropertyType"/>
+                    <element name="hat_SW_Koor" 
+                        type="okstra:SW_KoorPropertyType" maxOccurs="unbounded"/>
+                    <element name="hat_Fahrspur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Fahrspur_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Gegenspur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Gegenspur_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Achse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Achse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Sichtweiten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HoehenzugType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hoehenzug -->
+                    <element name="hat_HZ_Punkt" 
+                        type="okstra:HZ_PunktPropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Spur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Spur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Hoehenzug</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Hoehe_LinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

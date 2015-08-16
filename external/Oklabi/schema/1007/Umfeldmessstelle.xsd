@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Umfeldmessstelle.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Umfeldmessstelle.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Umfeldmessstelle
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Umfeldmessstelle                                                              = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="VBA_Wetterstation" type="okstra:VBA_WetterstationType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="SWIS_GMA_Messstelle" type="okstra:SWIS_GMA_MessstelleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Messdaten" type="okstra:MessdatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erfassungsmodalitaeten" type="okstra:ErfassungsmodalitaetenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lage_der_Sensoren" type="okstra:Lage_der_SensorenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Erfassungsbereich" type="okstra:ErfassungsbereichType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zaehlzeitraum" type="okstra:ZaehlzeitraumType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Detektoren_Umfelddatenerfassg" type="okstra:Detektoren_UmfelddatenerfassgType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Umfang_Umfelddaten" type="okstra:Umfang_UmfelddatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Witterungsdaten" type="okstra:WitterungsdatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Umfelddaten" type="okstra:UmfelddatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="witterungsbed_Strassenzustand" type="okstra:witterungsbed_StrassenzustandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="verwaltungstechn_Zuordnung_UM" type="okstra:verwaltungstechn_Zuordnung_UMType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="oertliche_Zuordnung_UM" type="okstra:oertliche_Zuordnung_UMType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Umfeldmessstelle                                                                  = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="VBA_WetterstationType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Umfeldmessstelle -->
+                    <element name="Nummer" 
+                        type="integer"/>
+                    <element name="Messeinricht_Schadstoffimmiss" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_UM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_oertliche_Zuordnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_UM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Messdaten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Messdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erfassungsmodalitaeten" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungsmodalitaeten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Detektoren_Umfelddatenerfg" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Detektoren_Umfelddatenerfassg</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften VBA_Wetterstation -->
+                    <element name="Nutzungsart" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SWIS_GMA_MessstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Umfeldmessstelle -->
+                    <element name="Nummer" 
+                        type="integer"/>
+                    <element name="Messeinricht_Schadstoffimmiss" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_UM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_oertliche_Zuordnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_UM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Messdaten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Messdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erfassungsmodalitaeten" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungsmodalitaeten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Detektoren_Umfelddatenerfg" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Detektoren_Umfelddatenerfassg</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfeldmessstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften SWIS_GMA_Messstelle -->
+                    <element name="Nutzungsart" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MessdatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Messdaten -->
+                    <element name="hat_Umfang_Umfelddaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfang_Umfelddaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Messdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zaehlintervallaenge" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_Umfeldmessstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfeldmessstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Messdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ErfassungsmodalitaetenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassungsmodalitaeten -->
+                    <element name="hat_Erfassungsbereich" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungsbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erfassungsmodalitaeten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zaehlzeitraum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlzeitraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erfassungsmodalitaeten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Umfeldmessstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfeldmessstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassungsmodalitaeten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_der_SensorenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="ErfassungsbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassungsbereich -->
+                    <element name="von_Netzknoten" 
+                        type="integer"/>
+                    <element name="nach_Netzknoten" 
+                        type="integer"/>
+                    <element name="Lage_der_Sensoren" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Erfassungsmodalitaeten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungsmodalitaeten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassungsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZaehlzeitraumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Zaehlzeitraum -->
+                    <element name="Beginn_Erfassung" 
+                        type="okstra:Datum"/>
+                    <element name="Ende_Erfassung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="von_Erfassungsmodalitaeten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassungsmodalitaeten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zaehlzeitraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detektoren_UmfelddatenerfassgType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Detektoren_Umfelddatenerfassg -->
+                    <element name="zugehoerige_EAKs" 
+                        type="string" maxOccurs="unbounded"/>
+                    <element name="Einsatzzeit" 
+                        type="string" maxOccurs="unbounded"/>
+                    <element name="Betriebszeit" 
+                        type="string" maxOccurs="unbounded"/>
+                    <element name="von_Umfeldmessstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfeldmessstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Detektoren_Umfelddatenerfg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Umfang_UmfelddatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Umfang_Umfelddaten -->
+                    <element name="erfasste_Daten" 
+                        type="integer" maxOccurs="unbounded"/>
+                    <element name="Ermittlung_Schadstoffimmiss" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Witterungsdaten" 
+                        type="okstra:ObjectRefType" maxOccurs="8">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Witterungsdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfang_Umfelddaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Umfelddaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="2">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfelddaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfang_Umfelddaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_witterungsbed_Strassenzust" 
+                        type="okstra:ObjectRefType" maxOccurs="10">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>witterungsbed_Strassenzustand</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Umfang_Umfelddaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Messdaten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Messdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Umfang_Umfelddaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WitterungsdatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Witterungsdaten -->
+                    <element name="Luftdruck" 
+                        type="okstra:Hektopascal" minOccurs="0"/>
+                    <element name="relative_Luftfeuchte" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Lufttemperatur" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Windrichtung" 
+                        type="okstra:Grad" minOccurs="0"/>
+                    <element name="mittlere_Windgeschwindigkeit" 
+                        type="okstra:Meter_pro_Sekunde" minOccurs="0"/>
+                    <element name="Spitzenwindgeschwindigkeit" 
+                        type="okstra:Meter_pro_Sekunde" minOccurs="0"/>
+                    <element name="Niederschlagsart" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Niederschlagsintensitaet" 
+                        type="okstra:Millimeter_pro_Stunde" minOccurs="0"/>
+                    <element name="Niederschlagsmenge" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="von_Umfang_Umfelddaten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfang_Umfelddaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Witterungsdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UmfelddatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Umfelddaten -->
+                    <element name="Sichtweite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Helligkeit" 
+                        type="okstra:Lux" minOccurs="0"/>
+                    <element name="von_Umfang_Umfelddaten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfang_Umfelddaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Umfelddaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="witterungsbed_StrassenzustandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften witterungsbed_Strassenzustand -->
+                    <element name="Zustand_Fahrbahnoberflaeche" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Wasserfilmdicke" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Fahrbahnoberflaechentemperatur" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Taupunkttemperatur" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Gefrierpunkttemperatur" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Restsalzgehalt" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="Schneehoehe" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="Bodentemperatur_in_Tiefe_1" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Bodentemperatur_in_Tiefe_2" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="Bodentemperatur_in_Tiefe_3" 
+                        type="okstra:Grad_Celsius" minOccurs="0"/>
+                    <element name="von_Umfang_Umfelddaten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfang_Umfelddaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_witterungsbed_Strassenzust</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="verwaltungstechn_Zuordnung_UMType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung -->
+                    <element name="hat_Strassenbaudienststelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung_UM -->
+                    <element name="von_Umfeldmessstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfeldmessstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="oertliche_Zuordnung_UMType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften oertliche_Zuordnung -->
+                    <element name="liegt_auf_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_auf_nicht_klass_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>nicht_nach_ASB_klass_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften oertliche_Zuordnung_UM -->
+                    <element name="von_Umfeldmessstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umfeldmessstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_oertliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Manuelle_Zaehlstelle.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Manuelle_Zaehlstelle.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Manuelle_Zaehlstelle
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Manuelle_Zaehlstelle                                                          = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="manuelle_Zaehlstelle" type="okstra:manuelle_ZaehlstelleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Erfassung_Gesamtverkehr" type="okstra:Erfassung_GesamtverkehrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Erfassung_Auslaenderverkehr" type="okstra:Erfassung_AuslaenderverkehrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gueltigkeitsbereich_AV" type="okstra:Gueltigkeitsbereich_AVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="keine_Erfassung_AV" type="okstra:keine_Erfassung_AVType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="verwaltungstechn_Zuordnung_MZ" type="okstra:verwaltungstechn_Zuordnung_MZType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Verwaltungskennziffern" type="okstra:VerwaltungskennziffernType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hochrechnungsergebnisse" type="okstra:HochrechnungsergebnisseType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Charakteristik" type="okstra:CharakteristikType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tab_Charakteristik" type="okstra:Tab_CharakteristikType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lagekennung" type="okstra:LagekennungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_z_Strassenquerschnitt" type="okstra:Angaben_z_StrassenquerschnittType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Richtungskennung" type="okstra:RichtungskennungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Richtungskennung" type="okstra:Tab_RichtungskennungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bemerkungskennziffern" type="okstra:BemerkungskennziffernType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Kennziffer_1" type="okstra:Kennziffer_1Type" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kennziffer_2" type="okstra:Kennziffer_2Type" substitutionGroup="okstra:_KeyValue"/>
+    <element name="oertliche_Zuordnung_MZ" type="okstra:oertliche_Zuordnung_MZType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="benachbarte_Anschlussstellen" type="okstra:benachbarte_AnschlussstellenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Bezugszaehlstelle_Auslverkehr" type="okstra:Bezugszaehlstelle_AuslverkehrType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Bezugszaehlstelle_Gesamtverk" type="okstra:Bezugszaehlstelle_GesamtverkType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Angaben_zur_letzten_Zaehlung" type="okstra:Angaben_zur_letzten_ZaehlungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Manuelle_Zaehlstelle                                                              = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="manuelle_ZaehlstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften manuelle_Zaehlstelle -->
+                    <element name="TK25_Blattnummer" 
+                        type="okstra:TK25_Blattnummer"/>
+                    <element name="Zaehlstellennummer" 
+                        type="integer"/>
+                    <element name="hat_Erfassung_Gesamtverkehr" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassung_Gesamtverkehr</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erfassung_Auslaenderverk" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassung_Auslaenderverkehr</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_keine_Erfassung_AV" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>keine_Erfassung_AV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_MZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hochrechnungsergebnisse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hochrechnungsergebnisse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlgruppe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Charakteristik" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Charakteristik</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_oertliche_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_MZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Bezugszaehlstelle_Auslverk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bezugszaehlstelle_Auslverkehr</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Bezugszaehlstelle_Gesamtvk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bezugszaehlstelle_Gesamtverk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zur_letzten_Zaehlg" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_letzten_Zaehlung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_manueller_Zaehlstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erfassung_GesamtverkehrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassung_Gesamtverkehr -->
+                    <element name="Abschnittslaenge" 
+                        type="okstra:Kilometer"/>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassung_Gesamtverkehr</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erfassung_AuslaenderverkehrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erfassung_Auslaenderverkehr -->
+                    <element name="Abschnittslaenge" 
+                        type="okstra:Kilometer"/>
+                    <element name="hat_Gueltigkeitsbereich" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gueltigkeitsbereich_AV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erfassung_Auslaenderverk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erfassung_Auslaenderverk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Gueltigkeitsbereich_AVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Gueltigkeitsbereich_AV -->
+                    <element name="Beginn" 
+                        type="integer"/>
+                    <element name="Ende" 
+                        type="integer"/>
+                    <element name="von_Erfassung_Auslaenderverk" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erfassung_Auslaenderverkehr</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gueltigkeitsbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="keine_Erfassung_AVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften keine_Erfassung_AV -->
+                    <element name="Erfassungsart" 
+                        type="integer"/>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_keine_Erfassung_AV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="verwaltungstechn_Zuordnung_MZType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung -->
+                    <element name="hat_Strassenbaudienststelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften verwaltungstechn_Zuordnung_MZ -->
+                    <element name="hat_Verwaltungskennziffern" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungskennziffern</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verwaltungstechn_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerwaltungskennziffernType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verwaltungskennziffern -->
+                    <element name="Regionskennziffer_1" 
+                        type="integer"/>
+                    <element name="Regionskennziffer_2" 
+                        type="integer"/>
+                    <element name="Kreiskennziffer" 
+                        type="integer"/>
+                    <element name="Kennziffer_SM_AM" 
+                        type="integer"/>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung_MZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungskennziffern</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HochrechnungsergebnisseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Hochrechnungsergebnisse -->
+                    <element name="Fahrradzaehlung" 
+                        type="integer"/>
+                    <element name="Kradzaehlung" 
+                        type="integer"/>
+                    <element name="Fahrzeuggruppen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Datenbeschreibung" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="von_manueller_Zaehlgruppe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Hochrechnungsergebnisse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="CharakteristikType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Charakteristik -->
+                    <element name="Charakteristik_1" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Charakteristik_2" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Charakteristik_3" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Lagekennung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Netzknotenangaben" 
+                        type="integer"/>
+                    <element name="hat_Angaben_z_Strassenquerschn" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Strassenquerschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Charakteristik</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Richtungskennung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Richtungskennung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Charakteristik</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Bemerkungskennziffern" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bemerkungskennziffern</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Charakteristik</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Charakteristik</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_CharakteristikType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="LagekennungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_z_StrassenquerschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_z_Strassenquerschnitt -->
+                    <element name="Anzahl_Fahrstreifen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Standstreifen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Mehrzweckstreifen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Radwege" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Gleise" 
+                        type="okstra:Anzahl"/>
+                    <element name="Anzahl_Breitenklasse" 
+                        type="okstra:Anzahl"/>
+                    <element name="von_Charakteristik" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Charakteristik</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_z_Strassenquerschn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RichtungskennungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Richtungskennung -->
+                    <element name="Kennung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Charakteristik" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Charakteristik</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Richtungskennung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_RichtungskennungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BemerkungskennziffernType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Bemerkungskennziffern -->
+                    <element name="Kennziffer_1" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Kennziffer_2" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Charakteristik" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Charakteristik</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bemerkungskennziffern</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennziffer_1Type">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennziffer_2Type">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="oertliche_Zuordnung_MZType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften oertliche_Zuordnung -->
+                    <element name="liegt_auf_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_SP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_auf_nicht_klass_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>nicht_nach_ASB_klass_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften oertliche_Zuordnung_MZ -->
+                    <element name="Sortiernummer" 
+                        type="integer"/>
+                    <element name="hat_benachbarte_Anschlstellen" 
+                        type="okstra:ObjectRefType" minOccurs="2" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>benachbarte_Anschlussstellen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_oertlicher_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_oertliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="benachbarte_AnschlussstellenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften benachbarte_Anschlussstellen -->
+                    <element name="AS_von" 
+                        type="string"/>
+                    <element name="AS_bis" 
+                        type="string"/>
+                    <element name="von_oertlicher_Zuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung_MZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_benachbarte_Anschlstellen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bezugszaehlstelle_AuslverkehrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Bezugszaehlstelle_Auslverkehr -->
+                    <element name="Land" 
+                        type="integer"/>
+                    <element name="Bauamt" 
+                        type="integer"/>
+                    <element name="TK25_Nummer" 
+                        type="okstra:TK25_Blattnummer"/>
+                    <element name="Zaehlstellennummer" 
+                        type="integer"/>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bezugszaehlstelle_Auslverk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bezugszaehlstelle_GesamtverkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Bezugszaehlstelle_Gesamtverk -->
+                    <element name="Land" 
+                        type="integer"/>
+                    <element name="Bauamt" 
+                        type="integer"/>
+                    <element name="TK25_Nummer" 
+                        type="okstra:TK25_Blattnummer"/>
+                    <element name="Zaehlstellennummer" 
+                        type="integer"/>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bezugszaehlstelle_Gesamtvk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zur_letzten_ZaehlungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zur_letzten_Zaehlung -->
+                    <element name="Land" 
+                        type="integer"/>
+                    <element name="Bauamt" 
+                        type="integer"/>
+                    <element name="Zaehlstellennummer" 
+                        type="integer"/>
+                    <element name="TK25_Nummer" 
+                        type="okstra:TK25_Blattnummer"/>
+                    <element name="Strassenklasse" 
+                        type="string"/>
+                    <element name="Strassennummer" 
+                        type="integer"/>
+                    <element name="Zusatz_Strassennummer" 
+                        type="string"/>
+                    <element name="von_manueller_Zaehlstelle" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>manuelle_Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zur_letzten_Zaehlg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

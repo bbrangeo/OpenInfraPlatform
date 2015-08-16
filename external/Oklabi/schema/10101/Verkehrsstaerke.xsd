@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Verkehrsstaerke.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Verkehrsstaerke:v1.010">Verkehrsstaerke.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Verkehrsstaerke
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehrsstaerke                                                               = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="DTV_Basis" type="okstra:DTV_BasisType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="DTV" type="okstra:DTVType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="MSV" type="okstra:MSVType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Anteil_am_DTV" type="okstra:Anteil_am_DTVType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Fahrzeugart" type="okstra:FahrzeugartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fahrzeuggruppe" type="okstra:FahrzeuggruppeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fahrtzweckgruppe" type="okstra:FahrtzweckgruppeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Normalzeitbereich" type="okstra:NormalzeitbereichType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="weitere_Tagesgruppen" type="okstra:weitere_TagesgruppenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kennwert_zur_Laermberechnung" type="okstra:Kennwert_zur_LaermberechnungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Stundengruppe" type="okstra:StundengruppeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anteil_Kennwert" type="okstra:Anteil_KennwertType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Jahresganglinientyp" type="okstra:JahresganglinientypType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Typ_Jahresganglinie" type="okstra:Typ_JahresganglinieType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wochenganglinientyp" type="okstra:WochenganglinientypType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Typ_Wochenganglinie" type="okstra:Typ_WochenganglinieType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Tagesganglinientyp" type="okstra:TagesganglinientypType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tagesgruppe_Typ" type="okstra:Tagesgruppe_TypType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ganglinie" type="okstra:GanglinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Intervall_Einheit" type="okstra:Intervall_EinheitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ganglinie_Punktobjekt" type="okstra:Ganglinie_PunktobjektType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Ganglinie_Bereichsobjekt" type="okstra:Ganglinie_BereichsobjektType" substitutionGroup="okstra:_Bereichsobjekt" />
+    <element name="Ganglinienwert" type="okstra:GanglinienwertType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehrsstaerke                                                                   = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="DTV_BasisType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften DTV_Basis -->
+                    <element name="Fahrzeuge_pro_24h" 
+                        type="integer"/>
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Fahrzeugkollektiv" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Bauwerk_Verkehrsstaerke" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Verkehrsstaerke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>DTV_Kfz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DTVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften DTV_Basis -->
+                    <element name="Fahrzeuge_pro_24h" 
+                        type="integer"/>
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Fahrzeugkollektiv" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Bauwerk_Verkehrsstaerke" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Verkehrsstaerke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>DTV_Kfz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften DTV -->
+                    <element name="Bezugsmonat" 
+                        type="okstra:Monat" minOccurs="0"/>
+                    <element name="Tagesgruppe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Zaehltage" 
+                        type="okstra:Anzahl"/>
+                    <element name="Gesamtstunden" 
+                        type="okstra:Anzahl"/>
+                    <element name="Schaetzwert" 
+                        type="integer"/>
+                    <element name="fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_DTV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Bezugsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_DTV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Unfallumstaenden" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Unfallumstaenden</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_DTV_im_Gesamtquerschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MSVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften MSV -->
+                    <element name="Fahrzeuge_pro_h" 
+                        type="okstra:Anzahl"/>
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Tagesgruppe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Bezugsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Anteil_am_DTV" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anteil_am_DTV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_MSV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_MSV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anteil_am_DTVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anteil_am_DTV -->
+                    <element name="Anteil" 
+                        type="okstra:Prozent"/>
+                    <element name="Fahrzeuggruppe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="zu_MSV" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MSV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anteil_am_DTV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk_Verkehrsstaerke" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Verkehrsstaerke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Anteil_DTV_SV</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrzeugartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrzeuggruppeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrtzweckgruppeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="NormalzeitbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="weitere_TagesgruppenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennwert_zur_LaermberechnungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Kennwert_zur_Laermberechnung -->
+                    <element name="Stundengruppe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Kraftfahrzeuge_pro_h" 
+                        type="okstra:Anzahl"/>
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Kennw_zur_Laermberechnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Anteil_Kennwert" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anteil_Kennwert</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Kennwert_z_Laermberechnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StundengruppeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Anteil_KennwertType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anteil_Kennwert -->
+                    <element name="Anteil" 
+                        type="okstra:Prozent"/>
+                    <element name="Fahrzeuggruppe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="zu_Kennwert_z_Laermberechnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kennwert_zur_Laermberechnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anteil_Kennwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="JahresganglinientypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Jahresganglinientyp -->
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Jahresganglinientyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Typ_JahresganglinieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WochenganglinientypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Wochenganglinientyp -->
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Bezugsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wochenganglinientyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Typ_WochenganglinieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="TagesganglinientypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Tagesganglinientyp -->
+                    <element name="Bezugsjahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Typ" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="Bezugsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Stundenindex" 
+                        type="integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Tagesganglinientyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tagesgruppe_TypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Tagesgruppe_Typ -->
+                    <element name="Tagesgruppe" 
+                        type="string"/>
+                    <element name="Buchstabe" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GanglinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ganglinie -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Inhalt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Intervall_Einheit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Intervall_Dauer" 
+                        type="double" minOccurs="0"/>
+                    <element name="Intervall_Anzahl" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Wert_min" 
+                        type="double" minOccurs="0"/>
+                    <element name="Wert_max" 
+                        type="double" minOccurs="0"/>
+                    <element name="Einheit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezugsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Ganglinienwert" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinienwert</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Ganglinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Punktobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinie_Punktobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ganglinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Bereichsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinie_Bereichsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ganglinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ganglinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="aus_Zaehlstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Intervall_EinheitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ganglinie_PunktobjektType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften Ganglinie_Punktobjekt -->
+                    <element name="zu_Ganglinie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Punktobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ganglinie_BereichsobjektType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektType">
+                <sequence>
+                    <!-- Eigenschaften Ganglinie_Bereichsobjekt -->
+                    <element name="zu_Ganglinie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Bereichsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GanglinienwertType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ganglinienwert -->
+                    <element name="Startzeit" 
+                        type="okstra:Uhrzeit"/>
+                    <element name="Startdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Endzeit" 
+                        type="okstra:Uhrzeit" minOccurs="0"/>
+                    <element name="Enddatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Wert" 
+                        type="double"/>
+                    <element name="gehoert_zu_Ganglinie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ganglinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ganglinienwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

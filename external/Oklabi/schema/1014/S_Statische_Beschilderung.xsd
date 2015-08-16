@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Statische_Beschilderung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1014/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1014/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.014">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Statische_Beschilderung:v1.014">S_Statische_Beschilderung.xsd v1.014</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.014, Schema S_Statische_Beschilderung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Statische_Beschilderung                                                     = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Aufstellvorrichtung_Schild" type="okstra:Aufstellvorrichtung_SchildType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Art_der_Aufstellvorrichtung" type="okstra:Art_der_AufstellvorrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lage_Schild" type="okstra:Lage_SchildType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lesbarkeit" type="okstra:LesbarkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strassenbezug" type="okstra:StrassenbezugType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="StVO_Zeichennummer" type="okstra:StVO_ZeichennummerType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Beleuchtung_Schild" type="okstra:Beleuchtung_SchildType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wegweiser" type="okstra:WegweiserType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Ausfuehrungstyp_Wegweiser" type="okstra:Ausfuehrungstyp_WegweiserType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_Wegweiser" type="okstra:Art_WegweiserType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrszeichen" type="okstra:VerkehrszeichenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Groessenklasse_VZ" type="okstra:Groessenklasse_VZType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schild_nichtamtlich" type="okstra:Schild_nichtamtlichType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Art_Schild_nichtamtlich" type="okstra:Art_Schild_nichtamtlichType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wegweiser_Summe" type="okstra:Wegweiser_SummeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Verkehrszeichen_Summe" type="okstra:Verkehrszeichen_SummeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Schild_nichtamtlich_Summe" type="okstra:Schild_nichtamtlich_SummeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Statische_Beschilderung                                                         = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Aufstellvorrichtung_SchildType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Aufstellvorrichtung_Schild -->
+                    <element name="Abstand_rechter_Pfosten" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Abstand_linker_Pfosten" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Art_der_AufstellvorrichtungPropertyType" minOccurs="0"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                    <element name="ist_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Aufstellvorrichtung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="stellt_Teilhindernis_dar" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilhindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Aufstellvorrichtung_Schild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Schild" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>an_Aufstellvorrichtung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AufstellvorrichtungPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_der_Aufstellvorrichtung" type="okstra:Art_der_AufstellvorrichtungType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AufstellvorrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Aufstellvorrichtung -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_SchildPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Lage_Schild" type="okstra:Lage_SchildType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_SchildType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Lage_Schild -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LesbarkeitPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Lesbarkeit" type="okstra:LesbarkeitType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LesbarkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Lesbarkeit -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenbezugPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Strassenbezug" type="okstra:StrassenbezugType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenbezugType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbezug -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StVO_ZeichennummerPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="StVO_Zeichennummer" type="okstra:StVO_ZeichennummerType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StVO_ZeichennummerType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften StVO_Zeichennummer -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Beleuchtung_SchildPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Beleuchtung_Schild" type="okstra:Beleuchtung_SchildType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Beleuchtung_SchildType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Beleuchtung_Schild -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild -->
+                    <element name="Lage_Schild" 
+                        type="okstra:Lage_SchildPropertyType"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="an_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild_amtlich -->
+                    <element name="StVO_ZNr" 
+                        type="okstra:StVO_ZeichennummerPropertyType"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_SchildPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Wegweiser -->
+                    <element name="Ausfuehrungstyp" 
+                        type="okstra:Ausfuehrungstyp_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Art_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="zu_dyn_verkehrsreg_Beschild" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ausfuehrungstyp_WegweiserPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Ausfuehrungstyp_Wegweiser" type="okstra:Ausfuehrungstyp_WegweiserType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ausfuehrungstyp_WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Ausfuehrungstyp_Wegweiser -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_WegweiserPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Wegweiser" type="okstra:Art_WegweiserType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Wegweiser -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrszeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild -->
+                    <element name="Lage_Schild" 
+                        type="okstra:Lage_SchildPropertyType"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="an_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild_amtlich -->
+                    <element name="StVO_ZNr" 
+                        type="okstra:StVO_ZeichennummerPropertyType"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_SchildPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Verkehrszeichen -->
+                    <element name="verdeckbar" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="Groessenklasse" 
+                        type="okstra:Groessenklasse_VZPropertyType" minOccurs="0"/>
+                    <element name="zu_Verkehrseinschraenkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrseinschraenkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verkehrszeichen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Groessenklasse_VZPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Groessenklasse_VZ" type="okstra:Groessenklasse_VZType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Groessenklasse_VZType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Groessenklasse_VZ -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schild_nichtamtlichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild -->
+                    <element name="Lage_Schild" 
+                        type="okstra:Lage_SchildPropertyType"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="an_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schild</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Schild_nichtamtlich -->
+                    <element name="Art" 
+                        type="okstra:Art_Schild_nichtamtlichPropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Schild_nichtamtlichPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Schild_nichtamtlich" type="okstra:Art_Schild_nichtamtlichType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Schild_nichtamtlichType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Schild_nichtamtlich -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wegweiser_SummeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Beschilderung_Summe -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Schilder" 
+                        type="okstra:Anzahl"/>
+                    <element name="Aufstellvorrichtungen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrszeichen_SummeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Beschilderung_Summe -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Schilder" 
+                        type="okstra:Anzahl"/>
+                    <element name="Aufstellvorrichtungen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Verkehrszeichen_Summe -->
+                    <element name="saisonale_Schilder" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schild_nichtamtlich_SummeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Beschilderung_Summe -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Schilder" 
+                        type="okstra:Anzahl"/>
+                    <element name="Aufstellvorrichtungen" 
+                        type="okstra:Anzahl"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

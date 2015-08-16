@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- File: okstra_basis.xsd -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" xmlns:okstra="http://schema.okstra.de/1009/okstra" elementFormDefault="qualified" version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:okstra-basis:v1.009">okstra_basis.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) 1.009, Basis-Schema
+        </documentation>
+    </annotation>
+    <!--  Type-Definitionen und externe Schemata einbeziehen  -->
+    <include schemaLocation="okstra_typen.xsd"/>
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================ -->
+    <!-- = globale abstract elements fuer die OKSTRA-Klassen = -->
+    <!-- ================================================ -->
+    <!-- -->
+    <!-- definiere Basis-Elemente fuer OKSTRA-Elemente -->
+    <element name="_OKSTRAObjekt" type="okstra:AbstractOKSTRAObjektType" abstract="true" substitutionGroup="gml:_Feature"/>
+    <element name="_OKSTRAHistObjekt" type="okstra:AbstractOKSTRAHistObjektType" abstract="true" substitutionGroup="okstra:_OKSTRAObjekt"/>
+    <element name="_Punktobjekt" type="okstra:PunktobjektType" abstract="true" substitutionGroup="okstra:_OKSTRAObjekt"/>
+    <element name="_Streckenobjekt" type="okstra:StreckenobjektType" abstract="true" substitutionGroup="okstra:_OKSTRAObjekt"/>
+    <element name="_Bereichsobjekt" type="okstra:BereichsobjektType" abstract="true" substitutionGroup="okstra:_OKSTRAObjekt"/>
+    <element name="_PunktobjektHist" type="okstra:PunktobjektHistType" abstract="true" substitutionGroup="okstra:_Punktobjekt"/>
+    <element name="_StreckenobjektHist" type="okstra:StreckenobjektHistType" abstract="true" substitutionGroup="okstra:_Streckenobjekt"/>
+    <element name="_BereichsobjektHist" type="okstra:BereichsobjektHistType" abstract="true" substitutionGroup="okstra:_Bereichsobjekt"/>
+    <!-- -->
+    <!-- ============================================ -->
+    <!-- = zentrale Zeiger- und Mengen-Definitionen = -->
+    <!-- ============================================ -->
+    <!-- -->
+    <!-- Root-Element fuer OKSTRA-FeatureCollection -->
+    <element name="OKSTRAObjektmenge" type="okstra:OKSTRAObjektmengeType" substitutionGroup="gml:_FeatureCollection"/>
+    <!-- definiere OKSTRAObjektmengeType -->
+    <element name="okstraObjekt" type="gml:FeaturePropertyType" substitutionGroup="gml:featureMember">
+        <annotation>
+            <documentation>Das enthaltene oder referenzierte Objekt muss direkt oder indirekt in der substitutionGroup von okstra:_OKSTRAObjekt enthalten sein.</documentation>
+        </annotation>
+    </element>
+    <complexType name="OKSTRAObjektmengeBaseType">
+        <complexContent>
+            <restriction base="gml:AbstractFeatureCollectionType">
+                <sequence>
+                    <element ref="gml:metaDataProperty"/>
+                    <element ref="gml:description" minOccurs="0"/>
+                    <element ref="gml:name" minOccurs="0" maxOccurs="unbounded"/>
+                    <element ref="gml:boundedBy"/>
+                    <choice minOccurs="0" maxOccurs="unbounded">
+                        <element ref="okstra:okstraObjekt"/>
+                    </choice>
+                </sequence>
+            </restriction>
+        </complexContent>
+    </complexType>
+    <complexType name="OKSTRAObjektmengeType">
+        <complexContent>
+            <extension base="okstra:OKSTRAObjektmengeBaseType">
+                <sequence>
+                    <element ref="okstra:okstraKeyValue" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- Meta-Daten fuer OKSTRA-Daten -->
+    <element name="OKSTRAMetaDaten" type="okstra:OKSTRAMetaDatenType" substitutionGroup="gml:_MetaData"/>
+    <complexType name="OKSTRAMetaDatenType">
+        <complexContent>
+            <extension base="gml:AbstractMetaDataType">
+                <sequence>
+                    <element name="description" type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="implementation_level" type="string" minOccurs="0"/>
+                    <element name="name" type="string" minOccurs="0"/>
+                    <element name="time_stamp" type="dateTime" minOccurs="0"/>
+                    <element name="author" type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="organization" type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="preprocessor_version" type="string" minOccurs="0"/>
+                    <element name="originating_system" type="string" minOccurs="0"/>
+                    <element name="authorization" type="string" minOccurs="0"/>
+                    <element name="schema_identifiers" type="string" maxOccurs="unbounded"/>
+                    <element name="relRep" type="okstra:RelRepType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <simpleType name="RelRepType">
+        <restriction base="string">
+            <enumeration value="einseitig"/>
+            <enumeration value="beidseitig"/>
+        </restriction>
+    </simpleType>
+    <!-- Referenzierungs-Typ fuer OKSTRA-Objekte -->
+    <complexType name="ObjectRefType">
+        <simpleContent>
+            <extension base="string">
+                <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                <attribute name="Objektklasse" type="string" use="optional"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <!-- complexType fuer OKSTRA-Schluesseltabellen -->
+    <complexType name="AbstractKeyValueType" abstract="true">
+        <sequence>
+            <element name="Langtext" type="string" minOccurs="0"/>
+            <element name="Kennung" type="string"/>
+        </sequence>
+        <attribute name="id" type="ID" use="optional"/>
+    </complexType>
+    <element name="_KeyValue" type="okstra:AbstractKeyValueType" abstract="true"/>
+    <complexType name="KeyValuePropertyType">
+        <sequence>
+            <element ref="okstra:_KeyValue" minOccurs="0"/>
+        </sequence>
+        <attributeGroup ref="xlink:simpleLink"/>
+    </complexType>
+    <!-- definiere Basis-Element fuer OKSTRA-Schluesseltabellen -->
+    <element name="okstraKeyValue">
+        <complexType>
+            <sequence>
+                <element ref="okstra:_KeyValue"/>
+            </sequence>
+        </complexType>
+    </element>
+    <!-- -->
+    <!-- ====================================================== -->
+    <!-- = abstrakte OKSTRA-Typen, jeweils als                = -->
+    <!-- = historisierende und nicht historisierende Variante = -->
+    <!-- ====================================================== -->
+    <!-- -->
+    <complexType name="AbstractOKSTRAObjektType" abstract="true">
+        <complexContent>
+            <extension base="gml:AbstractFeatureType"/>
+        </complexContent>
+    </complexType>
+    <group name="HistGroup">
+        <sequence>
+            <element name="gueltig_von" type="okstra:Datum" minOccurs="0"/>
+            <element name="gueltig_bis" type="okstra:Datum" minOccurs="0"/>
+            <element name="erzeugt_von_Ereignis" type="okstra:ObjectRefType" minOccurs="0">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>erzeugt_historisches_Objekt</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+            <element name="geloescht_von_Ereignis" type="okstra:ObjectRefType" minOccurs="0">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>loescht_historisches_Objekt</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+            <element name="hat_Vorgaenger_hist_Objekt" type="okstra:ObjectRefType" minOccurs="0">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>historisches_Objekt</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>hat_Nachfolger_hist_Objekt</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+            <element name="hat_Nachfolger_hist_Objekt" type="okstra:ObjectRefType" minOccurs="0">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>historisches_Objekt</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>hat_Vorgaenger_hist_Objekt</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+        </sequence>
+    </group>
+    <complexType name="AbstractOKSTRAHistObjektType" abstract="true">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <group ref="okstra:HistGroup"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- -->
+    <!-- ==================================================== -->
+    <!-- = globale complexTypes fuer die Netzbezugs-Klassen = -->
+    <!-- ==================================================== -->
+    <!-- -->
+    <complexType name="PunktobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <element name="bei_Strassenpunkt" type="okstra:StrassenpunktPropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreckenobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <group ref="okstra:verallgemeinerte_StreckeGroup" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BereichsobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <element name="hat_Netzbereich" type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PunktobjektHistType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <group ref="okstra:HistGroup"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreckenobjektHistType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <group ref="okstra:HistGroup"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BereichsobjektHistType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektType">
+                <sequence>
+                    <group ref="okstra:HistGroup"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globaler complexType fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = Strassennetz                                               = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="StrassenbezeichnungPropertyType">
+        <sequence>
+            <element name="Strassenbezeichnung" type="okstra:StrassenbezeichnungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenbezeichnungType">
+        <sequence>
+            <!-- Eigenschaften Strassenbezeichnung-->
+            <element name="Strassenklasse" type="okstra:KeyValuePropertyType"/>
+            <element name="Strassennummer" type="okstra:Strassennummer"/>
+            <element name="Zusatzbuchstabe" type="okstra:Zusatzbuchstabe" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenpunktPropertyType">
+        <sequence>
+            <element name="Strassenpunkt" type="okstra:StrassenpunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenpunktType">
+        <sequence>
+            <!-- Eigenschaften Strassenpunkt-->
+            <element name="Station" type="okstra:Meter"/>
+            <element name="Abstand_zur_Bestandsachse" type="okstra:Meter" minOccurs="0"/>
+            <element name="Abstand_zur_Fahrbahnoberkante" type="okstra:Meter" minOccurs="0"/>
+            <element name="auf_Abschnitt_oder_Ast" type="okstra:ObjectRefType"/>
+        </sequence>
+    </complexType>
+    <complexType name="TeilabschnittPropertyType">
+        <sequence>
+            <element name="Teilabschnitt" type="okstra:TeilabschnittType"/>
+        </sequence>
+    </complexType>
+    <complexType name="TeilabschnittType">
+        <sequence>
+            <!-- Eigenschaften Teilabschnitt-->
+            <element name="beginnt_bei_Station" type="okstra:Meter"/>
+            <element name="beginnt_mit_Abstand_zur_Bestandsachse" type="okstra:Meter" minOccurs="0"/>
+            <element name="beginnt_mit_Abstand_zur_Fahrbahnoberkante" type="okstra:Meter" minOccurs="0"/>
+            <element name="endet_bei_Station" type="okstra:Meter"/>
+            <element name="endet_mit_Abstand_zur_Bestandsachse" type="okstra:Meter" minOccurs="0"/>
+            <element name="endet_mit_Abstand_zur_Fahrbahnoberkante" type="okstra:Meter" minOccurs="0"/>
+            <element name="auf_Abschnitt_oder_Ast" type="okstra:ObjectRefType"/>
+        </sequence>
+    </complexType>
+    <group name="verallgemeinerte_StreckeGroup">
+        <choice>
+            <!-- Strecke oder Teilabschnitt-->
+            <element name="hat_Strecke" type="okstra:ObjectRefType"/>
+            <element name="hat_Teilabschnitt" type="okstra:TeilabschnittPropertyType"/>
+        </choice>
+    </group>
+    <group name="NetzbereichskomponenteGroup">
+        <choice>
+            <!-- Netzbereich, Strecke oder Teilabschnitt-->
+            <element name="enthaelt_Netzbereich" type="okstra:ObjectRefType"/>
+            <element name="enthaelt_Strecke" type="okstra:ObjectRefType"/>
+            <element name="enthaelt_Teilabschnitt" type="okstra:TeilabschnittPropertyType"/>
+        </choice>
+    </group>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globaler complexType fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = Vermessungspunkt                                           = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="PunktvermarkungPropertyType">
+        <sequence>
+            <element name="Punktvermarkung" type="okstra:PunktvermarkungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="PunktvermarkungType">
+        <sequence>
+            <!-- Eigenschaften Punktvermarkung-->
+            <element name="Hoehe_vom_Erdboden" type="double"/>
+            <element name="Art_der_Vermarkung" type="okstra:KeyValuePropertyType" minOccurs="0"/>
+            <element name="Zustand_der_Vermarkung" type="string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================ -->
+    <!-- = Elemente für Annotations = -->
+    <!-- ============================================ -->
+    <!-- -->
+    <element name="Zielobjekttyp" type="string"/>
+    <element name="inverseRelation" type="string"/>
+    <!-- -->
+    <!-- ============================================ -->
+    <!-- = voruebergehende Abbildung von Herkunft/Genauigkeit = -->
+    <!-- = von Koordinaten ueber GML-Metadaten = -->
+    <!-- ============================================ -->
+    <!-- -->
+    <!-- Meta-Daten, temporaer verwendet fuer -->
+    <!-- Herkunft und Genauigkeit von Punktkoordinaten -->
+    <element name="KoordinatenMetadaten" type="okstra:KoordinatenMetadatenType" substitutionGroup="gml:_MetaData"/>
+    <complexType name="KoordinatenMetadatenType">
+        <complexContent>
+            <extension base="gml:AbstractMetaDataType">
+                <sequence>
+                    <element name="Herkunft" type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Genauigkeit" type="okstra:Meter" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <element name="Koordinatenherkunft" type="okstra:KoordinatenherkunftType" substitutionGroup="okstra:_KeyValue"/>
+    <complexType name="KoordinatenherkunftType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: okstra_konz_typen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1015/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1015/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.015">
+    <annotation>
+        <appinfo>1015/okstra_konz_typen.xsd</appinfo>
+        <documentation xml:lang="de">
+            zentrales Schema fuer konzeptionelle Datentypen in OKSTRA(R) XML 1.015
+        </documentation>
+    </annotation>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Strassennetz                                             = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="StrassenbezeichnungPropertyType">
+        <sequence>
+            <element name="Strassenbezeichnung" type="okstra:StrassenbezeichnungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenbezeichnungType">
+        <sequence>
+            <!-- Eigenschaften Strassenbezeichnung -->
+            <element name="Strassenklasse" 
+                type="okstra:StrassenklassePropertyType"/>
+            <element name="Strassennummer" 
+                type="okstra:Strassennummer"/>
+            <element name="Zusatzbuchstabe" 
+                type="okstra:Zusatzbuchstabe" minOccurs="0"/>
+            <element name="Identifizierungskennzeichen" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenpunktPropertyType">
+        <sequence>
+            <element name="Strassenpunkt" type="okstra:StrassenpunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenpunktType">
+        <sequence>
+            <!-- Eigenschaften Strassenpunkt -->
+            <element name="Station" 
+                type="okstra:Kilometer"/>
+            <element name="Abstand_zur_Bestandsachse" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="Abstand_zur_Fahrbahnoberkante" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="auf_Abschnitt_oder_Ast" 
+                type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenteilstueckPropertyType">
+        <sequence>
+            <element name="Strassenteilstueck" type="okstra:StrassenteilstueckType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StrassenteilstueckType">
+        <sequence>
+            <!-- Eigenschaften Strassenteilstueck -->
+            <element name="Strassenbezeichnung" 
+                type="okstra:StrassenbezeichnungPropertyType"/>
+            <element name="Anschlussstelle_von" 
+                type="string" minOccurs="0"/>
+            <element name="Anschlussstelle_bis" 
+                type="string" minOccurs="0"/>
+            <element name="betrifft_Strasse" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="von_Netzknoten" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="bis_Netzknoten" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="auf_Abschnitt_oder_Ast" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Verkehr                                                  = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="Umfang_VESPropertyType">
+        <sequence>
+            <element name="Umfang_VES" type="okstra:Umfang_VESType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Umfang_VESType">
+        <sequence>
+            <!-- Eigenschaften Umfang_VES -->
+            <element name="Hoechst_Mind_Geschwindigkeit" 
+                type="okstra:Stundenkilometer" minOccurs="0"/>
+            <element name="Lastbeschraenkung" 
+                type="okstra:Tonnen" minOccurs="0"/>
+            <element name="Massbeschraenkung" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="Laenge_Verbotsstrecke" 
+                type="okstra:Kilometer" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Strassenzustandsdaten                                    = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="Art_des_ZEB_ObjektesPropertyType">
+        <sequence>
+            <element name="Art_des_ZEB_Objektes" type="okstra:Art_des_ZEB_ObjektesType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Art_des_ZEB_ObjektesType">
+        <sequence>
+            <!-- Eigenschaften Art_des_ZEB_Objektes -->
+            <element name="Kurzbezeichnung_Objektart" 
+                type="string" minOccurs="0"/>
+            <element name="ZEB_Objektart" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Entwurf                                                  = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="Grad_KoorPropertyType">
+        <sequence>
+            <element name="Grad_Koor" type="okstra:Grad_KoorType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Grad_KoorType">
+        <sequence>
+            <!-- Eigenschaften Grad_Koor -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Hoehe" 
+                type="okstra:Meter"/>
+            <element name="hat_Ausrundung" 
+                type="okstra:AusrundungPropertyType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="AusrundungPropertyType">
+        <sequence>
+            <element name="Ausrundung" type="okstra:AusrundungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="AusrundungType">
+        <sequence>
+            <!-- Eigenschaften Ausrundung -->
+            <element name="Scheitelradius" 
+                type="okstra:Groesse"/>
+        </sequence>
+    </complexType>
+    <complexType name="Hor_KoorPropertyType">
+        <sequence>
+            <element name="Hor_Koor" type="okstra:Hor_KoorType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Hor_KoorType">
+        <sequence>
+            <!-- Eigenschaften Hor_Koor -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Hoehe" 
+                type="okstra:Meter"/>
+        </sequence>
+    </complexType>
+    <complexType name="QP_PunktPropertyType">
+        <sequence>
+            <element name="QP_Punkt" type="okstra:QP_PunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="QP_PunktType">
+        <sequence>
+            <!-- Eigenschaften QP_Punkt -->
+            <element name="Bezeichnung" 
+                type="string" minOccurs="0"/>
+            <element name="Abstand_zur_Achse" 
+                type="okstra:Meter"/>
+            <element name="Hoehe" 
+                type="okstra:Meter"/>
+        </sequence>
+    </complexType>
+    <complexType name="HB_PunktPropertyType">
+        <sequence>
+            <element name="HB_Punkt" type="okstra:HB_PunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="HB_PunktType">
+        <sequence>
+            <!-- Eigenschaften HB_Punkt -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Differenzhoehe" 
+                type="okstra:Meter"/>
+            <element name="Neigungswinkel" 
+                type="okstra:Groesse"/>
+        </sequence>
+    </complexType>
+    <complexType name="BR_PunktPropertyType">
+        <sequence>
+            <element name="BR_Punkt" type="okstra:BR_PunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BR_PunktType">
+        <sequence>
+            <!-- Eigenschaften BR_Punkt -->
+            <element name="Abstand" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Berechnung" 
+                type="okstra:Bedeutung_BerechnungPropertyType"/>
+            <element name="hat_Aufweitg_Verbreit_Verbind" 
+                type="okstra:Aufweitung_Verbreit_VerbindPropertyType" minOccurs="0"/>
+            <element name="hat_Abstand_Achse_Achse" 
+                type="okstra:Abstand_Achse_AchsePropertyType" minOccurs="0"/>
+            <element name="hat_Abstand_Achse_Linie" 
+                type="okstra:ObjectRefType" minOccurs="0"/>
+            <element name="bez_auf_verallg_Spur" 
+                type="okstra:ObjectRefType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="Aufweitung_Verbreit_VerbindPropertyType">
+        <sequence>
+            <element name="Aufweitung_Verbreit_Verbind" type="okstra:Aufweitung_Verbreit_VerbindType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Aufweitung_Verbreit_VerbindType">
+        <sequence>
+            <!-- Eigenschaften Aufweitung_Verbreit_Verbind -->
+            <element name="Art_der_Verziehung" 
+                type="okstra:Art_der_VerziehungPropertyType"/>
+            <element name="Tangentenlaenge" 
+                type="okstra:Meter" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="Abstand_Achse_AchsePropertyType">
+        <sequence>
+            <element name="Abstand_Achse_Achse" type="okstra:Abstand_Achse_AchseType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Abstand_Achse_AchseType">
+        <sequence>
+            <!-- Eigenschaften Abstand_Achse_Achse -->
+            <element name="Station_zw_Achse" 
+                type="okstra:Meter"/>
+            <element name="hat_zweite_Achse" 
+                type="okstra:ObjectRefType"/>
+        </sequence>
+    </complexType>
+    <complexType name="QN_PunktPropertyType">
+        <sequence>
+            <element name="QN_Punkt" type="okstra:QN_PunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="QN_PunktType">
+        <sequence>
+            <!-- Eigenschaften QN_Punkt -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Querneigung" 
+                type="okstra:Prozent" minOccurs="0"/>
+            <element name="automatische_Berechnung" 
+                type="integer" minOccurs="0"/>
+            <element name="Verziehungsform" 
+                type="okstra:VerziehungsformPropertyType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="V_KoorPropertyType">
+        <sequence>
+            <element name="V_Koor" type="okstra:V_KoorType"/>
+        </sequence>
+    </complexType>
+    <complexType name="V_KoorType">
+        <sequence>
+            <!-- Eigenschaften V_Koor -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Geschwindigkeit" 
+                type="okstra:Stundenkilometer"/>
+        </sequence>
+    </complexType>
+    <complexType name="SW_KoorPropertyType">
+        <sequence>
+            <element name="SW_Koor" type="okstra:SW_KoorType"/>
+        </sequence>
+    </complexType>
+    <complexType name="SW_KoorType">
+        <sequence>
+            <!-- Eigenschaften SW_Koor -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Sichtweite_erforderlich" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="Sichtweite_vorhanden" 
+                type="okstra:Meter" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="HZ_PunktPropertyType">
+        <sequence>
+            <element name="HZ_Punkt" type="okstra:HZ_PunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="HZ_PunktType">
+        <sequence>
+            <!-- Eigenschaften HZ_Punkt -->
+            <element name="Station" 
+                type="okstra:Meter"/>
+            <element name="Hoehe_fest" 
+                type="okstra:Meter" minOccurs="0"/>
+            <element name="Berechnung" 
+                type="okstra:Bedeutung_BerechnungPropertyType"/>
+            <element name="hat_Gradiente" 
+                type="okstra:ObjectRefType" minOccurs="0"/>
+            <element name="hat_Hoehe_Linie" 
+                type="okstra:ObjectRefType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Projektressourcen                                        = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="CSBF_IdentnummerPropertyType">
+        <sequence>
+            <element name="CSBF_Identnummer" type="okstra:CSBF_IdentnummerType"/>
+        </sequence>
+    </complexType>
+    <complexType name="CSBF_IdentnummerType">
+        <sequence>
+            <!-- Eigenschaften CSBF_Identnummer -->
+            <element name="Landesschluessel" 
+                type="okstra:LandesschluesselPropertyType"/>
+            <element name="Projekt_Schluessel" 
+                type="string"/>
+            <element name="Massnahme_Schluessel" 
+                type="string"/>
+        </sequence>
+    </complexType>
+    <complexType name="Daten_zur_GesamtabnahmePropertyType">
+        <sequence>
+            <element name="Daten_zur_Gesamtabnahme" type="okstra:Daten_zur_GesamtabnahmeType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Daten_zur_GesamtabnahmeType">
+        <sequence>
+            <!-- Eigenschaften Daten_zur_Gesamtabnahme -->
+            <element name="Datum_Fertigstellung_real" 
+                type="okstra:Datum"/>
+            <element name="Einhaltung_Zwischentermine" 
+                type="integer"/>
+            <element name="Datum_Schlussrechnung_VOB_soll" 
+                type="okstra:Datum"/>
+            <element name="Anzahl_Nachunternehmer_Bauende" 
+                type="okstra:Anzahl" minOccurs="0"/>
+            <element name="Nachunternehmer_bis_Bauende" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="Frist_MaengelanspruechePropertyType">
+        <sequence>
+            <element name="Frist_Maengelansprueche" type="okstra:Frist_MaengelanspruecheType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Frist_MaengelanspruecheType">
+        <sequence>
+            <!-- Eigenschaften Frist_Maengelansprueche -->
+            <element name="Lfd_Nummer_Teilabnahme" 
+                type="integer" minOccurs="0"/>
+            <element name="Nr_zugehoerige_Leistung" 
+                type="integer"/>
+            <element name="Zugehoerige_Leistung" 
+                type="string"/>
+            <element name="Beginn_Frist_Maengelansprueche" 
+                type="okstra:Datum" minOccurs="0"/>
+            <element name="Ende_Frist_Maengelansprueche" 
+                type="okstra:Datum"/>
+        </sequence>
+    </complexType>
+    <complexType name="HaushaltsbezugPropertyType">
+        <sequence>
+            <element name="Haushaltsbezug" type="okstra:HaushaltsbezugType"/>
+        </sequence>
+    </complexType>
+    <complexType name="HaushaltsbezugType">
+        <sequence>
+            <!-- Eigenschaften Haushaltsbezug -->
+            <element name="Art_Haushalt" 
+                type="okstra:Art_HaushaltPropertyType"/>
+            <element name="Kapitel" 
+                type="string" minOccurs="0"/>
+            <element name="Titel" 
+                type="string" minOccurs="0"/>
+            <element name="OZ" 
+                type="string" minOccurs="0"/>
+            <element name="Betrag" 
+                type="okstra:EURO" minOccurs="0"/>
+            <element name="Haushaltsjahr" 
+                type="okstra:Jahr"/>
+            <element name="Erlaeuterung" 
+                type="string" minOccurs="0"/>
+            <element name="zu_Verwaltungsbezirk" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="WertungskriteriumPropertyType">
+        <sequence>
+            <element name="Wertungskriterium" type="okstra:WertungskriteriumType"/>
+        </sequence>
+    </complexType>
+    <complexType name="WertungskriteriumType">
+        <sequence>
+            <!-- Eigenschaften Wertungskriterium -->
+            <element name="Verschiedene_Kriterien" 
+                type="integer" minOccurs="0"/>
+            <element name="Preis_Kriterium" 
+                type="integer" minOccurs="0"/>
+            <element name="Preis_Wichtung" 
+                type="okstra:Prozent" minOccurs="0"/>
+            <element name="TechnischerWert_Kriterium" 
+                type="integer" minOccurs="0"/>
+            <element name="TechnischerWert_Wichtung" 
+                type="okstra:Prozent" minOccurs="0"/>
+            <element name="Gestaltung_Kriterium" 
+                type="integer" minOccurs="0"/>
+            <element name="Gestaltung_Wichtung" 
+                type="okstra:Prozent" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Dynamische_Verkehrsdaten                                 = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="TagesgruppePropertyType">
+        <sequence>
+            <element name="Tagesgruppe" type="okstra:TagesgruppeType"/>
+        </sequence>
+    </complexType>
+    <complexType name="TagesgruppeType">
+        <sequence>
+            <!-- Eigenschaften Tagesgruppe -->
+            <element name="Fahrtzweckgruppe" 
+                type="okstra:FahrtzweckgruppePropertyType" minOccurs="0"/>
+            <element name="Normalzeitbereich" 
+                type="okstra:NormalzeitbereichPropertyType" minOccurs="0"/>
+            <element name="weitere_Tagesgruppen" 
+                type="okstra:weitere_TagesgruppenPropertyType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="achsbezogene_DatenPropertyType">
+        <sequence>
+            <element name="achsbezogene_Daten" type="okstra:achsbezogene_DatenType"/>
+        </sequence>
+    </complexType>
+    <complexType name="achsbezogene_DatenType">
+        <sequence>
+            <!-- Eigenschaften achsbezogene_Daten -->
+            <element name="Achsnummer" 
+                type="integer"/>
+            <element name="Achsabstand_zur_Vorderachse" 
+                type="okstra:Meter"/>
+            <element name="Achslast" 
+                type="okstra:Tonnen" minOccurs="0"/>
+            <element name="Achslast_kN" 
+                type="okstra:Kilonewton" minOccurs="0"/>
+            <element name="Achstyp" 
+                type="okstra:AchstypPropertyType"/>
+            <element name="Ueberladung_vorhanden" 
+                type="integer" minOccurs="0"/>
+            <element name="Ueberladung" 
+                type="okstra:Tonnen" minOccurs="0"/>
+            <element name="Ueberladung_kN" 
+                type="okstra:Kilonewton" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Allgemeine_Objekte                                       = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="WaehrungsbetragPropertyType">
+        <sequence>
+            <element name="Waehrungsbetrag" type="okstra:WaehrungsbetragType"/>
+        </sequence>
+    </complexType>
+    <complexType name="WaehrungsbetragType">
+        <sequence>
+            <!-- Eigenschaften Waehrungsbetrag -->
+            <element name="Betrag" 
+                type="double"/>
+            <element name="Waehrungsangabe" 
+                type="okstra:WaehrungsangabePropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="einfacher_ZeitraumPropertyType">
+        <sequence>
+            <element name="einfacher_Zeitraum" type="okstra:einfacher_ZeitraumType"/>
+        </sequence>
+    </complexType>
+    <complexType name="einfacher_ZeitraumType">
+        <sequence>
+            <!-- Eigenschaften einfacher_Zeitraum -->
+            <element name="hat_Startdatum" 
+                type="okstra:StartdatumPropertyType"/>
+            <element name="hat_Dauer" 
+                type="okstra:DauerPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StartdatumPropertyType">
+        <sequence>
+            <element name="Startdatum" type="okstra:StartdatumType"/>
+        </sequence>
+    </complexType>
+    <complexType name="StartdatumType">
+        <sequence>
+            <!-- Eigenschaften Startdatum -->
+            <element name="Jahr" 
+                type="okstra:Jahr" minOccurs="0"/>
+            <element name="Monat_im_Jahr" 
+                type="okstra:MonatPropertyType" minOccurs="0"/>
+            <element name="Woche_im_Jahr" 
+                type="okstra:Woche" minOccurs="0"/>
+            <element name="Tag_im_Monat" 
+                type="okstra:Tag" minOccurs="0"/>
+            <element name="Tag_in_der_Woche" 
+                type="okstra:WochentagPropertyType" minOccurs="0"/>
+            <element name="Nummer_des_Wochentages" 
+                type="okstra:Nummer_des_WochentagesPropertyType" minOccurs="0"/>
+            <element name="Stunde_am_Tag" 
+                type="okstra:Stunde" minOccurs="0"/>
+            <element name="Minute_in_der_Stunde" 
+                type="okstra:Minute" minOccurs="0"/>
+            <element name="Sekunde_in_der_Minute" 
+                type="okstra:Sekunde" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="DauerPropertyType">
+        <sequence>
+            <element name="Dauer" type="okstra:DauerType"/>
+        </sequence>
+    </complexType>
+    <complexType name="DauerType">
+        <sequence>
+            <!-- Eigenschaften Dauer -->
+            <element name="Jahre" 
+                type="okstra:Jahre" minOccurs="0"/>
+            <element name="Monate" 
+                type="okstra:Monate" minOccurs="0"/>
+            <element name="Wochen" 
+                type="okstra:Wochen" minOccurs="0"/>
+            <element name="Tage" 
+                type="okstra:Tage" minOccurs="0"/>
+            <element name="Stunden" 
+                type="okstra:Stunden" minOccurs="0"/>
+            <element name="Minuten" 
+                type="okstra:Minuten" minOccurs="0"/>
+            <element name="Sekunden" 
+                type="okstra:Sekunden" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="komplexer_ZeitraumPropertyType">
+        <sequence>
+            <element name="komplexer_Zeitraum" type="okstra:komplexer_ZeitraumType"/>
+        </sequence>
+    </complexType>
+    <complexType name="komplexer_ZeitraumType">
+        <sequence>
+            <!-- Eigenschaften komplexer_Zeitraum -->
+            <element name="hat_ersten_Zeitraum" 
+                type="okstra:ZeitraumPropertyType">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>Zeitraum</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>ist_komplexer_Zeitraum</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+            <element name="hat_zweiten_Zeitraum" 
+                type="okstra:ZeitraumPropertyType">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>Zeitraum</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>ist_komplexer_Zeitraum</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+            <element name="hat_Operator" 
+                type="okstra:OperatorPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitraumPropertyType">
+        <sequence>
+            <element name="Zeitraum" type="okstra:ZeitraumType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitraumType">
+        <sequence>
+            <!-- Eigenschaften Zeitraum -->
+            <element name="ist_einfacher_Zeitraum" 
+                type="okstra:einfacher_ZeitraumPropertyType" minOccurs="0"/>
+            <element name="ist_komplexer_Zeitraum" 
+                type="okstra:komplexer_ZeitraumPropertyType" minOccurs="0">
+                <annotation>
+                    <appinfo>
+                        <okstra:Zielobjekttyp>komplexer_Zeitraum</okstra:Zielobjekttyp>
+                        <okstra:inverseRelation>hat_ersten_Zeitraum</okstra:inverseRelation>
+                    </appinfo>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitpunktPropertyType">
+        <sequence>
+            <element name="Zeitpunkt" type="okstra:ZeitpunktType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitpunktType">
+        <sequence>
+            <!-- Eigenschaften Zeitpunkt -->
+            <element name="Datum" 
+                type="okstra:Datum"/>
+            <element name="Uhrzeit" 
+                type="okstra:Uhrzeit" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitabschnittPropertyType">
+        <sequence>
+            <element name="Zeitabschnitt" type="okstra:ZeitabschnittType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ZeitabschnittType">
+        <sequence>
+            <!-- Eigenschaften Zeitabschnitt -->
+            <element name="Startzeitpunkt" 
+                type="okstra:ZeitpunktPropertyType"/>
+            <element name="Endezeitpunkt" 
+                type="okstra:ZeitpunktPropertyType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="Objekt_IDPropertyType">
+        <sequence>
+            <element name="Objekt_ID" type="okstra:Objekt_IDType"/>
+        </sequence>
+    </complexType>
+    <complexType name="Objekt_IDType">
+        <sequence>
+            <!-- Eigenschaften Objekt_ID -->
+            <element name="ID" 
+                type="string"/>
+            <element name="Namensraum_Verfahren" 
+                type="string"/>
+        </sequence>
+    </complexType>
+    <complexType name="ErfassungsqualitaetPropertyType">
+        <sequence>
+            <element name="Erfassungsqualitaet" type="okstra:ErfassungsqualitaetType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ErfassungsqualitaetType">
+        <sequence>
+            <!-- Eigenschaften Erfassungsqualitaet -->
+            <element name="Erfassung_Verfahren" 
+                type="okstra:Erfassung_VerfahrenPropertyType" minOccurs="0"/>
+            <element name="Standardabweichung" 
+                type="okstra:Zentimeter" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="BankverbindungPropertyType">
+        <sequence>
+            <element name="Bankverbindung" type="okstra:BankverbindungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BankverbindungType">
+        <sequence>
+            <!-- Eigenschaften Bankverbindung -->
+            <element name="Kontonummer" 
+                type="string"/>
+            <element name="Bankleitzahl" 
+                type="string"/>
+            <element name="Bankname" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="FormularfeldgruppePropertyType">
+        <sequence>
+            <element name="Formularfeldgruppe" type="okstra:FormularfeldgruppeType"/>
+        </sequence>
+    </complexType>
+    <complexType name="FormularfeldgruppeType">
+        <sequence>
+            <!-- Eigenschaften Formularfeldgruppe -->
+            <element name="Name" 
+                type="string"/>
+            <element name="Formularfeld" 
+                type="okstra:FormularfeldPropertyType" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <complexType name="FormularfeldPropertyType">
+        <sequence>
+            <element name="Formularfeld" type="okstra:FormularfeldType"/>
+        </sequence>
+    </complexType>
+    <complexType name="FormularfeldType">
+        <sequence>
+            <!-- Eigenschaften Formularfeld -->
+            <element name="Name" 
+                type="string"/>
+            <element name="Wert" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="AdressdatenPropertyType">
+        <sequence>
+            <element name="Adressdaten" type="okstra:AdressdatenType"/>
+        </sequence>
+    </complexType>
+    <complexType name="AdressdatenType">
+        <sequence>
+            <!-- Eigenschaften Adressdaten -->
+            <element name="Adresszeile_2" 
+                type="string" minOccurs="0"/>
+            <element name="Adresszeile_3" 
+                type="string" minOccurs="0"/>
+            <element name="Adresszeile_4" 
+                type="string" minOccurs="0"/>
+            <element name="Strasse" 
+                type="string"/>
+            <element name="Landesname" 
+                type="string" minOccurs="0"/>
+            <element name="Postleitzahl" 
+                type="string" minOccurs="0"/>
+            <element name="Ort" 
+                type="string"/>
+            <element name="NUTS_Code" 
+                type="string" minOccurs="0"/>
+            <element name="Telefon" 
+                type="string" minOccurs="0"/>
+            <element name="Fax" 
+                type="string" minOccurs="0"/>
+            <element name="E_Mail" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Allgemeine_Geometrieobjekte                              = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="TextausgestaltungPropertyType">
+        <sequence>
+            <element name="Textausgestaltung" type="okstra:TextausgestaltungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="TextausgestaltungType">
+        <sequence>
+            <!-- Eigenschaften Textausgestaltung -->
+            <element name="Breite" 
+                type="okstra:Groesse"/>
+            <element name="Hoehe" 
+                type="okstra:Groesse"/>
+            <element name="Einheit" 
+                type="okstra:EinheitPropertyType"/>
+            <element name="Schriftart" 
+                type="string"/>
+            <element name="Schrifthoehe" 
+                type="okstra:Groesse"/>
+            <element name="Schriftfarbe" 
+                type="okstra:RGB_FarbePropertyType"/>
+            <element name="Kasten" 
+                type="integer"/>
+            <element name="Beschriftungsfahne" 
+                type="okstra:BeschriftungsfahnePropertyType" minOccurs="0"/>
+            <element name="vertikale_Ausrichtung" 
+                type="okstra:vertikale_AusrichtungPropertyType"/>
+            <element name="horizontale_Ausrichtung" 
+                type="okstra:horizontale_AusrichtungPropertyType"/>
+            <element name="Einfuegeposition" 
+                type="okstra:EinfuegepositionPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="RGB_FarbePropertyType">
+        <sequence>
+            <element name="RGB_Farbe" type="okstra:RGB_FarbeType"/>
+        </sequence>
+    </complexType>
+    <complexType name="RGB_FarbeType">
+        <sequence>
+            <!-- Eigenschaften RGB_Farbe -->
+            <element name="Farbwert_rot" 
+                type="okstra:RGB_Farbwert"/>
+            <element name="Farbwert_gruen" 
+                type="okstra:RGB_Farbwert"/>
+            <element name="Farbwert_blau" 
+                type="okstra:RGB_Farbwert"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Grunderwerb                                              = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="LandPropertyType">
+        <sequence>
+            <element name="Land" type="okstra:LandType"/>
+        </sequence>
+    </complexType>
+    <complexType name="LandType">
+        <sequence>
+            <!-- Eigenschaften Land -->
+            <element name="postalischer_Code" 
+                type="string"/>
+            <element name="Land" 
+                type="string"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Vermessungspunkt                                         = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="PunktvermarkungPropertyType">
+        <sequence>
+            <element name="Punktvermarkung" type="okstra:PunktvermarkungType"/>
+        </sequence>
+    </complexType>
+    <complexType name="PunktvermarkungType">
+        <sequence>
+            <!-- Eigenschaften Punktvermarkung -->
+            <element name="Hoehe_vom_Erdboden" 
+                type="double"/>
+            <element name="Art_der_Vermarkung" 
+                type="okstra:Art_der_VermarkungPropertyType" minOccurs="0"/>
+            <element name="Zustand_der_Vermarkung" 
+                type="string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Kostenberechnung                                         = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="VerwaltungskostenPropertyType">
+        <sequence>
+            <element name="Verwaltungskosten" type="okstra:VerwaltungskostenType"/>
+        </sequence>
+    </complexType>
+    <complexType name="VerwaltungskostenType">
+        <sequence>
+            <!-- Eigenschaften Verwaltungskosten -->
+            <element name="Verwaltungskostenanteil" 
+                type="okstra:Prozent" minOccurs="0"/>
+            <element name="hat_Kostenbeteiligte" 
+                type="okstra:ObjectRefType" minOccurs="0" maxOccurs="5"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Landschaftsplanung                                       = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="BiotoptypPropertyType">
+        <sequence>
+            <element name="Biotoptyp" type="okstra:BiotoptypType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BiotoptypType">
+        <sequence>
+            <!-- Eigenschaften Biotoptyp -->
+            <element name="Schluessel" 
+                type="string"/>
+            <element name="Version_Schluessel" 
+                type="string"/>
+            <element name="Biotoptypangabe" 
+                type="okstra:Tab_BiotoptypPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="SchutzstatusPropertyType">
+        <sequence>
+            <element name="Schutzstatus" type="okstra:SchutzstatusType"/>
+        </sequence>
+    </complexType>
+    <complexType name="SchutzstatusType">
+        <sequence>
+            <!-- Eigenschaften Schutzstatus -->
+            <element name="Quelle" 
+                type="okstra:Quelle_SchutzstatusPropertyType"/>
+            <element name="Statusangabe" 
+                type="okstra:Tab_SchutzstatusPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ArtengruppePropertyType">
+        <sequence>
+            <element name="Artengruppe" type="okstra:ArtengruppeType"/>
+        </sequence>
+    </complexType>
+    <complexType name="ArtengruppeType">
+        <sequence>
+            <!-- Eigenschaften Artengruppe -->
+            <element name="Angabe_Artengruppe" 
+                type="okstra:Tab_ArtengruppePropertyType" minOccurs="0"/>
+            <element name="Sonstige_Artengruppe" 
+                type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+    <complexType name="BodenartPropertyType">
+        <sequence>
+            <element name="Bodenart" type="okstra:BodenartType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BodenartType">
+        <sequence>
+            <!-- Eigenschaften Bodenart -->
+            <element name="Schluessel" 
+                type="string"/>
+            <element name="Version_Schluessel" 
+                type="string"/>
+            <element name="Angabe_Bodenart" 
+                type="okstra:Tab_BodenartPropertyType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BaukilometerbereichPropertyType">
+        <sequence>
+            <element name="Baukilometerbereich" type="okstra:BaukilometerbereichType"/>
+        </sequence>
+    </complexType>
+    <complexType name="BaukilometerbereichType">
+        <sequence>
+            <!-- Eigenschaften Baukilometerbereich -->
+            <element name="Baukilometer_Anfang" 
+                type="okstra:Kilometer"/>
+            <element name="Baukilometer_Ende" 
+                type="okstra:Kilometer"/>
+        </sequence>
+    </complexType>
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer konzeptionelle ENTITYs im Schema = -->
+    <!-- = S_Schwertransport                                          = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="VEMAGS_InfoPropertyType">
+        <sequence>
+            <element name="VEMAGS_Info" type="okstra:VEMAGS_InfoType"/>
+        </sequence>
+    </complexType>
+    <complexType name="VEMAGS_InfoType">
+        <sequence>
+            <!-- Eigenschaften VEMAGS_Info -->
+            <element name="VEMAGS_Code_P" 
+                type="integer"/>
+            <element name="VEMAGS_Code_S" 
+                type="string"/>
+        </sequence>
+    </complexType>
+    <complexType name="SchnittgroessenvergleichPropertyType">
+        <sequence>
+            <element name="Schnittgroessenvergleich" type="okstra:SchnittgroessenvergleichType"/>
+        </sequence>
+    </complexType>
+    <complexType name="SchnittgroessenvergleichType">
+        <sequence>
+            <!-- Eigenschaften Schnittgroessenvergleich -->
+            <element name="Art_Schnittgroesse" 
+                type="okstra:Art_SchnittgroessePropertyType"/>
+            <element name="Schnittgroesse_DIN" 
+                type="double" minOccurs="0"/>
+            <element name="Schnittgroesse_ST" 
+                type="double" minOccurs="0"/>
+            <element name="Position_Feld_Stuetze_Auflager" 
+                type="integer" minOccurs="0"/>
+        </sequence>
+    </complexType>
+</schema>

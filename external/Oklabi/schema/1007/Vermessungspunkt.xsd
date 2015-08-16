@@ -1,0 +1,1765 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Vermessungspunkt.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Vermessungspunkt.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Vermessungspunkt
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Vermessungspunkt                                                              = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Art_der_Vermarkung" type="okstra:Art_der_VermarkungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Punktort" type="okstra:PunktortType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Koordinatenstatus" type="okstra:KoordinatenstatusType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Qualitaetsangaben_Punktort" type="okstra:Qualitaetsangaben_PunktortType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Datenerhebung_Pos_2D" type="okstra:Datenerhebung_Pos_2DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Datenerhebung_Pos_Hoehe" type="okstra:Datenerhebung_Pos_HoeheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Datenerhebung_Pos_3D" type="okstra:Datenerhebung_Pos_3DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Genauigkeit_Pos_2D" type="okstra:Genauigkeit_Pos_2DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Genauigkeit_Pos_Hoehe" type="okstra:Genauigkeit_Pos_HoeheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Genauigkeit_Pos_3D" type="okstra:Genauigkeit_Pos_3DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Vertrauenswuerdigk_Pos_2D" type="okstra:Vertrauenswuerdigk_Pos_2DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Vertrauenswuerdigk_Pos_Hoehe" type="okstra:Vertrauenswuerdigk_Pos_HoeheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Vertrauenswuerdigk_Pos_3D" type="okstra:Vertrauenswuerdigk_Pos_3DType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hoehe" type="okstra:HoeheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hoehensystem" type="okstra:HoehensystemType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hoehenstatus" type="okstra:HoehenstatusType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Qualitaetsangaben_Hoehe" type="okstra:Qualitaetsangaben_HoeheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Datenerhebung_Hoehe" type="okstra:Datenerhebung_HoeheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Genauigkeit_Hoehe" type="okstra:Genauigkeit_HoeheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Skizze" type="okstra:SkizzeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Skizzenart" type="okstra:SkizzenartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="GPS_Tauglichkeit" type="okstra:GPS_TauglichkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Punktstabilitaet_Lagefestpunkt" type="okstra:Punktstabilitaet_LagefestpunktType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lagefestpunkt_SBV" type="okstra:Lagefestpunkt_SBVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Lagepasspunkt_SBV" type="okstra:Lagepasspunkt_SBVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="vermutete_Hoehenstabilitaet" type="okstra:vermutete_HoehenstabilitaetType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Guete_des_Vermarkungstraegers" type="okstra:Guete_des_VermarkungstraegersType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Topographie_und_Umwelt" type="okstra:Topographie_und_UmweltType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Guete_des_Baugrundes" type="okstra:Guete_des_BaugrundesType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="geologische_Stabilitaet" type="okstra:geologische_StabilitaetType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundwasserstand" type="okstra:GrundwasserstandType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundwasserschwankung" type="okstra:GrundwasserschwankungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hoehenstabilitaet_aus_Wdhmessg" type="okstra:Hoehenstabilitaet_aus_WdhmessgType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hoehenfestpunkt_SBV" type="okstra:Hoehenfestpunkt_SBVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Hoehenpasspunkt_SBV" type="okstra:Hoehenpasspunkt_SBVType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Aufnahmepunkt" type="okstra:AufnahmepunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Sicherungspunkt" type="okstra:SicherungspunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="sonstiger_Vermessungspunkt" type="okstra:sonstiger_VermessungspunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="trigonometrischer_Punkt" type="okstra:trigonometrischer_PunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Ordnung_TP" type="okstra:Ordnung_TPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hierarchiestufe_TP" type="okstra:Hierarchiestufe_TPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wertigkeit_TP" type="okstra:Wertigkeit_TPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Funktion_TP" type="okstra:Funktion_TPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Nivellementpunkt" type="okstra:NivellementpunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Ordnung_NivP" type="okstra:Ordnung_NivPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Referenzstationspunkt" type="okstra:ReferenzstationspunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Funktion_RSP" type="okstra:Funktion_RSPType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="GPS_Empfaenger" type="okstra:GPS_EmpfaengerType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="GPS_Antenne" type="okstra:GPS_AntenneType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="PCV" type="okstra:PCVType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Vermessungspunkt                                                                  = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Art_der_VermarkungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="PunktortType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Punktort -->
+                    <element name="Liegenschaftskarte" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Koordinatenstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Ueberpruefungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Hinweise" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Qualitaetsangaben" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Qualitaetsangaben_Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Punktort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="stellt_Vermessungspunkt_dar" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Punktort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KoordinatenstatusType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Qualitaetsangaben_PunktortType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Qualitaetsangaben_Punktort -->
+                    <element name="Erhebungsstelle_Pos_2D_SArt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_2D" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_Hoehe_SArt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_Hoehe" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_3D_SArt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_3D" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datenerhebung_Pos_2D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Datenerhebung_Pos_Hoehe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Datenerhebung_Pos_3D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Berechnungsdatum_Pos_2D" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Berechnungsdatum_Pos_Hoehe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Berechnungsdatum_Pos_3D" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bestimmungsdatum_Pos_2D" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bestimmungsdatum_Pos_Hoehe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bestimmungsdatum_Pos_3D" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Genauigkeit_Pos_2D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Genauigkeit_Pos_Hoehe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Genauigkeit_Pos_3D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Vertrauenswuerdigk_Pos_2D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Vertrauenswuerdigk_Pos_Hoehe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Vertrauenswuerdigk_Pos_3D" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_2D_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_Hoehe_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Pos_3D_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="zu_Punktort" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Qualitaetsangaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenerhebung_Pos_2DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenerhebung_Pos_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenerhebung_Pos_3DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Genauigkeit_Pos_2DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Genauigkeit_Pos_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Genauigkeit_Pos_3DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Vertrauenswuerdigk_Pos_2DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Vertrauenswuerdigk_Pos_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Vertrauenswuerdigk_Pos_3DType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Hoehe -->
+                    <element name="Hoehenwert" 
+                        type="double"/>
+                    <element name="Hoehensystem" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Hoehenstatus" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Ueberpruefungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Hinweise" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Qualitaetsangaben" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Qualitaetsangaben_Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Hoehe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Vermessungspunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Hoehe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HoehensystemType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HoehenstatusType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Qualitaetsangaben_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Qualitaetsangaben_Hoehe -->
+                    <element name="Erhebungsstelle_Stellenart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erhebungsstelle" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datenerhebung_Hoehe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Berechnungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Messjahr" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="Genauigkeit_Hoehe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Erhebungsstelle_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="zu_Hoehe" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Qualitaetsangaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Datenerhebung_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Genauigkeit_HoeheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="SkizzeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Skizze -->
+                    <element name="Aktualitaet" 
+                        type="okstra:Datum"/>
+                    <element name="Skizzenname" 
+                        type="string"/>
+                    <element name="Skizzenart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Skizzen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="zu_Vermessungspunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Skizze</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SkizzenartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GPS_TauglichkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Punktstabilitaet_LagefestpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Lagefestpunkt_SBVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Punktnummer_SBV -->
+                    <element name="Punktnummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lagepasspunkt_SBVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Punktnummer_SBV -->
+                    <element name="Punktnummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="vermutete_HoehenstabilitaetType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Guete_des_VermarkungstraegersType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Topographie_und_UmweltType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Guete_des_BaugrundesType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="geologische_StabilitaetType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GrundwasserstandType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GrundwasserschwankungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Hoehenstabilitaet_aus_WdhmessgType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Hoehenfestpunkt_SBVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hoehenfestpunkt -->
+                    <element name="vermutete_Hoehenstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Vermarkungstraegers" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Topographie_und_Umwelt" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Baugrundes" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="geologische_Stabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserstand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserschwankung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hoehenstabilitaet_aus_Wdhmessg" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Punktnummer_SBV -->
+                    <element name="Punktnummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Hoehenpasspunkt_SBVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hoehenfestpunkt -->
+                    <element name="vermutete_Hoehenstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Vermarkungstraegers" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Topographie_und_Umwelt" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Baugrundes" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="geologische_Stabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserstand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserschwankung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hoehenstabilitaet_aus_Wdhmessg" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Punktnummer_SBV -->
+                    <element name="Punktnummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AufnahmepunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften ALKIS_Objekt -->
+                    <element name="Identifikator" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SicherungspunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften ALKIS_Objekt -->
+                    <element name="Identifikator" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="sonstiger_VermessungspunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften ALKIS_Objekt -->
+                    <element name="Identifikator" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="trigonometrischer_PunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lagefestpunkt -->
+                    <element name="Punktstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften AFIS_Punkt -->
+                    <element name="Punktkennung" 
+                        type="integer"/>
+                    <!-- Eigenschaften trigonometrischer_Punkt -->
+                    <element name="Ordnung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hierarchiestufe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Wertigkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hoehendiff_Pfeiler_ue_Platte" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Datum_der_Messung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Funktion_in_einer_Punktgruppe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ordnung_TPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Hierarchiestufe_TPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Wertigkeit_TPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Funktion_TPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="NivellementpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Festpunkt -->
+                    <element name="Katasteramt_Stellart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Katasteramt_Schluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="GPS_Tauglichkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Katasteramt_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemeinde" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="liegt_in_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Festpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hoehenfestpunkt -->
+                    <element name="vermutete_Hoehenstabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Vermarkungstraegers" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Topographie_und_Umwelt" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Guete_des_Baugrundes" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="geologische_Stabilitaet" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserstand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Grundwasserschwankung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hoehenstabilitaet_aus_Wdhmessg" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften AFIS_Punkt -->
+                    <element name="Punktkennung" 
+                        type="integer"/>
+                    <!-- Eigenschaften Nivellementpunkt -->
+                    <element name="Ordnung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ordnung_NivPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="ReferenzstationspunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Vermessungspunkt -->
+                    <element name="Name_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="interne_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nutzerspezifische_Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_oertliche_Ueberpruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Befund" 
+                        type="string" minOccurs="0"/>
+                    <element name="historische_Unterlagen" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Punktvermarkung" 
+                        type="okstra:PunktvermarkungPropertyType" minOccurs="0"/>
+                    <element name="hat_Punktort" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Vermessungspunkt_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Hoehe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Skizze" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Skizze</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_weiteren_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_weiterer_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_weiterer_Punkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_weiteren_Punkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grenzpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grenzpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Vermessungspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AFIS_Punkt -->
+                    <element name="Punktkennung" 
+                        type="integer"/>
+                    <!-- Eigenschaften Referenzstationspunkt -->
+                    <element name="Funktion_in_einer_Punktgruppe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Zeitraum_permanente_Messungen" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Offset_N_L1" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Offset_E_L1" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Offset_H_L1" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Offset_N_L2" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Offset_E_L2" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Offset_H_L2" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="PCV_L1" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="72">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>PCV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>PCV_L1_von_GPS_Antenne</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="PCV_L2" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="72">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>PCV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>PCV_L2_von_GPS_Antenne</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ISDN_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Funkfrequenz" 
+                        type="double" minOccurs="0"/>
+                    <element name="hat_GPS_Empfaenger" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GPS_Empfaenger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Referenzstationspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_GPS_Antenne" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GPS_Antenne</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Referenzstationspunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Funktion_RSPType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GPS_EmpfaengerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften GPS_Empfaenger -->
+                    <element name="Empfaengertyp" 
+                        type="string" minOccurs="0"/>
+                    <element name="Seriennummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Firmwareversion" 
+                        type="string" minOccurs="0"/>
+                    <element name="Aufbau_Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Aufbau_Uhrzeit" 
+                        type="okstra:Uhrzeit" minOccurs="0"/>
+                    <element name="Abbau_Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Abbau_Uhrzeit" 
+                        type="okstra:Uhrzeit" minOccurs="0"/>
+                    <element name="zusaetzliche_Informationen" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Referenzstationspunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Referenzstationspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GPS_Empfaenger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GPS_AntenneType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften GPS_Antenne -->
+                    <element name="Antennentyp" 
+                        type="string" minOccurs="0"/>
+                    <element name="Radometyp" 
+                        type="string" minOccurs="0"/>
+                    <element name="Antennenreferenzpunkt" 
+                        type="string" minOccurs="0"/>
+                    <element name="azimutale_Abweichung" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Antennenhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Hoehenoffset_zum_Phasenz_L1" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Hoehenoffset_zum_Phasenz_L2" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Aufbau_Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Aufbau_Uhrzeit" 
+                        type="okstra:Uhrzeit" minOccurs="0"/>
+                    <element name="Abbau_Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Abbau_Uhrzeit" 
+                        type="okstra:Uhrzeit" minOccurs="0"/>
+                    <element name="zusaetzliche_Informationen" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Referenzstationspunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Referenzstationspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GPS_Antenne</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PCVType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften PCV -->
+                    <element name="Winkel" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="Variation" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="PCV_L1_von_GPS_Antenne" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Referenzstationspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>PCV_L1</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="PCV_L2_von_GPS_Antenne" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Referenzstationspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>PCV_L2</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

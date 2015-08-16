@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Unfall.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1008/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1008/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.008">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Unfall:v1.008">Unfall.xsd v1.008</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.008, Schema Unfall
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Unfall                                                                        = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Unfall" type="okstra:UnfallType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Angaben_zum_Unfallort" type="okstra:Angaben_zum_UnfallortType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Fahrtrichtung" type="okstra:FahrtrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="kommunale_Strasse" type="okstra:kommunale_StrasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Unfallort_Strassenpunkt" type="okstra:Unfallort_StrassenpunktType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Angaben_zur_Unfallzeit" type="okstra:Angaben_zur_UnfallzeitType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Angaben_zum_Unfallgeschehen" type="okstra:Angaben_zum_UnfallgeschehenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Unfallart" type="okstra:UnfallartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Unfallursache" type="okstra:UnfallursacheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Unfallkategorie" type="okstra:UnfallkategorieType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Unfalltyp" type="okstra:UnfalltypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zu_Unfallumstaenden" type="okstra:Angaben_zu_UnfallumstaendenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Charakteristik_d_Unfallstelle" type="okstra:Charakteristik_d_UnfallstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Besonderheiten_d_Unfallstelle" type="okstra:Besonderheiten_d_UnfallstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrsregelung" type="okstra:VerkehrsregelungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lichtverhaeltnisse" type="okstra:LichtverhaeltnisseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strassenbefestigung" type="okstra:StrassenbefestigungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strassenzustand" type="okstra:StrassenzustandType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Witterung" type="okstra:WitterungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrsstufe" type="okstra:VerkehrsstufeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hindernisart" type="okstra:HindernisartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zu_Unfallbeteiligten" type="okstra:Angaben_zu_UnfallbeteiligtenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Unfallbeteiligter" type="okstra:UnfallbeteiligterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Geschlecht" type="okstra:GeschlechtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Verkehrsbeteiligung" type="okstra:Art_der_VerkehrsbeteiligungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wohnsitz_Ausl" type="okstra:Wohnsitz_AuslType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Verletzung" type="okstra:Art_der_VerletzungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Mitfahrer" type="okstra:MitfahrerType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Unfallfahrzeug" type="okstra:UnfallfahrzeugType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gefahrklasse" type="okstra:GefahrklasseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gefahrgutkennzeichen" type="okstra:GefahrgutkennzeichenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="DV_Merkmale_StaLa" type="okstra:DV_Merkmale_StaLaType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Unfall                                                                            = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="UnfallType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Unfall -->
+                    <element name="Paginiernummer" 
+                        type="string"/>
+                    <element name="laufende_jaehrliche_Nummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="lfd_Nr_d_Unfallhaeufungsstelle" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Unfallzeit" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_Unfallzeit</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Unfallgeschehen" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallgeschehen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Unfallumstaende" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Unfallumstaenden</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Unfallbeteiligte" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Unfallbeteiligten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="DV_Merkmale_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zum_UnfallortType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Angaben_zum_Unfallort -->
+                    <element name="Fahrtrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Teilabschnittsnummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="in_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="bei_Bauamt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="bei_Polizeidienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Polizeidienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ortslage_gemaess_SIB" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>OD_FS</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="auf_klassifizierter_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="auf_kommunaler_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>kommunale_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="bei_Betriebskilometer" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Betriebskilometer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Angaben_zum_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="an_Strassenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallort_Strassenpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="einm_klassifiz_Strasse_am_Anfg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>muendet_ein_am_Anfg_von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="einm_klassifiz_Strasse_am_Ende" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>muendet_ein_am_Ende_von_Unfall</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="einmuendende_kommunale_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>kommunale_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallort_einmuendend</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Unfallort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrtrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="kommunale_StrasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften kommunale_Strasse -->
+                    <element name="Strassenschluessel" 
+                        type="string"/>
+                    <element name="Hausnummer" 
+                        type="integer"/>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_kommunaler_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort_einmuendend" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>einmuendende_kommunale_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Unfallort_StrassenpunktType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften Unfallort_Strassenpunkt -->
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>an_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zur_UnfallzeitType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zur_Unfallzeit -->
+                    <element name="Unfalldatum" 
+                        type="okstra:Datum"/>
+                    <element name="Wochentag" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Unfallzeit" 
+                        type="okstra:Uhrzeit"/>
+                    <element name="Feiertag" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Unfallzeit</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zum_UnfallgeschehenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zum_Unfallgeschehen -->
+                    <element name="Unfallart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="vorlaeufige_Unfallursache" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="2"/>
+                    <element name="Unfallkategorie" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Unfalltyp" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Gesamtsachschaden" 
+                        type="okstra:Betrag" minOccurs="0"/>
+                    <element name="Waehrung_Gesamtsachschaden" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Kfz_fahrbereit" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Unfallgeschehen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfallartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfallursacheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfallkategorieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfalltypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zu_UnfallumstaendenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zu_Unfallumstaenden -->
+                    <element name="Charakteristik_d_Unfallstelle" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="3"/>
+                    <element name="Besonderheiten_d_Unfallstelle" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="3"/>
+                    <element name="Verkehrsregelung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="2"/>
+                    <element name="Geschwindigkeitsbegrenzung" 
+                        type="okstra:Stundenkilometer" minOccurs="0"/>
+                    <element name="Lichtverhaeltnisse" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="2"/>
+                    <element name="Strassenbefestigung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Strassenzustand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="3"/>
+                    <element name="Witterung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="3"/>
+                    <element name="Alkoholeinwirkung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Verkehrsflucht" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Aquaplaning" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Aufprall_auf_Hindernis" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_DTV_im_Gesamtquerschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DTV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Unfallumstaenden</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Unfallumstaende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Charakteristik_d_UnfallstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Besonderheiten_d_UnfallstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsregelungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="LichtverhaeltnisseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenbefestigungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenzustandType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WitterungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsstufeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HindernisartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zu_UnfallbeteiligtenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zu_Unfallbeteiligten -->
+                    <element name="Anzahl_der_Beteiligten" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_der_Getoeteten" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_der_Schwerverletzten" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_der_Leichtverletzten" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="hat_Unfallbeteiligte" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallbeteiligter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Ang_zu_Unfallbeteiligten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Unfallbeteiligte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfallbeteiligterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Unfallbeteiligter -->
+                    <element name="Alter_des_Beteiligten" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Geschlecht" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_spezifische_Unfallursachen" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="3"/>
+                    <element name="Art_der_Verkehrsbeteiligung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Ortskenntnisse_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Wohnsitz_Auslaender" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Nationalitaetenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Verletzung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Anzahl_Fahrzeugbenutzer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_getoetete_Mitfahrer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_schwerverl_Mitfahrer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Anzahl_leichtverl_Mitfahrer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Fahrerlaubnis_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Datum_Fahrerlaubnis" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Geburtsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Blutalkoholkonzentration" 
+                        type="okstra:Promille" minOccurs="0"/>
+                    <element name="Verkehrsflucht" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Ordnungsnummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_verletzte_Mitfahrer" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Mitfahrer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallteiligtem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zum_Kraftfahrzeug" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Unfallteiligtem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Ang_zu_Unfallbeteiligten" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Unfallbeteiligten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Unfallbeteiligte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GeschlechtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_VerkehrsbeteiligungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Wohnsitz_AuslType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_VerletzungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="MitfahrerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Mitfahrer -->
+                    <element name="laufende_Nummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Art_der_Verletzung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Geschlecht" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Alter_des_Mitfahrers" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Unfallteiligtem" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallbeteiligter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verletzte_Mitfahrer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UnfallfahrzeugType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Unfallfahrzeug -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nationalitaetenkennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="zulaessiges_Gesamtgewicht" 
+                        type="okstra:Kilogramm" minOccurs="0"/>
+                    <element name="Zusatzsignatur_LKR_und_PKW" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Freisetzung_von_Gefahrgut" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Jahr_Erstzulassung" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="Gefahrklasse" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Gefahrgutkennzeichen" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Hoehe_des_Sachschadens" 
+                        type="okstra:Betrag" minOccurs="0"/>
+                    <element name="Waehrung_Sachschaden" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Aufprall_auf_Hindernis" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Kfz_fahrbereit" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Leergewicht" 
+                        type="okstra:Kilogramm" minOccurs="0"/>
+                    <element name="Anhaenger_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Typschluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Fahrzeugart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Aufbauart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Motorleistung" 
+                        type="okstra:Kilowatt" minOccurs="0"/>
+                    <element name="Hubraum" 
+                        type="okstra:Kubikzentimeter" minOccurs="0"/>
+                    <element name="Hoechstgeschwindigkeit" 
+                        type="okstra:Stundenkilometer" minOccurs="0"/>
+                    <element name="Anzahl_der_Achsen" 
+                        type="okstra:Anzahl_zweistellig" minOccurs="0"/>
+                    <element name="Anzahl_angetriebene_Achsen" 
+                        type="okstra:Anzahl_einstellig" minOccurs="0"/>
+                    <element name="UN_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="sonstiges_befoerd_Gefahrgut" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nummer_der_Ausnahmeverordnung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Zusatzgutachten_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kfz_in_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_gemeldetes_Kfz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallteiligtem" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallbeteiligter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zum_Kraftfahrzeug</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GefahrklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GefahrgutkennzeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="DV_Merkmale_StaLaType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften DV_Merkmale_StaLa -->
+                    <element name="landesinterne_Angaben" 
+                        type="string" minOccurs="0"/>
+                    <element name="Sondererhebungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Berichtsjahr" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="Berichtsmonat" 
+                        type="okstra:Monat" minOccurs="0"/>
+                    <element name="Durchlaufnummer" 
+                        type="okstra:Anzahl_zweistellig" minOccurs="0"/>
+                    <element name="Fehlerbyte" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kennz_fuer_Materialergaenzung" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_DV_Merkmalen_StaLa</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfall" 
+                        type="okstra:ObjectRefType"  minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfall</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>DV_Merkmale_StaLa</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

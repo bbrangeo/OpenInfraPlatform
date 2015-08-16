@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: okstra_typen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo>1010/okstra_typen.xsd</appinfo>
+        <documentation xml:lang="de">
+            zentrales Schema fuer EXPRESS TYPE-Definitionen in OKSTRA(R) XML 1.010
+        </documentation>
+    </annotation>
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ========================================= -->
+    <!-- = Definition der verwendeten Grundtypen = -->
+    <!-- ========================================= -->
+    <!-- -->
+    <complexType name="MeasureType">
+        <simpleContent>
+            <extension base="double">
+                <attribute name="uom" type="anyURI"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="LengthType">
+        <simpleContent>
+            <extension base="okstra:MeasureType"/>
+        </simpleContent>
+    </complexType>
+    <complexType name="VelocityType">
+        <simpleContent>
+            <extension base="okstra:MeasureType"/>
+        </simpleContent>
+    </complexType>
+    <complexType name="AngleType">
+        <simpleContent>
+            <extension base="okstra:MeasureType"/>
+        </simpleContent>
+    </complexType>
+    <complexType name="AreaType">
+        <simpleContent>
+            <extension base="okstra:MeasureType"/>
+        </simpleContent>
+    </complexType>
+    <complexType name="VolumeType">
+        <simpleContent>
+            <extension base="okstra:MeasureType"/>
+        </simpleContent>
+    </complexType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Strassennetz                                  = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="Strassennummer">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Zusatzbuchstabe">
+        <restriction base="string" />
+    </simpleType>
+    <simpleType name="TK25_Blattnummer">
+        <restriction base="string" />
+    </simpleType>
+    <simpleType name="lfd_NK_Nummer">
+        <restriction base="string" />
+    </simpleType>
+    <simpleType name="Nullpunktkennung">
+        <restriction base="string" />
+    </simpleType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Bauwerke                                      = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="Schadensbewertung">
+        <restriction base="integer" />
+    </simpleType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Achslastdaten                                 = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="Klassenwert">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Anzahl_Klassen">
+        <restriction base="integer" />
+    </simpleType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Statische_Beschilderung                       = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="Wegweisernummer">
+        <restriction base="string" />
+    </simpleType>
+    <simpleType name="Bilddatei">
+        <restriction base="anyURI" />
+    </simpleType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Allgemeine_Objekte                            = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="Datum">
+        <restriction base="date" />
+    </simpleType>
+    <simpleType name="Uhrzeit">
+        <restriction base="time" />
+    </simpleType>
+    <simpleType name="Jahr">
+        <restriction base="gYear" />
+    </simpleType>
+    <simpleType name="Monat">
+        <restriction base="gMonth" />
+    </simpleType>
+    <simpleType name="Woche">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Tag">
+        <restriction base="gDay" />
+    </simpleType>
+    <simpleType name="Stunde">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Minute">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Anzahl">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Anzahl_einstellig">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Anzahl_zweistellig">
+        <restriction base="integer" />
+    </simpleType>
+    <complexType name="Groesse">
+        <simpleContent>
+            <extension base="okstra:MeasureType" />
+        </simpleContent>
+    </complexType>
+    <simpleType name="Tage">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Millisekunden">
+        <restriction base="integer" />
+    </simpleType>
+    <complexType name="Meter">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="m" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Dezimeter">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="dm" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Zentimeter">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="cm" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Millimeter">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="mm" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Mikrometer">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="%B5m" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Kubikzentimeter">
+        <simpleContent>
+            <restriction base="okstra:VolumeType">
+                <attribute name="uom" type="anyURI" fixed="mcm%B3" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Kilometer">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="km" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Meter_ueber_NN">
+        <simpleContent>
+            <restriction base="okstra:LengthType">
+                <attribute name="uom" type="anyURI" fixed="m" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Quadratmeter">
+        <simpleContent>
+            <restriction base="okstra:AreaType">
+                <attribute name="uom" type="anyURI" fixed="m%B2" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Quadratmillimeter">
+        <simpleContent>
+            <restriction base="okstra:AreaType">
+                <attribute name="uom" type="anyURI" fixed="mm%B2" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Tonnen">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="t" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Prozent">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="m%25" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Gon">
+        <simpleContent>
+            <restriction base="okstra:Winkel">
+                <attribute name="uom" type="anyURI" fixed="Gon" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Winkel">
+        <simpleContent>
+            <extension base="okstra:AngleType" />
+        </simpleContent>
+    </complexType>
+    <complexType name="Grad">
+        <simpleContent>
+            <restriction base="okstra:Winkel">
+                <attribute name="uom" type="anyURI" fixed="%B0" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Newton_pro_Quadratmillimeter">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="N%2Fmm%B2" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Kilonewton">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="kN" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <simpleType name="Kilonewton_pro_Quadratmeter">
+        <restriction base="double" />
+    </simpleType>
+    <complexType name="Kilogramm">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="kg" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Kilogramm_pro_Quadratmeter">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="kg%2Fm%B2" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <simpleType name="Kilogramm_pro_Kubikmeter">
+        <restriction base="double" />
+    </simpleType>
+    <complexType name="cd_pro_Quadratmeter">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="cd%2Fm%B2" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Promille">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="Promille" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Lux">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="lux" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Kilowatt">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="kW" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Grad_Celsius">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="%B0C" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Hektopascal">
+        <simpleContent>
+            <restriction base="okstra:MeasureType">
+                <attribute name="uom" type="anyURI" fixed="hP" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Stundenkilometer">
+        <simpleContent>
+            <restriction base="okstra:VelocityType">
+                <attribute name="uom" type="anyURI" fixed="km%2Fh" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Meter_pro_Sekunde">
+        <simpleContent>
+            <restriction base="okstra:VelocityType">
+                <attribute name="uom" type="anyURI" fixed="m%2Fs" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Millimeter_pro_Stunde">
+        <simpleContent>
+            <restriction base="okstra:VelocityType">
+                <attribute name="uom" type="anyURI" fixed="mm%2Fh" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Betrag">
+        <simpleContent>
+            <extension base="okstra:MeasureType" />
+        </simpleContent>
+    </complexType>
+    <complexType name="DM">
+        <simpleContent>
+            <restriction base="okstra:Betrag">
+                <attribute name="uom" type="anyURI" fixed="DM" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="EURO">
+        <simpleContent>
+            <restriction base="okstra:Betrag">
+                <attribute name="uom" type="anyURI" fixed="EUR" />
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <simpleType name="dpi">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Farbtiefe">
+        <restriction base="integer" />
+    </simpleType>
+    <simpleType name="Zustaendigkeit">
+        <restriction base="string" />
+    </simpleType>
+    <simpleType name="Erfassungsqualitaet">
+        <restriction base="string" />
+    </simpleType>
+    <!-- -->
+    <!-- ================================================= -->
+    <!-- = globaler simpleType fuer jeden TYPE im Schema = -->
+    <!-- = Allgemeine_Geometrieobjekte                   = -->
+    <!-- ================================================= -->
+    <!-- -->
+    <simpleType name="RGB_Farbwert">
+        <restriction base="integer" />
+    </simpleType>
+</schema>

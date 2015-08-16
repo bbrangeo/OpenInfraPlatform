@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Statische_Beschilderung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1013/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1013/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.013">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Statische_Beschilderung:v1.013">S_Statische_Beschilderung.xsd v1.013</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.013, Schema S_Statische_Beschilderung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Statische_Beschilderung                                                     = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Wegweiser" type="okstra:WegweiserType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Wegweiser_statisch" type="okstra:Wegweiser_statischType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Wegweiser_dynamisch" type="okstra:Wegweiser_dynamischType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Art_Wegweiser_dynamisch" type="okstra:Art_Wegweiser_dynamischType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="komplexer_Wegweiser" type="okstra:komplexer_WegweiserType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wegweisertyp" type="okstra:WegweisertypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="lichttechnische_Bauart" type="okstra:lichttechnische_BauartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Lesbarkeit" type="okstra:LesbarkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strassenbezug" type="okstra:StrassenbezugType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="StVO_Zeichennummer" type="okstra:StVO_ZeichennummerType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundfarbe_Wegweiser" type="okstra:Grundfarbe_WegweiserType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrszeichentraeger" type="okstra:VerkehrszeichentraegerType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Einzel_Mehrfach_Schild" type="okstra:Einzel_Mehrfach_SchildType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Beleuchtung_Verkehrszeichen" type="okstra:Beleuchtung_VerkehrszeichenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Groesse_Verkehrszeichen" type="okstra:Groesse_VerkehrszeichenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Standort_Wegweiser" type="okstra:Standort_WegweiserType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Aufstellvorrichtung_VZT" type="okstra:Aufstellvorrichtung_VZTType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Art_der_Aufstellvorrichtung" type="okstra:Art_der_AufstellvorrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Material_Aufstellvorrichtung" type="okstra:Material_AufstellvorrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wegweiserinhalt" type="okstra:WegweiserinhaltType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="komplexer_Wegweiserinhalt" type="okstra:komplexer_WegweiserinhaltType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Inhaltstyp" type="okstra:InhaltstypType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schriftart" type="okstra:SchriftartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schriftfarbe" type="okstra:SchriftfarbeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schriftgroesse" type="okstra:SchriftgroesseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundfarbe_Wegweiserinhalt" type="okstra:Grundfarbe_WegweiserinhaltType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Symbol_graphisch" type="okstra:Symbol_graphischType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pfeilart" type="okstra:PfeilartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pfeilgrundform" type="okstra:PfeilgrundformType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pfeilspitze" type="okstra:PfeilspitzeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pfeilschaft" type="okstra:PfeilschaftType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Referenzzielangabe" type="okstra:ReferenzzielangabeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Synonym_Zielangabe" type="okstra:Synonym_ZielangabeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zielkategorie" type="okstra:ZielkategorieType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrszeichen_amtlich" type="okstra:Verkehrszeichen_amtlichType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Verkehrszeichen_nichtamtl" type="okstra:Verkehrszeichen_nichtamtlType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Art_VZ_nichtamtl" type="okstra:Art_VZ_nichtamtlType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Statische_Beschilderung                                                         = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wegweiser -->
+                    <element name="Wegweisernummer" 
+                        type="okstra:Wegweisernummer" minOccurs="0"/>
+                    <element name="Aufstellungszeitpunkt" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Wegweisertyp" 
+                        type="okstra:WegweisertypPropertyType" minOccurs="0"/>
+                    <element name="lichttechnische_Bauart" 
+                        type="okstra:lichttechnische_BauartPropertyType" minOccurs="0"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="StVO_Zeichen" 
+                        type="okstra:StVO_ZeichennummerPropertyType" minOccurs="0"/>
+                    <element name="lichte_Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Grundfarbe" 
+                        type="okstra:Grundfarbe_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="Reiter" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Einzel_Mehrfach_SchildPropertyType" minOccurs="0"/>
+                    <element name="auf_Verkehrszeichentraeger" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrszeichentraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_komplexem_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Knoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Verkehrseinschraenkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrseinschraenkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wegweiser_statischType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wegweiser -->
+                    <element name="Wegweisernummer" 
+                        type="okstra:Wegweisernummer" minOccurs="0"/>
+                    <element name="Aufstellungszeitpunkt" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Wegweisertyp" 
+                        type="okstra:WegweisertypPropertyType" minOccurs="0"/>
+                    <element name="lichttechnische_Bauart" 
+                        type="okstra:lichttechnische_BauartPropertyType" minOccurs="0"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="StVO_Zeichen" 
+                        type="okstra:StVO_ZeichennummerPropertyType" minOccurs="0"/>
+                    <element name="lichte_Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Grundfarbe" 
+                        type="okstra:Grundfarbe_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="Reiter" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Einzel_Mehrfach_SchildPropertyType" minOccurs="0"/>
+                    <element name="auf_Verkehrszeichentraeger" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrszeichentraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_komplexem_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Knoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Verkehrseinschraenkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrseinschraenkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wegweiser_dynamischType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wegweiser -->
+                    <element name="Wegweisernummer" 
+                        type="okstra:Wegweisernummer" minOccurs="0"/>
+                    <element name="Aufstellungszeitpunkt" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Wegweisertyp" 
+                        type="okstra:WegweisertypPropertyType" minOccurs="0"/>
+                    <element name="lichttechnische_Bauart" 
+                        type="okstra:lichttechnische_BauartPropertyType" minOccurs="0"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <element name="StVO_Zeichen" 
+                        type="okstra:StVO_ZeichennummerPropertyType" minOccurs="0"/>
+                    <element name="lichte_Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Grundfarbe" 
+                        type="okstra:Grundfarbe_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="Reiter" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Einzel_Mehrfach_SchildPropertyType" minOccurs="0"/>
+                    <element name="auf_Verkehrszeichentraeger" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrszeichentraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_komplexem_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Knoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Verkehrseinschraenkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrseinschraenkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wegweiser_dynamisch -->
+                    <element name="Art_Wegweiser_dynamisch" 
+                        type="okstra:Art_Wegweiser_dynamischPropertyType"/>
+                    <element name="zu_dyn_verkehrsreg_Beschild" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>dyn_verkehrsreg_Beschilderung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Wegweiser_dynamischPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Wegweiser_dynamisch" type="okstra:Art_Wegweiser_dynamischType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Wegweiser_dynamischType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Wegweiser_dynamisch -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="komplexer_WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften komplexer_Wegweiser -->
+                    <element name="hat_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_komplexem_Wegweiser</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WegweisertypPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Wegweisertyp" type="okstra:WegweisertypType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WegweisertypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Wegweisertyp -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="lichttechnische_BauartPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="lichttechnische_Bauart" type="okstra:lichttechnische_BauartType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="lichttechnische_BauartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften lichttechnische_Bauart -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LesbarkeitPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Lesbarkeit" type="okstra:LesbarkeitType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LesbarkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Lesbarkeit -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenbezugPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Strassenbezug" type="okstra:StrassenbezugType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenbezugType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbezug -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StVO_ZeichennummerPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="StVO_Zeichennummer" type="okstra:StVO_ZeichennummerType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StVO_ZeichennummerType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften StVO_Zeichennummer -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundfarbe_WegweiserPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Grundfarbe_Wegweiser" type="okstra:Grundfarbe_WegweiserType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundfarbe_WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Grundfarbe_Wegweiser -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrszeichentraegerType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Verkehrszeichentraeger -->
+                    <element name="Breite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Groesse" 
+                        type="okstra:Groesse_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Standort" 
+                        type="okstra:Standort_WegweiserPropertyType" minOccurs="0"/>
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="an_Aufstellvorrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_VZT</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Verkehrszeichentraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="stellt_Teilhindernis_dar" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilhindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Verkehrszeichentraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Verkehrszeichentraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Einzel_Mehrfach_SchildPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Einzel_Mehrfach_Schild" type="okstra:Einzel_Mehrfach_SchildType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Einzel_Mehrfach_SchildType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Einzel_Mehrfach_Schild -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Beleuchtung_VerkehrszeichenPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Beleuchtung_Verkehrszeichen" type="okstra:Beleuchtung_VerkehrszeichenType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Beleuchtung_VerkehrszeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Beleuchtung_Verkehrszeichen -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Groesse_VerkehrszeichenPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Groesse_Verkehrszeichen" type="okstra:Groesse_VerkehrszeichenType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Groesse_VerkehrszeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Groesse_Verkehrszeichen -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Standort_WegweiserPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Standort_Wegweiser" type="okstra:Standort_WegweiserType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Standort_WegweiserType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Standort_Wegweiser -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Aufstellvorrichtung_VZTType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Aufstellvorrichtung_VZT -->
+                    <element name="Durchmesser" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Dicke" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Art_der_Aufstellvorrichtung" 
+                        type="okstra:Art_der_AufstellvorrichtungPropertyType" minOccurs="0"/>
+                    <element name="Material_Aufstellvorrichtung" 
+                        type="okstra:Material_AufstellvorrichtungPropertyType" minOccurs="0"/>
+                    <element name="von_Verkehrszeichentraeger" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrszeichentraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>an_Aufstellvorrichtung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AufstellvorrichtungPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_der_Aufstellvorrichtung" type="okstra:Art_der_AufstellvorrichtungType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_AufstellvorrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Aufstellvorrichtung -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_AufstellvorrichtungPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Material_Aufstellvorrichtung" type="okstra:Material_AufstellvorrichtungType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_AufstellvorrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Material_Aufstellvorrichtung -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WegweiserinhaltType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Wegweiserinhalt -->
+                    <element name="Inhaltstyp" 
+                        type="okstra:InhaltstypPropertyType" minOccurs="0"/>
+                    <element name="Schriftart" 
+                        type="okstra:SchriftartPropertyType" minOccurs="0"/>
+                    <element name="Schriftfarbe" 
+                        type="okstra:SchriftfarbePropertyType" minOccurs="0"/>
+                    <element name="Schriftgroesse" 
+                        type="okstra:SchriftgroessePropertyType" minOccurs="0"/>
+                    <element name="Distanz_zum_Entscheidungspunkt" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Entfernung_zum_Ziel" 
+                        type="okstra:Kilometer" minOccurs="0"/>
+                    <element name="graphisches_Symbol" 
+                        type="okstra:Symbol_graphischPropertyType" minOccurs="0"/>
+                    <element name="Strassennummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Knotennummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="StVO_Zeichennummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Grundfarbe" 
+                        type="okstra:Grundfarbe_WegweiserinhaltPropertyType" minOccurs="0"/>
+                    <element name="Pfeilart" 
+                        type="okstra:PfeilartPropertyType" minOccurs="0"/>
+                    <element name="Pfeilgrundform" 
+                        type="okstra:PfeilgrundformPropertyType" minOccurs="0"/>
+                    <element name="Pfeilspitze" 
+                        type="okstra:PfeilspitzePropertyType" minOccurs="0"/>
+                    <element name="Pfeilschaft" 
+                        type="okstra:PfeilschaftPropertyType" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="mit_Zielangabe" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zielangabe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_komplexem_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>komplexer_Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiserinhalte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strassenelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nach_Strassenelement" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>nach_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="komplexer_WegweiserinhaltType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften komplexer_Wegweiserinhalt -->
+                    <element name="hat_Wegweiserinhalte" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_komplexem_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="InhaltstypPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Inhaltstyp" type="okstra:InhaltstypType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="InhaltstypType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Inhaltstyp -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftartPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Schriftart" type="okstra:SchriftartType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Schriftart -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftfarbePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Schriftfarbe" type="okstra:SchriftfarbeType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftfarbeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Schriftfarbe -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftgroessePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Schriftgroesse" type="okstra:SchriftgroesseType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchriftgroesseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Schriftgroesse -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundfarbe_WegweiserinhaltPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Grundfarbe_Wegweiserinhalt" type="okstra:Grundfarbe_WegweiserinhaltType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundfarbe_WegweiserinhaltType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Grundfarbe_Wegweiserinhalt -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Symbol_graphischPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Symbol_graphisch" type="okstra:Symbol_graphischType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Symbol_graphischType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Symbol_graphisch -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilartPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Pfeilart" type="okstra:PfeilartType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Pfeilart -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilgrundformPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Pfeilgrundform" type="okstra:PfeilgrundformType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilgrundformType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Pfeilgrundform -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilspitzePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Pfeilspitze" type="okstra:PfeilspitzeType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilspitzeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Pfeilspitze -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilschaftPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Pfeilschaft" type="okstra:PfeilschaftType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PfeilschaftType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Pfeilschaft -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ReferenzzielangabeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zielangabe -->
+                    <element name="Text" 
+                        type="string"/>
+                    <element name="Zielkategorie" 
+                        type="okstra:ZielkategoriePropertyType" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_Zielangabe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Referenzzielangabe -->
+                    <element name="hat_Synonym" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Synonym_Zielangabe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Referenz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Synonym_ZielangabeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zielangabe -->
+                    <element name="Text" 
+                        type="string"/>
+                    <element name="Zielkategorie" 
+                        type="okstra:ZielkategoriePropertyType" minOccurs="0"/>
+                    <element name="Kommentar" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_Zielangabe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Synonym_Zielangabe -->
+                    <element name="zu_Referenz" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Referenzzielangabe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Synonym</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZielkategoriePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Zielkategorie" type="okstra:ZielkategorieType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZielkategorieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Zielkategorie -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrszeichen_amtlichType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Verkehrszeichen -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Verkehrszeichen_amtlich -->
+                    <element name="StVO_ZNr" 
+                        type="okstra:StVO_ZeichennummerPropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Einzel_Mehrfach_SchildPropertyType" minOccurs="0"/>
+                    <element name="Beleuchtung" 
+                        type="okstra:Beleuchtung_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Groesse" 
+                        type="okstra:Groesse_VerkehrszeichenPropertyType" minOccurs="0"/>
+                    <element name="Verdeckbar" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="stellt_Teilhindernis_dar" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilhindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Verkehrszeichen_amtlich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Verkehrseinschraenkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrseinschraenkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verkehrszeichen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrszeichen_nichtamtlType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Verkehrszeichen -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="Lesbarkeit" 
+                        type="okstra:LesbarkeitPropertyType" minOccurs="0"/>
+                    <element name="Strassenbezug" 
+                        type="okstra:StrassenbezugPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Verkehrszeichen_nichtamtl -->
+                    <element name="Art" 
+                        type="okstra:Art_VZ_nichtamtlPropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_VZ_nichtamtlPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_VZ_nichtamtl" type="okstra:Art_VZ_nichtamtlType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_VZ_nichtamtlType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_VZ_nichtamtl -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

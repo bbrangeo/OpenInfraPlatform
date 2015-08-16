@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: okstra.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo>1010/okstra.xsd</appinfo>
+        <documentation xml:lang="de">
+            zentrales Schema zum Include von Schemata in OKSTRA(R) XML 1.010
+        </documentation>
+    </annotation>
+    <include schemaLocation="Strassennetz.xsd" />
+    <include schemaLocation="Administration.xsd" />
+    <include schemaLocation="Verkehr.xsd" />
+    <include schemaLocation="Bauliche_Strasseneigenschaften.xsd" />
+    <include schemaLocation="Strassenausstattungen.xsd" />
+    <include schemaLocation="Strassenzustandsdaten.xsd" />
+    <include schemaLocation="Bauwerke.xsd" />
+    <include schemaLocation="Entwurf.xsd" />
+    <include schemaLocation="Ingenieurbauwerke.xsd" />
+    <include schemaLocation="Projektressourcen.xsd" />
+    <include schemaLocation="Ausstattung.xsd" />
+    <include schemaLocation="Automatische_Dauerzaehlstelle.xsd" />
+    <include schemaLocation="Verkehrsstaerke.xsd" />
+    <include schemaLocation="Erfassung_Geschwindigkeiten.xsd" />
+    <include schemaLocation="Achslastdaten.xsd" />
+    <include schemaLocation="Einzelfahrzeugdaten.xsd" />
+    <include schemaLocation="Manuelle_Zaehlstelle.xsd" />
+    <include schemaLocation="Umfeldmessstelle.xsd" />
+    <include schemaLocation="Unfall.xsd" />
+    <include schemaLocation="Dynamische_Beschilderung.xsd" />
+    <include schemaLocation="Statische_Beschilderung.xsd" />
+    <include schemaLocation="Lichtsignalanlage.xsd" />
+    <include schemaLocation="Historisierung.xsd" />
+    <include schemaLocation="Allgemeine_Objekte.xsd" />
+    <include schemaLocation="Allgemeine_Geometrieobjekte.xsd" />
+    <include schemaLocation="Grunderwerb.xsd" />
+    <include schemaLocation="Vermessungspunkt.xsd" />
+    <include schemaLocation="Kataster.xsd" />
+    <include schemaLocation="Kostenberechnung.xsd" />
+    <include schemaLocation="Oekologie.xsd" />
+    <include schemaLocation="MELVER.xsd" />
+    <include schemaLocation="Kreuzungen.xsd" />
+    <include schemaLocation="Arbeitsstelle_an_Strassen.xsd" />
+    <include schemaLocation="Topografie.xsd" />
+</schema>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Ingenieurbauwerke.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Ingenieurbauwerke:v1.010">Ingenieurbauwerke.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Ingenieurbauwerke
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Ingenieurbauwerke                                                             = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Bauwerkseinzelheiten" type="okstra:BauwerkseinzelheitenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Ingenieurbauwerke                                                                 = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="BauwerkseinzelheitenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften allgemeine_Eigenschaften -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften Bauwerkseinzelheiten -->
+                    <element name="Bauwerksnummer" 
+                        type="integer"/>
+                    <element name="Bauwerksname" 
+                        type="string"/>
+                    <element name="Bau_km" 
+                        type="okstra:Kilometer"/>
+                    <element name="Brueckenklasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kreuzungswinkel" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="lichte_Weite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="lichte_Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Konstruktionshoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Nutzbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bauwerkseinzelheiten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="geh_zu_kreuz_Bauw_o_baul_Anl" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>kreuzende_Bauwerke_o_baul_Anl</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bauwerkseinzelheiten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

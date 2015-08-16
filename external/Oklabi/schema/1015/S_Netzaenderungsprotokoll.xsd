@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Netzaenderungsprotokoll.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1015/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1015/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.015">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Netzaenderungsprotokoll:v1.015">S_Netzaenderungsprotokoll.xsd v1.015</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.015, Schema S_Netzaenderungsprotokoll
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ========================================================== -->
+    <!-- = globale Elemente fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Netzaenderungsprotokoll                              = -->
+    <!-- ========================================================== -->
+    <!-- -->
+    <element name="Netzaenderungstransaktion" type="okstra:NetzaenderungstransaktionType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="NK_umbenennen" type="okstra:NK_umbenennenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="NP_umbenennen" type="okstra:NP_umbenennenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_anlegen" type="okstra:AOA_anlegenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_Laenge_aendern" type="okstra:AOA_Laenge_aendernType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_Teilgeometrie_aendern" type="okstra:AOA_Teilgeometrie_aendernType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_Teilabschnitt_einfuegen" type="okstra:AOA_Teilabschnitt_einfuegenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_Teilabschnitt_loeschen" type="okstra:AOA_Teilabschnitt_loeschenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_spalten" type="okstra:AOA_spaltenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_verschmelzen" type="okstra:AOA_verschmelzenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_drehen" type="okstra:AOA_drehenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="AOA_loeschen" type="okstra:AOA_loeschenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Netzaenderungsprotokoll                                  = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="NetzaenderungstransaktionType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungstransaktion -->
+                    <element name="Transaktionsnummer" 
+                        type="string"/>
+                    <element name="Transaktionsbezeichnung" 
+                        type="string"/>
+                    <element name="Wirksamkeitsdatum" 
+                        type="okstra:Datum"/>
+                    <element name="erzeugendes_System" 
+                        type="string"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Operation" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungsoperation</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Transaktion</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NK_umbenennenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften NK_umbenennen -->
+                    <element name="Netzknotennummer_alt" 
+                        type="okstra:Netzknotennummer"/>
+                    <element name="Netzknotennummer_neu" 
+                        type="okstra:Netzknotennummer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NP_umbenennenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften NP_umbenennen -->
+                    <element name="Nullpunktnummer_alt" 
+                        type="okstra:Nullpunktnummer"/>
+                    <element name="Nullpunktnummer_neu" 
+                        type="okstra:Nullpunktnummer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_anlegenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften AOA_anlegen -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Laenge" 
+                        type="okstra:Kilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_Laenge_aendernType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_Laenge_aendern -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Laenge_neu" 
+                        type="okstra:Kilometer"/>
+                    <element name="Anfangsstation" 
+                        type="okstra:Kilometer"/>
+                    <element name="Endstation" 
+                        type="okstra:Kilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_Teilgeometrie_aendernType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften AOA_Teilgeometrie_aendern -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Anfangsstation" 
+                        type="okstra:Kilometer"/>
+                    <element name="Endstation" 
+                        type="okstra:Kilometer"/>
+                    <element name="Gesamtgeometrie_neu" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Liniengeometrie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_AOA_Teilgeometrie_aendern</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_Teilabschnitt_einfuegenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_Teilabschnitt_einfuegen -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Station" 
+                        type="okstra:Kilometer"/>
+                    <element name="Laenge" 
+                        type="okstra:Kilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_Teilabschnitt_loeschenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_Teilabschnitt_loeschen -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Anfangsstation" 
+                        type="okstra:Kilometer"/>
+                    <element name="Endstation" 
+                        type="okstra:Kilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_spaltenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_spalten -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="Nullpunktnummer" 
+                        type="okstra:Nullpunktnummer"/>
+                    <element name="Station" 
+                        type="okstra:Kilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_verschmelzenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_verschmelzen -->
+                    <element name="AOA_Kennung_1" 
+                        type="okstra:AOA_Kennung"/>
+                    <element name="AOA_Kennung_2" 
+                        type="okstra:AOA_Kennung"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_drehenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_drehen -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AOA_loeschenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzaenderungsoperation -->
+                    <element name="Operation_ID" 
+                        type="string"/>
+                    <element name="in_Transaktion" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzaenderungstransaktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Operation</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften AOA_loeschen -->
+                    <element name="AOA_Kennung" 
+                        type="okstra:AOA_Kennung"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

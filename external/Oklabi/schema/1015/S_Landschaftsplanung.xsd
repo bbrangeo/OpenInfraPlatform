@@ -1,0 +1,2239 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Landschaftsplanung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1015/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1015/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.015">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Landschaftsplanung:v1.015">S_Landschaftsplanung.xsd v1.015</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.015, Schema S_Landschaftsplanung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ========================================================== -->
+    <!-- = globale Elemente fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Landschaftsplanung                                   = -->
+    <!-- ========================================================== -->
+    <!-- -->
+    <element name="Leistungsbeschreibung_STLK" type="okstra:Leistungsbeschreibung_STLKType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Folgetext_STLK" type="okstra:Folgetext_STLKType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lpf_Teilelement" type="okstra:Lpf_TeilelementType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Biotopkomplex" type="okstra:BiotopkomplexType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Biotop" type="okstra:BiotopType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Biotopentwicklung" type="okstra:BiotopentwicklungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Fundstelle_biologische_Art" type="okstra:Fundstelle_biologische_ArtType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Pflanzenart" type="okstra:PflanzenartType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tierart" type="okstra:TierartType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Habitat" type="okstra:HabitatType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="FFH_Lebensraumtyp" type="okstra:FFH_LebensraumtypType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Funktionsbeziehung" type="okstra:FunktionsbeziehungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Boden" type="okstra:BodenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Grundwasserfliessrichtung" type="okstra:GrundwasserfliessrichtungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kalt_Frischluftbahn" type="okstra:Kalt_FrischluftbahnType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Landschaftsbildelement" type="okstra:LandschaftsbildelementType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lpf_Objekt" type="okstra:Lpf_ObjektType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Konflikt_LBP" type="okstra:Konflikt_LBPType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Konfliktbestandteil" type="okstra:KonfliktbestandteilType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wirkzone" type="okstra:WirkzoneType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Planungsraum" type="okstra:PlanungsraumType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Bezugsraum" type="okstra:BezugsraumType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lpf_Projekt" type="okstra:Lpf_ProjektType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Lpf_Einzelmassnahme" type="okstra:Lpf_EinzelmassnahmeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Lpf_Massnahmenkomplex" type="okstra:Lpf_MassnahmenkomplexType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Lpf_Einzelkomplexmassnahme" type="okstra:Lpf_EinzelkomplexmassnahmeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Lpf_Massnahmenbegruendung" type="okstra:Lpf_MassnahmenbegruendungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ============================================================== -->
+    <!-- = globale complexTypes fuer instanzierbare ENTITYs im Schema = -->
+    <!-- = S_Landschaftsplanung                                       = -->
+    <!-- ============================================================== -->
+    <!-- -->
+    <complexType name="Leistungsbeschreibung_STLKType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Leistungsbeschreibung_STLK -->
+                    <element name="STLK_RLK_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Auflage_LB" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kurztext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Langtext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Freitext" 
+                        type="integer"/>
+                    <element name="Menge" 
+                        type="double" minOccurs="0"/>
+                    <element name="Einheit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Einheitspreis" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Ordnungszahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Folgetext" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Folgetext_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Leistungsbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_STLK_Bezugsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>STLK_Bezugsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leistungsbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Folgetext_STLKType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Folgetext_STLK -->
+                    <element name="Folgetextgruppe" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Folgetextnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kurztext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Langtext" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Folgetext</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_TeilelementType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Teilelement -->
+                    <element name="Info" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Wert_Funktionselement" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wert_Funktionselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lpf_Teilelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BiotopkomplexType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften STLK_Bezugsobjekt -->
+                    <element name="hat_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_STLK_Bezugsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Superobjekt -->
+                    <element name="gehoert_zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lpf_Superobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Biotopkomplex -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="besteht_aus_Biotop" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotop</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Biotopkomplex</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BiotopType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften STLK_Bezugsobjekt -->
+                    <element name="hat_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_STLK_Bezugsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Superobjekt -->
+                    <element name="gehoert_zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lpf_Superobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Biotop -->
+                    <element name="Biotoptyp" 
+                        type="okstra:BiotoptypPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Flaechengroesse" 
+                        type="okstra:Hektar" minOccurs="0"/>
+                    <element name="Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="gehoert_zu_Biotopkomplex" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotopkomplex</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>besteht_aus_Biotop</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ausgangsbiotop_von" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotopentwicklung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ausgangsbiotop</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Zielbiotop_von" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotopentwicklung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zielbiotop</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BiotopentwicklungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Biotopentwicklung -->
+                    <element name="hat_Ausgangsbiotop" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotop</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ausgangsbiotop_von</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zielbiotop" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotop</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Zielbiotop_von</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>umfasst_Biotopentwicklung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Fundstelle_biologische_ArtType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fundstelle_biologische_Art -->
+                    <element name="von_biologischer_Art" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Fundstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PflanzenartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften biologische_Art -->
+                    <element name="deutscher_Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="wissenschaftlicher_Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kurzbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Schutzstatus" 
+                        type="okstra:SchutzstatusPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gehoert_zu_Artengruppe" 
+                        type="okstra:ArtengruppePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gesichert_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>sichert_biologische_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Fundstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fundstelle_biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_biologischer_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Funktionsbeziehung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Funktionsbeziehung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuer_biologische_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Habitat" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Habitat</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_biologischer_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TierartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften biologische_Art -->
+                    <element name="deutscher_Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="wissenschaftlicher_Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kurzbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Schutzstatus" 
+                        type="okstra:SchutzstatusPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gehoert_zu_Artengruppe" 
+                        type="okstra:ArtengruppePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gesichert_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>sichert_biologische_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Fundstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fundstelle_biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_biologischer_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Funktionsbeziehung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Funktionsbeziehung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuer_biologische_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Habitat" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Habitat</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_biologischer_Art</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HabitatType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Habitat -->
+                    <element name="von_biologischer_Art" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Habitat</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FFH_LebensraumtypType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften STLK_Bezugsobjekt -->
+                    <element name="hat_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_STLK_Bezugsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Superobjekt -->
+                    <element name="gehoert_zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lpf_Superobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften FFH_Lebensraumtyp -->
+                    <element name="Angabe_FFH_Lebensraumtyp" 
+                        type="okstra:Tab_FFH_LebensraumtypPropertyType"/>
+                    <element name="gesichert_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>sichert_FFH_Lebensraumtyp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FunktionsbeziehungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Funktionsbeziehung -->
+                    <element name="Art" 
+                        type="okstra:Art_FunktionsbeziehungPropertyType"/>
+                    <element name="fuer_biologische_Art" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Funktionsbeziehung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BodenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Boden -->
+                    <element name="Bodenart" 
+                        type="okstra:BodenartPropertyType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GrundwasserfliessrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Grundwasserfliessrichtung -->
+                    <element name="Richtungswinkel" 
+                        type="okstra:Richtungswinkel"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kalt_FrischluftbahnType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Kalt_Frischluftbahn -->
+                    <element name="Richtungswinkel" 
+                        type="okstra:Richtungswinkel"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LandschaftsbildelementType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Landschaftsbildelement -->
+                    <element name="Art" 
+                        type="okstra:Art_LandschaftsbildelementPropertyType"/>
+                    <element name="sonstige_Art" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_ObjektType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Streckenobjekt -->
+                    <element name="hat_Strecke"
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verallgemeinerte_Strecke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Streckenobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:BestandsstatusPropertyType"/>
+                    <!-- Eigenschaften Wert_Funktionselement -->
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Lpf_Teilelement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Teilelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betr_Wert_Funktionselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften STLK_Bezugsobjekt -->
+                    <element name="hat_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung_STLK</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_STLK_Bezugsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Superobjekt -->
+                    <element name="gehoert_zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lpf_Superobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Objekt -->
+                    <element name="Art" 
+                        type="okstra:Art_Lpf_ObjektPropertyType"/>
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="in_Baukilometerbereich" 
+                        type="okstra:BaukilometerbereichPropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Konflikt_LBPType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Konflikt_LBP -->
+                    <element name="Bezugsraumnummer" 
+                        type="integer"/>
+                    <element name="primaer_betroffene_Funktion" 
+                        type="okstra:Konflikt_primaer_betr_FktPropertyType"/>
+                    <element name="Erheblichkeit" 
+                        type="okstra:Erheblichkeit_Konflikt_LBPPropertyType"/>
+                    <element name="Kurzbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Bezugsraum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bezugsraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Konfliktbestandteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Konflikt_LBP</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Gestaltung_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gestaltet_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ersatz_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Ersatz_fuer_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ausgleich_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Ausgleich_fuer_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Vermeidung_durch_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>vermeidet_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erscheint_in_Begruendung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmenbegruendung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>verweist_auf_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KonfliktbestandteilType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Konfliktbestandteil -->
+                    <element name="Art" 
+                        type="okstra:Art_Konflikt_LBPPropertyType"/>
+                    <element name="Sonst_Art_Konflikt_LBP" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_Wert_Funktionselement" 
+                        type="okstra:Art_Wert_FunktionselementPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Baubedingt" 
+                        type="integer"/>
+                    <element name="Anlagebedingt" 
+                        type="integer"/>
+                    <element name="Betriebsbedingt" 
+                        type="integer"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="betr_Wert_Funktionselement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wert_Funktionselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Konfliktbestandteil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="entsteht_durch_Wirkzone" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wirkzone</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>verursacht_Konflikt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Konflikt_LBP" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Konfliktbestandteil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WirkzoneType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Wirkzone -->
+                    <element name="Art" 
+                        type="okstra:Art_WirkzonePropertyType"/>
+                    <element name="Sonstige_Art_Wirkzone" 
+                        type="string" minOccurs="0"/>
+                    <element name="Unterer_Grenzwert" 
+                        type="double" minOccurs="0"/>
+                    <element name="Oberer_Grenzwert" 
+                        type="double" minOccurs="0"/>
+                    <element name="Einheit" 
+                        type="okstra:Einheit_WirkzonePropertyType" minOccurs="0"/>
+                    <element name="Beschreibung_Wirkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="verursacht_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konfliktbestandteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entsteht_durch_Wirkzone</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PlanungsraumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Planungsraum -->
+                    <element name="Art" 
+                        type="okstra:Art_PlanungsraumPropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BezugsraumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Bezugsraum -->
+                    <element name="Art" 
+                        type="okstra:Art_BezugsraumPropertyType" maxOccurs="unbounded"/>
+                    <element name="Nummer" 
+                        type="integer"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bezugsraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bezugsraum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_ProjektType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Projekt -->
+                    <element name="Projektbezeichnung" 
+                        type="string"/>
+                    <element name="VKE_Bezeichnung" 
+                        type="string"/>
+                    <element name="PROJIS_Nummer" 
+                        type="string"/>
+                    <element name="in_Baukilometerbereich" 
+                        type="okstra:BaukilometerbereichPropertyType" minOccurs="0"/>
+                    <element name="hat_Bezugsraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bezugsraum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmeneinheit</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Vorhabenstraeger" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Vorhabenstraeger_fuer_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_EinzelmassnahmeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahmeneinheit -->
+                    <element name="Zielkonzeption" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ausgangszustand_Massnfl_LBP" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Begruendung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmenbegruendung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahme -->
+                    <element name="Massnahmennummer" 
+                        type="integer"/>
+                    <element name="Zusatzindex" 
+                        type="okstra:Lpf_ZusatzindexPropertyType" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Massnahmetyp" 
+                        type="okstra:Lpf_MassnahmetypPropertyType"/>
+                    <element name="Lagebeschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ausgangszustand_Massnfl_LAP" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gesamtumfang" 
+                        type="double" minOccurs="0"/>
+                    <element name="Einheit_Gesamtumfang" 
+                        type="okstra:Einheit_GesamtumfangPropertyType" minOccurs="0"/>
+                    <element name="zeitliche_Zuordnung" 
+                        type="okstra:zeitliche_Zuordnung_MassnPropertyType" minOccurs="0"/>
+                    <element name="Freitext_zeitliche_Zuordnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschr_Entwicklung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_Funktionskontrolle" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_Ausfuehrungsplanung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitpunkt_Massnahme" 
+                        type="okstra:StartdatumPropertyType" minOccurs="0"/>
+                    <element name="Dauer_Massnahme" 
+                        type="okstra:DauerPropertyType" minOccurs="0"/>
+                    <element name="Zeitpunkt_und_Dauer_Freitext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zuordnung_Fachbereiche" 
+                        type="okstra:Lpf_Zuordnung_FachbereichePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Ausarbeitung_erforderlich" 
+                        type="okstra:Lpf_Ausarbeitung_erforderlPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Darstellung" 
+                        type="okstra:Lpf_DarstellungPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Vorgaben_Ausfuehrung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ergaenzende_Hinweise" 
+                        type="string" minOccurs="0"/>
+                    <element name="Detailbes_Entwicklung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Durchfuehrung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Funktionskontrolle" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Baukilometerbereich" 
+                        type="okstra:BaukilometerbereichPropertyType" minOccurs="0"/>
+                    <element name="Aenderung_Vorgaengerversion" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Bauwerkseinzelheiten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerkseinzelheiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Ersatz_fuer_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ersatz_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Ausgleich_fuer_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ausgleich_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="vermeidet_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Vermeidung_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gestaltet_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Gestaltung_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erwerbsflaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erwerbsflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Lpf_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="umfasst_Biotopentwicklung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotopentwicklung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Blattschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Blattschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Lpf_Superobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Superobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sichert_biologische_Art" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gesichert_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sichert_FFH_Lebensraumtyp" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>FFH_Lebensraumtyp</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gesichert_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Lpf_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_MassnahmenkomplexType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahmeneinheit -->
+                    <element name="Zielkonzeption" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ausgangszustand_Massnfl_LBP" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Begruendung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmenbegruendung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahmenkomplex -->
+                    <element name="Komplexnummer" 
+                        type="integer"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="LBP_Unterlagen_Nr" 
+                        type="string" minOccurs="0"/>
+                    <element name="LBP_Blatt_Nr" 
+                        type="string" minOccurs="0"/>
+                    <element name="Lagebeschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flaechengroesse" 
+                        type="okstra:Hektar" minOccurs="0"/>
+                    <element name="Aenderung_Vorgaengerversion" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Baukilometerbereich" 
+                        type="okstra:BaukilometerbereichPropertyType" minOccurs="0"/>
+                    <element name="hat_Einzelkomplexmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Einzelkomplexmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahmenkomplex</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_EinzelkomplexmassnahmeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahme -->
+                    <element name="Massnahmennummer" 
+                        type="integer"/>
+                    <element name="Zusatzindex" 
+                        type="okstra:Lpf_ZusatzindexPropertyType" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Massnahmetyp" 
+                        type="okstra:Lpf_MassnahmetypPropertyType"/>
+                    <element name="Lagebeschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ausgangszustand_Massnfl_LAP" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gesamtumfang" 
+                        type="double" minOccurs="0"/>
+                    <element name="Einheit_Gesamtumfang" 
+                        type="okstra:Einheit_GesamtumfangPropertyType" minOccurs="0"/>
+                    <element name="zeitliche_Zuordnung" 
+                        type="okstra:zeitliche_Zuordnung_MassnPropertyType" minOccurs="0"/>
+                    <element name="Freitext_zeitliche_Zuordnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschr_Entwicklung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_Funktionskontrolle" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_Ausfuehrungsplanung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitpunkt_Massnahme" 
+                        type="okstra:StartdatumPropertyType" minOccurs="0"/>
+                    <element name="Dauer_Massnahme" 
+                        type="okstra:DauerPropertyType" minOccurs="0"/>
+                    <element name="Zeitpunkt_und_Dauer_Freitext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zuordnung_Fachbereiche" 
+                        type="okstra:Lpf_Zuordnung_FachbereichePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Ausarbeitung_erforderlich" 
+                        type="okstra:Lpf_Ausarbeitung_erforderlPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Darstellung" 
+                        type="okstra:Lpf_DarstellungPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Vorgaben_Ausfuehrung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ergaenzende_Hinweise" 
+                        type="string" minOccurs="0"/>
+                    <element name="Detailbes_Entwicklung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Durchfuehrung_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Funktionskontrolle" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Baukilometerbereich" 
+                        type="okstra:BaukilometerbereichPropertyType" minOccurs="0"/>
+                    <element name="Aenderung_Vorgaengerversion" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Bauwerkseinzelheiten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerkseinzelheiten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Ersatz_fuer_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ersatz_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Ausgleich_fuer_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ausgleich_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="vermeidet_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Vermeidung_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gestaltet_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Gestaltung_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erwerbsflaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erwerbsflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Lpf_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="umfasst_Biotopentwicklung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Biotopentwicklung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Blattschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Blattschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Lpf_Superobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Superobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sichert_biologische_Art" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>biologische_Art</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gesichert_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sichert_FFH_Lebensraumtyp" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>FFH_Lebensraumtyp</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gesichert_durch_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Lpf_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Einzelkomplexmassnahme -->
+                    <element name="zu_Massnahmenkomplex" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmenkomplex</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Einzelkomplexmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lpf_MassnahmenbegruendungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kommunikationsobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kommunikationsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_OKSTRA_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Lpf_Massnahmenbegruendung -->
+                    <element name="notwendige_Strukturen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anforderungen_an_die_Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="verweist_auf_Konflikt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Konflikt_LBP</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erscheint_in_Begruendung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lpf_Massnahmeneinheit</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Begruendung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

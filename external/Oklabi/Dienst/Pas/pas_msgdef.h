@@ -1,0 +1,3 @@
+#define ARGINTRO '&'
+#define ARGTRAIL '.'
+

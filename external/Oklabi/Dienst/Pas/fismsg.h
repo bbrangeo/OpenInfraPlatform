@@ -1,0 +1,9 @@
+extern pointer msg_fis;
+#define FIS msg_fis
+#define FISfcrea (msg_CODE)1
+#define FISfinex (msg_CODE)2
+#define FISfiaex (msg_CODE)3
+#define FISerrfn (msg_CODE)4
+#define FISnoacc (msg_CODE)5
+#define FIStomof (msg_CODE)6
+#define FISsfoer (msg_CODE)7

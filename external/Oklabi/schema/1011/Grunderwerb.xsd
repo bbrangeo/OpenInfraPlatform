@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Grunderwerb.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1011/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1011/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.011">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Grunderwerb:v1.011">Grunderwerb.xsd v1.011</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.011, Schema Grunderwerb
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Grunderwerb                                                                   = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Attribut_Flurstueck" type="okstra:Attribut_FlurstueckType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erwerbsflaeche" type="okstra:ErwerbsflaecheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="GEV_Ausgabespalte" type="okstra:GEV_AusgabespalteType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Erwerbsart" type="okstra:ErwerbsartType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erwerbsart_spezifisch" type="okstra:Erwerbsart_spezifischType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erwerbszweck" type="okstra:ErwerbszweckType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Nutzungsart" type="okstra:NutzungsartType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="GE_Massnahme" type="okstra:GE_MassnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Nutzungsartteilflaeche" type="okstra:NutzungsartteilflaecheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nutzungsartflaeche" type="okstra:NutzungsartflaecheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Belastung" type="okstra:BelastungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Belastungsberechtigter" type="okstra:BelastungsberechtigterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Person_Flurstueck" type="okstra:Person_FlurstueckType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Verhaeltnis" type="okstra:VerhaeltnisType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Flurstueck_Grundbuch" type="okstra:Flurstueck_GrundbuchType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Eigentumsart" type="okstra:EigentumsartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Grundbuch" type="okstra:GrundbuchType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Paechter_Mieter" type="okstra:Paechter_MieterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Vertragsart" type="okstra:VertragsartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pachtart" type="okstra:PachtartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anordnungsart" type="okstra:AnordnungsartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Eigentuemer_Grundbuch" type="okstra:Eigentuemer_GrundbuchType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Eigentumsverhaeltnis" type="okstra:EigentumsverhaeltnisType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Person" type="okstra:PersonType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Land" type="okstra:LandType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Personenklasse" type="okstra:PersonenklasseType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Grunderwerb                                                                       = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Attribut_FlurstueckType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Attribut_Flurstueck -->
+                    <element name="Attributname" 
+                        type="string"/>
+                    <element name="Attributdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Attributstatus" 
+                        type="integer"/>
+                    <element name="Attributtext" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Attribute</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ErwerbsflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Erwerbsflaeche -->
+                    <element name="Erwerbsart" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="Erwerbsart_spezifisch" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Erwerbszweck" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="GE_Massnahme" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Bedarfsflaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="GE_Plannummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="laufende_Nummer_Flurstueck" 
+                        type="string" minOccurs="0"/>
+                    <element name="laufende_Nummer_Teilflaeche" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Nutzungsart" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Erwerbsflaechen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GEV_AusgabespalteType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="ErwerbsartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Erwerbsart -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Erwerbsart" 
+                        type="string"/>
+                    <element name="GEV_Ausgabespalte" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erwerbsart_spezifischType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Erwerbsart_spezifisch -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Erwerbsart_spezifisch" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ErwerbszweckType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="NutzungsartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Nutzungsart -->
+                    <element name="Nutzungsartschluessel" 
+                        type="integer"/>
+                    <element name="Kurztext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="von_Nutzungsartflaeche_Basis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsartflaeche_Basis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nutzungsart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Erwerbsflaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erwerbsflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nutzungsart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Paechter_Mieter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Paechter_Mieter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nutzungsart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GE_MassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="NutzungsartteilflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Nutzungsartflaeche_Basis -->
+                    <element name="Teilflaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Bodenwert" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bodenklasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="tatsaechliche_Nutzung" 
+                        type="string" minOccurs="0"/>
+                    <element name="rechtliche_Nutzung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Nutzungsart" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nutzungsartteilflaeche -->
+                    <element name="von_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nutzungsartteilflaechen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kompensationsteilflaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kompensationsteilflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Nutzungsartteilflaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NutzungsartflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Nutzungsartflaeche_Basis -->
+                    <element name="Teilflaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Bodenwert" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bodenklasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="tatsaechliche_Nutzung" 
+                        type="string" minOccurs="0"/>
+                    <element name="rechtliche_Nutzung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Nutzungsart" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nutzungsartflaeche -->
+                    <element name="liegt_auf_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_auf_Nutzungsartflaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BelastungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Belastung -->
+                    <element name="Abteilung" 
+                        type="string"/>
+                    <element name="laufende_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Belastungstext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erlaeuterungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Eintragung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Abloesung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Belastungsberechtigten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Belastungsberechtigter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Belastung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Belastungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Belastungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BelastungsberechtigterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Belastungsberechtigter -->
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="ist_Person" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Belastungsberechtigter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Belastung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Belastung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Belastungsberechtigten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Person_FlurstueckType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Person_Flurstueck -->
+                    <element name="Verhaeltnis" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flurstueck" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Person" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerhaeltnisType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Flurstueck_GrundbuchType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Flurstueck_Grundbuch -->
+                    <element name="GB_Anteil_Zaehler" 
+                        type="double"/>
+                    <element name="GB_Anteil_Nenner" 
+                        type="integer"/>
+                    <element name="Eigentumsart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Bestandsnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Flurstueck_Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EigentumsartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GrundbuchType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Grundbuch -->
+                    <element name="Band" 
+                        type="string" minOccurs="0"/>
+                    <element name="Blatt" 
+                        type="string"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Gemarkung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Belastungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Belastung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Flurstueck_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck_Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Paechter_Mieter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Paechter_Mieter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Eigentuemer" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Eigentuemer_Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Grundbuch</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Paechter_MieterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Paechter_Mieter -->
+                    <element name="Pachtbeginn" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Pachtende" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Pachtzins" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Pachtflaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Vertragsart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Erstzahldatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bankeinzug" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kuendigungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Abschlussdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Pachtart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Anordnungsart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Verlaengerung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Marktgaengigkeitspruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Ortspachtzins" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Geloescht" 
+                        type="integer" minOccurs="0"/>
+                    <element name="von_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Person" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Belastungsberechtigter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nutzungsart" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Paechter_Mieter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VertragsartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="PachtartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="AnordnungsartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Eigentuemer_GrundbuchType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Eigentuemer_Grundbuch -->
+                    <element name="Eigentumsverhaeltnis" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="ET_Anteil_Zaehler" 
+                        type="double"/>
+                    <element name="ET_Anteil_Nenner" 
+                        type="integer"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Grundbuch" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Eigentuemer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Person" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Belastungsberechtigter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EigentumsverhaeltnisType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="PersonType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Person -->
+                    <element name="Personenklasse" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Titel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Name" 
+                        type="string"/>
+                    <element name="Vorname" 
+                        type="string" minOccurs="0"/>
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Plz" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Firma" 
+                        type="string" minOccurs="0"/>
+                    <element name="Abteilung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Geburtsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Geburtsname" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anrede" 
+                        type="string" minOccurs="0"/>
+                    <element name="Telefon" 
+                        type="string" minOccurs="0"/>
+                    <element name="Telefax" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Internet" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bankverbindung" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="zu_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person_Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Eigentuemer_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Eigentuemer_Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Paechter_Mieter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Paechter_Mieter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Belastungsberechtigter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Belastungsberechtigter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Stat_Arbeitsst_erfasst" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Status_der_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erfasst_von_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Rolle_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Person</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LandType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Land -->
+                    <element name="postalischer_Code" 
+                        type="string"/>
+                    <element name="Land" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="PersonenklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

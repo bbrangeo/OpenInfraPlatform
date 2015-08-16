@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Verkehr.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1008/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1008/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.008">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Verkehr:v1.008">Verkehr.xsd v1.008</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.008, Schema Verkehr
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehr                                                                       = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Fahrstreifen_Nummer" type="okstra:Fahrstreifen_NummerType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Verkehrsrichtung" type="okstra:VerkehrsrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anzahl_Fahrstreifen" type="okstra:Anzahl_FahrstreifenType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Insassen_min_Anzahl" type="okstra:Insassen_min_AnzahlType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ueberholverbot" type="okstra:UeberholverbotType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="max_Hoehe" type="okstra:max_HoeheType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="max_Breite" type="okstra:max_BreiteType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="max_Laenge" type="okstra:max_LaengeType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="max_Gewicht" type="okstra:max_GewichtType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="max_Achsgewicht" type="okstra:max_AchsgewichtType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="max_Geschwindigkeit" type="okstra:max_GeschwindigkeitType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Zugangsbeschraenkung" type="okstra:ZugangsbeschraenkungType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Gesperrt" type="okstra:GesperrtType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Fkt_d_Verb_im_Knotenpktber" type="okstra:Fkt_d_Verb_im_KnotenpktberType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Tab_Funktion" type="okstra:Tab_FunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bergpass" type="okstra:BergpassType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Verkehrsbedeutung" type="okstra:VerkehrsbedeutungType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Spur_fuer_Rettungsfahrzeuge" type="okstra:Spur_fuer_RettungsfahrzeugeType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Strassenfunktion" type="okstra:StrassenfunktionType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Aussichtswert" type="okstra:AussichtswertType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Staugefahr" type="okstra:StaugefahrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="gebuehrenpflichtig" type="okstra:gebuehrenpflichtigType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Durchschnittsgeschwindigkeit" type="okstra:DurchschnittsgeschwindigkeitType" substitutionGroup="okstra:_Streckenobjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehr                                                                           = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Fahrstreifen_NummerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fahrstreifen_Nummer -->
+                    <element name="Fahrstreifennummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="auf_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Beschraenkung_verkehrlich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschraenkung_verkehrlich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gilt_fuer_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strassenbeschr_verkehrlich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbeschreibung_verkehrl</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gilt_fuer_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gilt_fuer_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Detektoren_DZ" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Detektoren_DZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Fahrstreifen_zugeordnet</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DTV" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DTV</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>fuer_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_FahrstreifenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Anzahl_Fahrstreifen -->
+                    <element name="Fahrstreifen_Gegenrichtung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Fahrstreifen_beide_Richtungen" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Fahrstreifen_Richtung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Bauwerk_Netzzuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Netzzuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anzahl_Fahrstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_raeuml_Gueltigkeitsber_MZ" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>raeuml_Gueltigkeitsbereich_MZ</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ueberwiegende_Anzahl_Fahrstr</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Insassen_min_AnzahlType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Insassen_min_Anzahl -->
+                    <element name="Anzahl_Insassen" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UeberholverbotType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ueberholverbot -->
+                    <element name="Ueberholverbot" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_HoeheType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Hoehe -->
+                    <element name="Fahrzeughoehe" 
+                        type="okstra:Dezimeter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_BreiteType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Breite -->
+                    <element name="Fahrzeugbreite" 
+                        type="okstra:Dezimeter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_LaengeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Laenge -->
+                    <element name="max_Laenge" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_GewichtType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Gewicht -->
+                    <element name="max_Fahrzeuggewicht" 
+                        type="okstra:Tonnen"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_AchsgewichtType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Achsgewicht -->
+                    <element name="max_Achsgewicht" 
+                        type="okstra:Tonnen"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="max_GeschwindigkeitType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften max_Geschwindigkeit -->
+                    <element name="max_kmh" 
+                        type="okstra:Stundenkilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZugangsbeschraenkungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zugangsbeschraenkung -->
+                    <element name="Zugangsbeschraenkung" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GesperrtType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Beschraenkung_verkehrlich -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Gesperrt -->
+                    <element name="Sperrung" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Fkt_d_Verb_im_KnotenpktberType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Fkt_d_Verb_im_Knotenpktber -->
+                    <element name="Funktion" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_FunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BergpassType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bergpass -->
+                    <element name="Hoehe_ueber_NN" 
+                        type="okstra:Meter_ueber_NN" minOccurs="0"/>
+                    <element name="Anhaenger" 
+                        type="integer" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsbedeutungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Verkehrsbedeutung -->
+                    <element name="Verkehrsbedeutung" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Spur_fuer_RettungsfahrzeugeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Spur_fuer_Rettungsfahrzeuge -->
+                    <element name="Spur_fuer_Rettungsfahrzeuge" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenfunktionType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenfunktion -->
+                    <element name="Strassenfunktion" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AussichtswertType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Aussichtswert -->
+                    <element name="Aussichtswert" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StaugefahrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Staugefahr -->
+                    <element name="Staugefahr" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="gebuehrenpflichtigType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften gebuehrenpflichtig -->
+                    <element name="Gebuehrenpflicht" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DurchschnittsgeschwindigkeitType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenbeschreibung_verkehrl -->
+                    <element name="gilt_fuer_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrzeugart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="im_Zeitraum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Durchschnittsgeschwindigkeit -->
+                    <element name="km_h" 
+                        type="okstra:Stundenkilometer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

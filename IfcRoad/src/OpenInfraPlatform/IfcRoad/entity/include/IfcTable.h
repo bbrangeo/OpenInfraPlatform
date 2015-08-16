@@ -1,0 +1,51 @@
+/*! \verbatim
+*  \copyright	Copyright (c) 2015 Julian Amann. All rights reserved.
+*  \author		Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
+*  \brief		This file is part of the OpenInfraPlatform.
+*  \endverbatim
+*/
+
+#pragma once
+#include <vector>
+#include <map>
+#include <sstream>
+#include <string>
+#include "OpenInfraPlatform/IfcRoad/model/shared_ptr.h"
+#include "OpenInfraPlatform/IfcRoad/model/IfcRoadObject.h"
+#include "IfcMetricValueSelect.h"
+#include "IfcObjectReferenceSelect.h"
+
+namespace OpenInfraPlatform
+{
+	namespace IfcRoad
+	{
+		class IfcLabel;
+		class IfcTableRow;
+		class IfcTableColumn;
+		//ENTITY
+		class IfcTable : public IfcMetricValueSelect, public IfcObjectReferenceSelect, public IfcRoadEntity
+		{
+		public:
+			IfcTable();
+			IfcTable( int id );
+			~IfcTable();
+
+			// method setEntity takes over all attributes from another instance of the class
+			virtual void setEntity( shared_ptr<IfcRoadEntity> other );
+			virtual void getStepLine( std::stringstream& stream ) const;
+			virtual void getStepParameter( std::stringstream& stream, bool is_select_type = false ) const;
+			virtual void readStepData( std::vector<std::string>& args, const std::map<int,shared_ptr<IfcRoadEntity> >& map );
+			virtual void setInverseCounterparts( shared_ptr<IfcRoadEntity> ptr_self );
+			virtual void unlinkSelf();
+			virtual const char* classname() const { return "IfcTable"; }
+
+
+			// IfcTable -----------------------------------------------------------
+			// attributes:
+			shared_ptr<IfcLabel>							m_Name;						//optional
+			std::vector<shared_ptr<IfcTableRow> >		m_Rows;						//optional
+			std::vector<shared_ptr<IfcTableColumn> >		m_Columns;					//optional
+		};
+	} // end namespace IfcRoad
+} // end namespace OpenInfraPlatform
+

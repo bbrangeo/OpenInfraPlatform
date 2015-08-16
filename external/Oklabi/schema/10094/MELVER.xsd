@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: MELVER.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1009/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:schema-MELVER:v1.009">MELVER.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.009, Schema MELVER
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = MELVER                                                                        = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="MELVER" type="okstra:MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="administrative_Angaben_MELVER" type="okstra:administrative_Angaben_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Haushalts_Buchungsst_MELVER" type="okstra:Haushalts_Buchungsst_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Bearbeiter_MELVER" type="okstra:Bearbeiter_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Angaben_zur_Bauleistung_MELVER" type="okstra:Angaben_zur_Bauleistung_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Baumassnahme_P_MELVER" type="okstra:Art_der_Baumassnahme_P_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Baumassnahme_B_MELVER" type="okstra:Art_der_Baumassnahme_B_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zu_Bew_Biet_Ang_MELVER" type="okstra:Angaben_zu_Bew_Biet_Ang_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Anz_Bewerb_Bieter_Angeb_MELVER" type="okstra:Anz_Bewerb_Bieter_Angeb_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Bewerb_Bieter_Angeb_MELVER" type="okstra:Art_Bewerb_Bieter_Angeb_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Region_MELVER" type="okstra:Region_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_zur_Vergabe_MELVER" type="okstra:Angaben_zur_Vergabe_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Vergabeart_MELVER" type="okstra:Vergabeart_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angebotsart_MELVER" type="okstra:Angebotsart_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Erl_zur_Vergabeart_MELVER" type="okstra:Erl_zur_Vergabeart_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ang_zum_Auftragnehmer_MELVER" type="okstra:Ang_zum_Auftragnehmer_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_des_Auftragnehmers_MELVER" type="okstra:Art_des_Auftragnehmers_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="vertragl_Best_und_Massn_MELVER" type="okstra:vertragl_Best_und_Massn_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="rechtliche_Instanz_MELVER" type="okstra:rechtliche_Instanz_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Angaben_z_Auftragssumme_MELVER" type="okstra:Angaben_z_Auftragssumme_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Summe_n_Art_der_Arbeit_MELVER" type="okstra:Summe_n_Art_der_Arbeit_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Arbeit_MELVER" type="okstra:Art_der_Arbeit_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Summe_n_Unternehmensart_MELVER" type="okstra:Summe_n_Unternehmensart_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_des_Unternehmens_MELVER" type="okstra:Art_des_Unternehmens_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Summe_nach_Regionen_MELVER" type="okstra:Summe_nach_Regionen_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Summe_bevorz_Bewerber_MELVER" type="okstra:Summe_bevorz_Bewerber_MELVERType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Grund_der_Bevorzugung_MELVER" type="okstra:Grund_der_Bevorzugung_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Auftragskriterium_MELVER" type="okstra:Auftragskriterium_MELVERType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = MELVER                                                                            = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften MELVER -->
+                    <element name="hat_administrative_Angaben" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>administrative_Angaben_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zur_Bauleistung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_Bauleistung_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zu_Bew_Biet_Angeb" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Bew_Biet_Ang_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zur_Vergabe" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_Vergabe_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_vertragl_Best_und_Massn" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>vertragl_Best_und_Massn_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Angaben_zur_Auftragssumme" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Auftragssumme_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_MELVER_Datensatz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="administrative_Angaben_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften administrative_Angaben_MELVER -->
+                    <element name="Bauvertragsnummer" 
+                        type="integer"/>
+                    <element name="CPV_Nr" 
+                        type="string"/>
+                    <element name="Bezeichnung_der_Bauleistung" 
+                        type="string"/>
+                    <element name="Zusatzfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="in_Bundesland" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Bundesl_z_admin_Ang_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Baulasttraeger" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulasttraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_administrative_Ang_B_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Baudienststelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_administrative_Ang_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Kreis_Gemeinde" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Kr_Gem_z_admin_Ang_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Haushalts_Buchungsstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Haushalts_Buchungsst_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_administrative_Angaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Bearbeiter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bearbeiter_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_administrative_Angaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_administrative_Angaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Haushalts_Buchungsst_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Haushalts_Buchungsst_MELVER -->
+                    <element name="Kapitel" 
+                        type="integer"/>
+                    <element name="Titel" 
+                        type="integer"/>
+                    <element name="Funktion" 
+                        type="integer"/>
+                    <element name="zu_administrative_Angaben" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>administrative_Angaben_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Haushalts_Buchungsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bearbeiter_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Bearbeiter_MELVER -->
+                    <element name="Name_Bearbeiter" 
+                        type="string"/>
+                    <element name="Tel_Nr_Bearbeiter" 
+                        type="string"/>
+                    <element name="von_administrative_Angaben" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>administrative_Angaben_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Bearbeiter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zur_Bauleistung_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zur_Bauleistung_MELVER -->
+                    <element name="Strassenklasse" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Art_der_Baumassnahme_Phase" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Art_der_Baumassnahme_Bereich" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Bauzeit_in_Monaten" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zur_Bauleistung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_Baumassnahme_P_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_Baumassnahme_B_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zu_Bew_Biet_Ang_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zu_Bew_Biet_Ang_MELVER -->
+                    <element name="hat_Anz_Bewerber_Bieter_Angeb" 
+                        type="okstra:ObjectRefType" minOccurs="15" maxOccurs="15">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anz_Bewerb_Bieter_Angeb_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Ang_zu_Bewerb_Bieter_Angeb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zu_Bew_Biet_Angeb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anz_Bewerb_Bieter_Angeb_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Anz_Bewerb_Bieter_Angeb_MELVER -->
+                    <element name="Art_Bewerber_Bieter_Angebot" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Region" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="von_Ang_zu_Bewerb_Bieter_Angeb" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Bew_Biet_Ang_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anz_Bewerber_Bieter_Angeb</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Bewerb_Bieter_Angeb_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Region_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_zur_Vergabe_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_zur_Vergabe_MELVER -->
+                    <element name="Vergabeart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Eroeffnung_Angebotsabgabe" 
+                        type="okstra:Datum"/>
+                    <element name="Auftragserteilung" 
+                        type="okstra:Datum"/>
+                    <element name="Angebotsart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Platznummer_Zuschlagsangebot" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Erlaeuterung_zur_Vergabeart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Angaben_zum_Auftragnehmer" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ang_zum_Auftragnehmer_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Angaben_zur_Vergabe_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zur_Vergabe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Vergabeart_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angebotsart_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Erl_zur_Vergabeart_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ang_zum_Auftragnehmer_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ang_zum_Auftragnehmer_MELVER -->
+                    <element name="Name" 
+                        type="string"/>
+                    <element name="Sitz_PLZ" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Sitz_in_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="weitere_Namen" 
+                        type="string" minOccurs="0" maxOccurs="5"/>
+                    <element name="Art_des_Auftragnehmers" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Sitz_in_Bundesland" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Auftragn_d_Baul_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Angaben_zur_Vergabe_MELVER" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zur_Vergabe_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zum_Auftragnehmer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_des_Auftragnehmers_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="vertragl_Best_und_Massn_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften vertragl_Best_und_Massn_MELVER -->
+                    <element name="Lohngleitklausel" 
+                        type="integer"/>
+                    <element name="Stoffgleitklausel" 
+                        type="integer"/>
+                    <element name="Vertragsstrafe" 
+                        type="integer"/>
+                    <element name="Nachpruefungsverfahren_eingel" 
+                        type="integer"/>
+                    <element name="Nachpruefungsverfahren_entsch" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Zeitdauer_zw_Ruege_u_Entsch" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Aenderung_der_Vergabeentsch" 
+                        type="integer"/>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_vertragl_Best_und_Massn</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="rechtliche_Instanz_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Angaben_z_Auftragssumme_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Angaben_z_Auftragssumme_MELVER -->
+                    <element name="Auftragssumme" 
+                        type="okstra:EURO"/>
+                    <element name="hat_Summen_n_Art_der_Arbeiten" 
+                        type="okstra:ObjectRefType" minOccurs="6" maxOccurs="6">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Summe_n_Art_der_Arbeit_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ang_z_Auftragssumme_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Summen_n_Unternehmensart" 
+                        type="okstra:ObjectRefType" minOccurs="2" maxOccurs="2">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Summe_n_Unternehmensart_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ang_z_Auftragssumme_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Summen_nach_Regionen" 
+                        type="okstra:ObjectRefType" minOccurs="3" maxOccurs="3">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Summe_nach_Regionen_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ang_z_Auftragssumme_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Summen_bevorzugt_Bewerber" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Summe_bevorz_Bewerber_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ang_z_Auftragssumme_MELVER</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_MELVER_Datensatz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Angaben_zur_Auftragssumme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Summe_n_Art_der_Arbeit_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Summe_n_Art_der_Arbeit_MELVER -->
+                    <element name="Art_der_Arbeit" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Anteil_Auftragssumme" 
+                        type="okstra:EURO"/>
+                    <element name="zu_Ang_z_Auftragssumme_MELVER" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Auftragssumme_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Summen_n_Art_der_Arbeiten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_Arbeit_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Summe_n_Unternehmensart_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Summe_n_Unternehmensart_MELVER -->
+                    <element name="Art_des_Unternehmens" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Anteil_Auftragssumme" 
+                        type="okstra:EURO"/>
+                    <element name="zu_Ang_z_Auftragssumme_MELVER" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Auftragssumme_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Summen_n_Unternehmensart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_des_Unternehmens_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Summe_nach_Regionen_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Summe_nach_Regionen_MELVER -->
+                    <element name="Region" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Anteil_Auftragssumme" 
+                        type="okstra:EURO"/>
+                    <element name="zu_Ang_z_Auftragssumme_MELVER" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Auftragssumme_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Summen_nach_Regionen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Summe_bevorz_Bewerber_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Summe_bevorz_Bewerber_MELVER -->
+                    <element name="Anteil_Auftragssumme" 
+                        type="okstra:EURO"/>
+                    <element name="Grund_der_Bevorzugung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Auftragskriterium" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="gewaehrter_Mehrpreis" 
+                        type="okstra:EURO"/>
+                    <element name="zu_Ang_z_Auftragssumme_MELVER" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_z_Auftragssumme_MELVER</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Summen_bevorzugt_Bewerber</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grund_der_Bevorzugung_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Auftragskriterium_MELVERType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

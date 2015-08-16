@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Kostenberechnung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1012/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1012/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.012">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Kostenberechnung:v1.012">S_Kostenberechnung.xsd v1.012</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.012, Schema S_Kostenberechnung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Kostenberechnung                                                            = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Kostra_Projekt" type="okstra:Kostra_ProjektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Projektkennzeichnung_Kostra" type="okstra:Projektkennzeichnung_KostraType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Entwurfsart_AKS" type="okstra:Entwurfsart_AKSType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Stand_der_Fortschreibung_AKS" type="okstra:Stand_der_Fortschreibung_AKSType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Berechnungsart_AKS" type="okstra:Berechnungsart_AKSType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Genauigkeit_AKS" type="okstra:Genauigkeit_AKSType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zusatzdaten_Kostra" type="okstra:Zusatzdaten_KostraType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kostendaten" type="okstra:KostendatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lose" type="okstra:LoseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kostenbeteiligte" type="okstra:KostenbeteiligteType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Typ_des_Kostenbeteiligten" type="okstra:Typ_des_KostenbeteiligtenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kostenbeteiligung" type="okstra:KostenbeteiligungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Kostenbeteiligung" type="okstra:Art_der_KostenbeteiligungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Teil_Kostendaten" type="okstra:Teil_KostendatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Leistungsbeschreibung" type="okstra:LeistungsbeschreibungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Regionaltext_Freitext" type="okstra:Regionaltext_FreitextType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Regionaltext_Freitext_Katalog" type="okstra:Regionaltext_Freitext_KatalogType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_C" type="okstra:Formblatt_CType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblaetter" type="okstra:FormblaetterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_A1" type="okstra:Formblatt_A1Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_A2" type="okstra:Formblatt_A2Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gesamtkostenverteilung" type="okstra:GesamtkostenverteilungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_A3" type="okstra:Formblatt_A3Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_B" type="okstra:Formblatt_BType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="zusammenges_Hauptteilkosten" type="okstra:zusammenges_HauptteilkostenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Formblatt_S1" type="okstra:Formblatt_S1Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="HOAI_Daten" type="okstra:HOAI_DatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="HOAI_Projektdaten" type="okstra:HOAI_ProjektdatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Minderung_nach_52_5_HOAI" type="okstra:Minderung_nach_52_5_HOAIType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zuordnung_KBK_ING3" type="okstra:Zuordnung_KBK_ING3Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zuordnung_KBK_ING4" type="okstra:Zuordnung_KBK_ING4Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Index_HOAI_Fassung" type="okstra:Index_HOAI_FassungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Index_HOAI_Teil" type="okstra:Index_HOAI_TeilType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Index_HOAI_Vertrag" type="okstra:Index_HOAI_VertragType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kostenquelle" type="okstra:KostenquelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="HOAI_Honorarberechnung" type="okstra:HOAI_HonorarberechnungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Honorarvereinbarung_HOAI" type="okstra:Honorarvereinbarung_HOAIType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="HOAI_Grundleistungen" type="okstra:HOAI_GrundleistungenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="HOAI_Sonstiges" type="okstra:HOAI_SonstigesType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zuschlag_b_Umbauten_u_Modern" type="okstra:Zuschlag_b_Umbauten_u_ModernType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="HOAI_Ermittlung_ING_10_11" type="okstra:HOAI_Ermittlung_ING_10_11Type" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Flaechenanteil_Kostendaten" type="okstra:Flaechenanteil_KostendatenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Kostenberechnung                                                                = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Kostra_ProjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Kostra_Projekt -->
+                    <element name="hat_Projektkennzeichnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektkennzeichnung_Kostra</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Kostra_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Kostendaten" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Projekt_Kostra</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Regionaltext_Freitext_Kat" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Regionaltext_Freitext_Katalog</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostra_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_HOAI_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostra_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblaetter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostra_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Projektkennzeichnung_KostraType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Projektkennzeichnung_Kostra -->
+                    <element name="VKE_Nummer_der_Verkehrseinheit" 
+                        type="okstra:Anzahl_zweistellig" minOccurs="0"/>
+                    <element name="VKE_Laenge" 
+                        type="okstra:Kilometer"/>
+                    <element name="Datum_des_Standes" 
+                        type="okstra:Datum"/>
+                    <element name="Traeger_der_Baumassnahme" 
+                        type="string" maxOccurs="2"/>
+                    <element name="vollstaendige_Projektnummer" 
+                        type="string"/>
+                    <element name="Entwurfsart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Stand_der_Fortschreibung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Berechnungsart" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Genauigkeit" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Streckenbezeichnung" 
+                        type="string" maxOccurs="2"/>
+                    <element name="Projektbezeichnung" 
+                        type="string" maxOccurs="2"/>
+                    <element name="Bauabschnitt" 
+                        type="string" maxOccurs="2"/>
+                    <element name="hat_Land" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Projektkennzeichnung_Kostra</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Projektkennzeichnung_Kostra</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_nicht_nach_ASB_klass_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>nicht_nach_ASB_klass_Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Projektkennzeichnung_Kostra</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zusatzdaten" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zusatzdaten_Kostra</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Projektkennzeichnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Kostra_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostra_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Projektkennzeichnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Entwurfsart_AKSType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Stand_der_Fortschreibung_AKSType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Berechnungsart_AKSType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Genauigkeit_AKSType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Zusatzdaten_KostraType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zusatzdaten_Kostra -->
+                    <element name="Kleinleistung" 
+                        type="okstra:Prozent"/>
+                    <element name="Waehrung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Mehrwertsteuersatz" 
+                        type="okstra:Prozent"/>
+                    <element name="Teil_von_Projektkennzeichnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektkennzeichnung_Kostra</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zusatzdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KostendatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Kostendaten -->
+                    <element name="hat_Lose" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="10">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lose</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Kostenbeteiligte" 
+                        type="okstra:ObjectRefType" maxOccurs="25">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenbeteiligte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Teile" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Projekt_Kostra" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostra_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LoseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Lose -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Teil_von_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lose</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Teil" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lose</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KostenbeteiligteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Kostenbeteiligte -->
+                    <element name="Typ" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="hat_Kostenbeteiligung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenbeteiligung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Kostenbeteiligtem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kostenbeteiligte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Typ_des_KostenbeteiligtenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="KostenbeteiligungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Kostenbeteiligung -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Wert" 
+                        type="okstra:Prozent"/>
+                    <element name="tatsaechliche_Kosten" 
+                        type="okstra:Groesse"/>
+                    <element name="zu_Kostenbeteiligtem" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenbeteiligte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kostenbeteiligung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Teil_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kostenbeteiligung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kostenbeteiligung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_KostenbeteiligungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Teil_KostendatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teil_Kostendaten -->
+                    <element name="Hauptteilnummer" 
+                        type="okstra:Anzahl_einstellig"/>
+                    <element name="Teilnummer" 
+                        type="okstra:Anzahl_zweistellig"/>
+                    <element name="Bezeichnung" 
+                        type="string" maxOccurs="2"/>
+                    <element name="hat_Lose" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lose</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Kostenbeteiligung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="5">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenbeteiligung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Teil_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Teil_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblatt_C" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_C</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Teil_Kostendaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teile</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LeistungsbeschreibungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Leistungsbeschreibung -->
+                    <element name="KBK_Nummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Menge" 
+                        type="integer"/>
+                    <element name="Einzelpreis" 
+                        type="okstra:Groesse"/>
+                    <element name="Menge_zur_Preisbildung" 
+                        type="integer"/>
+                    <element name="Faktor_zur_Preisbildung" 
+                        type="okstra:Groesse"/>
+                    <element name="errechneter_Stuetzpreis" 
+                        type="okstra:Groesse"/>
+                    <element name="hat_Regionaltext_Freitext" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Regionaltext_Freitext</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Leistungsbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Kostenbeteiligung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="5">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenbeteiligung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Leistungsbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Teil_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leistungsbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Regionaltext_FreitextType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Regionaltext_Freitext -->
+                    <element name="KBK_Nummer" 
+                        type="integer"/>
+                    <element name="Masseinheit" 
+                        type="string"/>
+                    <element name="Text" 
+                        type="string" maxOccurs="5"/>
+                    <element name="in_Katalog" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Regionaltext_Freitext_Katalog</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Regionaltexte_Freitexte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Leistungsbeschreibung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leistungsbeschreibung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Regionaltext_Freitext</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Regionaltext_Freitext_KatalogType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Regionaltext_Freitext_Katalog -->
+                    <element name="hat_Regionaltexte_Freitexte" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Regionaltext_Freitext</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Katalog</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Kostra_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostra_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Regionaltext_Freitext_Kat</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_CType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_C -->
+                    <element name="Datum_des_Standes_bisher" 
+                        type="okstra:Datum"/>
+                    <element name="bisherige_Kosten_nach_Hauptgr" 
+                        type="integer" minOccurs="9" maxOccurs="9"/>
+                    <element name="Teil_von_Teil_Kostendaten" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_C</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FormblaetterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblaetter -->
+                    <element name="hat_Formblatt_A1" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_A1</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Formblatt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblatt_A2" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_A2</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Formblatt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblatt_A3" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_A3</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Formblatt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblatt_B" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_B</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Formblatt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Formblatt_S1" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_S1</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Formblatt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Kostra_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostra_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblaetter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_A1Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_A1 -->
+                    <element name="Aufgestellt" 
+                        type="string" maxOccurs="6"/>
+                    <element name="Geprueft" 
+                        type="string" maxOccurs="6"/>
+                    <element name="Genehmigt" 
+                        type="string" maxOccurs="6"/>
+                    <element name="Gesehen" 
+                        type="string" maxOccurs="6"/>
+                    <element name="Teil_von_Formblatt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_A1</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_A2Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_A2 -->
+                    <element name="hat_Gesamtkostenverteilung" 
+                        type="okstra:ObjectRefType" minOccurs="7" maxOccurs="7">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gesamtkostenverteilung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Formblatt_A2</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Formblatt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_A2</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GesamtkostenverteilungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Gesamtkostenverteilung -->
+                    <element name="Bezeichnung_der_Kostenbeteil" 
+                        type="string"/>
+                    <element name="ist_Traeger_der_Baumassnahme" 
+                        type="integer"/>
+                    <element name="Titel_der_Kostenbet_Bau_bisher" 
+                        type="string"/>
+                    <element name="Kostenbeteiligung_Bau_bisher" 
+                        type="integer"/>
+                    <element name="Titel_der_Kostenbet_GE_bisher" 
+                        type="string"/>
+                    <element name="Kostenbeteiligung_GE_bisher" 
+                        type="integer"/>
+                    <element name="Titel_der_Kostenbet_Bau" 
+                        type="string"/>
+                    <element name="Kostenbeteiligung_Bau" 
+                        type="integer"/>
+                    <element name="Titel_der_Kostenbet_GE" 
+                        type="string"/>
+                    <element name="Kostenbeteiligung_GE" 
+                        type="integer"/>
+                    <element name="zu_Formblatt_A2" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_A2</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gesamtkostenverteilung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_A3Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_A3 -->
+                    <element name="Bezeichnung_Streckenentwurf" 
+                        type="string" maxOccurs="2"/>
+                    <element name="Datum_Gesehenvermerk" 
+                        type="okstra:Datum"/>
+                    <element name="Aktenzeichen_Gesehenvermerk" 
+                        type="string"/>
+                    <element name="genehmigte_Kosten_gesamt" 
+                        type="okstra:Groesse"/>
+                    <element name="genehmigte_Kosten_Bund" 
+                        type="okstra:Groesse"/>
+                    <element name="Kosten_Teilentwurf_gesamt" 
+                        type="okstra:Groesse"/>
+                    <element name="Kosten_Teilentwurf_Bund" 
+                        type="okstra:Groesse"/>
+                    <element name="beruecks_Kost_Strentwurf_ges" 
+                        type="okstra:Groesse"/>
+                    <element name="beruecks_Kost_Strentwurf_Bund" 
+                        type="okstra:Groesse"/>
+                    <element name="Differenz_gesamt" 
+                        type="okstra:Groesse"/>
+                    <element name="Differenz_Bund" 
+                        type="okstra:Groesse"/>
+                    <element name="Teil_von_Formblatt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_A3</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_BType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_B -->
+                    <element name="Kosten_Ingenieurbauw_bisher" 
+                        type="integer" minOccurs="4" maxOccurs="4"/>
+                    <element name="hat_zusammeng_Hauptteilkosten" 
+                        type="okstra:ObjectRefType" minOccurs="4" maxOccurs="4">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zusammenges_Hauptteilkosten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Formblatt_B</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Formblatt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_B</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="zusammenges_HauptteilkostenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften zusammenges_Hauptteilkosten -->
+                    <element name="Kosten_GE_des_Standes_bisher" 
+                        type="integer"/>
+                    <element name="Kosten_Bau_des_Standes_bisher" 
+                        type="integer"/>
+                    <element name="zu_Formblatt_B" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblatt_B</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zusammeng_Hauptteilkosten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Formblatt_S1Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Formblatt_S1 -->
+                    <element name="Schaetzungsgrundlage" 
+                        type="string" maxOccurs="10"/>
+                    <element name="Teil_von_Formblatt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Formblaetter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Formblatt_S1</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_DatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Daten -->
+                    <element name="hat_HOAI_Projektdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Projektdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zuordnung_KBK_ING3" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="500">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zuordnung_KBK_ING3</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zuordnung_KBK_ING4" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="500">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zuordnung_KBK_ING4</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Kostra_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostra_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Daten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_ProjektdatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Projektdaten -->
+                    <element name="Vertragsnummer" 
+                        type="string"/>
+                    <element name="Anlagennummer" 
+                        type="string"/>
+                    <element name="interner_Index_HOAI_Fassung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="interner_Index_HOAI_Teil" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="interner_Index_HOAI_Vertrag" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Kostenquelle" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Projektbezeichnung" 
+                        type="string"/>
+                    <element name="Auftragnehmer" 
+                        type="string"/>
+                    <element name="Umsatzsteuer" 
+                        type="okstra:Prozent"/>
+                    <element name="Minderung_nach_52_5" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Minderung_nach_52_4_2" 
+                        type="integer"/>
+                    <element name="hat_HOAI_Honorarberechnung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Honorarberechnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Projektdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_HOAI_Grundleistungen" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Grundleistungen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Projektdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_HOAI_Sonstiges" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Sonstiges</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Projektdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_HOAI_Ermittlung_ING_10_11" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Ermittlung_ING_10_11</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_HOAI_Projektdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_HOAI_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Projektdaten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Minderung_nach_52_5_HOAIType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Zuordnung_KBK_ING3Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zuordnung_KBK_ING3 -->
+                    <element name="KBK_Nr_zur_Aufsumm_n_HVA_ING3" 
+                        type="integer"/>
+                    <element name="Zeilennr_z_Aufsumm_im_Formular" 
+                        type="okstra:Groesse"/>
+                    <element name="Teil_von_HOAI_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zuordnung_KBK_ING3</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zuordnung_KBK_ING4Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zuordnung_KBK_ING4 -->
+                    <element name="KBK_Nr_zur_Aufsumm_n_HVA_ING4" 
+                        type="integer"/>
+                    <element name="Zeilennr_z_Aufsumm_im_Formular" 
+                        type="okstra:Groesse"/>
+                    <element name="Teil_von_HOAI_Daten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Daten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zuordnung_KBK_ING4</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Index_HOAI_FassungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Index_HOAI_TeilType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Index_HOAI_VertragType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="KostenquelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_HonorarberechnungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Honorarberechnung -->
+                    <element name="anrechenbare_Kosten" 
+                        type="okstra:Groesse"/>
+                    <element name="Honorarzone" 
+                        type="okstra:Anzahl_einstellig"/>
+                    <element name="Honorarsatz_in_Prozent" 
+                        type="okstra:Prozent"/>
+                    <element name="Honorarvereinbarung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Wert_d_Aenderung_Vereinbarung" 
+                        type="okstra:Groesse"/>
+                    <element name="ING_Vertragsbasis" 
+                        type="okstra:Anzahl_einstellig"/>
+                    <element name="Umsatzsteuer_enthalten" 
+                        type="integer"/>
+                    <element name="Teil_von_HOAI_Projektdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Projektdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Honorarberechnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Honorarvereinbarung_HOAIType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_GrundleistungenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Grundleistungen -->
+                    <element name="Beauftragte_GL_je_Leistungsph" 
+                        type="okstra:Prozent" minOccurs="9" maxOccurs="9"/>
+                    <element name="Teil_von_HOAI_Projektdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Projektdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Grundleistungen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_SonstigesType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Sonstiges -->
+                    <element name="Zuschlag_bei_Umbauten_u_Modern" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Zuschlagswert_in_Prozent" 
+                        type="okstra:Prozent"/>
+                    <element name="besondere_Leistungen_pauschal" 
+                        type="okstra:Groesse"/>
+                    <element name="besondere_Leistungen_prozent" 
+                        type="okstra:Groesse"/>
+                    <element name="Nebenkosten_pauschal" 
+                        type="okstra:Groesse"/>
+                    <element name="Nebenkosten_prozentual" 
+                        type="okstra:Groesse"/>
+                    <element name="Teil_von_HOAI_Projektdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Projektdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Sonstiges</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zuschlag_b_Umbauten_u_ModernType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HOAI_Ermittlung_ING_10_11Type">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften HOAI_Ermittlung_ING_10_11 -->
+                    <element name="Ermittlung_der_Honorarzone" 
+                        type="integer" maxOccurs="6"/>
+                    <element name="Massstab_d_LBP_Massn_n_ING_11" 
+                        type="integer"/>
+                    <element name="Laenge_der_Baumassnahme" 
+                        type="okstra:Meter"/>
+                    <element name="Breite_der_Baumassnahme" 
+                        type="okstra:Meter"/>
+                    <element name="hat_Flaechenanteile" 
+                        type="okstra:ObjectRefType" minOccurs="3" maxOccurs="3">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flaechenanteil_Kostendaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_HOAI_Ermittlung_ING_10_11</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_HOAI_Projektdaten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Projektdaten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_HOAI_Ermittlung_ING_10_11</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Flaechenanteil_KostendatenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Flaechenanteil_Kostendaten -->
+                    <element name="Anteil_am_Berechnungsraum_ha" 
+                        type="okstra:Groesse"/>
+                    <element name="Verrechnungseinheit_je_ha" 
+                        type="integer"/>
+                    <element name="zu_HOAI_Ermittlung_ING_10_11" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>HOAI_Ermittlung_ING_10_11</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Flaechenanteile</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Kataster.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1013/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1013/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.013">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Kataster:v1.013">S_Kataster.xsd v1.013</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.013, Schema S_Kataster
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Kataster                                                                    = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Flurstueck" type="okstra:FlurstueckType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Attribut_Flurstueck" type="okstra:Attribut_FlurstueckType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Flur" type="okstra:FlurType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="besondere_Flurstuecksgrenze" type="okstra:besondere_FlurstuecksgrenzeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Grenzpunkt" type="okstra:GrenzpunktType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gemarkung" type="okstra:GemarkungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Kataster                                                                        = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="FlurstueckType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Flurstueck -->
+                    <element name="Flurstueck_Zaehler" 
+                        type="string"/>
+                    <element name="Flurstueck_Nenner" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Lage" 
+                        type="string" minOccurs="0"/>
+                    <element name="Baukilometer" 
+                        type="okstra:Kilometer" minOccurs="0"/>
+                    <element name="Liegenschaftsbuch" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flurkarte" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Geloescht" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Attribute" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Attribut_Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Erwerbsflaechen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erwerbsflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nutzungsartteilflaechen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsartteilflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="liegt_auf_Nutzungsartflaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsartflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_auf_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Belastungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Belastung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Gemarkung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemarkung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Flurstuecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Flur" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flur</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Flurstuecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Nachfolger_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Vorgaenger_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Vorgaenger_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Nachfolger_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_LV_Flurstuecksdetails" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>LV_Flurstuecksdetails</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck_Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Person" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person_Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Paechter_Mieter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Paechter_Mieter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Flurstueck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Attribut_FlurstueckType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Attribut_Flurstueck -->
+                    <element name="Attributname" 
+                        type="string"/>
+                    <element name="Attributdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Attributstatus" 
+                        type="integer"/>
+                    <element name="Attributtext" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Attribute</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FlurType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Flur -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="hat_Flurstuecke" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Flur</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="besondere_FlurstuecksgrenzeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GrenzpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Grenzpunkt -->
+                    <element name="ist_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Grenzpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GemarkungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Gemarkung -->
+                    <element name="Schluessel" 
+                        type="string"/>
+                    <element name="in_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Flurstuecke" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Gemarkung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Grundbuch" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Grundbuch</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Gemarkung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Festpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Festpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Gemarkung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Strassennetz.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1008/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1008/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.008">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Strassennetz:v1.008">Strassennetz.xsd v1.008</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.008, Schema Strassennetz
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassennetz                                                                  = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Strassenklasse" type="okstra:StrassenklasseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strasse" type="okstra:StrasseType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Verlaufskennzeichen" type="okstra:VerlaufskennzeichenType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Strasse_Netzknoten" type="okstra:Strasse_NetzknotenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Knotenart" type="okstra:KnotenartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Knotenpunktsform" type="okstra:KnotenpunktsformType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Knotenpunktsystem" type="okstra:KnotenpunktsystemType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Netzknoten" type="okstra:NetzknotenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="BAB_Knotennummer" type="okstra:BAB_KnotennummerType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Stadium" type="okstra:StadiumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Abschnitt" type="okstra:AbschnittType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Ast" type="okstra:AstType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Verkehrliche_Verknuepfung" type="okstra:Verkehrliche_VerknuepfungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Nullpunkt" type="okstra:NullpunktType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Bezugsrichtung" type="okstra:BezugsrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="oertliche_Zuordnung_SP" type="okstra:oertliche_Zuordnung_SPType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="nicht_nach_ASB_klass_Strasse" type="okstra:nicht_nach_ASB_klass_StrasseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nullpunktsort" type="okstra:NullpunktsortType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Netzbereich" type="okstra:NetzbereichType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Strecke" type="okstra:StreckeType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Teilnetz" type="okstra:TeilnetzType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Route" type="okstra:RouteType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Strassenelement" type="okstra:StrassenelementType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Kilometrierung" type="okstra:KilometrierungType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Betriebskilometer" type="okstra:BetriebskilometerType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Block" type="okstra:BlockType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="GDF_Verbindungspunkt" type="okstra:GDF_VerbindungspunktType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="GDF_Verbindungselement" type="okstra:GDF_VerbindungselementType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Entwurfselement_Kreisbogen" type="okstra:Entwurfselement_KreisbogenType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Entwurfselement_Klothoide" type="okstra:Entwurfselement_KlothoideType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Entwurfselement_Gerade" type="okstra:Entwurfselement_GeradeType" substitutionGroup="okstra:_Streckenobjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassennetz                                                                      = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="StrassenklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="StrasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Strasse -->
+                    <element name="hat_Strassenbezeichnung" 
+                        type="okstra:StrassenbezeichnungPropertyType"/>
+                    <element name="hat_Strassenknoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse_Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_BAB_Knotennummer" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>BAB_Knotennummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Block" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Block</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_klassifizierter_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="muendet_ein_am_Anfg_von_Unfall" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>einm_klassifiz_Strasse_am_Anfg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="muendet_ein_am_Ende_von_Unfall" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>einm_klassifiz_Strasse_am_Ende</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Projektkennzeichnung_Kostra" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektkennzeichnung_Kostra</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerlaufskennzeichenType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Strasse_NetzknotenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Strasse_Netzknoten -->
+                    <element name="Verlaufskennzeichen" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Netzknoten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Strassenknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Vorgaenger" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse_Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nachfolger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nachfolger" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse_Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Vorgaenger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KnotenartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="KnotenpunktsformType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="KnotenpunktsystemType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="NetzknotenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Netzknoten -->
+                    <element name="Numerierungsbezirk" 
+                        type="okstra:TK25_Blattnummer"/>
+                    <element name="Nummer" 
+                        type="okstra:lfd_NK_Nummer"/>
+                    <element name="Knotenart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Knotenname" 
+                        type="string" minOccurs="0"/>
+                    <element name="Knotenpunktsform" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Knotenpunktsystem" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_BAB_Knotennummer" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>BAB_Knotennummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nullpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Strassenknoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse_Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>WW_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>WW_Wirkungsbereiche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="auf_Trasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Trasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Netzknoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Wegweiser" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiser</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Knoten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BAB_KnotennummerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften BAB_Knotennummer -->
+                    <element name="Knotennummer" 
+                        type="integer"/>
+                    <element name="Buchstabe" 
+                        type="string" minOccurs="0"/>
+                    <element name="auf_Strasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_BAB_Knotennummer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Netzknoten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_BAB_Knotennummer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StadiumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="AbschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Abschnitt_oder_Ast -->
+                    <element name="Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Stadium" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Streckenart" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Verkehrsfreigabe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="beginnt_bei_NP" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_NP" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Strasse" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Teilabschnitt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Strassenpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Abschnitt -->
+                    <element name="Abschnittsnummer" 
+                        type="integer" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Abschnitt_oder_Ast -->
+                    <element name="Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Stadium" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Streckenart" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Verkehrsfreigabe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="beginnt_bei_NP" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_NP" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Strasse" 
+                        type="okstra:ObjectRefType"  maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Teilabschnitt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Strassenpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Abschnitt_oder_Ast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrliche_VerknuepfungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrliche_Verknuepfung -->
+                    <element name="von_Strassenelement" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nach_Strassenelement" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>nach_Wegweiserinhalt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ueber_Nullpunkt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>verbindet_Verkehrl_Verknuepfg</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NullpunktType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften verallgemeinerter_Nullpunkt -->
+                    <element name="Beginn_von_GDF_Verbindungelem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_verallg_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_GDF_Verbindungselem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_verallg_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nullpunkt -->
+                    <element name="Zusatz" 
+                        type="okstra:Nullpunktkennung"/>
+                    <element name="zentraler_Nullpunkt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="in_Netzknoten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_NP</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_NP</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="verbindet_Verkehrl_Verknuepfg" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrliche_Verknuepfung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ueber_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nullpunktsort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunktsort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_GDF_Verbindungpunkt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entspricht_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_GDF_Verbindungselement" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BezugsrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="oertliche_Zuordnung_SPType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften oertliche_Zuordnung_SP -->
+                    <element name="von_oertlicher_Zuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_auf_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="nicht_nach_ASB_klass_StrasseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften nicht_nach_ASB_klass_Strasse -->
+                    <element name="Strassenklasse" 
+                        type="string"/>
+                    <element name="Nummer" 
+                        type="integer"/>
+                    <element name="Lage" 
+                        type="string"/>
+                    <element name="von_oertlicher_Zuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>oertliche_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_auf_nicht_klass_Strasse</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Projektkennzeichnung_Kostra" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektkennzeichnung_Kostra</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_nicht_nach_ASB_klass_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NullpunktsortType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenpunkt -->
+                    <element name="Station" 
+                        type="okstra:Meter"/>
+                    <element name="Abstand_zur_Bestandsachse" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Abstand_zur_Fahrbahnoberkante" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="auf_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nullpunktsort -->
+                    <element name="bei_Nullpunkt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nullpunktsort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von_SE" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_NPO</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_SE" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_NPO</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NetzbereichType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Netzbereichskomponente -->
+                    <element name="in_Netzbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Netzbereichskomp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzbereich -->
+                    <group ref="okstra:NetzbereichskomponenteGroup" maxOccurs="unbounded" />
+                    <element name="zu_Bereichsobjekt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bereichsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Netzbereich</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Punktobjekt_o_Bereichsobjekt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktobjekt_o_Bereichsobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Bereichsobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreckeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Netzbereichskomponente -->
+                    <element name="in_Netzbereich" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Netzbereichskomp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strecke -->
+                    <element name="entlang_Teilabschnitt" 
+                        type="okstra:TeilabschnittPropertyType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TeilnetzType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Teilnetzkomponente -->
+                    <element name="in_Teilnetz" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilnetz</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Teilnetzkomponente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilnetz -->
+                    <element name="Kennzeichen_Teilnetz" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibung_Teilnetz" 
+                        type="string" minOccurs="0"/>
+                    <element name="enthaelt_Teilnetzkomponente" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilnetzkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Teilnetz</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RouteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Teilnetzkomponente -->
+                    <element name="in_Teilnetz" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilnetz</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Teilnetzkomponente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Routenkomponente -->
+                    <element name="hat_Vorgaenger" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routenkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nachfolger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nachfolger" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routenkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Vorgaenger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Route" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Route</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entlang_Routenkomponente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Route -->
+                    <element name="entlang_Routenkomponente" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routenkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Route</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenelementType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Teilnetzkomponente -->
+                    <element name="in_Teilnetz" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilnetz</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Teilnetzkomponente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Routenkomponente -->
+                    <element name="hat_Vorgaenger" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routenkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Nachfolger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Nachfolger" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routenkomponente</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Vorgaenger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Route" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Route</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entlang_Routenkomponente</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Strassenelement -->
+                    <element name="RDS_TMC_Code" 
+                        type="string" minOccurs="0"/>
+                    <element name="beginnt_bei_NPO" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunktsort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_SE</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_NPO" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunktsort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_SE</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von_verkehrlicher_Verkn" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrliche_Verknuepfung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Strassenelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_verkehrlicher_Verkn" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrliche_Verknuepfung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>nach_Strassenelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_GDF_Verbindungselement" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entspricht_Strassenelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Strassenelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nach_Wegweiserinhalt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wegweiserinhalt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>nach_Strassenelement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KilometrierungType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Kilometrierung -->
+                    <element name="Kilometrierung" 
+                        type="okstra:Kilometer"/>
+                    <element name="von_Bauwerk_Netzzuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Netzzuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kilometrierung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BetriebskilometerType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Kilometrierung -->
+                    <element name="Kilometrierung" 
+                        type="okstra:Kilometer"/>
+                    <element name="von_Bauwerk_Netzzuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Netzzuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kilometrierung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Betriebskilometer -->
+                    <element name="in_Block" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Block</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Betriebskilometer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Angaben_zum_Unfallort" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Betriebskilometer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BlockType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Block -->
+                    <element name="Blocknummer" 
+                        type="integer"/>
+                    <element name="km_Anfang" 
+                        type="double"/>
+                    <element name="km_Ende" 
+                        type="double"/>
+                    <element name="auf_Strasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Block</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Betriebskilometer" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Betriebskilometer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Block</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GDF_VerbindungspunktType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften verallgemeinerter_Nullpunkt -->
+                    <element name="Beginn_von_GDF_Verbindungelem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_verallg_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_GDF_Verbindungselem" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>GDF_Verbindungselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_verallg_Nullpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften GDF_Verbindungspunkt -->
+                    <element name="entspricht_Nullpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GDF_Verbindungpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GDF_VerbindungselementType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften GDF_Verbindungselement -->
+                    <element name="beginnt_bei_verallg_Nullpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verallgemeinerter_Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_GDF_Verbindungelem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_verallg_Nullpunkt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verallgemeinerter_Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_GDF_Verbindungselem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Nullpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nullpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GDF_Verbindungselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="entspricht_Strassenelement" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenelement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_GDF_Verbindungselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Entwurfselement_KreisbogenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Entwurfselement -->
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="beginnt_bei_Vermessungspunkt" 
+                        type="integer"/>
+                    <element name="endet_bei_Vermessungspunkt" 
+                        type="integer"/>
+                    <!-- Eigenschaften Entwurfselement_Kreisbogen -->
+                    <element name="Radius" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Entwurfselement_KlothoideType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Entwurfselement -->
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="beginnt_bei_Vermessungspunkt" 
+                        type="integer"/>
+                    <element name="endet_bei_Vermessungspunkt" 
+                        type="integer"/>
+                    <!-- Eigenschaften Entwurfselement_Klothoide -->
+                    <element name="Radius_am_Anfang" 
+                        type="okstra:Meter"/>
+                    <element name="Radius_am_Ende" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Parameter" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Entwurfselement_GeradeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Entwurfselement -->
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <element name="beginnt_bei_Vermessungspunkt" 
+                        type="integer"/>
+                    <element name="endet_bei_Vermessungspunkt" 
+                        type="integer"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

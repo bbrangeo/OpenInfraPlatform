@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Historisierung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1012/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1012/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.012">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Historisierung:v1.012">S_Historisierung.xsd v1.012</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.012, Schema S_Historisierung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Historisierung                                                              = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Ereignis" type="okstra:EreignisType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Projekt_Strassenbau" type="okstra:Projekt_StrassenbauType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="identisches_Netzteil" type="okstra:identisches_NetzteilType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Veraenderungsart" type="okstra:VeraenderungsartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Teilabschnitt_IdNT" type="okstra:Teilabschnitt_IdNTType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Historisierung                                                                  = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="EreignisType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ereignis -->
+                    <element name="Jahr_des_Ereignisses" 
+                        type="okstra:Jahr"/>
+                    <element name="laufende_Nummer" 
+                        type="integer"/>
+                    <element name="PROJIS_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verkehrseinheit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Wirksamkeitsdatum" 
+                        type="okstra:Datum"/>
+                    <element name="gehoert_zu_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projekt_Strassenbau</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Bauamt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument_zur_Erlaeuterung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Grundlage_fuer_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_identisches_Netzteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>identisches_Netzteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Teil_von_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="erzeugt_historisches_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>historisches_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>erzeugt_von_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="loescht_historisches_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>historisches_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>geloescht_von_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Projekt_StrassenbauType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Projekt_Strassenbau -->
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="identisches_NetzteilType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften identisches_Netzteil -->
+                    <element name="mit_Veraenderungsart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="war_Teilabschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilabschnitt_IdNT</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>altes_Netzteil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="wurde_zu_Teilabschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilabschnitt_IdNT</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>neues_Netzteil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Teil_von_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_identisches_Netzteil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VeraenderungsartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Teilabschnitt_IdNTType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften verallgemeinerte_Strecke -->
+                    <element name="zu_Streckenobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streckenobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Netzbereichskomponente -->
+                    <element name="in_Netzbereich" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzbereich</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>enthaelt_Netzbereichskomp</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilabschnitt -->
+                    <element name="beginnt_bei_SP" 
+                        type="okstra:StrassenpunktPropertyType"/>
+                    <element name="endet_bei_SP" 
+                        type="okstra:StrassenpunktPropertyType"/>
+                    <element name="auf_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Strecke" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strecke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entlang_Teilabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilabschnitt_IdNT -->
+                    <element name="altes_Netzteil" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>identisches_Netzteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>war_Teilabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="neues_Netzteil" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>identisches_Netzteil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>wurde_zu_Teilabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

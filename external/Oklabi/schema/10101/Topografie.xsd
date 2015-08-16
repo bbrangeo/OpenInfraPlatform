@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Topografie.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Topografie:v1.010">Topografie.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Topografie
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Topografie                                                                    = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Boeschung" type="okstra:BoeschungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Boeschung" type="okstra:Art_BoeschungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Beginn_Interpolation" type="okstra:Beginn_InterpolationType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Boeschungskantenabschnitt" type="okstra:BoeschungskantenabschnittType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Boeschungslinie" type="okstra:BoeschungslinieType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Boeschungslinie" type="okstra:Art_BoeschungslinieType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Topografie                                                                        = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="BoeschungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Boeschung -->
+                    <element name="Art_Boeschung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Beginn_Interpolation" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Oberkante" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschungskantenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Oberkante_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Unterkante" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschungskantenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Unterkante_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Boeschungslinie" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschungslinie</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Boeschung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BoeschungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Beginn_InterpolationType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BoeschungskantenabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Boeschungskantenabschnitt -->
+                    <element name="sicher" 
+                        type="integer" minOccurs="0"/>
+                    <element name="ist_Oberkante_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Oberkante</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Unterkante_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Unterkante</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BoeschungslinieType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Boeschungslinie -->
+                    <element name="Art_Boeschungslinie" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="gehoert_zu_Boeschung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Boeschungslinie</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BoeschungslinieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

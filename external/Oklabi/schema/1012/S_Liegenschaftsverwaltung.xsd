@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Liegenschaftsverwaltung.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1012/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1012/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.012">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Liegenschaftsverwaltung:v1.012">S_Liegenschaftsverwaltung.xsd v1.012</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.012, Schema S_Liegenschaftsverwaltung
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Liegenschaftsverwaltung                                                     = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="LV_Flurstuecksdetails" type="okstra:LV_FlurstuecksdetailsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="LV_Vermoegensgruppe" type="okstra:LV_VermoegensgruppeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="LV_GEStand" type="okstra:LV_GEStandType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="LV_GEArt" type="okstra:LV_GEArtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="LV_Behoerde" type="okstra:LV_BehoerdeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="LV_Gebuehren" type="okstra:LV_GebuehrenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Liegenschaftsverwaltung                                                         = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="LV_FlurstuecksdetailsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften LV_Flurstuecksdetails -->
+                    <element name="Bestandsnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Projekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vermoegensgruppe" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Weitere_VMG" 
+                        type="integer" minOccurs="0"/>
+                    <element name="VD_Pruefung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="GEStand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="GEArt" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Erwerbsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Besitzuebergang" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Bodenwert" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Eigentuemerkurzbezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Fortfuehrungsnachweis" 
+                        type="string" minOccurs="0"/>
+                    <element name="Versiegelte_Flaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Belastung_Abt2" 
+                        type="string" minOccurs="0"/>
+                    <element name="Belastung_Abt3" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bemerkungen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Baubeginn" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Entbehrlichkeitspruefung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Beurkundungsdaten" 
+                        type="string" minOccurs="0"/>
+                    <element name="Tausch" 
+                        type="integer" minOccurs="0"/>
+                    <element name="SAP_Projektnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verschmelzung_Antragsnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Strasse" 
+                        type="okstra:StrassenbezeichnungPropertyType" minOccurs="0"/>
+                    <element name="hat_Baubehoerde" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>LV_Behoerde</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_LV_Flurstuecksdetails</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Flurstueck" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Flurstueck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_LV_Flurstuecksdetails</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zugehoerige_Gebuehren" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>LV_Gebuehren</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_LV_Flurstuecksdetails</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LV_VermoegensgruppeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="LV_GEStandType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="LV_GEArtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="LV_BehoerdeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften LV_Behoerde -->
+                    <element name="Baubehoerdennummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Baubehoerdenname" 
+                        type="string" minOccurs="0"/>
+                    <element name="ist_Strassenbaudienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_LV_Behoerde</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_LV_Flurstuecksdetails" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>LV_Flurstuecksdetails</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baubehoerde</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LV_GebuehrenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften LV_Gebuehren -->
+                    <element name="Verbuchungsstelle" 
+                        type="string" minOccurs="0"/>
+                    <element name="Aktenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verwalter" 
+                        type="string" minOccurs="0"/>
+                    <element name="Grundsteuer" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Entwaesserung" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Muellabfuhr" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Strassenreinigung" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Wasser" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Kaminkehrer" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="SonstigeKosten" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="TextSonstigeKosten" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gebuehren_Februar" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Gebuehren_Mai" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Gebuehren_Juli" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Gebuehren_August" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Gebuehren_November" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Grundsteuermessbescheid" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Grundsteuerbescheid" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Einheitswert" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Grundsteuermessbetrag" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Hebesatz" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Empfaenger" 
+                        type="string" minOccurs="0"/>
+                    <element name="Personenkennnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kassenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bankverbindung" 
+                        type="okstra:BankverbindungPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Projektnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kostentraeger" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kostenstelle" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_LV_Flurstuecksdetails" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>LV_Flurstuecksdetails</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zugehoerige_Gebuehren</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

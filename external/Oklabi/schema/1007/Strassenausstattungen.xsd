@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Strassenausstattungen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Strassenausstattungen.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Strassenausstattungen
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassenausstattungen                                                         = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Nebenanlage" type="okstra:NebenanlageType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Rastanlage_nicht_bew" type="okstra:Rastanlage_nicht_bewType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Rastanlage_bew" type="okstra:Rastanlage_bewType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Nebenbetrieb" type="okstra:NebenbetriebType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Leitung" type="okstra:LeitungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Leitungsverlauf" type="okstra:LeitungsverlaufType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Leitungstraeger" type="okstra:LeitungstraegerType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Leitungsart" type="okstra:LeitungsartType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Markierung" type="okstra:MarkierungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Tab_Markierung" type="okstra:Tab_MarkierungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schutzplanke" type="okstra:SchutzplankeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Strassenentwaesserung" type="okstra:StrassenentwaesserungType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="entwaesserte_Fahrbahnflaeche" type="okstra:entwaesserte_FahrbahnflaecheType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Lage_Entwaesserung" type="okstra:Lage_EntwaesserungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Lage" type="okstra:LageType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Einleitung" type="okstra:EinleitungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Entwaesserung" type="okstra:Art_der_EntwaesserungType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassenausstattungen                                                             = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="NebenanlageType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rastanlage_nicht_bewType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rastanlage_bewType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NebenbetriebType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LeitungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Leitung -->
+                    <element name="hat_Leitungsverlauf" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitungsverlauf</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Profil" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Profil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Leitungstraeger" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitungstraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Leitungsart" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitungsart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Baustoff" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baustoff</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="durch_Durchlass" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Durchlass</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Art_der_Entwaesserung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_Entwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LeitungsverlaufType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Leitungsverlauf -->
+                    <element name="Leitungslage" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leitungsverlauf</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LeitungstraegerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Leitungstraeger -->
+                    <element name="Leitungstraeger_Kurzform" 
+                        type="string" minOccurs="0"/>
+                    <element name="Leitungstraeger_Langform" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leitungstraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LeitungsartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Leitungsart -->
+                    <element name="Kennung_Leitungsart" 
+                        type="string" minOccurs="0"/>
+                    <element name="Leitungsart_Langtext" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Leitungsart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MarkierungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Markierung -->
+                    <element name="Ort_am_Fahrstreifen" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_MarkierungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="SchutzplankeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Ausstattung_und_Anlagen -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beschreibungstext" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Schutzplanke -->
+                    <element name="Lage_zum_Fahrstreifen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Plankenart" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StrassenentwaesserungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Strassenentwaesserung -->
+                    <element name="hat_entwaess_Fahrbahnflaeche" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>entwaesserte_Fahrbahnflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Strassenentwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Lage_Entwaesserung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Lage_Entwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Strassenentwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Art_der_Entwaesserung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_der_Entwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Strassenentwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="entwaesserte_FahrbahnflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften entwaesserte_Fahrbahnflaeche -->
+                    <element name="entwaesserter_Fahrbahnteil" 
+                        type="string" minOccurs="0"/>
+                    <element name="Flaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="von_Strassenentwaesserung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenentwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_entwaess_Fahrbahnflaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_EntwaesserungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Lage_Entwaesserung -->
+                    <element name="Lage" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Einleitung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="zu_Strassenentwaesserung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenentwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Lage_Entwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="LageType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="EinleitungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_EntwaesserungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Entwaesserung -->
+                    <element name="Transporteinrichtung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Behandlung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ableitung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Art_der_Entwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strassenentwaesserung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenentwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_der_Entwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

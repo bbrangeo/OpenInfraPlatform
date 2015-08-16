@@ -1,0 +1,1331 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Administration.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Administration.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Administration
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Administration                                                                = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Bundesland" type="okstra:BundeslandType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Regierungsbezirk" type="okstra:RegierungsbezirkType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Kreis_kreisfreie_Stadt" type="okstra:Kreis_kreisfreie_StadtType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Kreisart" type="okstra:KreisartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gemeindebezirk" type="okstra:GemeindebezirkType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Baulast_Strassenklasse" type="okstra:Baulast_StrassenklasseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gemeinde_Funktion" type="okstra:Gemeinde_FunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ortsteil" type="okstra:OrtsteilType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Land_Ministerium" type="okstra:Land_MinisteriumType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Regierungspraesidium_Landesamt" type="okstra:Regierungspraesidium_LandesamtType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Amt" type="okstra:AmtType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Meisterei" type="okstra:MeistereiType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Kreisverwaltung" type="okstra:KreisverwaltungType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Gemeindeverwaltung" type="okstra:GemeindeverwaltungType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="sonstige_UI_Partner" type="okstra:sonstige_UI_PartnerType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="UI_Vereinbarung" type="okstra:UI_VereinbarungType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Baulast" type="okstra:BaulastType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Art_Baulast" type="okstra:Art_BaulastType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Baulast_Dritter" type="okstra:Baulast_DritterType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Dokument" type="okstra:DokumentType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="OD_FS" type="okstra:OD_FSType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Tab_OD_FS" type="okstra:Tab_OD_FSType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Widmung" type="okstra:WidmungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Tab_Widmung" type="okstra:Tab_WidmungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Polizeidienststelle" type="okstra:PolizeidienststelleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Administration                                                                    = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="BundeslandType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Verwaltungsbezirk -->
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_gemeldetes_Kfz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Kfz_in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DV_Merkmalen_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bundesland -->
+                    <element name="Kennung_Bundesland" 
+                        type="string"/>
+                    <element name="enthaelt_Regierungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RegierungsbezirkType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Verwaltungsbezirk -->
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_gemeldetes_Kfz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Kfz_in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DV_Merkmalen_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Regierungsbezirk -->
+                    <element name="Kennung_Regierungsbezirk" 
+                        type="string"/>
+                    <element name="ist_in_Bundesland" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="enthaelt_Kreis_kreisfr_Stadt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kreis_kreisfreie_StadtType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Verwaltungsbezirk -->
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_gemeldetes_Kfz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Kfz_in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DV_Merkmalen_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Kreis_kreisfreie_Stadt -->
+                    <element name="Kennung_Kreis" 
+                        type="string"/>
+                    <element name="Kreisart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="ist_in_Regierungsbezirk" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="enthaelt_Gemeindebezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Kreisverwaltung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kreisverwaltung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Kreis_kreisfreie_Stadt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KreisartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GemeindebezirkType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Verwaltungsbezirk -->
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_gemeldetes_Kfz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Kfz_in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DV_Merkmalen_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Gemeindebezirk -->
+                    <element name="Kennung_Gemeinde" 
+                        type="string"/>
+                    <element name="Baulast_Strassenklasse" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Gemeinde_Funktion" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="ist_in_Kreis_kreisfreie_Stadt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="enthaelt_Ortsteil" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Gemeindeverwaltung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemeindeverwaltung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Gemeindebezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Gemarkung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Baulast_StrassenklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Gemeinde_FunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="OrtsteilType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Verwaltungsbezirk -->
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="enthaelt_Vermessungspunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Vermessungspunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>liegt_in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_gemeldetes_Kfz" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unfallfahrzeug</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Kfz_in_Verwaltungsbezirk</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_DV_Merkmalen_StaLa" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DV_Merkmale_StaLa</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bundesland</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Ortsteil -->
+                    <element name="Kennung_Ortsteil" 
+                        type="string"/>
+                    <element name="ist_in_Gemeindebezirk" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Land_MinisteriumType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Land_Ministerium -->
+                    <element name="Schluessel_Land_Ministerium" 
+                        type="string"/>
+                    <element name="ist_vorgesetzt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Regierungspraesidium_LandesamtType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Regierungspraesidium_Landesamt -->
+                    <element name="Schluessel_Regpraes_Landesamt" 
+                        type="string"/>
+                    <element name="untersteht_Land_Ministerium" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="ist_vorgesetzt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AmtType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Amt -->
+                    <element name="Schluessel_Amt" 
+                        type="string"/>
+                    <element name="untersteht_Regierungspr_Ldsamt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="ist_vorgesetzt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MeistereiType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Meisterei -->
+                    <element name="Schluessel_Meisterei" 
+                        type="string"/>
+                    <element name="untersteht_Amt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KreisverwaltungType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Kreisverwaltung -->
+                    <element name="von_Kreis_kreisfreie_Stadt" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kreis_kreisfreie_Stadt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kreisverwaltung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GemeindeverwaltungType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Baulasttraeger -->
+                    <element name="hat_Baulast" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baulasttraeger</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Strassenbaudienststelle -->
+                    <element name="Strasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Postleitzahl" 
+                        type="string" minOccurs="0"/>
+                    <element name="Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Routing" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Routing</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Amt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_verwaltungstechn_Zuordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verwaltungstechn_Zuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Strassenbaudienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Bauamt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Gemeindeverwaltung -->
+                    <element name="Baulast_Strassenklasse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gemeindefunktion" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Gemeindebezirk" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gemeindebezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Gemeindeverwaltung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="sonstige_UI_PartnerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften UI_Partner -->
+                    <element name="hat_UI_Vereinbarung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Vereinbarung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_UI_Partner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften ASB_Bezeichnung -->
+                    <element name="Bezeichnung_Lang" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Mittel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_Kurz" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften sonstige_UI_Partner -->
+                    <element name="Kennzeichen" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UI_VereinbarungType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften UI_Vereinbarung -->
+                    <element name="Vertragsdatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="mit_UI_Partner" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>UI_Partner</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_UI_Vereinbarung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Bauwerk_Netzzuordnung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bauwerk_Netzzuordnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_UI_Vereinbarung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaulastType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Baulast -->
+                    <element name="Art_Baulast" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="von_Baulasttraeger" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulasttraeger</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baulast</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BaulastType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Baulast_DritterType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="DokumentType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Dokument -->
+                    <element name="Kennzeichen_Aktenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Seite" 
+                        type="integer" minOccurs="0"/>
+                    <element name="verfuegt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Datum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="von_Benutzer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Wirksamkeitsdatum_Dokument" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Text" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Strassenentwaesserung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenentwaesserung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Grundlage_fuer_Ereignis" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dokument_zur_Erlaeuterung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="OD_FSType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OD_FS -->
+                    <element name="OD_FS" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Unfallort" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ortslage_gemaess_SIB</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_OD_FSType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="WidmungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Widmung -->
+                    <element name="rechtsgueltig_ab" 
+                        type="okstra:Datum"/>
+                    <element name="Widmung" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_WidmungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="PolizeidienststelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Polizeidienststelle -->
+                    <element name="Behoerdenkennung" 
+                        type="string"/>
+                    <element name="zu_Unfallort" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zum_Unfallort</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>bei_Polizeidienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

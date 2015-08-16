@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Settings -->
+
+<settings>
+<!-- Direct3D -->
+	<renderSystemDescription>
+		<renderSystem>Direct3D</renderSystem>
+		<majorVersion>11</majorVersion>
+		<miniorVersion>0</miniorVersion>
+		<featureLevel>10_1</featureLevel>
+		<enableMSAA sampleCount="4">true</enableMSAA>
+		<enableDebugLayer>false</enableDebugLayer>
+		<enableMultithreading>true</enableMultithreading>
+	</renderSystemDescription>
+
+<!-- OpenGL 
+	<renderSystemDescription>
+		<renderSystem>OpenGL</renderSystem>
+		<majorVersion>4</majorVersion>
+		<miniorVersion>0</miniorVersion>
+		<featureLevel>Undefined</featureLevel>
+		<enableMSAA sampleCount="4">true</enableMSAA>
+		<enableDebugLayer>false</enableDebugLayer>
+		<enableMultithreading>true</enableMultithreading>
+	</renderSystemDescription>
+-->	
+	<renderWindow>
+		<width>1024</width>
+		<height>724</height>
+	</renderWindow>
+</settings>

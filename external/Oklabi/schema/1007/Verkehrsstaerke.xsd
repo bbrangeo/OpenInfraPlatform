@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Verkehrsstaerke.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1007/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1007/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.007">
+    <annotation>
+        <appinfo>1007/Verkehrsstaerke.xsd</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.007, Schema Verkehrsstaerke
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehrsstaerke                                                               = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Verkehrsstaerkekennwerte" type="okstra:VerkehrsstaerkekennwerteType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Verkehrsstaerken" type="okstra:VerkehrsstaerkenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Verkehrsstaerkeverteilung" type="okstra:VerkehrsstaerkeverteilungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tageswert_q" type="okstra:Tageswert_qType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wochenganglinie_q" type="okstra:Wochenganglinie_qType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Jahresganglinie_q" type="okstra:Jahresganglinie_qType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tagesganglinien_q" type="okstra:Tagesganglinien_qType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wochentagskennung" type="okstra:WochentagskennungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Wochentagsganglinien_q" type="okstra:Wochentagsganglinien_qType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tageszeitwert" type="okstra:TageszeitwertType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nachtzeitwert" type="okstra:NachtzeitwertType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="alle_Tage" type="okstra:alle_TageType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="werktags" type="okstra:werktagsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="sonn_und_feiertags" type="okstra:sonn_und_feiertagsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ferienwerktags" type="okstra:ferienwerktagsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Di_bis_Do" type="okstra:Di_bis_DoType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Verkehrsstaerke                                                                   = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="VerkehrsstaerkekennwerteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrsstaerkekennwerte -->
+                    <element name="sind_Verkehrsstaerken" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerken</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>werden_aufbereitet_zu_VStKennw</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="werden_addiert_zu_Tageswert_q" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Tageswert_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entstehen_aus_Verkehrsstkennw</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="abbildbar_als_Wtganglinien" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wochentagsganglinien_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entstehen_aus_Verkehrsstkennw</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="abbildbar_als_Tganglinien" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Tagesganglinien_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entstehen_aus_Verkehrsstkennw</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_zeitliche_Zuordnung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zeitliches_Zuordnungskriterium</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Verkehrsstaerkekennwerten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsstaerkenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrsstaerken -->
+                    <element name="hat_Verkehrsstaerkeverteilung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkeverteilung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Verkehrsstaerken</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="werden_aufbereitet_zu_VStKennw" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>sind_Verkehrsstaerken</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="VerkehrsstaerkeverteilungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrsstaerkeverteilung -->
+                    <element name="zugehoerige_FZ_Klasse_VS" 
+                        type="integer" maxOccurs="unbounded"/>
+                    <element name="Verkehrsstaerkewert" 
+                        type="integer" maxOccurs="unbounded"/>
+                    <element name="von_Verkehrsstaerken" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerken</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Verkehrsstaerkeverteilung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tageswert_qType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Tageswert_q -->
+                    <element name="Wert" 
+                        type="okstra:Kfz_pro_Stunde"/>
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="werden_aufbereitet_zu_Wgangl" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Wochenganglinie_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entsteht_aus_Tageswert_q</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="werden_aufbereitet_zu_Jgangl" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Jahresganglinie_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>entsteht_aus_Tageswert_q</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="entstehen_aus_Verkehrsstkennw" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>werden_addiert_zu_Tageswert_q</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wochenganglinie_qType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Wochenganglinie_q -->
+                    <element name="Woche" 
+                        type="okstra:Woche"/>
+                    <element name="Jahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Ganglinientyp" 
+                        type="okstra:Ganglinientyp" minOccurs="0"/>
+                    <element name="entsteht_aus_Tageswert_q" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Tageswert_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>werden_aufbereitet_zu_Wgangl</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Jahresganglinie_qType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Jahresganglinie_q -->
+                    <element name="Jahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Ganglinientyp" 
+                        type="okstra:Ganglinientyp" minOccurs="0"/>
+                    <element name="entsteht_aus_Tageswert_q" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Tageswert_q</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>werden_aufbereitet_zu_Jgangl</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tagesganglinien_qType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Tagesganglinien_q -->
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="entstehen_aus_Verkehrsstkennw" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>abbildbar_als_Tganglinien</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WochentagskennungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Wochentagsganglinien_qType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Wochentagsganglinien_q -->
+                    <element name="Wochentag" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Jahr" 
+                        type="okstra:Jahr"/>
+                    <element name="Wochentagskennung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Ganglinientyp" 
+                        type="okstra:Ganglinientyp" minOccurs="0"/>
+                    <element name="entstehen_aus_Verkehrsstkennw" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>abbildbar_als_Wtganglinien</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TageszeitwertType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Tageszeitwert -->
+                    <element name="Zeitbereich" 
+                        type="integer"/>
+                    <element name="massgebender_Wert_M_T" 
+                        type="okstra:Kfz_pro_Tag" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="NachtzeitwertType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Nachtzeitwert -->
+                    <element name="Zeitbereich" 
+                        type="integer"/>
+                    <element name="massgebender_Wert_M_N" 
+                        type="okstra:Kfz_pro_Tag" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="alle_TageType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften alle_Tage -->
+                    <element name="Zeitbereich" 
+                        type="string"/>
+                    <element name="DTV" 
+                        type="okstra:Kfz_pro_Tag"/>
+                    <element name="DTV_Lkw" 
+                        type="okstra:Lkw_pro_Tag" minOccurs="0"/>
+                    <element name="Lkw_Anteil" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                    <element name="MSV" 
+                        type="okstra:Kfz_pro_Stunde"/>
+                    <element name="MSV_Lkw" 
+                        type="okstra:Lkw_pro_Stunde" minOccurs="0"/>
+                    <element name="zu_Unfallumstaenden" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Angaben_zu_Unfallumstaenden</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_DTV_im_Gesamtquerschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="werktagsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften werktags -->
+                    <element name="Zeitbereich" 
+                        type="string" maxOccurs="unbounded"/>
+                    <element name="DTV_W" 
+                        type="okstra:Kfz_pro_Tag"/>
+                    <element name="DTV_W_Lkw" 
+                        type="okstra:Lkw_pro_Tag" minOccurs="0"/>
+                    <element name="MSV_W" 
+                        type="okstra:Kfz_pro_Stunde"/>
+                    <element name="MSV_W_Lkw" 
+                        type="okstra:Lkw_pro_Stunde" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="sonn_und_feiertagsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften sonn_und_feiertags -->
+                    <element name="Anzahl" 
+                        type="integer"/>
+                    <element name="Jahr" 
+                        type="okstra:Jahr"/>
+                    <element name="DTV_S" 
+                        type="okstra:Kfz_pro_Tag"/>
+                    <element name="MSV_S" 
+                        type="okstra:Kfz_pro_Stunde"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ferienwerktagsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften ferienwerktags -->
+                    <element name="Zeitbereich" 
+                        type="string" maxOccurs="unbounded"/>
+                    <element name="DTV_F" 
+                        type="okstra:Kfz_pro_Tag"/>
+                    <element name="DTV_F_Lkw" 
+                        type="okstra:Lkw_pro_Tag" minOccurs="0"/>
+                    <element name="MSV_F" 
+                        type="okstra:Kfz_pro_Stunde"/>
+                    <element name="MSV_F_Lkw" 
+                        type="okstra:Lkw_pro_Stunde" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Di_bis_DoType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften zeitliches_Zuordnungskriterium -->
+                    <element name="von_Verkehrsstaerkekennwerten" 
+                        type="okstra:ObjectRefType"  minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verkehrsstaerkekennwerte</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zeitliche_Zuordnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Di_bis_Do -->
+                    <element name="Zeitbereich" 
+                        type="string"/>
+                    <element name="DTV_Di_bis_Do" 
+                        type="okstra:Kfz_pro_Tag"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

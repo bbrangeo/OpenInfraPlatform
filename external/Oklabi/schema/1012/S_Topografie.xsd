@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Topografie.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1012/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1012/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.012">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Topografie:v1.012">S_Topografie.xsd v1.012</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.012, Schema S_Topografie
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Topografie                                                                  = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Bestandsstatus" type="okstra:BestandsstatusType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Boeschung" type="okstra:BoeschungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Boeschung" type="okstra:Art_BoeschungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Boeschungskantenabschnitt" type="okstra:BoeschungskantenabschnittType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kehle" type="okstra:KehleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gebaeude" type="okstra:GebaeudeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Gebaeudenutzung" type="okstra:GebaeudenutzungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gebaeudefunktion" type="okstra:GebaeudefunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anschrift" type="okstra:AnschriftType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Geschoss" type="okstra:GeschossType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zaun" type="okstra:ZaunType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Seite_Zaunpfaehle" type="okstra:Seite_ZaunpfaehleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zaunart" type="okstra:ZaunartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Material_Zaunpfaehle" type="okstra:Material_ZaunpfaehleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zaunfunktion" type="okstra:ZaunfunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Oeffnung" type="okstra:OeffnungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Oeffnung" type="okstra:Art_OeffnungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Mauer" type="okstra:MauerType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Mauerfunktion" type="okstra:MauerfunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Mauerabschnitt" type="okstra:MauerabschnittType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Lage_Bezugsgeometrie" type="okstra:Lage_BezugsgeometrieType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Material_Mauerabschnitt" type="okstra:Material_MauerabschnittType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gehoelzart" type="okstra:GehoelzartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gebuesch" type="okstra:GebueschType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Hecke" type="okstra:HeckeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Heckenfunktion" type="okstra:HeckenfunktionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Heckenabschnitt" type="okstra:HeckenabschnittType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Topografie                                                                      = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="BestandsstatusType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BoeschungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Boeschung -->
+                    <element name="Art_Boeschung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_Oberkante" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschungskantenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Oberkante_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Unterkante" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschungskantenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Unterkante_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Kehle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kehle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Boeschung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BoeschungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BoeschungskantenabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Boeschungskantenabschnitt -->
+                    <element name="undeutlich" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="ist_Oberkante_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Oberkante</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Unterkante_zu" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Unterkante</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KehleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Kehle -->
+                    <element name="gehoert_zu_Boeschung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Boeschung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kehle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GebaeudeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Gebaeude -->
+                    <element name="Gebaeudenutzung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Gebaeudefunktion" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Name" 
+                        type="string" minOccurs="0"/>
+                    <element name="Traufhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Firsthoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="hat_Erfassungsqualitaet" 
+                        type="okstra:ErfassungsqualitaetPropertyType" minOccurs="0"/>
+                    <element name="hat_Anschrift" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Anschrift</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Gebaeude</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Geschoss" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Geschoss</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Gebaeude</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GebaeudenutzungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GebaeudefunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="AnschriftType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Anschrift -->
+                    <element name="Hausnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Strassenname" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Gebaeude" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gebaeude</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Anschrift</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="GeschossType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Geschoss -->
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Oberkante_Fenster" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Gebaeude" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Gebaeude</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Geschoss</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZaunType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Zaun -->
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="wahre_Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Fundament_vorhanden" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Seite_Zaunpfaehle" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Zaunart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Material_Zaunpfaehle" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Zaunfunktion" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Oeffnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Oeffnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Zaun</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="auf_Mauerabschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Mauerabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zaun</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Seite_ZaunpfaehleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="ZaunartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_ZaunpfaehleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="ZaunfunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="OeffnungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Oeffnung -->
+                    <element name="Art_Oeffnung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="von_Zaun" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaun</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Oeffnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Mauerabschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Mauerabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Oeffnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Heckenabschnitt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Heckenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Oeffnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_OeffnungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="MauerType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Mauer -->
+                    <element name="Mauerfunktion" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Mauerabschnitt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Mauerabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Mauer</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MauerfunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="MauerabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Mauerabschnitt -->
+                    <element name="Breite" 
+                        type="okstra:Zentimeter"/>
+                    <element name="Hoehe" 
+                        type="okstra:Meter"/>
+                    <element name="wahre_Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="ist_Pfeiler" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Material_Mauerabschnitt" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Lage_Bezugsgeometrie" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Zaun" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaun</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Mauerabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Oeffnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Oeffnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Mauerabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Mauer" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Mauer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Mauerabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_BezugsgeometrieType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_MauerabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GehoelzartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="GebueschType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Gehoelz -->
+                    <element name="Gehoelzart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HeckeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_Eigenschaft -->
+                    <element name="Bestandsstatus" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Gehoelz -->
+                    <element name="Gehoelzart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Hecke -->
+                    <element name="Heckenfunktion" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="hat_Heckenabschnitt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Heckenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Hecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HeckenfunktionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="HeckenabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Heckenabschnitt -->
+                    <element name="Breite" 
+                        type="okstra:Zentimeter"/>
+                    <element name="Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="wahre_Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="hat_Oeffnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Oeffnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Heckenabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gehoert_zu_Hecke" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hecke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Heckenabschnitt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

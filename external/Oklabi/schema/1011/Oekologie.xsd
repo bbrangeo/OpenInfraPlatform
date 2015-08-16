@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Oekologie.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1011/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1011/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.011">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Oekologie:v1.011">Oekologie.xsd v1.011</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.011, Schema Oekologie
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Oekologie                                                                     = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Kompensationsmassnahme" type="okstra:KompensationsmassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Teilmassnahme" type="okstra:TeilmassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kompensationsteilflaeche" type="okstra:KompensationsteilflaecheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Herstellung_Fertigstpflege" type="okstra:Herstellung_FertigstpflegeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Entwicklungspflege" type="okstra:EntwicklungspflegeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Unterhaltungspflege" type="okstra:UnterhaltungspflegeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Baumassnahme" type="okstra:BaumassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Baum" type="okstra:BaumType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Baumart" type="okstra:BaumartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schiefstand_Baum" type="okstra:Schiefstand_BaumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zustandsbeurteilung_Baum" type="okstra:Zustandsbeurteilung_BaumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Baumschaden" type="okstra:BaumschadenType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Kronenschaden" type="okstra:KronenschadenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Stammschaden" type="okstra:StammschadenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Stammfussschaden" type="okstra:StammfussschadenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wurzelschaden" type="okstra:WurzelschadenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Schadensursache_Baum" type="okstra:Schadensursache_BaumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schadenseinstufung_Baum" type="okstra:Schadenseinstufung_BaumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Standortbeschreibung_Baum" type="okstra:Standortbeschreibung_BaumType" substitutionGroup="okstra:_Punktobjekt" />
+    <element name="Lagebeschreibung_Baum" type="okstra:Lagebeschreibung_BaumType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bewuchs" type="okstra:BewuchsType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Schutzstatus_Bewuchs" type="okstra:Schutzstatus_BewuchsType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Pflegemassnahme_Bewuchs" type="okstra:Pflegemassnahme_BewuchsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_der_Pflegemassnahme" type="okstra:Art_der_PflegemassnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Quelle_Pflegemassnahme" type="okstra:Quelle_PflegemassnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_Leistungserbringer_Pflege" type="okstra:Art_Leistungserbringer_PflegeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Baumreihe" type="okstra:BaumreiheType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Baumreihenabschnitt" type="okstra:BaumreihenabschnittType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Allee" type="okstra:AlleeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Oekologie                                                                         = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="KompensationsmassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Kompensationsmassnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Nummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Beschreibung_gemaess_LBP" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gesamtgroesse" 
+                        type="okstra:Quadratmeter"/>
+                    <element name="Ersatzgeld" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Ersatzgeld_gezahlt_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Ersatzgeld_gezahlt_an" 
+                        type="string" minOccurs="0"/>
+                    <element name="Begruendung_fuer_Ersatzgeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="fertiggestellt_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Herstellung_abgeschlossen_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Entwicklungsziel_erreicht_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Uebergabe_an" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_der_Uebergabe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Zustandskontrolle" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Kompensationsmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baumassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kompensationsmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TeilmassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Umfang" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Anzahl" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Groesse" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="hat_Kompensationsteilflaeche" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kompensationsteilflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Herstellung_Fertigstpflege" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Herstellung_Fertigstpflege</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Entwicklungspflege" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Entwicklungspflege</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Unterhaltungspflege" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Unterhaltungspflege</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Kompensationsmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kompensationsmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KompensationsteilflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Kompensationsteilflaeche -->
+                    <element name="Groesse" 
+                        type="okstra:Quadratmeter"/>
+                    <element name="auf_Nutzungsartteilflaeche" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nutzungsartteilflaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Kompensationsteilflaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kompensationsteilflaeche</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Herstellung_FertigstpflegeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Herstellung_Fertigstpflege -->
+                    <element name="Massnahme" 
+                        type="string" minOccurs="0"/>
+                    <element name="Entwicklungsziel_erreicht_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Kosten_der_Herstellung" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Kosten_der_Fertigstellungspfl" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Herstellung_Fertigstpflege</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EntwicklungspflegeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Entwicklungspflege -->
+                    <element name="Art_der_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Einheitspreis" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtpreis" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Zeitpunkt_der_Pflege" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Durchfuehrung_von" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kosten" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Pflegevertrag_mit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vertrag_endet_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="abgenommen_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Entwicklungsziel_erreicht_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsinhalte" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anmerkungen_zur_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_f_die_weitere_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Entwicklungspflege</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UnterhaltungspflegeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Unterhaltungspflege -->
+                    <element name="Art_der_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Einheitspreis" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtpreis" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Durchfuehrung_von" 
+                        type="string" minOccurs="0"/>
+                    <element name="Pflegevertrag_mit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Vertrag_endet_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="abgenommen_am" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Vertragsinhalte" 
+                        type="string" minOccurs="0"/>
+                    <element name="Anmerkungen_zur_Unterhpflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hinweise_f_die_weitere_Pflege" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kosten_d_Unterhpflege_aktuell" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Kosten_d_Unterhpflege_aufgel" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="von_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Unterhaltungspflege</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Baumassnahme -->
+                    <element name="Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="naechster_Ort" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Beginn" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Fertigstellung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Verkehrsfreigabe" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Fertigstellung_Kompensmassn" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Landschaftsbehoerde" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Genehmigung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_der_Genehmigung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Aktenzeichen" 
+                        type="string" minOccurs="0"/>
+                    <element name="PROJIS_Nummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Fertigstellung_LBP" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Gesamtkosten_Grunderwerb_Komp" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtkosten_Herstellung_Komp" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtkosten_Fertigstell_Komp" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtkosten_Entwicklpfl_Komp" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Gesamtkosten_Unterhpfl_Komp" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="Bearbeiter" 
+                        type="string" minOccurs="0"/>
+                    <element name="letzte_Bearbeitung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="hat_Kompensationsmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kompensationsmassnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Verwaltungsbezirk" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Verwaltungsbezirk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strasse" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Abschnitt_oder_Ast" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Baumassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Objekt_ID</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Objekt_mit_ID</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bewuchs -->
+                    <element name="Schutzstatus" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Zustaendigkeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verkehrsraumeinschraenkung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Erfassungsqualitaet" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="hat_Pflegemassnahmen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Pflegemassnahme_Bewuchs</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Auspraegungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="auf_Rastanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rastanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Baum -->
+                    <element name="Baumart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Stammumfang" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Stammdurchmesser" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Kronendurchmesser" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Wurzelhalsdurchmesser" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Stammhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Baumhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Baumscheibe" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Pflanzjahr" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="gefaellt" 
+                        type="integer" minOccurs="0"/>
+                    <element name="letzte_Baumschau" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Schiefstand" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Zustandsbeurteilung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Baumschaeden" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumschaden</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Standort" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Standortbeschreibung_Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Baum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Beginn_von_Baumreihe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Baum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Baumreihe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Baum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Baum_in_Baumreihe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baum</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Schiefstand_BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Zustandsbeurteilung_BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumschadenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Baumschaden -->
+                    <element name="Kronenschaeden" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Stammschaeden" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Stammfussschaden" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Wurzelschaeden" 
+                        type="okstra:ObjectRefType" minOccurs="0"/>
+                    <element name="Schadensursache" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="von_Baum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baumschaeden</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KronenschadenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Kronenschaden -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                    <element name="Schadenseinstufung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StammschadenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Stammschaden -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                    <element name="Schadenseinstufung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StammfussschadenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Stammfussschaden -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                    <element name="Schadenseinstufung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="WurzelschadenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Wurzelschaden -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                    <element name="Schadenseinstufung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schadensursache_BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Schadenseinstufung_BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Standortbeschreibung_BaumType">
+        <complexContent>
+            <extension base="okstra:PunktobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Standortbeschreibung_Baum -->
+                    <element name="Lagebeschreibung" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="von_Baum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Standort</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lagebeschreibung_BaumType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BewuchsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Objekt_ID</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Objekt_mit_ID</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bewuchs -->
+                    <element name="Schutzstatus" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Zustaendigkeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verkehrsraumeinschraenkung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Erfassungsqualitaet" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="hat_Pflegemassnahmen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Pflegemassnahme_Bewuchs</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Auspraegungen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>geometrische_Auspraegung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="auf_Rastanlage" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rastanlage</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Bewuchs</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schutzstatus_BewuchsType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Pflegemassnahme_BewuchsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Pflegemassnahme_Bewuchs -->
+                    <element name="Art_der_Pflegemassnahme" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_der_Massnahme" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Quelle_der_Massnahme" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Art_des_Leistungserbringers" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Adresse_Leistungserbringer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Kosten" 
+                        type="okstra:EURO" minOccurs="0"/>
+                    <element name="zu_Bewuchs" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Bewuchs</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Pflegemassnahmen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_PflegemassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Quelle_PflegemassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Leistungserbringer_PflegeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumreiheType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Baumreihe -->
+                    <element name="Art_der_Baumreihe" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Zustaendigkeit" 
+                        type="string" minOccurs="0"/>
+                    <element name="besteht_aus_Abschnitten" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Allee</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaumreihenabschnittType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Baumreihenabschnitt -->
+                    <element name="Anzahl_der_enthaltenen_Baeume" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Erfassungsqualitaet" 
+                        type="okstra:ObjectRefType"/>
+                    <element name="beginnt_bei_Baum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Baumreihe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Baum" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Baumreihe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Baum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Baum_in_Baumreihe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Baumreihe" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>besteht_aus_Abschnitten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Allee" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Allee</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>besteht_aus_Abschnitten</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AlleeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Allee -->
+                    <element name="besteht_aus_Abschnitten" 
+                        type="okstra:ObjectRefType" minOccurs="2" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baumreihenabschnitt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Allee</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

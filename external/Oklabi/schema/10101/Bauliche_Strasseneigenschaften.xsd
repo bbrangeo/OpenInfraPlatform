@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Bauliche_Strasseneigenschaften.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Bauliche_Strasseneigenschaften:v1.010">Bauliche_Strasseneigenschaften.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Bauliche_Strasseneigenschaften
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Bauliche_Strasseneigenschaften                                                = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Schicht" type="okstra:SchichtType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Schichtbegrenzung" type="okstra:SchichtbegrenzungType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Schichtart" type="okstra:SchichtartType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Schichtmaterial" type="okstra:SchichtmaterialType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Querschnittstreifen" type="okstra:QuerschnittstreifenType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Streifenart" type="okstra:StreifenartType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Streifenbegrenzung" type="okstra:StreifenbegrenzungType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Bauklasse_Oberbau" type="okstra:Bauklasse_OberbauType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Bauweise_Oberbau" type="okstra:Bauweise_OberbauType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Regelquerschnitt" type="okstra:RegelquerschnittType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Bahnigkeit" type="okstra:BahnigkeitType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Kennzeichen_Bahnigkeit" type="okstra:Kennzeichen_BahnigkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fahrbahnlaengsneigung" type="okstra:FahrbahnlaengsneigungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Fahrbahnquerneigung" type="okstra:FahrbahnquerneigungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Fahrbahntrennung" type="okstra:FahrbahntrennungType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Trassenbreite" type="okstra:TrassenbreiteType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Fahrbahnbreite" type="okstra:FahrbahnbreiteType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Fussweg" type="okstra:FusswegType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Radweg" type="okstra:RadwegType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Schutzzone" type="okstra:SchutzzoneType" substitutionGroup="okstra:_BereichsobjektHist" />
+    <element name="Hindernis" type="okstra:HindernisType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Hindernis_Art" type="okstra:Hindernis_ArtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Durchlass" type="okstra:DurchlassType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Baustoff" type="okstra:BaustoffType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Profil" type="okstra:ProfilType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Profilform" type="okstra:ProfilformType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Bauliche_Strasseneigenschaften                                                    = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="SchichtType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Darstellung volumenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Volumen" type="gml:SolidPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Koerper" type="gml:DirectedTopoSolidPropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Schicht -->
+                    <element name="maximale_Korngroesse" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Einbaudatum" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="beginnt_bei_Schichtbegrenzung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schichtbegrenzung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Schichtbegrenzung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schichtbegrenzung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Schichtart" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schichtart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Schichtmaterial" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schichtmaterial</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="unter_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ueber_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ueber_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>unter_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchichtbegrenzungType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Schichtbegrenzung -->
+                    <element name="Breite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Achsabstand_Anfang" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Dicke" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="Abstand_Planum" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Beginn_von_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Schichtbegrenzung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Schichtbegrenzung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchichtartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Schichtart -->
+                    <element name="Kennung_Schichtart" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Kurztext" 
+                        type="string" minOccurs="0"/>
+                    <element name="Schichtbeschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schichtart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchichtmaterialType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Schichtmaterial -->
+                    <element name="Schichtmaterial_Kennung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Schichtmaterial_Kurzbezeichng" 
+                        type="string" minOccurs="0"/>
+                    <element name="Schichtmaterial_Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Schichtmaterial</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="QuerschnittstreifenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Querschnittstreifen -->
+                    <element name="beginnt_bei_Streifenbegrenzung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streifenbegrenzung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Streifenbegrenzung" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streifenbegrenzung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Streifenart" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Streifenart</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_ZEB_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gilt_fuer_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreifenartType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Streifenart -->
+                    <element name="Kennung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Streifenart" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Streifenart</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreifenbegrenzungType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Streifenbegrenzung -->
+                    <element name="Streifenbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Beginn_von_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Streifenbegrenzung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Streifenbegrenzung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bauklasse_OberbauType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Bauklasse_Oberbau -->
+                    <element name="Strassenoberbau" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bauweise_OberbauType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Bauweise_Oberbau -->
+                    <element name="Oberbauweise" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RegelquerschnittType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Regelquerschnitt -->
+                    <element name="Kennzeichen_Regelquerschnitt" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BahnigkeitType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Bahnigkeit -->
+                    <element name="Kennzeichen_Bahnigkeit" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennzeichen_BahnigkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnlaengsneigungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fahrbahnlaengsneigung -->
+                    <element name="Steigung_Gefaelle" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnquerneigungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fahrbahnquerneigung -->
+                    <element name="Querneigung" 
+                        type="okstra:Prozent" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahntrennungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Fahrbahntrennung -->
+                    <element name="Art_der_Trennung" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TrassenbreiteType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Trassenbreite -->
+                    <element name="Trassenbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnbreiteType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften Fahrbahnbreite -->
+                    <element name="Fahrbahnbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FusswegType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RadwegType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SchutzzoneType">
+        <complexContent>
+            <extension base="okstra:BereichsobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Schutzzone -->
+                    <element name="Kennung_Schutzzone" 
+                        type="string" minOccurs="0"/>
+                    <element name="Text_Schutzzone" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HindernisType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Hindernis -->
+                    <element name="passierbare_Hoehe" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="passierbare_Breite" 
+                        type="okstra:Millimeter" minOccurs="0"/>
+                    <element name="Belastungsgrenzwert_Hindernis" 
+                        type="okstra:Tonnen" minOccurs="0"/>
+                    <element name="Laenge_des_Hindernisses" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Hindernisart" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="ist_Bauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Hindernis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Hindernis_ArtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="DurchlassType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften Durchlass -->
+                    <element name="Ueberdeckung" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Durchlasslaenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Durchlassart" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Baustoff" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baustoff</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Profil" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Profil</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Leitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Art_der_Entwaesserung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BaustoffType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Baustoff -->
+                    <element name="Material" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_Durchlass" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Durchlass</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baustoff</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Baustoff</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ProfilType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften Profil -->
+                    <element name="Profilform" 
+                        type="okstra:KeyValuePropertyType" minOccurs="0"/>
+                    <element name="Profilhoehe" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="Profilbreite" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="von_Durchlass" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Durchlass</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Profil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Profil</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ProfilformType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

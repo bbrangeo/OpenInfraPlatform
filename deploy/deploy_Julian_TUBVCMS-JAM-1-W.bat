@@ -1,0 +1,1 @@
+deploy C:\build\vs2013\OpenInfraPlatform

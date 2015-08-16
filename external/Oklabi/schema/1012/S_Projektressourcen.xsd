@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Projektressourcen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1012/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1012/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.012">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Projektressourcen:v1.012">S_Projektressourcen.xsd v1.012</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.012, Schema S_Projektressourcen
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Projektressourcen                                                           = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Administrative_Massnahme" type="okstra:Administrative_MassnahmeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Status_Rb_massnahme" type="okstra:Status_Rb_massnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Rb_massnahme_Str" type="okstra:Rb_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Rb_teilmassnahme_Str" type="okstra:Rb_teilmassnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Rb_massnahme_Str" type="okstra:Art_Rb_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ursache_Rb_massnahme_Str" type="okstra:Ursache_Rb_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Rb_massnahme_Bwk" type="okstra:Rb_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Rb_massnahme_sonst_AT" type="okstra:Rb_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Status_Nb_Erw_Uab_massnahme" type="okstra:Status_Nb_Erw_Uab_massnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ub_massnahme_Str" type="okstra:Ub_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ub_teilmassnahme_Str" type="okstra:Ub_teilmassnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ursache_Erw_Uab_massnahme_Str" type="okstra:Ursache_Erw_Uab_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ub_massnahme_Bwk" type="okstra:Ub_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ub_massnahme_sonst_AT" type="okstra:Ub_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ab_massnahme_Str" type="okstra:Ab_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ab_teilmassnahme_Str" type="okstra:Ab_teilmassnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ab_massnahme_Bwk" type="okstra:Ab_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ab_massnahme_sonst_AT" type="okstra:Ab_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erw_massnahme_Str" type="okstra:Erw_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erw_teilmassnahme_Str" type="okstra:Erw_teilmassnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erw_massnahme_Bwk" type="okstra:Erw_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erw_massnahme_sonst_AT" type="okstra:Erw_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nb_massnahme_Str" type="okstra:Nb_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nb_teilmassnahme_Str" type="okstra:Nb_teilmassnahme_StrType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Ursache_Nb_massnahme_Str" type="okstra:Ursache_Nb_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Nb_massnahme_Bwk" type="okstra:Nb_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Nb_massnahme_sonst_AT" type="okstra:Nb_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Status_Erh_massnahme" type="okstra:Status_Erh_massnahmeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Erh_massnahme_Str" type="okstra:Erh_massnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erh_teilmassnahme_Str" type="okstra:Erh_teilmassnahme_StrType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_Erh_massnahme_Str" type="okstra:Art_Erh_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Ursache_Erh_massnahme_Str" type="okstra:Ursache_Erh_massnahme_StrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Erh_massnahme_Bwk" type="okstra:Erh_massnahme_BwkType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Erh_massnahme_sonst_AT" type="okstra:Erh_massnahme_sonst_ATType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Projektressourcen                                                               = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Administrative_MassnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_Rb_massnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Rueckbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Rb_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rb_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Rb_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Rb_teilmassnahme_Str -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Rb_teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Rb_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rb_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Rb_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ursache_Rb_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Rueckbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rb_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Rueckbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_Nb_Erw_Uab_massnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Ub_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ub_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Ub_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Ub_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ub_teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Ub_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ub_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ursache_Erw_Uab_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ub_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Ab_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ab_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Ab_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Ab_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Ab_teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Ab_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ab_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ab_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Um_Ausbaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erweiterungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Erw_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erw_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erw_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Erw_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Erw_teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Erw_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erw_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erweiterungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erw_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erweiterungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Neubaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Nb_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nb_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Nb_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Nb_teilmassnahme_Str -->
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="von_Nb_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Nb_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ursache_Nb_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Neubaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Nb_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Neubaumassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_Erh_massnahmeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erhaltungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <!-- Eigenschaften Erh_massnahme_Str -->
+                    <element name="hat_Teilmassnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erh_teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Erh_massnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_teilmassnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Teilmassnahme -->
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType"/>
+                    <element name="Ausgaben" 
+                        type="okstra:WaehrungsbetragPropertyType" minOccurs="0"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <!-- Eigenschaften Erh_teilmassnahme_Str -->
+                    <element name="Art" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Ursache" 
+                        type="okstra:KeyValuePropertyType" maxOccurs="unbounded"/>
+                    <element name="betrifft_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Erh_teilmassnahme_Str</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Erh_massnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Erh_massnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilmassnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Erh_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Ursache_Erh_massnahme_StrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_massnahme_BwkType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erhaltungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Erh_massnahme_sonst_ATType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Massnahme -->
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="Haushaltsbezug" 
+                        type="okstra:HaushaltsbezugPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Bemerkung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Massnahme</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Erhaltungsmassnahme -->
+                    <element name="Status" 
+                        type="okstra:KeyValuePropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

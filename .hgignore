@@ -1,0 +1,21 @@
+syntax: glob
+*.cso
+Infrastructure.Net/TestProject/bin
+Infrastructure.Net/TestProject/obj
+Infrastructure.Net/Infrastructure.Net/obj
+testdata/*
+testdata/
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcAlignmentd.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcAlignment.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcAlignmentP6.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcAlignmentP6d.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.Ifc2x3.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.Ifc2x3d.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcRoad.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcRoadd.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcBridge.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcBridged.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcTunneld.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.Ifc4d.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.Ifc4.lib
+prebuild_libs/vs2013/x64/OpenInfraPlatform.IfcTunnel.lib

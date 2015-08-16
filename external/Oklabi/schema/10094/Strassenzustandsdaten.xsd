@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Strassenzustandsdaten.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1009/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1009/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.009">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Strassenzustandsdaten:v1.009">Strassenzustandsdaten.xsd v1.009</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.009, Schema Strassenzustandsdaten
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassenzustandsdaten                                                         = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="ZEB_Objekt" type="okstra:ZEB_ObjektType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="ZEB_Projekt" type="okstra:ZEB_ProjektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_des_ZEB_Objektes" type="okstra:Art_des_ZEB_ObjektesType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wert_einer_Zustandsgroesse" type="okstra:Wert_einer_ZustandsgroesseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wert_eines_Zustandswertes" type="okstra:Wert_eines_ZustandswertesType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wert_eines_Teilwertes" type="okstra:Wert_eines_TeilwertesType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wert_eines_Gesamtwertes" type="okstra:Wert_eines_GesamtwertesType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Wert_eines_Rohdatums" type="okstra:Wert_eines_RohdatumsType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Parameter" type="okstra:ZEB_ParameterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Dokument" type="okstra:ZEB_DokumentType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Ereignis" type="okstra:ZEB_EreignisType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Erfasser" type="okstra:ZEB_ErfasserType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Bewerter" type="okstra:ZEB_BewerterType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Veranlasser" type="okstra:ZEB_VeranlasserType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="ZEB_Parameterliste" type="okstra:ZEB_ParameterlisteType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_ZEB_Parameter" type="okstra:Art_ZEB_ParameterType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_ZEB_Methode" type="okstra:Art_ZEB_MethodeType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Strassenzustandsdaten                                                             = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="ZEB_ObjektType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Objekt -->
+                    <element name="ZEB_Objekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Objektnummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Verkehrsrichtung" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="gilt_fuer_Querschnittstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Querschnittstreifen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="gilt_fuer_Fahrstreifen" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Art_des_ZEB_Objektes" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Art_des_ZEB_Objektes</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_ZEB_Parameterwert" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameterwert</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_ProjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Projekt -->
+                    <element name="Kurzbezeichnung_ZEB_Kamp" 
+                        type="string" minOccurs="0"/>
+                    <element name="ZEB_Projekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Hauptmessverfahren" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zweck" 
+                        type="string" minOccurs="0"/>
+                    <element name="Umfang" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_ZEB_Parameterliste" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameterliste</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zeitraum" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="hat_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_ZEB_Subjekt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Subjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_ZEB_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_des_ZEB_ObjektesType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Art_des_ZEB_Objektes -->
+                    <element name="Kurzbezeichnung_Objektart" 
+                        type="string" minOccurs="0"/>
+                    <element name="ZEB_Objektart" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Art_des_ZEB_Objektes</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wert_einer_ZustandsgroesseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterwert -->
+                    <element name="Wert" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wert_eines_ZustandswertesType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterwert -->
+                    <element name="Wert" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wert_eines_TeilwertesType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterwert -->
+                    <element name="Wert" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wert_eines_GesamtwertesType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterwert -->
+                    <element name="Wert" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Wert_eines_RohdatumsType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterwert -->
+                    <element name="Wert" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Objekt" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterwert</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_ParameterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameter -->
+                    <element name="Kurzbezeichnung_Paramgroesse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Parametergroesse" 
+                        type="string" minOccurs="0"/>
+                    <element name="Parameternummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Einheit" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_ZEB_Parameter" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="Art_ZEB_Methode" 
+                        type="okstra:KeyValuePropertyType"/>
+                    <element name="hat_ZEB_Dokument" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Parameter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameterliste" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameterliste</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_ZEB_Parameterwert" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameterwert</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Parameter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_DokumentType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Dokument -->
+                    <element name="Kurzbezeichnung_ZEB_Dokument" 
+                        type="string" minOccurs="0"/>
+                    <element name="ZEB_Dokument" 
+                        type="string" minOccurs="0"/>
+                    <element name="Datum_der_Erstellung" 
+                        type="okstra:Datum" minOccurs="0"/>
+                    <element name="Ersteller" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_des_Dokumentes" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Parameter" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Dokument</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_EreignisType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Ereignis -->
+                    <element name="Kurzbezeichnung_ZEB_Ereignis" 
+                        type="string" minOccurs="0"/>
+                    <element name="ZEB_Ereignis" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_ZEB_Dokument" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Parameter</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zeitraum" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded"/>
+                    <element name="hat_ZEB_Subjekt" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Subjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Projekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_ZEB_Parameterwert" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameterwert</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Ereignis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_ErfasserType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Subjekt -->
+                    <element name="Kurzbezeichnung_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Adresse_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_BewerterType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Subjekt -->
+                    <element name="Kurzbezeichnung_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Adresse_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_VeranlasserType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Subjekt -->
+                    <element name="Kurzbezeichnung_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="Adresse_Subjekt" 
+                        type="string" minOccurs="0"/>
+                    <element name="von_ZEB_Ereignis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Ereignis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Subjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="ZEB_ParameterlisteType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften ZEB_Parameterliste -->
+                    <element name="Kurzbezeichnung_ZEB_Paramliste" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung_ZEB_Parameterliste" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_ZEB_Parameter" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Parameter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ZEB_Parameterliste</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_ZEB_Projekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Projekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_ZEB_Parameterliste</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_ZEB_ParameterType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_ZEB_MethodeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType"/>
+        </complexContent>
+    </complexType>
+</schema>

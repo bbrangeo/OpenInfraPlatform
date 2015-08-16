@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Arbeitsstelle_an_Strassen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1014/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1014/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.014">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Arbeitsstelle_an_Strassen:v1.014">S_Arbeitsstelle_an_Strassen.xsd v1.014</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.014, Schema S_Arbeitsstelle_an_Strassen
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Arbeitsstelle_an_Strassen                                                   = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Arbeitsstelle_an_Strassen" type="okstra:Arbeitsstelle_an_StrassenType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Art_der_Leistung_Arbeitsstelle" type="okstra:Art_der_Leistung_ArbeitsstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Status_der_Arbeitsstelle" type="okstra:Status_der_ArbeitsstelleType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Tab_Status_der_Arbeitsstelle" type="okstra:Tab_Status_der_ArbeitsstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="verkehrliche_Angaben_Arbeitsst" type="okstra:verkehrliche_Angaben_ArbeitsstType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Status_der_verkehrl_Angabe" type="okstra:Status_der_verkehrl_AngabeType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Arbeitsstelle" type="okstra:Art_der_ArbeitsstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_Behinderung_Arbeitsstelle" type="okstra:Art_Behinderung_ArbeitsstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Verkehrsfuehrung_Arbeitsstelle" type="okstra:Verkehrsfuehrung_ArbeitsstelleType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Behinderung_Prognose" type="okstra:Behinderung_PrognoseType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Behinderung_Status" type="okstra:Behinderung_StatusType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Umleitung_Arbeitsstelle" type="okstra:Umleitung_ArbeitsstelleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Umleitung_Strecke" type="okstra:Umleitung_StreckeType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="RSA_Regelplan" type="okstra:RSA_RegelplanType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Rolle_Arbeitsstelle" type="okstra:Rolle_ArbeitsstelleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Rollenbeschreibung_Arbeitsst" type="okstra:Rollenbeschreibung_ArbeitsstType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Durchfuehrender_Arbeitsstelle" type="okstra:Durchfuehrender_ArbeitsstelleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Firma_Arbeitsstelle" type="okstra:Firma_ArbeitsstelleType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Zusatzinformationen_Arbeitsst" type="okstra:Zusatzinformationen_ArbeitsstType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="hist_Meldungszustand_Arbeitsst" type="okstra:hist_Meldungszustand_ArbeitsstType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Abbruch_Einstellung_Arbeitsst" type="okstra:Abbruch_Einstellung_ArbeitsstType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Tab_Abbruch_Einst_Arbeitsst" type="okstra:Tab_Abbruch_Einst_ArbeitsstType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="zust_Polizeidienstst_Arbeitsst" type="okstra:zust_Polizeidienstst_ArbeitsstType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Arbeitsstelle_an_Strassen                                                       = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Arbeitsstelle_an_StrassenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften Arbeitsstelle_an_Strassen -->
+                    <element name="Lagebeschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Leistung" 
+                        type="okstra:Art_der_Leistung_ArbeitsstellePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="hat_Status" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Status_der_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle_an_Strassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verkehrliche_Angaben" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verkehrliche_Angaben_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="auf_Strasse" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strasse</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Durchfuehrenden" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Durchfuehrender_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Zusatzinformationen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zusatzinformationen_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Rolle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_hist_Meldungszustand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>hist_Meldungszustand_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle_an_Strassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Abbruch_Einstellung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abbruch_Einstellung_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle_an_Strassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_zust_Polizeidienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zust_Polizeidienstst_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle_an_Strassen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Massnahme" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Massnahme</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_Leistung_ArbeitsstellePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_der_Leistung_Arbeitsstelle" type="okstra:Art_der_Leistung_ArbeitsstelleType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_Leistung_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Leistung_Arbeitsstelle -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_der_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Status_der_Arbeitsstelle -->
+                    <element name="Status" 
+                        type="okstra:Tab_Status_der_ArbeitsstellePropertyType"/>
+                    <element name="erfasst_von_Person" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Stat_Arbeitsst_erfasst</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Arbeitsstelle_an_Strassen" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Status</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Status_der_ArbeitsstellePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Tab_Status_der_Arbeitsstelle" type="okstra:Tab_Status_der_ArbeitsstelleType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Status_der_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Tab_Status_der_Arbeitsstelle -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="verkehrliche_Angaben_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften verkehrliche_Angaben_Arbeitsst -->
+                    <element name="Status" 
+                        type="okstra:Status_der_verkehrl_AngabePropertyType"/>
+                    <element name="Art_der_Arbeitsstelle" 
+                        type="okstra:Art_der_ArbeitsstellePropertyType"/>
+                    <element name="zugrundeliegender_Regelplan" 
+                        type="okstra:RSA_RegelplanPropertyType"/>
+                    <element name="verursacht_Behinderung" 
+                        type="okstra:Art_Behinderung_ArbeitsstellePropertyType" minOccurs="0"/>
+                    <element name="Verkehrsfuehrung" 
+                        type="okstra:Verkehrsfuehrung_ArbeitsstellePropertyType" minOccurs="0"/>
+                    <element name="verengte_Fahrstreifen" 
+                        type="integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="gesperrte_Fahrstreifen" 
+                        type="integer" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="Ueberleitung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Verkehrsteilung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Vollsperrung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Standstreifenmitnutzung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Standstreifensperrung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="halbseitige_Sperrung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="max_Gewicht" 
+                        type="okstra:Tonnen" minOccurs="0"/>
+                    <element name="max_Hoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="max_Breite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Beschreibung_Sondertransporte" 
+                        type="string" minOccurs="0"/>
+                    <element name="Verkehrsfuehrung_Sondertransp" 
+                        type="string" minOccurs="0"/>
+                    <element name="Zeitraum" 
+                        type="okstra:ZeitraumPropertyType" minOccurs="0"/>
+                    <element name="hat_Verkehrszeichenplan" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Verkehrszeichenplan_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Behinderungsprognose" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Behinderung_Prognose</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_verkehrlichen_Angaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Umleitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umleitung_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_verkehrsrechtl_Anordnung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_verkehrsrechtl_Anordn_zu</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_verkehrliche_Angaben</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_der_verkehrl_AngabePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Status_der_verkehrl_Angabe" type="okstra:Status_der_verkehrl_AngabeType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Status_der_verkehrl_AngabeType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Status_der_verkehrl_Angabe -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_ArbeitsstellePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_der_Arbeitsstelle" type="okstra:Art_der_ArbeitsstelleType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Arbeitsstelle -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Behinderung_ArbeitsstellePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Behinderung_Arbeitsstelle" type="okstra:Art_Behinderung_ArbeitsstelleType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_Behinderung_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Behinderung_Arbeitsstelle -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrsfuehrung_ArbeitsstellePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Verkehrsfuehrung_Arbeitsstelle" type="okstra:Verkehrsfuehrung_ArbeitsstelleType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Verkehrsfuehrung_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Verkehrsfuehrung_Arbeitsstelle -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Behinderung_PrognoseType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Behinderung_Prognose -->
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="Status" 
+                        type="okstra:Behinderung_StatusPropertyType"/>
+                    <element name="zu_verkehrlichen_Angaben" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verkehrliche_Angaben_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Behinderungsprognose</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Behinderung_StatusPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Behinderung_Status" type="okstra:Behinderung_StatusType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Behinderung_StatusType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Behinderung_Status -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Umleitung_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Umleitung_Arbeitsstelle -->
+                    <element name="Mehrkilometer" 
+                        type="okstra:Kilometer" minOccurs="0"/>
+                    <element name="Mehrzeit" 
+                        type="okstra:DauerPropertyType" minOccurs="0"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bedarfsumleitung_Nummer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Umleitung_Strecke" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umleitung_Strecke</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Umleitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>verkehrliche_Angaben_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Umleitung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Umleitung_StreckeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Umleitung_Strecke -->
+                    <element name="zu_Umleitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Umleitung_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Umleitung_Strecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RSA_RegelplanPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="RSA_Regelplan" type="okstra:RSA_RegelplanType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RSA_RegelplanType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften RSA_Regelplan -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rolle_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Rolle_Arbeitsstelle -->
+                    <element name="Rollenbeschreibung" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rollenbeschreibung_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Rolle_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Arbeitsstelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Rolle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Person" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Person</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Rolle_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_hist_Meldungszustand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>hist_Meldungszustand_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Rolle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Abbruch_Einstellung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abbruch_Einstellung_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Rolle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Polizeidienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>zust_Polizeidienstst_Arbeitsst</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ansprechpartner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Firma" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firma_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Ansprechpartner</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Rollenbeschreibung_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Rollenbeschreibung_Arbeitsst -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Beschreibung" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Rolle_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Rollenbeschreibung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Durchfuehrender_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Durchfuehrender_Arbeitsstelle -->
+                    <element name="hat_Firma" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Firma_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Durchfuehrendem</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Strassenbaudienststelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaudienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_durchfuehr_Arbeitsstelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Durchfuehrenden</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Firma_ArbeitsstelleType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Firma_Arbeitsstelle -->
+                    <element name="hat_Ansprechpartner" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Firma</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Durchfuehrendem" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Durchfuehrender_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Firma</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zusatzinformationen_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Zusatzinformationen_Arbeitsst -->
+                    <element name="Ausweichstrecke_frei" 
+                        type="integer" minOccurs="0"/>
+                    <element name="OePNV_betroffen" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Arb_nur_i_verkehrsarmen_Zeiten" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Unterbrechung_moeglich" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Ausschlusszeiten_beruecksicht" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Grossveranstaltungen_eingepl" 
+                        type="integer" minOccurs="0"/>
+                    <element name="Erfassung_Gegenrichtung" 
+                        type="integer" minOccurs="0"/>
+                    <element name="zu_Arbeitsstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Zusatzinformationen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="hist_Meldungszustand_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften hist_Meldungszustand_Arbeitsst -->
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="Meldungszustand" 
+                        type="string"/>
+                    <element name="zu_Arbeitsstelle_an_Strassen" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_hist_Meldungszustand</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Rolle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_hist_Meldungszustand</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Abbruch_Einstellung_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Abbruch_Einstellung_Arbeitsst -->
+                    <element name="Datum" 
+                        type="okstra:Datum"/>
+                    <element name="Grund" 
+                        type="okstra:Tab_Abbruch_Einst_ArbeitsstPropertyType"/>
+                    <element name="Erlaeuterung" 
+                        type="string" minOccurs="0"/>
+                    <element name="zu_Arbeitsstelle_an_Strassen" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Abbruch_Einstellung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Rolle" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Abbruch_Einstellung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Abbruch_Einst_ArbeitsstPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Tab_Abbruch_Einst_Arbeitsst" type="okstra:Tab_Abbruch_Einst_ArbeitsstType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Tab_Abbruch_Einst_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Tab_Abbruch_Einst_Arbeitsst -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="zust_Polizeidienstst_ArbeitsstType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften zust_Polizeidienstst_Arbeitsst -->
+                    <element name="zu_Arbeitsstelle_an_Strassen" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Arbeitsstelle_an_Strassen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_zust_Polizeidienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Ansprechpartner" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Rolle_Arbeitsstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Polizeidienststelle</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Dienststelle" 
+                        type="okstra:ObjectRefType">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Polizeidienststelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_zust_Polizei_Arbeitsst</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

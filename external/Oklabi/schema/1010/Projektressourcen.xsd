@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: Projektressourcen.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1010/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1010/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.010">
+    <annotation>
+        <appinfo source="urn:okstra:schema-Projektressourcen:v1.010">Projektressourcen.xsd v1.010</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.010, Schema Projektressourcen
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Projektressourcen                                                             = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Projektressourcen" type="okstra:ProjektressourcenType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Kostenberechnung_nach_AKS" type="okstra:Kostenberechnung_nach_AKSType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Ausschreibung_und_Vergabe" type="okstra:Ausschreibung_und_VergabeType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Abrechnung" type="okstra:AbrechnungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = Projektressourcen                                                                 = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="ProjektressourcenType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Projektressourcen -->
+                    <element name="Bauanfang_Bau_km" 
+                        type="okstra:Kilometer"/>
+                    <element name="endet_bei_Bau_km" 
+                        type="okstra:Kilometer"/>
+                    <element name="Ausbaulaenge" 
+                        type="okstra:Kilometer"/>
+                    <element name="ist_Kostenberechnung_nach_AKS" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kostenberechnung_nach_AKS</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Projektressourcen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Ausschreibung_und_Vergabe" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Ausschreibung_und_Vergabe</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Projektressourcen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Abrechnung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abrechnung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Projektressourcen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kostenberechnung_nach_AKSType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Kostenberechnung_nach_AKS -->
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Kostenberechnung_nach_AKS</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Projektressourcen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektressourcen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Kostenberechnung_nach_AKS</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Ausschreibung_und_VergabeType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Ausschreibung_und_Vergabe -->
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Ausschr_u_Vergabe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Projektressourcen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektressourcen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Ausschreibung_und_Vergabe</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AbrechnungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften Abrechnung -->
+                    <element name="hat_Dokument" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Abrechnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="von_Projektressourcen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Projektressourcen</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Abrechnung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

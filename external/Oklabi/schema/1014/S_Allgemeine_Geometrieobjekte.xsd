@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Allgemeine_Geometrieobjekte.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1014/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1014/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.014">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Allgemeine_Geometrieobjekte:v1.014">S_Allgemeine_Geometrieobjekte.xsd v1.014</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.014, Schema S_Allgemeine_Geometrieobjekte
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Allgemeine_Geometrieobjekte                                                 = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="allgemeines_Punktobjekt" type="okstra:allgemeines_PunktobjektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Symbol" type="okstra:SymbolType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Einheit" type="okstra:EinheitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="allgemeines_Linienobjekt" type="okstra:allgemeines_LinienobjektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="allgemeines_Flaechenobjekt" type="okstra:allgemeines_FlaechenobjektType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="DGM" type="okstra:DGMType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Art_DGM" type="okstra:Art_DGMType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Dreieck" type="okstra:DreieckType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Seiteneigenschaft" type="okstra:SeiteneigenschaftType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Beschriftung" type="okstra:BeschriftungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Textausgestaltung" type="okstra:TextausgestaltungType" substitutionGroup="okstra:_OKSTRAObjekt" />
+    <element name="Einfuegeposition" type="okstra:EinfuegepositionType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Beschriftungsfahne" type="okstra:BeschriftungsfahneType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="vertikale_Ausrichtung" type="okstra:vertikale_AusrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="horizontale_Ausrichtung" type="okstra:horizontale_AusrichtungType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bestandsplan" type="okstra:BestandsplanType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Allgemeine_Geometrieobjekte                                                     = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="allgemeines_PunktobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften allgemeines_Punktobjekt -->
+                    <element name="Punktnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                    <element name="DGM_proprietaer" 
+                        type="integer" minOccurs="0"/>
+                    <element name="hat_Symbol" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Symbol</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>mit_Bezug_auf_allg_Punktobjekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_Dreieck" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dreieck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Punkte</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SymbolType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Symbol -->
+                    <element name="Symbolbedeutung" 
+                        type="string"/>
+                    <element name="Breite_links" 
+                        type="okstra:Groesse"/>
+                    <element name="Breite_rechts" 
+                        type="okstra:Groesse"/>
+                    <element name="Hoehe_oben" 
+                        type="okstra:Groesse"/>
+                    <element name="Hoehe_unten" 
+                        type="okstra:Groesse"/>
+                    <element name="Einheit" 
+                        type="okstra:EinheitPropertyType"/>
+                    <element name="Drehwinkel" 
+                        type="okstra:Winkel"/>
+                    <element name="mit_Bezug_auf_allg_Punktobjekt" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>allgemeines_Punktobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Symbol</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinheitPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Einheit" type="okstra:EinheitType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinheitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Einheit -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="allgemeines_LinienobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung linienfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Linie" type="gml:CurvePropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Kante" type="gml:DirectedEdgePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften allgemeines_Linienobjekt -->
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="allgemeines_FlaechenobjektType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften allgemeines_Flaechenobjekt -->
+                    <element name="fachliche_Bedeutung" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DGMType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften DGM -->
+                    <element name="Bezeichnung" 
+                        type="string"/>
+                    <element name="Art_DGM" 
+                        type="okstra:Art_DGMPropertyType"/>
+                    <element name="Informationstext" 
+                        type="string" minOccurs="0" maxOccurs="unbounded"/>
+                    <element name="hat_Dreiecke" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dreieck</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_DGM</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_DGMPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_DGM" type="okstra:Art_DGMType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_DGMType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_DGM -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DreieckType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Dreieck -->
+                    <element name="Dreiecksnummer" 
+                        type="integer"/>
+                    <element name="Dreiecksbedeutung" 
+                        type="string" minOccurs="0"/>
+                    <element name="hat_Punkte" 
+                        type="okstra:ObjectRefType" minOccurs="3" maxOccurs="3">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>allgemeines_Punktobjekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>in_Dreieck</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Seiteneigenschaften" 
+                        type="okstra:SeiteneigenschaftPropertyType" minOccurs="3" maxOccurs="3"/>
+                    <element name="in_DGM" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>DGM</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Dreiecke</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SeiteneigenschaftPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Seiteneigenschaft" type="okstra:SeiteneigenschaftType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="SeiteneigenschaftType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Seiteneigenschaft -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BeschriftungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Darstellung punktfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Punkt" type="gml:PointPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Knoten" type="gml:DirectedNodePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Beschriftung -->
+                    <element name="Text" 
+                        type="string"/>
+                    <element name="Textbedeutung" 
+                        type="string"/>
+                    <element name="Drehwinkel" 
+                        type="okstra:Winkel"/>
+                    <element name="zu_Punktobjekt_Modell" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Punktobjekt_Modell</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Beschriftung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Textausgestaltung" 
+                        type="okstra:ObjectRefType" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Textausgestaltung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Beschriftung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TextausgestaltungType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Textausgestaltung -->
+                    <element name="Breite" 
+                        type="okstra:Groesse"/>
+                    <element name="Hoehe" 
+                        type="okstra:Groesse"/>
+                    <element name="Einheit" 
+                        type="okstra:EinheitPropertyType"/>
+                    <element name="Schriftart" 
+                        type="string"/>
+                    <element name="Schrifthoehe" 
+                        type="okstra:Groesse"/>
+                    <element name="Schriftfarbe" 
+                        type="okstra:RGB_FarbePropertyType"/>
+                    <element name="Kasten" 
+                        type="integer"/>
+                    <element name="Beschriftungsfahne" 
+                        type="okstra:BeschriftungsfahnePropertyType" minOccurs="0"/>
+                    <element name="vertikale_Ausrichtung" 
+                        type="okstra:vertikale_AusrichtungPropertyType"/>
+                    <element name="horizontale_Ausrichtung" 
+                        type="okstra:horizontale_AusrichtungPropertyType"/>
+                    <element name="Einfuegeposition" 
+                        type="okstra:EinfuegepositionPropertyType"/>
+                    <element name="zu_Beschriftung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Beschriftung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Textausgestaltung</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinfuegepositionPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Einfuegeposition" type="okstra:EinfuegepositionType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="EinfuegepositionType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Einfuegeposition -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BeschriftungsfahnePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Beschriftungsfahne" type="okstra:BeschriftungsfahneType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BeschriftungsfahneType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Beschriftungsfahne -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="vertikale_AusrichtungPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="vertikale_Ausrichtung" type="okstra:vertikale_AusrichtungType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="vertikale_AusrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften vertikale_Ausrichtung -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="horizontale_AusrichtungPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="horizontale_Ausrichtung" type="okstra:horizontale_AusrichtungType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="horizontale_AusrichtungType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften horizontale_Ausrichtung -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BestandsplanType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bestandsplan -->
+                    <element name="Plannummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>

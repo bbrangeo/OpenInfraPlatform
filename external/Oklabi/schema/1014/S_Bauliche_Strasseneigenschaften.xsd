@@ -1,0 +1,2216 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!--  File: S_Bauliche_Strasseneigenschaften.xsd  -->
+<schema targetNamespace="http://schema.okstra.de/1014/okstra"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:okstra="http://schema.okstra.de/1014/okstra"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:gml="http://www.opengis.net/gml"
+    elementFormDefault="qualified"
+    version="1.014">
+    <annotation>
+        <appinfo source="urn:okstra:schema-S_Bauliche_Strasseneigenschaften:v1.014">S_Bauliche_Strasseneigenschaften.xsd v1.014</appinfo>
+        <documentation xml:lang="de">
+            GML-Anwendungsschema fuer OKSTRA(R) XML 1.014, Schema S_Bauliche_Strasseneigenschaften
+        </documentation>
+    </annotation>
+    <!--  Basis-Schema einbeziehen  -->
+    <include schemaLocation="okstra_basis.xsd" />
+    <!--  verwendete externe Schemata direkt importieren  -->
+    <import namespace="http://www.opengis.net/gml" schemaLocation="./gml/gmlProfileOKSTRA.xsd"/>
+    <import namespace="http://www.w3.org/1999/xlink" schemaLocation="./xlink/xlinks.xsd"/>
+    <!-- -->
+    <!-- ================================================================================= -->
+    <!-- = globales Element fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Bauliche_Strasseneigenschaften                                              = -->
+    <!-- ================================================================================= -->
+    <!-- -->
+    <element name="Grundrisselement_Kreisbogen" type="okstra:Grundrisselement_KreisbogenType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Grundrisselement_Klothoide" type="okstra:Grundrisselement_KlothoideType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Grundrisselement_Gerade" type="okstra:Grundrisselement_GeradeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Aufrisselement" type="okstra:AufrisselementType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Art_Aufrisselement" type="okstra:Art_AufrisselementType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Hoehenpunkt" type="okstra:HoehenpunktType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Aufbauschicht" type="okstra:AufbauschichtType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Art_Aufbauschicht" type="okstra:Art_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Material_Aufbauschicht" type="okstra:Material_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bindemittel_Aufbauschicht" type="okstra:Bindemittel_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Detail_A_Aufbauschicht" type="okstra:Detail_A_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Detail_B_Aufbauschicht" type="okstra:Detail_B_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Detail_C_Aufbauschicht" type="okstra:Detail_C_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Detail_D_Aufbauschicht" type="okstra:Detail_D_AufbauschichtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Herkunft_Angaben_Aufbau" type="okstra:Herkunft_Angaben_AufbauType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Querschnittstreifen" type="okstra:QuerschnittstreifenType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Streifenart" type="okstra:StreifenartType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Streifenart_Land" type="okstra:Streifenart_LandType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Anzahl_Gleise_laengs" type="okstra:Anzahl_Gleise_laengsType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Art_der_Oberflaeche" type="okstra:Art_der_OberflaecheType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bauklasse" type="okstra:BauklasseType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Art_Bauklasse" type="okstra:Art_BauklasseType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bauklasse_RStO" type="okstra:Bauklasse_RStOType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bohrkern" type="okstra:BohrkernType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Regelquerschnitt" type="okstra:RegelquerschnittType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Zusatzfahrstreifen_RQ" type="okstra:Zusatzfahrstreifen_RQType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Bahnigkeit" type="okstra:BahnigkeitType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Kennzeichen_Bahnigkeit" type="okstra:Kennzeichen_BahnigkeitType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fahrbahnlaengsneigung" type="okstra:FahrbahnlaengsneigungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Fahrbahnquerneigung" type="okstra:FahrbahnquerneigungType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Lage_Fahrbahn" type="okstra:Lage_FahrbahnType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Fahrbahntrennung" type="okstra:FahrbahntrennungType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Trassenbreite" type="okstra:TrassenbreiteType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Fahrbahnbreite" type="okstra:FahrbahnbreiteType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Fussweg" type="okstra:FusswegType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Radweg" type="okstra:RadwegType" substitutionGroup="okstra:_Streckenobjekt" />
+    <element name="Hindernis" type="okstra:HindernisType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Teilhindernis_Strecke" type="okstra:Teilhindernis_StreckeType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Teilhindernis_Punkt" type="okstra:Teilhindernis_PunktType" substitutionGroup="okstra:_PunktobjektHist" />
+    <element name="Hindernis_Art" type="okstra:Hindernis_ArtType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Eigentuemer_Hindernis" type="okstra:Eigentuemer_HindernisType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Raumangabe_Teilhindernis" type="okstra:Raumangabe_TeilhindernisType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Durchlass" type="okstra:DurchlassType" substitutionGroup="okstra:_StreckenobjektHist" />
+    <element name="Lage_Durchlass" type="okstra:Lage_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Profil_Durchlass" type="okstra:Profil_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Material_Durchlass" type="okstra:Material_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Funktion_Durchlass" type="okstra:Funktion_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Zustand_Durchlass" type="okstra:Zustand_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Schutzeinrichtung_Durchlass" type="okstra:Schutzeinrichtung_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Stadium_Durchlass" type="okstra:Stadium_DurchlassType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kreisverkehr" type="okstra:KreisverkehrType" substitutionGroup="okstra:_OKSTRAHistObjekt" />
+    <element name="Art_Kreisverkehr" type="okstra:Art_KreisverkehrType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Kreisverkehr_ueberfahrbar" type="okstra:Kreisverkehr_ueberfahrbarType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="Gestaltung_der_Kreisinsel" type="okstra:Gestaltung_der_KreisinselType" substitutionGroup="okstra:_KeyValue"/>
+    <element name="UI_Partner_Kreisinsel" type="okstra:UI_Partner_KreisinselType" substitutionGroup="okstra:_KeyValue"/>
+    <!-- -->
+    <!-- ===================================================================================== -->
+    <!-- = globaler complexType fuer instanzierbare ENTITYs und Schluesseltabellen im Schema = -->
+    <!-- = S_Bauliche_Strasseneigenschaften                                                  = -->
+    <!-- ===================================================================================== -->
+    <!-- -->
+    <complexType name="Grundrisselement_KreisbogenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Grundrisselement -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <!-- Eigenschaften Grundrisselement_Kreisbogen -->
+                    <element name="Radius" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundrisselement_KlothoideType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Grundrisselement -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                    <!-- Eigenschaften Grundrisselement_Klothoide -->
+                    <element name="Radius_am_Anfang" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Radius_am_Ende" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Parameter" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Grundrisselement_GeradeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Grundrisselement -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Richtungsw_Tangente_am_Anfang" 
+                        type="okstra:Winkel" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AufrisselementType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Aufrisselement -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Art" 
+                        type="okstra:Art_AufrisselementPropertyType"/>
+                    <element name="Radius" 
+                        type="okstra:Meter"/>
+                    <element name="beginnt_bei_Hoehenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehenpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Beginn_von_Aufrisselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="endet_bei_Hoehenpunkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hoehenpunkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>Ende_von_Aufrisselement</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_AufrisselementPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Aufrisselement" type="okstra:Art_AufrisselementType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_AufrisselementType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Aufrisselement -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HoehenpunktType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hoehenpunkt -->
+                    <element name="Hoehe" 
+                        type="okstra:Meter"/>
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Hoehenbezugssystem" 
+                        type="okstra:HoehensystemPropertyType"/>
+                    <element name="Beginn_von_Aufrisselement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufrisselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>beginnt_bei_Hoehenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="Ende_von_Aufrisselement" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufrisselement</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>endet_bei_Hoehenpunkt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung volumenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                        <element name="dargestellt_von_Volumen" type="gml:SolidPropertyType" maxOccurs="unbounded"/>
+                        <element name="dargestellt_von_Koerper" type="gml:DirectedTopoSolidPropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Aufbauschicht -->
+                    <element name="x_Wert_von_Station_links" 
+                        type="okstra:Meter"/>
+                    <element name="x_Wert_von_Station_rechts" 
+                        type="okstra:Meter"/>
+                    <element name="x_Wert_bis_Station_links" 
+                        type="okstra:Meter"/>
+                    <element name="x_Wert_bis_Station_rechts" 
+                        type="okstra:Meter"/>
+                    <element name="z_Wert" 
+                        type="okstra:Meter"/>
+                    <element name="Art" 
+                        type="okstra:Art_AufbauschichtPropertyType"/>
+                    <element name="Material" 
+                        type="okstra:Material_AufbauschichtPropertyType"/>
+                    <element name="Bindemittel" 
+                        type="okstra:Bindemittel_AufbauschichtPropertyType"/>
+                    <element name="Detail_A" 
+                        type="okstra:Detail_A_AufbauschichtPropertyType" minOccurs="0"/>
+                    <element name="Detail_B" 
+                        type="okstra:Detail_B_AufbauschichtPropertyType" minOccurs="0"/>
+                    <element name="Detail_C" 
+                        type="okstra:Detail_C_AufbauschichtPropertyType" minOccurs="0"/>
+                    <element name="Detail_D" 
+                        type="okstra:Detail_D_AufbauschichtPropertyType" minOccurs="0"/>
+                    <element name="Zusatzschluessel" 
+                        type="string" minOccurs="0"/>
+                    <element name="Dicke" 
+                        type="okstra:Zentimeter"/>
+                    <element name="unscharfe_Dicke" 
+                        type="integer" minOccurs="0"/>
+                    <element name="oberste_Deckschicht" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="unvollstaendiger_Aufbau" 
+                        type="integer" minOccurs="0"/>
+                    <element name="abgefraeste_Deckschicht" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="Verknuepfungsnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Einbaudatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Herkunft_der_Angaben" 
+                        type="okstra:Herkunft_Angaben_AufbauPropertyType" minOccurs="0"/>
+                    <element name="unter_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufbauschicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ueber_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ueber_Schicht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufbauschicht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>unter_Schicht</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Aufbauschicht" type="okstra:Art_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Material_Aufbauschicht" type="okstra:Material_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Material_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bindemittel_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Bindemittel_Aufbauschicht" type="okstra:Bindemittel_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bindemittel_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Bindemittel_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_A_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Detail_A_Aufbauschicht" type="okstra:Detail_A_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_A_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Detail_A_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Bedeutung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_B_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Detail_B_Aufbauschicht" type="okstra:Detail_B_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_B_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Detail_B_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Bedeutung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_C_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Detail_C_Aufbauschicht" type="okstra:Detail_C_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_C_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Detail_C_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Bedeutung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_D_AufbauschichtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Detail_D_Aufbauschicht" type="okstra:Detail_D_AufbauschichtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Detail_D_AufbauschichtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Detail_D_Aufbauschicht -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Bedeutung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Herkunft_Angaben_AufbauPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Herkunft_Angaben_Aufbau" type="okstra:Herkunft_Angaben_AufbauType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Herkunft_Angaben_AufbauType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Herkunft_Angaben_Aufbau -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="QuerschnittstreifenType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Querschnittstreifen -->
+                    <element name="x_Wert_von_Station_links" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="x_Wert_von_Station_rechts" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="x_Wert_bis_Station_links" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="x_Wert_bis_Station_rechts" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="abgewickelte_Breite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="mittlere_Breite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Streifenart" 
+                        type="okstra:StreifenartPropertyType"/>
+                    <element name="Streifenart_Land" 
+                        type="okstra:Streifenart_LandPropertyType" minOccurs="0"/>
+                    <element name="laengs_verlaufende_Gleise" 
+                        type="okstra:Anzahl_Gleise_laengsPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Oberflaeche" 
+                        type="okstra:Art_der_OberflaechePropertyType" minOccurs="0"/>
+                    <element name="unscharfe_Breite" 
+                        type="integer" minOccurs="0"/>
+                    <element name="tatsaechliche_Laenge" 
+                        type="okstra:Kilometer" minOccurs="0"/>
+                    <element name="tatsaechliche_Flaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="partielle_Baulast" 
+                        type="okstra:Art_part_BaulasttraegerPropertyType" minOccurs="0"/>
+                    <element name="partielle_UI_Partner" 
+                        type="okstra:Art_part_UI_PartnerPropertyType" minOccurs="0"/>
+                    <element name="partielle_UI_sonstiger_Partner" 
+                        type="okstra:sonstiger_UI_Partner_LandPropertyType" minOccurs="0"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                    <element name="partieller_Baulasttraeger_Dr" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baulasttraeger_Dritter</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="in_ZEB_Objekt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>ZEB_Objekt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gilt_fuer_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="hat_Fahrstreifen" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fahrstreifen_Nummer</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>auf_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_entwaesserte_Flaeche" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>entwaesserte_Flaeche</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Teilmassnahme_Str" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilmassnahme_Str</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>betrifft_Querschnittstreifen</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreifenartPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Streifenart" type="okstra:StreifenartType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="StreifenartType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Streifenart -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Streifenart_LandPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Streifenart_Land" type="okstra:Streifenart_LandType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Streifenart_LandType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Streifenart_Land -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_Gleise_laengsPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Anzahl_Gleise_laengs" type="okstra:Anzahl_Gleise_laengsType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Anzahl_Gleise_laengsType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Anzahl_Gleise_laengs -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_OberflaechePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_der_Oberflaeche" type="okstra:Art_der_OberflaecheType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_der_OberflaecheType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_der_Oberflaeche -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BauklasseType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bauklasse -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType" minOccurs="0"/>
+                    <element name="Art" 
+                        type="okstra:Art_BauklassePropertyType"/>
+                    <element name="Bauklasse_gemaess_RStO" 
+                        type="okstra:Bauklasse_RStOPropertyType"/>
+                    <element name="Verkehrsbelastungszahl" 
+                        type="double" minOccurs="0"/>
+                    <element name="Ausgabejahr_der_Richtlinie" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="Datum_der_Berechnung" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BauklassePropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Bauklasse" type="okstra:Art_BauklasseType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_BauklasseType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Bauklasse -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bauklasse_RStOPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Bauklasse_RStO" type="okstra:Bauklasse_RStOType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Bauklasse_RStOType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Bauklasse_RStO -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BohrkernType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bohrkern -->
+                    <element name="Entnahmedatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Registriernummer" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RegelquerschnittType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Regelquerschnitt -->
+                    <element name="Stufe" 
+                        type="string"/>
+                    <element name="Zusatzfahrstreifen" 
+                        type="okstra:Zusatzfahrstreifen_RQPropertyType" minOccurs="0"/>
+                    <element name="Ausgabejahr_der_Richtlinie" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zusatzfahrstreifen_RQPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Zusatzfahrstreifen_RQ" type="okstra:Zusatzfahrstreifen_RQType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zusatzfahrstreifen_RQType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Zusatzfahrstreifen_RQ -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="BahnigkeitType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Bahnigkeit -->
+                    <element name="Kennzeichen_Bahnigkeit" 
+                        type="okstra:Kennzeichen_BahnigkeitPropertyType"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennzeichen_BahnigkeitPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Kennzeichen_Bahnigkeit" type="okstra:Kennzeichen_BahnigkeitType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kennzeichen_BahnigkeitType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Kennzeichen_Bahnigkeit -->
+                    <element name="Kennung" 
+                        type="integer"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnlaengsneigungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fahrbahnlaengsneigung -->
+                    <element name="Lage" 
+                        type="okstra:LagePropertyType"/>
+                    <element name="Neigung" 
+                        type="okstra:Prozent"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnquerneigungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Darstellung flaechenfoermiger Geometrie/Topologie -->
+                    <choice minOccurs="0">
+                       <element name="dargestellt_von_Flaeche" type="gml:SurfacePropertyType" maxOccurs="unbounded"/>
+                       <element name="dargestellt_von_Masche" type="gml:DirectedFacePropertyType" maxOccurs="unbounded"/>
+                    </choice>
+                    <!-- Eigenschaften Fahrbahnquerneigung -->
+                    <element name="Lage" 
+                        type="okstra:Lage_FahrbahnPropertyType"/>
+                    <element name="Neigung" 
+                        type="okstra:Prozent"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_FahrbahnPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Lage_Fahrbahn" type="okstra:Lage_FahrbahnType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_FahrbahnType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Lage_Fahrbahn -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahntrennungType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Fahrbahntrennung -->
+                    <element name="Art_der_Trennung" 
+                        type="string" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TrassenbreiteType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Trassenbreite -->
+                    <element name="Trassenbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FahrbahnbreiteType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Fahrbahnbreite -->
+                    <element name="Fahrbahnbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="FusswegType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="RadwegType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="HindernisType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Hindernis -->
+                    <element name="Hindernisart" 
+                        type="okstra:Hindernis_ArtPropertyType"/>
+                    <element name="abbaubar" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="Eigentuemer" 
+                        type="okstra:Eigentuemer_HindernisPropertyType" minOccurs="0"/>
+                    <element name="hat_Teilhindernis" 
+                        type="okstra:ObjectRefType" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilhindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>zu_Hindernis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="ist_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Hindernis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Teilhindernis_StreckeType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilhindernis -->
+                    <element name="Raumangabe" 
+                        type="okstra:Raumangabe_TeilhindernisPropertyType"/>
+                    <element name="Durchfahrtshoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Bauhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="max_Restfahrbahnbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="zu_Hindernis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilhindernis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Betriebseinrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Betriebseinrichtung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strassenausstattung_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenausstattung_Punkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Zaehlstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Schacht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schacht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Schutzwand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schutzwand</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Fussgaenger_Rueckhsystem" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fussgaenger_Rueckhsystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Aufstellvorrichtung_Schild" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strassenbaeume" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaeume</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Sonstige_Konstruktion" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sonstige_Konstruktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilhindernis_Strecke -->
+                    <element name="Abstand_von_Station" 
+                        type="okstra:Meter"/>
+                    <element name="Abstand_bis_Station" 
+                        type="okstra:Meter"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Teilhindernis_PunktType">
+        <complexContent>
+            <extension base="okstra:PunktobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Teilhindernis -->
+                    <element name="Raumangabe" 
+                        type="okstra:Raumangabe_TeilhindernisPropertyType"/>
+                    <element name="Durchfahrtshoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Bauhoehe" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="max_Restfahrbahnbreite" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="zu_Hindernis" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Hindernis</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Teilhindernis</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Betriebseinrichtung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Betriebseinrichtung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strassenausstattung_Punkt" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenausstattung_Punkt</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Zaehlstelle" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Zaehlstelle</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Leitung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Leitung</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Schacht" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schacht</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Schutzwand" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Schutzwand</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Fussgaenger_Rueckhsystem" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Fussgaenger_Rueckhsystem</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Aufstellvorrichtung_Schild" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Aufstellvorrichtung_Schild</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Baum" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Baum</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Strassenbaeume" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Strassenbaeume</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="zu_Sonstige_Konstruktion" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Sonstige_Konstruktion</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>stellt_Teilhindernis_dar</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Hindernis_ArtPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Hindernis_Art" type="okstra:Hindernis_ArtType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Hindernis_ArtType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Hindernis_Art -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Eigentuemer_HindernisPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Eigentuemer_Hindernis" type="okstra:Eigentuemer_HindernisType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Eigentuemer_HindernisType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Eigentuemer_Hindernis -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Raumangabe_TeilhindernisPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Raumangabe_Teilhindernis" type="okstra:Raumangabe_TeilhindernisType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Raumangabe_TeilhindernisType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Raumangabe_Teilhindernis -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="DurchlassType">
+        <complexContent>
+            <extension base="okstra:StreckenobjektHistType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Zuordnungsobjekt_ASB -->
+                    <element name="Kreuzungszuordnung" 
+                        type="okstra:KreuzungszuordnungPropertyType" minOccurs="0"/>
+                    <element name="Unterhaltsbezug_SP" 
+                        type="okstra:StrassenpunktPropertyType" minOccurs="0"/>
+                    <!-- Eigenschaften Durchlass -->
+                    <element name="Abstand_von_Station" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Abstand_bis_Station" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Lage" 
+                        type="okstra:Lage_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="Ueberdeckung_von_Station" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Ueberdeckung_bis_Station" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="mittlere_Ueberdeckung" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Profil" 
+                        type="okstra:Profil_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="hauptsaechliches_Material" 
+                        type="okstra:Material_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="lichte_Hoehe_Durchmesser" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="lichte_Weite" 
+                        type="okstra:Zentimeter" minOccurs="0"/>
+                    <element name="Flaeche_der_Verblendung" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Pflasterflaeche" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="tatsaechliche_Laenge" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="Unterhaltungspflicht" 
+                        type="okstra:UnterhaltungspflichtPropertyType" minOccurs="0"/>
+                    <element name="sonstige_Unterhaltspflichtige" 
+                        type="okstra:Sonstige_UnterhaltspflichtigePropertyType" minOccurs="0"/>
+                    <element name="Funktion" 
+                        type="okstra:Funktion_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="Zustandsnote" 
+                        type="okstra:Zustand_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="Datum_der_Benotung" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="permanente_Nutzungseinschr" 
+                        type="okstra:Dreiwertige_LogikPropertyType" minOccurs="0"/>
+                    <element name="Schutzeinrichtung" 
+                        type="okstra:Schutzeinrichtung_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="Stadium" 
+                        type="okstra:Stadium_DurchlassPropertyType" minOccurs="0"/>
+                    <element name="Baujahr" 
+                        type="okstra:Jahr" minOccurs="0"/>
+                    <element name="Objektnummer" 
+                        type="string" minOccurs="0"/>
+                    <element name="Detaillierungsgrad" 
+                        type="okstra:Detaillierungsgrad_ASBPropertyType" minOccurs="0"/>
+                    <element name="ist_Teilbauwerk" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Teilbauwerk</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Durchlass</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Lage_Durchlass" type="okstra:Lage_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Lage_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Lage_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Profil_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Profil_Durchlass" type="okstra:Profil_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Profil_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Profil_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Material_Durchlass" type="okstra:Material_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Material_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Material_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Funktion_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Funktion_Durchlass" type="okstra:Funktion_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Funktion_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Funktion_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zustand_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Zustand_Durchlass" type="okstra:Zustand_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Zustand_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Zustand_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schutzeinrichtung_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Schutzeinrichtung_Durchlass" type="okstra:Schutzeinrichtung_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Schutzeinrichtung_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Schutzeinrichtung_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Stadium_DurchlassPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Stadium_Durchlass" type="okstra:Stadium_DurchlassType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Stadium_DurchlassType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Stadium_Durchlass -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="KreisverkehrType">
+        <complexContent>
+            <extension base="okstra:AbstractOKSTRAHistObjektType">
+                <sequence>
+                    <!-- Eigenschaften OKSTRA_Objekt -->
+                    <element name="OKSTRA_ID" 
+                        type="okstra:GUID" minOccurs="0"/>
+                    <!-- Eigenschaften Objekt_mit_ID -->
+                    <element name="hat_Objekt_ID" 
+                        type="okstra:Objekt_IDPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+                    <!-- Eigenschaften ASB_Objekt -->
+                    <element name="Erfassungsdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Systemdatum" 
+                        type="okstra:ASB_Datum" minOccurs="0"/>
+                    <element name="Textfeld" 
+                        type="string" minOccurs="0"/>
+                    <element name="Art_der_Erfassung" 
+                        type="okstra:Art_der_ErfassungPropertyType" minOccurs="0"/>
+                    <element name="Art_der_Erfassung_Land" 
+                        type="okstra:Art_der_Erfassung_LandPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information" 
+                        type="okstra:Quelle_der_InformationPropertyType" minOccurs="0"/>
+                    <element name="Quelle_der_Information_Land" 
+                        type="okstra:Quelle_der_Information_LandPropertyType" minOccurs="0"/>
+                    <element name="Fotodokument" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Dokument</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>von_ASB_Objekt</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <!-- Eigenschaften Kreisverkehr -->
+                    <element name="Art" 
+                        type="okstra:Art_KreisverkehrPropertyType"/>
+                    <element name="ueberfahrbar" 
+                        type="okstra:Kreisverkehr_ueberfahrbarPropertyType" minOccurs="0"/>
+                    <element name="Aussendurchmesser" 
+                        type="okstra:Meter" minOccurs="0"/>
+                    <element name="verknuepfte_Strassen" 
+                        type="string" minOccurs="0"/>
+                    <element name="Bezeichnung" 
+                        type="string" minOccurs="0"/>
+                    <element name="Gestaltung_der_Kreisinsel" 
+                        type="okstra:Gestaltung_der_KreisinselPropertyType" minOccurs="0"/>
+                    <element name="Grasflaeche_Intensivpflege" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Grasflaeche_Extensivpflege" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Gehoelzflaeche_Intensivpflege" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Gehoelzflaeche_Extensivpflege" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="befest_Flaeche_versiegelt" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="befest_Flaeche_unversiegelt" 
+                        type="okstra:Quadratmeter" minOccurs="0"/>
+                    <element name="Einzelbaeume" 
+                        type="okstra:Anzahl" minOccurs="0"/>
+                    <element name="Baulast_der_Kreisinsel" 
+                        type="okstra:Art_BaulastPropertyType" minOccurs="0"/>
+                    <element name="UI_Partner_Kreisinsel" 
+                        type="okstra:UI_Partner_KreisinselPropertyType" minOccurs="0"/>
+                    <element name="sonst_UI_Partner_Kreisinsel" 
+                        type="okstra:sonstiger_UI_Partner_LandPropertyType" minOccurs="0"/>
+                    <element name="an_Netzknoten" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Netzknoten</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>ist_Kreisverkehr</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="an_Kreuzung" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Kreuzung_Strasse_Weg</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>hat_Kreisverkehr</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="umfasst_Aeste" 
+                        type="okstra:ObjectRefType" minOccurs="0" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <okstra:Zielobjekttyp>Abschnitt_oder_Ast</okstra:Zielobjekttyp>
+                                <okstra:inverseRelation>gehoert_zu_Kreisverkehr</okstra:inverseRelation>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_KreisverkehrPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Art_Kreisverkehr" type="okstra:Art_KreisverkehrType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Art_KreisverkehrType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Art_Kreisverkehr -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kreisverkehr_ueberfahrbarPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Kreisverkehr_ueberfahrbar" type="okstra:Kreisverkehr_ueberfahrbarType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Kreisverkehr_ueberfahrbarType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Kreisverkehr_ueberfahrbar -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Gestaltung_der_KreisinselPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="Gestaltung_der_Kreisinsel" type="okstra:Gestaltung_der_KreisinselType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Gestaltung_der_KreisinselType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften Gestaltung_der_Kreisinsel -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UI_Partner_KreisinselPropertyType">
+        <complexContent>
+            <extension base="okstra:KeyValuePropertyType">
+                <sequence>
+                    <element name="UI_Partner_Kreisinsel" type="okstra:UI_Partner_KreisinselType" minOccurs="0"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="UI_Partner_KreisinselType">
+        <complexContent>
+            <extension base="okstra:AbstractKeyValueType">
+                <sequence>
+                    <!-- Eigenschaften UI_Partner_Kreisinsel -->
+                    <element name="Kennung" 
+                        type="string"/>
+                    <element name="Langtext" 
+                        type="string"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+</schema>
