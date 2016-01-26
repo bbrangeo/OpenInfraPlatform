@@ -17,7 +17,7 @@ OpenInfraPlatform::UserInterface::CodeEditorWindow::CodeEditorWindow( QWidget *p
 	ui_->setupUi(this);
 
 	setupEditor();
-	ui_->verticalLayout->addWidget(editor);
+	ui_->verticalLayout->addWidget(editor_);
 }
 
 void OpenInfraPlatform::UserInterface::CodeEditorWindow::changeEvent(QEvent* evt)
@@ -35,21 +35,17 @@ void OpenInfraPlatform::UserInterface::CodeEditorWindow::changeEvent(QEvent* evt
 void OpenInfraPlatform::UserInterface::CodeEditorWindow::setupEditor()
 {
 	QFont font;
+	//font.setFamily("Consolas");
 	font.setFamily("Courier");
 	font.setFixedPitch(true);
 	font.setPointSize(10);
 
-	editor = new MyTextedit;
-	editor->setFont(font);
+	editor_ = new CodeTextEdit;
+	editor_->setFont(font);
 
-	highlighter = new Highlighter(editor->document());
+	highlighter_ = new Highlighter(editor_->document());
 
-	QFile file("mainwindow.h");
-
-	if(file.open(QFile::ReadOnly | QFile::Text))
-		editor->setPlainText(file.readAll());
-
-	editor->setPlainText(
+	editor_->setPlainText(
 		"print(\"Hello World!\");"
 	);
 }
@@ -61,7 +57,7 @@ void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_actionExit_triggered
 
 void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_actionExample1_triggered()
 {
-	editor->setPlainText(
+	editor_->setPlainText(
 		"A = input(\"Geben Sie eine Zahl ein: \");"
 	);
 }
@@ -75,10 +71,10 @@ void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_pushButtonExecute_cl
 	QFile file("code1.txt");
 	file.open(QIODevice::WriteOnly | QIODevice::Text);
 	QTextStream out(&file);
-	out << editor->toPlainText().toStdString().c_str();
+	out << editor_->toPlainText().toStdString().c_str();
 	file.close(); 
 	
-	Lexer::Ptr lexer = std::make_shared<Lexer>("code1.txt");
+	buw::ReferenceCounted<Lexer> lexer = std::make_shared<Lexer>("code1.txt");
 
 	std::cout << "##### Tokens: " << "#######################################" << std::endl;
 
@@ -89,7 +85,7 @@ void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_pushButtonExecute_cl
 
 	auto tokens = lexer->getTokens();
 
-	Parser::Ptr parser = std::make_shared<Parser>(lexer);
+	buw::ReferenceCounted<Parser> parser = std::make_shared<Parser>(lexer);
 	auto ast = parser->parse();
 
 	std::cout << "##### Ast: " << "##########################################" << std::endl;
@@ -98,20 +94,20 @@ void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_pushButtonExecute_cl
 
 	std::cout << "##### Program Output: " << "###############################" << std::endl;
 
-	Interpreter::Ptr interpreter = std::make_shared<Interpreter>();
+	buw::ReferenceCounted<Interpreter> interpreter = std::make_shared<Interpreter>();
 	interpreter->execute(ast);
 }
 
 void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_actionHello_World_triggered()
 {
-	editor->setPlainText(
+	editor_->setPlainText(
 		"print(\"Hello World!\");"
 	);
 }
 
 void OpenInfraPlatform::UserInterface::CodeEditorWindow::on_actionEuclidean_triggered()
 {
-	editor->setPlainText(
+	editor_->setPlainText(
 		"print(\"Euclidean\");"								"\n"
 		"a = input(\"Type a number (a): \");"				"\n"
 		"b = input(\"Type a number (b): \");"				"\n"

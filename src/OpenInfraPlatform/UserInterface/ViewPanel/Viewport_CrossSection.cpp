@@ -21,17 +21,17 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 			continue;
 		}
 
-		buw::Alignment2DBased3D::Ptr alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
 		int numberOfAlignmentCrossSections = alignment->getCrossSectionCount();
 
 		for(int csIndex = 0; csIndex < numberOfAlignmentCrossSections; csIndex++) //iterate through all CrossSections of alignment
 		{
-			buw::CrossSectionStatic::Ptr cs = alignment->getCrossSection(csIndex);
+			buw::ReferenceCounted<buw::CrossSectionStatic> cs = alignment->getCrossSection(csIndex);
 			drawCrossSection(alignment,cs,offsetViewArea);
 
 			if(csIndex < numberOfAlignmentCrossSections-1)
 			{ 
-				buw::CrossSectionStatic::Ptr csNext = alignment->getCrossSection(csIndex+1);
+				buw::ReferenceCounted<buw::CrossSectionStatic> csNext = alignment->getCrossSection(csIndex+1);
 				if(connectCrossSections_ || doSolidCrossSections_) drawRoadBodyBetweenStation(alignment,cs,csNext,offsetViewArea);
 			}
 		}
@@ -39,8 +39,8 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::drawCrossSection(
-	buw::Alignment2DBased3D::Ptr alignment, 
-	buw::CrossSectionStatic::Ptr cs, 
+	buw::ReferenceCounted<buw::Alignment2DBased3D> alignment, 
+	buw::ReferenceCounted<buw::CrossSectionStatic> cs, 
 	buw::vector3d offsetViewArea)
 {
 	buw::vector3d center = alignment->getPosition(cs->stationing);
@@ -57,7 +57,7 @@ void OpenInfraPlatform::UserInterface::Viewport::drawCrossSection(
 		// iterate through all CrossSectionSurfaces of CrossSection
 		for(int csSurfaceIndex=0; csSurfaceIndex < cs->getCrossSectionSurfaceCount(); csSurfaceIndex++) 
 		{
-			buw::CrossSectionSurface::Ptr csSurf =cs->getCrossSectionSurface(csSurfaceIndex);
+			buw::ReferenceCounted<buw::CrossSectionSurface> csSurf =cs->getCrossSectionSurface(csSurfaceIndex);
 
 			bool isFirstPoint=true;
 			buw::vector3d lastPoint;
@@ -96,7 +96,7 @@ void OpenInfraPlatform::UserInterface::Viewport::drawCrossSection(
 		// iterate through all DesignCrossSectionSurfaces of CrossSection
 		for(int csDesignSurfaceIndex=0; csDesignSurfaceIndex < cs->getDesignCrossSectionSurfaceCount(); csDesignSurfaceIndex++)
 		{
-			buw::DesignCrossSectionSurface::Ptr csDesignSurf = cs->getDesignCrossSectionSurface(csDesignSurfaceIndex);
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface> csDesignSurf = cs->getDesignCrossSectionSurface(csDesignSurfaceIndex);
 
 			bool isFirstPoint = true;
 			buw::vector3d lastPoint;
@@ -130,9 +130,9 @@ void OpenInfraPlatform::UserInterface::Viewport::drawCrossSection(
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::drawRoadBodyBetweenStation(
-	buw::Alignment2DBased3D::Ptr alignment,
-	buw::CrossSectionStatic::Ptr cs, 
-	buw::CrossSectionStatic::Ptr nextCs, 
+	buw::ReferenceCounted<buw::Alignment2DBased3D> alignment,
+	buw::ReferenceCounted<buw::CrossSectionStatic> cs, 
+	buw::ReferenceCounted<buw::CrossSectionStatic> nextCs, 
 	buw::vector3d offsetViewArea)
 {
 	buw::vector3d startCenter = alignment->getPosition(cs->stationing);
@@ -147,8 +147,8 @@ void OpenInfraPlatform::UserInterface::Viewport::drawRoadBodyBetweenStation(
 		// iterate through all closed DesignCrossSectionSurfaces of CrossSection
 		for(int csDesignSurfaceIndex=0; csDesignSurfaceIndex < cs->getClosedDesignCrossSectionSurfaceCount(); csDesignSurfaceIndex++)
 		{
-			buw::DesignCrossSectionSurface::Ptr csDesignSurf = cs->getClosedDesignCrossSectionSurface(csDesignSurfaceIndex);
-			buw::DesignCrossSectionSurface::Ptr nextCsDesignSurf = nextCs->getClosedDesignCrossSectionSurface(csDesignSurfaceIndex);
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface> csDesignSurf = cs->getClosedDesignCrossSectionSurface(csDesignSurfaceIndex);
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface> nextCsDesignSurf = nextCs->getClosedDesignCrossSectionSurface(csDesignSurfaceIndex);
 
 			if (csDesignSurf->crossSectionsPoints.size() == nextCsDesignSurf->crossSectionsPoints.size())
 			{
@@ -284,8 +284,8 @@ void OpenInfraPlatform::UserInterface::Viewport::drawRoadBodyBetweenStation(
 		// iterate through all open DesignCrossSectionSurfaces of CrossSection
 		for(int csDesignSurfaceIndex=0; csDesignSurfaceIndex < cs->getOpenDesignCrossSectionSurfaceCount(); csDesignSurfaceIndex++)
 		{
-			buw::DesignCrossSectionSurface::Ptr csDesignSurf = cs->getOpenDesignCrossSectionSurface(csDesignSurfaceIndex);
-			buw::DesignCrossSectionSurface::Ptr nextCsDesignSurf = nextCs->getOpenDesignCrossSectionSurface(csDesignSurfaceIndex);
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface> csDesignSurf = cs->getOpenDesignCrossSectionSurface(csDesignSurfaceIndex);
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface> nextCsDesignSurf = nextCs->getOpenDesignCrossSectionSurface(csDesignSurfaceIndex);
 
 			if (csDesignSurf->crossSectionsPoints.size() == nextCsDesignSurf->crossSectionsPoints.size())
 			{
@@ -418,7 +418,7 @@ void OpenInfraPlatform::UserInterface::Viewport::drawRoadBodyBetweenStation(
 }
 
 buw::matrix44d OpenInfraPlatform::UserInterface::Viewport::getGlobalRotationMatrixOnStation(
-	buw::Alignment2DBased3D::Ptr alignment, 
+	buw::ReferenceCounted<buw::Alignment2DBased3D> alignment, 
 	buw::Stationing station)
 {
 	buw::vector3d mid = alignment->getPosition(station);

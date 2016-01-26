@@ -128,25 +128,29 @@ ENDIF(WIN32)
 
 # On Linux, .so files are all we need for linking
 IF(WIN32)
-	if (MSVC12)
+	if (MSVC14)
+		SET(BLUEFRAMEWORK_LIBRARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/lib/vs2015/${BLUEFRAMEWORK_ARCHITECTURE})
+	elseif (MSVC12)
 		SET(BLUEFRAMEWORK_LIBRARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/lib/vs2013/${BLUEFRAMEWORK_ARCHITECTURE})
 	elseif (MSVC11)
 		SET(BLUEFRAMEWORK_LIBRARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/lib/vs2012/${BLUEFRAMEWORK_ARCHITECTURE})
 	else (MSVC12)
 		SET(BLUEFRAMEWORK_LIBRARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/lib/vs2010/${BLUEFRAMEWORK_ARCHITECTURE})
-	endif (MSVC12)
+	endif (MSVC14)
 ELSEIF(UNIX)
 	SET(BLUEFRAMEWORK_LIBRARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/build)
 ENDIF(WIN32)
 
 IF(WIN32)
-	if (MSVC12)
+	if (MSVC14)
+		SET(BLUEFRAMEWORK_BINARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE})
+	elseif (MSVC12)
 		SET(BLUEFRAMEWORK_BINARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE})
 	elseif (MSVC11)
 		SET(BLUEFRAMEWORK_BINARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE})
 	else (MSVC12)
 		SET(BLUEFRAMEWORK_BINARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2010/${BLUEFRAMEWORK_ARCHITECTURE})
-	endif (MSVC12)
+	endif (MSVC14)
 ELSEIF(UNIX)
 	SET(BLUEFRAMEWORK_BINARY_DIR ${BLUEFRAMEWORK_ROOT_DIR}/bin/gcc/${BLUEFRAMEWORK_ARCHITECTURE})
 ENDIF(WIN32)
@@ -251,7 +255,49 @@ ENDIF(BLUEFRAMEWORK_FIND_COMPONENTS)
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(BlueFramework DEFAULT_MSG BLUEFRAMEWORK_LIBRARIES BLUEFRAMEWORK_INCLUDE_DIR)
 
-if(MSVC12)
+if(MSVC14)
+	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES TargetDirectory)
+		ADD_CUSTOM_TARGET(BlueFrameworkCopyBinaries
+		COMMAND
+			${CMAKE_COMMAND} -E copy_directory ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE} ${TargetDirectory}
+		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
+		VERBATIM)
+	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES)
+	
+	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES2 TargetDirectory)
+		ADD_CUSTOM_TARGET(BlueFrameworkCopyBinaries
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Applicationd.dll 				${TargetDirectory}/Debug/BlueFramework.Applicationd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Computed.dll 					${TargetDirectory}/Debug/BlueFramework.Computed.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cored.dll 					${TargetDirectory}/Debug/BlueFramework.Cored.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.D3D11RenderSystemd.dll		${TargetDirectory}/Debug/BlueFramework.D3D11RenderSystemd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cheetahd.dll					${TargetDirectory}/Debug/BlueFramework.Cheetahd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.GL4xRenderSystemd.dll			${TargetDirectory}/Debug/BlueFramework.GL4xRenderSystemd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Engined.dll					${TargetDirectory}/Debug/BlueFramework.Engined.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterfaced.dll			${TargetDirectory}/Debug/BlueFramework.UserInterfaced.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.ImageProcessingd.dll			${TargetDirectory}/Debug/BlueFramework.ImageProcessingd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Radiosityd.dll				${TargetDirectory}/Debug/BlueFramework.Radiosityd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Rasterizerd.dll				${TargetDirectory}/Debug/BlueFramework.Rasterizerd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.RTRTd.dll						${TargetDirectory}/Debug/BlueFramework.RTRTd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterfaced.dll			${TargetDirectory}/Debug/BlueFramework.UserInterfaced.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Application.dll 				${TargetDirectory}/Release/BlueFramework.Application.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Compute.dll 					${TargetDirectory}/Release/BlueFramework.Compute.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Core.dll 						${TargetDirectory}/Release/BlueFramework.Core.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.D3D11RenderSystem.dll			${TargetDirectory}/Release/BlueFramework.D3D11RenderSystem.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cheetah.dll					${TargetDirectory}/Release/BlueFramework.Cheetah.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.GL4xRenderSystem.dll			${TargetDirectory}/Release/BlueFramework.GL4xRenderSystem.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Engine.dll					${TargetDirectory}/Release/BlueFramework.Engine.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.ImageProcessing.dll			${TargetDirectory}/Release/BlueFramework.ImageProcessing.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Radiosity.dll					${TargetDirectory}/Release/BlueFramework.Radiosity.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Rasterizer.dll				${TargetDirectory}/Release/BlueFramework.Rasterizer.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.RTRT.dll						${TargetDirectory}/Release/BlueFramework.RTRT.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterface.dll				${TargetDirectory}/Release/BlueFramework.UserInterface.dll
+			
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/assimp-vc140-mtd.dll						${TargetDirectory}/Debug/assimp-vc140-mtd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2015/${BLUEFRAMEWORK_ARCHITECTURE}/assimp-vc140-mt.dll							${TargetDirectory}/Release/assimp-vc140-mt.dll
+		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
+		VERBATIM)
+	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES2)
+elseif(MSVC12)
 	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES TargetDirectory)
 		ADD_CUSTOM_TARGET(BlueFrameworkCopyBinaries
 		COMMAND
@@ -287,48 +333,13 @@ if(MSVC12)
 			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Rasterizer.dll				${TargetDirectory}/Release/BlueFramework.Rasterizer.dll
 			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.RTRT.dll						${TargetDirectory}/Release/BlueFramework.RTRT.dll
 			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterface.dll				${TargetDirectory}/Release/BlueFramework.UserInterface.dll
+			
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE}/assimp-vc120-mtd.dll						${TargetDirectory}/Debug/assimp-vc120-mtd.dll
+			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2013/${BLUEFRAMEWORK_ARCHITECTURE}/assimp-vc120-mt.dll							${TargetDirectory}/Release/assimp-vc120-mt.dll
 		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
 		VERBATIM)
 	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES2)
-elseif (MSVC11)
-	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES TargetDirectory)
-		ADD_CUSTOM_TARGET(BlueFrameworkCopyBinaries
-		COMMAND
-			${CMAKE_COMMAND} -E copy_directory ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE} ${TargetDirectory}
-		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
-		VERBATIM)
-	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES)
-	
-	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES2 TargetDirectory)
-		ADD_CUSTOM_TARGET(BlueFrameworkCopyBinaries
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Applicationd.dll 				${TargetDirectory}/Debug/BlueFramework.Applicationd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Computed.dll 					${TargetDirectory}/Debug/BlueFramework.Computed.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cored.dll 					${TargetDirectory}/Debug/BlueFramework.Cored.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.D3D11RenderSystemd.dll		${TargetDirectory}/Debug/BlueFramework.D3D11RenderSystemd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cheetahd.dll					${TargetDirectory}/Debug/BlueFramework.Cheetahd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.GL4xRenderSystemd.dll			${TargetDirectory}/Debug/BlueFramework.GL4xRenderSystemd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Engined.dll					${TargetDirectory}/Debug/BlueFramework.Engined.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.ImageProcessingd.dll			${TargetDirectory}/Debug/BlueFramework.ImageProcessingd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Radiosityd.dll				${TargetDirectory}/Debug/BlueFramework.Radiosityd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Rasterizerd.dll				${TargetDirectory}/Debug/BlueFramework.Rasterizerd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.RTRTd.dll						${TargetDirectory}/Debug/BlueFramework.RTRTd.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterfaced.dll			${TargetDirectory}/Debug/BlueFramework.UserInterfaced.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Application.dll 				${TargetDirectory}/Release/BlueFramework.Application.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Compute.dll 					${TargetDirectory}/Release/BlueFramework.Compute.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Core.dll 						${TargetDirectory}/Release/BlueFramework.Core.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.D3D11RenderSystem.dll			${TargetDirectory}/Release/BlueFramework.D3D11RenderSystem.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Cheetah.dll					${TargetDirectory}/Release/BlueFramework.Cheetah.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.GL4xRenderSystem.dll			${TargetDirectory}/Release/BlueFramework.GL4xRenderSystem.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Engine.dll					${TargetDirectory}/Release/BlueFramework.Engine.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.ImageProcessing.dll			${TargetDirectory}/Release/BlueFramework.ImageProcessing.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Radiosity.dll					${TargetDirectory}/Release/BlueFramework.Radiosity.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.Rasterizer.dll				${TargetDirectory}/Release/BlueFramework.Rasterizer.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.RTRT.dll						${TargetDirectory}/Release/BlueFramework.RTRT.dll
-			COMMAND ${CMAKE_COMMAND} -E copy ${BLUEFRAMEWORK_ROOT_DIR}/bin/vs2012/${BLUEFRAMEWORK_ARCHITECTURE}/BlueFramework.UserInterface.dll				${TargetDirectory}/Release/BlueFramework.UserInterface.dll
-		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
-		VERBATIM)
-	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES2)
-else (MSVC12)
+else (MSVC14)
 	FUNCTION(BLUEFRAMEWORK_COPY_BINARIES TargetDirectory)
 		ADD_CUSTOM_TARGET(BUWFrameworkCopyBinaries
 		COMMAND
@@ -336,4 +347,4 @@ else (MSVC12)
 		COMMENT "Copying BlueFramwork binaries to '${TargetDirectory}'"
 		VERBATIM)
 	ENDFUNCTION(BLUEFRAMEWORK_COPY_BINARIES)
-endif (MSVC12)
+endif (MSVC14)

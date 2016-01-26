@@ -24,7 +24,7 @@ namespace OpenInfraPlatform
 		};
 
 		void drawCoordinateSystem(
-			buw::VertexCacheLine::Ptr vertexCacheLine,
+			buw::ReferenceCounted<buw::VertexCacheLine> vertexCacheLine,
 			float scale = 1.0f, 
 			eCoordinateSystemType type = eCoordinateSystemType::Autodesk);
 
@@ -47,7 +47,7 @@ namespace OpenInfraPlatform
 		};
 		
 		void drawGrid( 
-			buw::VertexCacheLine::Ptr vertexCacheLine,
+			buw::ReferenceCounted<buw::VertexCacheLine> vertexCacheLine,
 			const drawGridDescription& dgd);
 	} // end namespace UserInterface
 } // end namespace OpenInfraPlatform

@@ -10,9 +10,8 @@
 #ifndef OpenInfraPlatform_Infrastructure_OkstraExport_37e91449_2c4b_4ad1_8308_5c5c876098c9_h
 #define OpenInfraPlatform_Infrastructure_OkstraExport_37e91449_2c4b_4ad1_8308_5c5c876098c9_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
+#include "OpenInfraPlatform/Infrastructure/Export/Export.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
 
 #include <boost/noncopyable.hpp>
 
@@ -20,11 +19,11 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		class BLUEINFRASTRUCTURE_API OkstraExport : private boost::noncopyable
+		class BLUEINFRASTRUCTURE_API OkstraExport : public Export
 		{
 		public:
 			//! Default constructor.
-			OkstraExport(const char* filename, int majorVersion, int minorVersion, std::vector<buw::IAlignment3D::Ptr> alignments, const buw::DigitalElevationModel::Ptr digitalElevationModel);
+			OkstraExport(int majorVersion, int minorVersion, buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename);
 
 			//! Virtual destructor.
 			virtual ~OkstraExport();

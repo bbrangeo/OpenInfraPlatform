@@ -8,7 +8,7 @@
 #include "DeleteSurface.h"
 #include "OpenInfraPlatform/DataManagement/Data.h"
 
-OpenInfraPlatform::DataManagement::Command::DeleteSurface::DeleteSurface(buw::Surface::Ptr surface) :
+OpenInfraPlatform::DataManagement::Command::DeleteSurface::DeleteSurface(buw::ReferenceCounted<buw::Surface> surface) :
 surface_(surface)
 {
 

@@ -1,6 +1,7 @@
 /*! \verbatim
  *  \copyright		Copyright (c) 2015 Julian Amann. All rights reserved.
  *	\author			Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
+ *	\author			Daniel Below <daniel.below@tum.de>
  *	\brief			This file is part of the BlueFramework.
  *	\endverbatim
  */
@@ -25,28 +26,29 @@ OpenInfraPlatform::UserInterface::View::View() : QDockWidget() // no parent
 	QMenuBar* pMenuBar = new QMenuBar(nullptr);
 
 	// view menu
-	QMenu* menuView = new QMenu(tr("View"));
-	pMenuBar->addMenu(menuView);
-
-	actionTop_ = menuView->addAction(tr("Top"));
-	actionBottom_ = menuView->addAction(tr("Bottom"));
-	actionLeft_ = menuView->addAction(tr("Left"));
-	actionRight_ = menuView->addAction(tr("Right"));
-	actionFront_ = menuView->addAction(tr("Front"));
-	actionBack_ = menuView->addAction(tr("Back"));
-		
-	menuView->addSeparator();
-	QMenu *menuAxonometric = menuView->addMenu(tr("Axonometric"));
-	actionIsometric_ = menuAxonometric->addAction(tr("Isometric"));
+	menuView_ = new QMenu(tr("View"));
+	pMenuBar->addMenu(menuView_);
+	
+	
+	actionTop_ = menuView_->addAction(tr("Top"));
+	actionBottom_ = menuView_->addAction(tr("Bottom"));
+	actionLeft_ = menuView_->addAction(tr("Left"));
+	actionRight_ = menuView_->addAction(tr("Right"));
+	actionFront_ = menuView_->addAction(tr("Front"));
+	actionBack_ = menuView_->addAction(tr("Back"));
+	
+	menuView_->addSeparator();
+	menuAxonometric_ = menuView_->addMenu(tr("Axonometric"));
+	actionIsometric_ = menuAxonometric_->addAction(tr("Isometric"));
 
 	// projection menu
-	QMenu* menuProjection = new QMenu(tr("Projection"));
-	pMenuBar->addMenu(menuProjection);
+	menuProjection_ = new QMenu(tr("Projection"));
+	pMenuBar->addMenu(menuProjection_);
 
-	actionPerspective_ = menuProjection->addAction(tr("Perspective"));
+	actionPerspective_ = menuProjection_->addAction(tr("Perspective"));
 	actionPerspective_->setCheckable(true);
 	actionPerspective_->setChecked(true);
-	actionOrthographic_ = menuProjection->addAction(tr("Orthographic"));
+	actionOrthographic_ = menuProjection_->addAction(tr("Orthographic"));
 	actionOrthographic_->setCheckable(true);
 
 	// home menu
@@ -100,6 +102,39 @@ OpenInfraPlatform::UserInterface::View::View() : QDockWidget() // no parent
 OpenInfraPlatform::UserInterface::View::~View()
 {
 	delete viewport_;
+}
+
+void OpenInfraPlatform::UserInterface::View::changeEvent(QEvent* evt)
+{
+	if (evt->type() == QEvent::LanguageChange)
+	{
+		retranslateView();
+	}
+	else
+	{
+		// remember to call base class implementation
+		QDockWidget::changeEvent(evt);
+	}
+}
+
+void OpenInfraPlatform::UserInterface::View::retranslateView()
+{
+	menuView_->setTitle(tr("View"));
+
+	actionTop_->setText(tr("Top"));
+	actionBottom_->setText(tr("Bottom"));
+	actionLeft_->setText(tr("Left"));
+	actionRight_->setText(tr("Right"));
+	actionFront_->setText(tr("Front"));
+	actionBack_->setText(tr("Back"));
+
+	menuAxonometric_->setTitle(tr("Axonometric"));
+	actionIsometric_->setText(tr("Isometric"));
+
+	menuProjection_->setTitle(tr("Projection"));
+
+	actionPerspective_->setText(tr("Perspective"));
+	actionOrthographic_->setText(tr("Orthographic"));
 }
 
 void OpenInfraPlatform::UserInterface::View::on_actionIsometric()
@@ -428,21 +463,16 @@ void OpenInfraPlatform::UserInterface::View::onViewCubeSelectionChanged(buw::eVi
 	}
 }
 
-void OpenInfraPlatform::UserInterface::View::setInfraCameraController(buw::InfraCameraController::Ptr controller)
+void OpenInfraPlatform::UserInterface::View::setInfraCameraController(buw::ReferenceCounted<buw::InfraCameraController> controller)
 {
 	viewport_->setInfraCameraController(controller);
 }
 
-buw::InfraCameraController::Ptr OpenInfraPlatform::UserInterface::View::getInfraCameraController() const
+buw::ReferenceCounted<buw::InfraCameraController> OpenInfraPlatform::UserInterface::View::getInfraCameraController() const
 {
 	return viewport_->getInfraCameraController();
 }
 
-
-void OpenInfraPlatform::UserInterface::View::setSelectedAlignment( const int index )
-{
-	viewport_->setSelectedAlignment( index );
-}
 
 void OpenInfraPlatform::UserInterface::View::reloadShader()
 {
@@ -461,7 +491,7 @@ void OpenInfraPlatform::UserInterface::View::on_actionToggleControlMode()
 
 void OpenInfraPlatform::UserInterface::View::cameraControlModeChanged()
 {
-	auto icon = QIcon { (getInfraCameraController()->getControlMode() == buw::InfraCameraController::ControlMode::Flying) ? "Data/flying.ico" : "Data/orbiting.ico" };
+	auto icon = QIcon { (getInfraCameraController()->getControlMode() == buw::InfraCameraController::ControlMode::Flying) ? "Data/ghost_selected.ico" : "Data/ghost_unselected.ico" };
 	if (icon.isNull())
 	{
 		buw::LogManager::getInstance().Log("Could not load flying/orbiting icon.");

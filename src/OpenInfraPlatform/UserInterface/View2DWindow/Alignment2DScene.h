@@ -40,7 +40,7 @@ namespace OpenInfraPlatform
 		public:
 			Alignment2DScene(QObject *parent = 0);
 			
-			void setAlignment(OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr alignment);
+			void setAlignment(buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> alignment);
 
 			void setSelectedAlignment(int index);
 			int getSelectedAlignment();
@@ -66,7 +66,7 @@ namespace OpenInfraPlatform
 
 			virtual void v_configureColors(A2D_DrawState state){};
 
-			virtual void v_drawAlignment(buw::Alignment2DBased3D::Ptr a,
+			virtual void v_drawAlignment(buw::ReferenceCounted<buw::Alignment2DBased3D> a,
 				std::map<buw::eHorizontalAlignmentType, QPainterPath>& horizontalPainter,
 				std::map<buw::eVerticalAlignmentType, QPainterPath>& verticalPainter) 
 			{};
@@ -83,7 +83,7 @@ namespace OpenInfraPlatform
 			void wheelEvent(QGraphicsSceneWheelEvent* mouseEvent);
 
 		protected:
-			OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr alignment_;
+			buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> alignment_;
 			int					selectedAlignmentIndex_;
 			bool				differentColorsForHorizontalAlignmentElements_;
 			bool				differentColorsForVerticalAlignmentElements_;

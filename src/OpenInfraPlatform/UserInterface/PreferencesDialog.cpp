@@ -36,8 +36,8 @@ OpenInfraPlatform::UserInterface::PreferencesDialog::PreferencesDialog(OpenInfra
 	ui_->doubleSpinBoxFarPlane->setValue(infraCameraController_->getCamera()->frustum().farPlane());
 
 
-	ui_->comboBoxRenderSystem->addItem("Direct3D");
-	ui_->comboBoxRenderSystem->addItem("OpenGL");
+	ui_->comboBoxRenderSystem->addItem("Direct3D 11");
+	ui_->comboBoxRenderSystem->addItem("OpenGL 4.x");
 
 	connect(ui_->comboBoxRenderSystem, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(onComboBoxRenderSystem_currentIndexChanged(const QString &)));
 

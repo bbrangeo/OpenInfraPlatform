@@ -26,8 +26,12 @@
 #include <QDebug>
 
 #ifdef QT_VERSION
-	#if(QT_VERSION == 0x050401)
-		#include "QtGui/5.4.1/QtGui/private/qzipwriter_p.h"
+	#if (QT_VERSION == 0x050600)
+		#include "QtGui/5.6.0/QtGui/private/qzipwriter_p.h"
+	#elif (QT_VERSION == 0x050501)
+		#include "QtGui/5.5.1/QtGui/private/qzipwriter_p.h"
+	#elif (QT_VERSION == 0x050401)
+		#include "QtGui/5.4.1/QtGui/private/qzipreader_p.h"
 	#else
 		#include "QtGui/5.4.0/QtGui/private/qzipwriter_p.h"
 	#endif

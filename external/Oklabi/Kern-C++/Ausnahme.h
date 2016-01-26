@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Ausnahme.h 2013-12-12 15:00:00 vogelsang $
+* $Id: Ausnahme.h 2015-01-25 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2013, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -29,6 +29,8 @@
 * 2013-02-04 Profile
 * 2013-03-11 Harmonisierung der Schnittstelle
 * 2013-12-12 Fremdobjekt für Nachbarstandards eingeführt
+* 2014-10-06 Zugriff auf StackTrace
+* 2015-01-26 Ausnahmebehandlung überarbeitet
 * 
 ****************************************************************************/
 #ifndef DEFAusnahme
@@ -50,6 +52,8 @@ namespace Oklabi
 {
 	OKLABI_API Text AlsText(eAusnTyp);
 	OKLABI_API eAusnTyp VonText(const Text&);
+	OKLABI_API Text GibMeldung(const structured_exception* const);
+	OKLABI_API Text GibStackTrace(const structured_exception* const);
 
 	// Ausnahme-Kategorien
 	enum eAusnKategorie
@@ -109,6 +113,7 @@ namespace Oklabi
 			OKLABI_API virtual Ausnahme*         Kopiere() const = 0;
 			virtual OKLABI_API void              SchreibeReport(Ausgabe*) const;
 			static OKLABI_API Ausnahme*          Erzeuge(const Oklabi::Text&, const Oklabi::Text&, Oklabi::eAusnTyp, Oklabi::eMeldTyp, Oklabi::OklabiObjekt*);
+			virtual OKLABI_API const char*       trace() const;
 		protected:
 			eAusnTyp                             m_nCode;
 			eMeldTyp                             m_eTyp;

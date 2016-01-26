@@ -37,5 +37,5 @@
   <include schemaLocation="S_Verkehr.xsd"/>
   <include schemaLocation="S_Vermessungspunkt.xsd"/>
   <include schemaLocation="Schluesseltabellen.xsd"/>
-  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <!--XML Schema document created by ShapeChange-->
 </schema>

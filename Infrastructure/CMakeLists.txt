@@ -8,9 +8,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE 	../Release)
 set(CMAKE_PDB_OUTPUT_DIRECTORY_DEBUG 	    ../Debug)
 set(CMAKE_PDB_OUTPUT_DIRECTORY_RELEASE 	    ../Release)
 
+set(Boost_USE_STATIC_LIBS   ON)
+FIND_PACKAGE(Boost COMPONENTS filesystem system	python REQUIRED)
+
+find_package(PythonLibs REQUIRED)
+
 # Unicode rules!
 add_definitions(-D_UNICODE)
 add_definitions(-DNOMINMAX)
+add_definitions(-D_UNICODE -DBOOST_PYTHON_STATIC_LIB)
 
 file(GLOB OpenInfraPlatform_Infrastructure_Alignment_HorizontalAlignment_Source 	src/OpenInfraPlatform/Infrastructure/Alignment/HorizontalAlignment/*.*)								
 file(GLOB OpenInfraPlatform_Infrastructure_Alignment_Source 						src/OpenInfraPlatform/Infrastructure/Alignment/*.*)			
@@ -155,6 +161,7 @@ else(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		${BLUEFRAMEWORK_BLUEAPPLICATION_LIBRARY}	
 		# Python
 		${PYTHON_LIBRARIES}
+		${PYTHON_LIBRARY}
 		# External libs
 		QtXlsxWriter
 		liblas

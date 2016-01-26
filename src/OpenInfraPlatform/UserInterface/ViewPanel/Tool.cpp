@@ -7,7 +7,7 @@ namespace OpenInfraPlatform
 		class SketchBasedAlignment : public Tool
 		{
 		public:
-			SketchBasedAlignment(buw::VertexCachePoint::Ptr vcp) :
+			SketchBasedAlignment(buw::ReferenceCounted<buw::VertexCachePoint> vcp) :
 				vertexCachePoint_(vcp)
 			{
 
@@ -52,7 +52,7 @@ namespace OpenInfraPlatform
 			std::vector<buw::vector3f> m_ConstructionPoints;
 
 			// Drawing
-			buw::VertexCachePoint::Ptr	vertexCachePoint_;
+			buw::ReferenceCounted<buw::VertexCachePoint>	vertexCachePoint_;
 		};
 	}
 }
@@ -72,12 +72,12 @@ void OpenInfraPlatform::UserInterface::ToolManager::mousePressEvent(QMouseEvent 
 	tool_->mousePressEvent(event);
 }
 
-void OpenInfraPlatform::UserInterface::ToolManager::setCurrentTool(Tool::Ptr tool)
+void OpenInfraPlatform::UserInterface::ToolManager::setCurrentTool(buw::ReferenceCounted<Tool> tool)
 {
 	tool_ = tool;
 }
 
-OpenInfraPlatform::UserInterface::ToolManager::ToolManager(buw::VertexCachePoint::Ptr vcp)
+OpenInfraPlatform::UserInterface::ToolManager::ToolManager(buw::ReferenceCounted<buw::VertexCachePoint> vcp)
 {
 	tool_ = std::make_shared<SketchBasedAlignment>(vcp);
 }

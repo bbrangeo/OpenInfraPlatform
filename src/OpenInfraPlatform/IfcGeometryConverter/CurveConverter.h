@@ -28,6 +28,7 @@
 #include "PlacementConverter.h"
 #include "ProfileConverter.h"
 #include "GeometrySettings.h"
+#include "SplineConverter.h"
 
 
 #include "OpenInfraPlatform/ExpressBinding/vectorUtilites.h"
@@ -59,8 +60,8 @@ namespace OpenInfraPlatform
 			}
 
 			void convertIfcCurve(const std::shared_ptr<typename IfcEntityTypesT::IfcCurve>& ifcCurve,
-				std::vector<carve::geom::vector<3> >& loops,
-				std::vector<carve::geom::vector<3> >& segmentStartPoints) const
+				std::vector<carve::geom::vector<3>>& loops,
+				std::vector<carve::geom::vector<3>>& segmentStartPoints) const
 			{
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcTrimmingSelect> > trim1Vec;
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcTrimmingSelect> > trim2Vec;
@@ -96,7 +97,7 @@ namespace OpenInfraPlatform
 							std::shared_ptr<typename IfcEntityTypesT::IfcCompositeCurveSegment> segement = (*it_segments);
 							std::shared_ptr<typename IfcEntityTypesT::IfcCurve> segement_curve = segement->m_ParentCurve;
 
-							std::vector<carve::geom::vector<3> > segment_vec;
+							std::vector<carve::geom::vector<3>> segment_vec;
 							convertIfcCurve(segement_curve, segment_vec, segmentStartPoints);
 							if (segment_vec.size() > 0)
 							{
@@ -145,10 +146,14 @@ namespace OpenInfraPlatform
 						dynamic_pointer_cast<typename IfcEntityTypesT::IfcBSplineCurve>(bounded_curve);
 					if (bspline_curve)
 					{
-						std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> >& points =
+						std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint>>& points = 
 							bspline_curve->m_ControlPointsList;
-						// TODO: compute bspline curve
-						convertIfcCartesianPointVector(points, targetVec);
+
+						std::vector<carve::geom::vector<3>> splinePoints;
+						splinePoints.reserve(points.size());
+						convertIfcCartesianPointVector(points, splinePoints);
+
+						SplineConverterT<typename IfcEntityTypesT, IfcUnitConverterT>::convertIfcBSplineCurve(bspline_curve, splinePoints, targetVec);
 						return;
 					}
 					throw UnhandledRepresentationException<IfcEntityTypesT>(bounded_curve);
@@ -480,7 +485,9 @@ namespace OpenInfraPlatform
 					dynamic_pointer_cast<typename IfcEntityTypesT::IfcOffsetCurve2D>(ifcCurve);
 				if (offset_curve_2d)
 				{
-					std::cout << "IfcOffsetCurve2D not implemented" << std::endl;
+#ifdef _DEBUG
+					std::cout << "Warning\t| IfcOffsetCurve2D not implemented" << std::endl;
+#endif
 					return;
 				}
 
@@ -488,7 +495,9 @@ namespace OpenInfraPlatform
 					dynamic_pointer_cast<typename IfcEntityTypesT::IfcOffsetCurve3D>(ifcCurve);
 				if (offset_curve_3d)
 				{
-					std::cout << "IfcOffsetCurve3D not implemented" << std::endl;
+#ifdef _DEBUG
+					std::cout << "Warning\t| IfcOffsetCurve3D not implemented" << std::endl;
+#endif
 					return;
 				}
 
@@ -543,14 +552,14 @@ namespace OpenInfraPlatform
 			}
 
 			void convertIfcLoop(const std::shared_ptr<typename IfcEntityTypesT::IfcLoop>& loop,
-				std::vector<carve::geom::vector<3> >& loopPoints) const
+				std::vector<carve::geom::vector<3>>& loopPoints) const
 			{
-				const std::shared_ptr<typename IfcEntityTypesT::IfcPolyLoop> poly_loop = 
+				const std::shared_ptr<typename IfcEntityTypesT::IfcPolyLoop> polyLoop = 
 					dynamic_pointer_cast<typename IfcEntityTypesT::IfcPolyLoop>(loop);
-				if (poly_loop)
+				if (polyLoop)
 				{
-					const std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint>>& ifc_points = poly_loop->m_Polygon;
-					convertIfcCartesianPointVectorSkipDuplicates(ifc_points, loopPoints);
+					const std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint>>& ifcPoints = polyLoop->m_Polygon;
+					convertIfcCartesianPointVectorSkipDuplicates(ifcPoints, loopPoints);
 
 					// if first and last point have same coordinates, remove last point
 					while (loopPoints.size() > 2)
@@ -574,55 +583,67 @@ namespace OpenInfraPlatform
 					return;
 				}
 
-				std::shared_ptr<typename IfcEntityTypesT::IfcEdgeLoop> edge_loop = 
+				std::shared_ptr<typename IfcEntityTypesT::IfcEdgeLoop> edgeLoop = 
 					dynamic_pointer_cast<typename IfcEntityTypesT::IfcEdgeLoop>(loop);
-				if (edge_loop)
+				if (edgeLoop)
 				{
-					std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcOrientedEdge> >& edge_list = edge_loop->m_EdgeList;
-					std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcOrientedEdge> >::iterator it_edge;
-					for (it_edge = edge_list.begin(); it_edge != edge_list.end(); ++it_edge)
+					//std::vector<carve::geom::vector<3>> edgePoints;
+
+					std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcOrientedEdge>>& edgeList = edgeLoop->m_EdgeList;
+					// go through every edge in the edge list
+					for (auto it_edge = edgeList.begin(); it_edge != edgeList.end(); ++it_edge)
 					{
-						std::shared_ptr<typename IfcEntityTypesT::IfcOrientedEdge> oriented_edge = (*it_edge);
-						std::shared_ptr<typename IfcEntityTypesT::IfcEdge> edge = oriented_edge->m_EdgeElement;
+						// edge loop consists of many oriented edges
+						std::shared_ptr<typename IfcEntityTypesT::IfcOrientedEdge> orientedEdge = (*it_edge);
+						// which are described by the type of its edge element object
+						std::shared_ptr<typename IfcEntityTypesT::IfcEdge>& edgeElement = orientedEdge->m_EdgeElement;
 
-						std::shared_ptr<typename IfcEntityTypesT::IfcVertex> edge_start = edge->m_EdgeStart;
-						std::shared_ptr<typename IfcEntityTypesT::IfcVertexPoint> edge_start_point =
-							dynamic_pointer_cast<typename IfcEntityTypesT::IfcVertexPoint>(edge_start);
-						if (edge_start_point)
-						{
-							if (edge_start_point->m_VertexGeometry)
-							{
-								std::shared_ptr<typename IfcEntityTypesT::IfcPoint> edge_start_point_geometry =
-									edge_start_point->m_VertexGeometry;
-								std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> ifc_point =
-									dynamic_pointer_cast<typename IfcEntityTypesT::IfcCartesianPoint>(edge_start_point_geometry);
-								if (!ifc_point)
-								{
-									// TODO: could be also  IfcPointOnCurve, IfcPointOnSurface
-									continue;
-								}
-								// TODO: implement
-							}
-						}
-						std::shared_ptr<typename IfcEntityTypesT::IfcVertex> edge_end = edge->m_EdgeEnd;
-						std::shared_ptr<typename IfcEntityTypesT::IfcVertexPoint> edge_end_point =
-							dynamic_pointer_cast<typename IfcEntityTypesT::IfcVertexPoint>(edge_end);
-						if (edge_end_point)
-						{
-							if (edge_end_point->m_VertexGeometry)
-							{
-								std::shared_ptr<typename IfcEntityTypesT::IfcPoint> edge_point_geometry = edge_end_point->m_VertexGeometry;
-								std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> ifc_point =
-									dynamic_pointer_cast<typename IfcEntityTypesT::IfcCartesianPoint>(edge_point_geometry);
+						std::shared_ptr<typename IfcEntityTypesT::IfcEdgeCurve> edgeCurve =
+							std::dynamic_pointer_cast<typename IfcEntityTypesT::IfcEdgeCurve>(edgeElement);
 
-								if (!ifc_point)
-								{
-									// TODO: could be also  IfcPointOnCurve, IfcPointOnSurface
-									continue;
-								}
-								// TODO: implement
-							}
+						if (edgeCurve)
+						{
+							std::shared_ptr<typename IfcEntityTypesT::IfcCurve>& curveGeom = edgeCurve->m_EdgeGeometry;
+							std::vector<carve::geom::vector<3>> segmentStartPoints;
+
+							convertIfcCurve(curveGeom, loopPoints, segmentStartPoints);
+
+							continue;
 						}
+
+						std::shared_ptr<typename IfcEntityTypesT::IfcSubedge> subEdge =
+							std::dynamic_pointer_cast<typename IfcEntityTypesT::IfcSubedge>(edgeElement);
+
+						if (subEdge)
+						{
+							std::cout << "ERROR\t| IfcSubedge not implemented" << std::endl;
+							continue;
+						}
+
+						std::cout << "ERROR\t| Entity " << orientedEdge->classname() << " not handled" << std::endl;
+
+						// every edge consists of one start and end vertex
+						//std::shared_ptr<typename IfcEntityTypesT::IfcVertex>& edgeStartVertex = edgeElement->m_EdgeStart;
+						//std::shared_ptr<typename IfcEntityTypesT::IfcVertexPoint> edgeStartVertexPoint =
+						//	dynamic_pointer_cast<typename IfcEntityTypesT::IfcVertexPoint>(edgeStartVertex);
+						//
+						//if (edgeStartVertexPoint)
+						//{
+						//	if (edgeStartVertexPoint->m_VertexGeometry)
+						//	{
+						//		std::shared_ptr<typename IfcEntityTypesT::IfcPoint>& startPoint =
+						//			edgeStartVertexPoint->m_VertexGeometry;
+						//		std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> ifcPoint =
+						//			dynamic_pointer_cast<typename IfcEntityTypesT::IfcCartesianPoint>(startPoint);
+						//		if (!ifc_point)
+						//		{
+						//			// TODO: could be also  IfcPointOnCurve, IfcPointOnSurface
+						//			continue;
+						//		}
+						//		// TODO: implement
+						//	}
+						//}
+						
 					}
 				}
 			}
@@ -634,26 +655,27 @@ namespace OpenInfraPlatform
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcLengthMeasure> >& coords1 = ifcPoint->m_Coordinates;
 				if (coords1.size() > 2)
 				{
-					double x = coords1[0]->m_value*length_factor;
-					double y = coords1[1]->m_value*length_factor;
-					double z = coords1[2]->m_value*length_factor;
+					double x = coords1[0]->m_value * length_factor;
+					double y = coords1[1]->m_value * length_factor;
+					double z = coords1[2]->m_value * length_factor;
 
 					point = carve::geom::VECTOR(x, y, z);
 				}
 				else if (coords1.size() > 1)
 				{
 					// round to 0.1 mm
-					double x = coords1[0]->m_value*length_factor;
-					double y = coords1[1]->m_value*length_factor;
+					double x = coords1[0]->m_value * length_factor;
+					double y = coords1[1]->m_value * length_factor;
 
 					point = carve::geom::VECTOR(x, y, 0.0);
 				}
 			}
 
-			void convertIfcCartesianPointVector(const std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> >& points,
-				std::vector<carve::geom::vector<3> >& loop) const
+			void convertIfcCartesianPointVector(
+				const std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint>>& points,
+				std::vector<carve::geom::vector<3>>& loop) const
 			{
-				double length_factor = m_unitConverter->getLengthInMeterFactor();
+				const double length_factor = m_unitConverter->getLengthInMeterFactor();
 				const unsigned int num_points = points.size();
 				for (unsigned int i_point = 0; i_point < num_points; ++i_point)
 				{
@@ -662,17 +684,17 @@ namespace OpenInfraPlatform
 
 					if (coords.size() > 2)
 					{
-						double x = coords[0]->m_value*length_factor;
-						double y = coords[1]->m_value*length_factor;
-						double z = coords[2]->m_value*length_factor;
+						double x = coords[0]->m_value * length_factor;
+						double y = coords[1]->m_value * length_factor;
+						double z = coords[2]->m_value * length_factor;
 
 						loop.push_back(carve::geom::VECTOR(x, y, z));
 					}
 					else if (coords.size() > 1)
 					{
 
-						double x = coords[0]->m_value*length_factor;
-						double y = coords[1]->m_value*length_factor;
+						double x = coords[0]->m_value * length_factor;
+						double y = coords[1]->m_value * length_factor;
 
 						loop.push_back(carve::geom::VECTOR(x, y, 0.0));
 					}
@@ -727,7 +749,7 @@ namespace OpenInfraPlatform
 				const std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> >& ifcPoints,
 				std::vector<carve::geom::vector<3> >& loop) const
 			{
-				double length_factor = m_unitConverter->getLengthInMeterFactor();
+				const double length_factor = m_unitConverter->getLengthInMeterFactor();
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCartesianPoint> >::const_iterator it_cp;
 				int i = 0;
 				carve::geom::vector<3>  vertex_previous;
@@ -740,15 +762,15 @@ namespace OpenInfraPlatform
 
 					if (coords.size() > 2)
 					{
-						x = coords[0]->m_value*length_factor;
-						y = coords[1]->m_value*length_factor;
-						z = coords[2]->m_value*length_factor;
+						x = coords[0]->m_value * length_factor;
+						y = coords[1]->m_value * length_factor;
+						z = coords[2]->m_value * length_factor;
 					}
 					else if (coords.size() > 1)
 					{
 
-						x = coords[0]->m_value*length_factor;
-						y = coords[1]->m_value*length_factor;
+						x = coords[0]->m_value * length_factor;
+						y = coords[1]->m_value * length_factor;
 					}
 
 					carve::geom::vector<3>  vertex(carve::geom::VECTOR(x, y, z));

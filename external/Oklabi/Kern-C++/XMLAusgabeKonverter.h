@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: XMLAusgabeKonverter.h 2014-03-27 15:00:00 vogelsang $
+* $Id: XMLAusgabeKonverter.h 2015-02-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -33,6 +33,8 @@
 * 2013-10-31 Speicheroptimierungen bei Strings und Collections
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-03-27 Genauigkeit bei Vektoren
+* 2014-07-30 Referenzen auf freie Schlüsseltabellen
+* 2015-02-24 Referenzielles Geometrieformat(2)
 * 
 ****************************************************************************/
 // Der XMLAusgabeKonverter erstellt zu den Objekten
@@ -140,6 +142,7 @@ private:
 
 	FachobjektMengeImpl*        m_pSet;
 	FachobjektMengeImpl::iterator  m_iterSet;
+	FachobjektMengeImpl         m_setKeyTable;
 
 	Text                        m_strOkstra, m_strOkstraBasis;
 	std::string                 m_strOkstraHat_Teilabschnitt;
@@ -294,6 +297,7 @@ private:
 	void                        putUmlLinie( Fachobjekt*, const GeoLinie*, const Eigenschaft*, XmlGen::XmlTag*, XmlGen::XmlTag* tagProp );
 	void                        putUmlSegment( Fachobjekt*, const GeoLinie*, const Eigenschaft*, XmlGen::XmlTag*, XmlGen::XmlTag* tagProp, XmlGen::XmlTag*& tagSeg, XmlGen::XmlTag*& tagCoo, GeoPunkt& last);
 	void                        putUmlFlaeche( Fachobjekt*, const GeoFlaeche*, const Eigenschaft*, XmlGen::XmlTag*, XmlGen::XmlTag* tagProp );
+	void                        putUmlVolumen( Fachobjekt*, const GeoVolumen*, const Eigenschaft*, XmlGen::XmlTag*, XmlGen::XmlTag* tagProp );
 	Text                        getXMLKoo( const GeoPunkt& koo, char cSep = ',', int nPrec = -1 );
 	mapCheckGeoType             m_mapCheckGeo;
 	bool                        istGeo( Fachobjekt* );

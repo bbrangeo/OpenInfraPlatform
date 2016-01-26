@@ -12,7 +12,7 @@
 
 //#define USA
 
-BlueFramework::Engine::BlueMap::BlueMap( buw::IRenderSystem::Ptr renderSystem, buw::IRenderContext::Ptr renderContext_ ) :
+BlueFramework::Engine::BlueMap::BlueMap( buw::ReferenceCounted<buw::IRenderSystem> renderSystem, buw::ReferenceCounted<buw::IRenderContext> renderContext_ ) :
 	renderSystem_(renderSystem),
 	renderContext_(renderContext_),
 	stopThread_(false),

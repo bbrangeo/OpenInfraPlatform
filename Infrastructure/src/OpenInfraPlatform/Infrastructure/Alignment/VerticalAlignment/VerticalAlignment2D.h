@@ -10,6 +10,7 @@
 #ifndef OpenInfraPlatform_Infrastructure_VerticalAlignment2D_6e6b8d09_8c39_42b0_ac49_9cf8e13ca522_h
 #define OpenInfraPlatform_Infrastructure_VerticalAlignment2D_6e6b8d09_8c39_42b0_ac49_9cf8e13ca522_h
 
+#include <buw.h>
 #include <buw.BlueCore.class.h>
 #include <buw.BlueCore.Math.h>
 #include <buw.Bluecore.assert.h>
@@ -24,30 +25,28 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API VerticalAlignment2D : boost::noncopyable
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(VerticalAlignment2D)
-
 			//! Computes the 2d position in the horizontal alignment given a stationing.
-			buw::vector2d							getPosition(const Stationing station) const;
+			buw::vector2d										getPosition(const Stationing station) const;
 
-			int										getAlignmentElementCount() const;
+			int													getAlignmentElementCount() const;
 
-			VerticalAlignmentElement2D::ConstPtr	getAlignmentElementByIndex(int index);
+			buw::ReferenceCounted<VerticalAlignmentElement2D>				getAlignmentElementByIndex(int index);
 
-			Stationing								getStartStation() const;
+			Stationing											getStartStation() const;
 
-			Stationing								getEndStation() const;
+			Stationing											getEndStation() const;
 
-			void									addElement(VerticalAlignmentElement2D::Ptr ve);
+			void												addElement(buw::ReferenceCounted<VerticalAlignmentElement2D> ve);
 
-			VerticalAlignmentElement2D::Ptr			getAlignmentElementByStationing(const Stationing station) const;
+			buw::ReferenceCounted<VerticalAlignmentElement2D>	getAlignmentElementByStationing(const Stationing station) const;
 
-			bool									hasElements() const;
+			bool												hasElements() const;
 
 		private:
-			std::vector<VerticalAlignmentElement2D::Ptr>		verticalElements_;	// the order of the elements is important here
+			std::vector<buw::ReferenceCounted<VerticalAlignmentElement2D>>		verticalElements_;	// the order of the elements is important here
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

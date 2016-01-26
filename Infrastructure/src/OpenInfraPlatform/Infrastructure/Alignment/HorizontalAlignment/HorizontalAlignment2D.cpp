@@ -8,7 +8,7 @@
 
 #include "HorizontalAlignment2D.h"
 
-OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D::Ptr 
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D>
 OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getAlignmentElementByStationing(
 	const Stationing station, 
 	double* lerpParameter /*= nullptr*/) const
@@ -42,12 +42,12 @@ OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getAlignmentElementByS
 	double currentStationT3 = startStationing_;
 	double previousStationT1 = 0;
 
-	for (HorizontalAlignmentElement2D::Ptr a : horizontalElements_)
+	for (buw::ReferenceCounted<HorizontalAlignmentElement2D> a : horizontalElements_)
 	{
 		previousStationT1 = currentStationT3;
 		currentStationT3 += a->getLength();
 
-		if ( currentStationT3 > station)
+		if ( currentStationT3 >= station)
 		{
 			if (lerpParameter)
 			{
@@ -84,12 +84,12 @@ OpenInfraPlatform::Infrastructure::Stationing OpenInfraPlatform::Infrastructure:
 	return s;
 }
 
-void OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::addElement(HorizontalAlignmentElement2D::Ptr he)
+void OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::addElement(buw::ReferenceCounted<HorizontalAlignmentElement2D> he)
 {
 	horizontalElements_.push_back(he);
 }
 
-OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D::ConstPtr 
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D> 
 OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getAlignmentElementByIndex(int index)
 {
 	BLUE_ASSERT(index >= 0, "Invalid index.");
@@ -101,7 +101,7 @@ double OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getLength() con
 {
 	double sum = 0;
 
-	for (HorizontalAlignmentElement2D::Ptr a : horizontalElements_)
+	for (buw::ReferenceCounted<HorizontalAlignmentElement2D> a : horizontalElements_)
 	{
 		sum += a->getLength();
 	}
@@ -119,7 +119,7 @@ buw::vector2d OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getPosit
 	double s = station;
 
 	double lerpScalar = 0.0;
-	HorizontalAlignmentElement2D::Ptr a = getAlignmentElementByStationing(s, &lerpScalar);
+	buw::ReferenceCounted<HorizontalAlignmentElement2D> a = getAlignmentElementByStationing(s, &lerpScalar);
 
 	BLUE_ASSERT(lerpScalar >= 0.0, "Invalid lerp paramter.");
 	BLUE_ASSERT(lerpScalar <= 1.0, "Invalid lerp paramter.");
@@ -134,7 +134,7 @@ OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::HorizontalAlignment2D(
 
 }
 
-bool OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::hasSuccessor(HorizontalAlignmentElement2D::Ptr element)
+bool OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::hasSuccessor(buw::ReferenceCounted<HorizontalAlignmentElement2D> element)
 {
 	for (int i = 0; i < horizontalElements_.size(); i++)
 	{
@@ -147,7 +147,7 @@ bool OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::hasSuccessor(Hori
 	return false;
 }
 
-OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D::Ptr OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getSuccessor(HorizontalAlignmentElement2D::Ptr element)
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::HorizontalAlignmentElement2D> OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::getSuccessor(buw::ReferenceCounted<HorizontalAlignmentElement2D> element)
 {
 	for (int i = 0; i < horizontalElements_.size(); i++)
 	{

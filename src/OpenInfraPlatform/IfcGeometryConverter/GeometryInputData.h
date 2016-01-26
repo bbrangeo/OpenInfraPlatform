@@ -37,11 +37,11 @@ namespace OpenInfraPlatform
 		class ItemData
 		{
 		public:
-			std::vector<std::shared_ptr<carve::input::PolyhedronData> >	closed_polyhedrons;
-			std::vector<std::shared_ptr<carve::input::PolyhedronData> >	open_polyhedrons;
-			std::vector<std::shared_ptr<carve::input::PolyhedronData> >	open_or_closed_polyhedrons;
-			std::vector<std::shared_ptr<carve::input::PolylineSetData> > polylines;
-			std::vector<std::shared_ptr<carve::mesh::MeshSet<3> > >		meshsets;
+			std::vector<std::shared_ptr<carve::input::PolyhedronData>>	closed_polyhedrons;
+			std::vector<std::shared_ptr<carve::input::PolyhedronData>>	open_polyhedrons;
+			std::vector<std::shared_ptr<carve::input::PolyhedronData>>	open_or_closed_polyhedrons;
+			std::vector<std::shared_ptr<carve::input::PolylineSetData>> polylines;
+			std::vector<std::shared_ptr<carve::mesh::MeshSet<3>>>		meshsets;
 			void createMeshSetsFromClosedPolyhedrons();
 		};
 
@@ -63,14 +63,10 @@ namespace OpenInfraPlatform
 		public:
 			ShapeInputDataT()
 				: added_to_storey(false)
-			{
-
-			}
+			{ }
 
 			~ShapeInputDataT()
-			{
-
-			}
+			{ }
 
 			// compute AABB from meshsets
 			void computeAABB()

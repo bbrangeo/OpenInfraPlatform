@@ -30,12 +30,12 @@ namespace OpenInfraPlatform
 				root_ = std::make_shared<AbstractSyntaxTreeNode>(mainToken, nullptr, nullptr);
 			}
 
-			AbstractSyntaxTree(AbstractSyntaxTreeNode::Ptr root)
+			AbstractSyntaxTree(buw::ReferenceCounted<AbstractSyntaxTreeNode> root)
 			{
 				root_ = root;
 			}
 
-			AbstractSyntaxTreeNode::Ptr	getRoot()
+			buw::ReferenceCounted<AbstractSyntaxTreeNode>	getRoot()
 			{
 				return root_;
 			}
@@ -58,7 +58,7 @@ namespace OpenInfraPlatform
 			};
 
 			void walk(std::ostream& out, 
-				AbstractSyntaxTreeNode::Ptr node, 
+				buw::ReferenceCounted<AbstractSyntaxTreeNode> node,
 				int depth = 0,
 				eBinaryTreePosition::Enum position = eBinaryTreePosition::Root)
 			{
@@ -97,10 +97,10 @@ namespace OpenInfraPlatform
 			}
 
 		private:
-			AbstractSyntaxTreeNode::Ptr	root_;
+			buw::ReferenceCounted<AbstractSyntaxTreeNode>	root_;
 		};
 
-		BLUEINFRASTRUCTURE_API std::ostream& operator << (std::ostream& os, AbstractSyntaxTree::Ptr& ast);
+		BLUEINFRASTRUCTURE_API std::ostream& operator << (std::ostream& os, buw::ReferenceCounted<AbstractSyntaxTree>& ast);
 	} // end namespace Infrastructure
 } // end namespace BlueFramework
 

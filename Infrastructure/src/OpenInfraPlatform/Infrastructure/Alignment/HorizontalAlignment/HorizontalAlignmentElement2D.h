@@ -34,8 +34,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2D : public OpenInfraPlatform::Infrastructure::IQueryable
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2D);
-
 			typedef BlueFramework::Core::Math::vector2d vector2d;
 
 			//! Get a point on the alignment element.
@@ -63,7 +61,7 @@ namespace OpenInfraPlatform
 
 		BLUEINFRASTRUCTURE_API std::ostream& operator<<(std::ostream& os, const eHorizontalAlignmentType hat);
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

@@ -45,7 +45,7 @@ buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::AlignmentModel:
 	return buw::AxisAlignedBoundingBox3d(min_, max_);
 }
 
-void OpenInfraPlatform::Infrastructure::AlignmentModel::deleteAlignment(buw::IAlignment3D::Ptr alignment)
+void OpenInfraPlatform::Infrastructure::AlignmentModel::deleteAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment)
 {
 	auto iterator = std::find(alignments_.begin(), alignments_.end(), alignment);
 
@@ -61,17 +61,17 @@ void OpenInfraPlatform::Infrastructure::AlignmentModel::deleteAlignment(buw::IAl
 	}
 }
 
-void OpenInfraPlatform::Infrastructure::AlignmentModel::addAlignment(buw::IAlignment3D::Ptr alignment)
+void OpenInfraPlatform::Infrastructure::AlignmentModel::addAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment)
 {
 	alignments_.push_back(alignment);
 }
 
-std::vector<buw::IAlignment3D::Ptr> OpenInfraPlatform::Infrastructure::AlignmentModel::getAlignments()
+std::vector<buw::ReferenceCounted<buw::IAlignment3D>> OpenInfraPlatform::Infrastructure::AlignmentModel::getAlignments()
 {
 	return alignments_;
 }
 
-buw::IAlignment3D::Ptr OpenInfraPlatform::Infrastructure::AlignmentModel::getAlignment(const int index) const
+buw::ReferenceCounted<buw::IAlignment3D> OpenInfraPlatform::Infrastructure::AlignmentModel::getAlignment(const int index) const
 {
 	return alignments_[index];
 }
@@ -91,7 +91,7 @@ buw::AxisAlignedBoundingBox3d buw::AlignmentModel::getVerticalAlignmentExtends()
 	{
 		if (alignments_[i]->getType() == buw::e3DAlignmentType::e2DBased)
 		{
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments_[i]);
+			buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments_[i]);
 
 			if (firstFound)
 			{

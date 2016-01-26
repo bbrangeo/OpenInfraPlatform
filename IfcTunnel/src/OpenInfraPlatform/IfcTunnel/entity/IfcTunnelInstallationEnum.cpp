@@ -42,6 +42,14 @@ namespace OpenInfraPlatform
 			{
 				stream << ".TRACKBEDRAILS.";
 			}
+			else if( m_enum == ENUM_FLOORCONCRETE )
+			{
+				stream << ".FLOORCONCRETE.";
+			}
+			else if( m_enum == ENUM_SEGMENT )
+			{
+				stream << ".SEGMENT.";
+			}
 			else if( m_enum == ENUM_CABLEDUCT )
 			{
 				stream << ".CABLEDUCT.";
@@ -76,6 +84,14 @@ namespace OpenInfraPlatform
 			else if( _stricmp( arg.c_str(), ".TRACKBEDCONCRETE." ) == 0 )
 			{
 				type_object->m_enum = IfcTunnelInstallationEnum::ENUM_TRACKBEDCONCRETE;
+			}
+			else if( _stricmp( arg.c_str(), ".FLOORCONCRETE." ) == 0 )
+			{
+				type_object->m_enum = IfcTunnelInstallationEnum::ENUM_FLOORCONCRETE;
+			}
+			else if( _stricmp( arg.c_str(), ".SEGMENT." ) == 0 )
+			{
+				type_object->m_enum = IfcTunnelInstallationEnum::ENUM_SEGMENT;
 			}
 			else if( _stricmp( arg.c_str(), ".TRACKBEDRAILS." ) == 0 )
 			{

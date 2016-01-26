@@ -11,7 +11,7 @@
 // ---------------------------------------------------------------------------------------------------------------------------
 // Cross section methods
 // ---------------------------------------------------------------------------------------------------------------------------
-void OpenInfraPlatform::Infrastructure::CrossSectionStatic::addCrossSectionSurface(buw::CrossSectionSurface::Ptr csSurface)
+void OpenInfraPlatform::Infrastructure::CrossSectionStatic::addCrossSectionSurface(buw::ReferenceCounted<buw::CrossSectionSurface> csSurface)
 {
 	crossSectSurfaceList_.push_back(csSurface);
 }
@@ -21,7 +21,7 @@ int OpenInfraPlatform::Infrastructure::CrossSectionStatic::getCrossSectionSurfac
 	return static_cast<int>(crossSectSurfaceList_.size());
 }
 
-buw::CrossSectionSurface::Ptr OpenInfraPlatform::Infrastructure::CrossSectionStatic::getCrossSectionSurface(const int index)
+buw::ReferenceCounted<buw::CrossSectionSurface> OpenInfraPlatform::Infrastructure::CrossSectionStatic::getCrossSectionSurface(const int index)
 {
 	return crossSectSurfaceList_[index];
 }
@@ -29,7 +29,7 @@ buw::CrossSectionSurface::Ptr OpenInfraPlatform::Infrastructure::CrossSectionSta
 // ---------------------------------------------------------------------------------------------------------------------------
 // Design cross section methods
 // ---------------------------------------------------------------------------------------------------------------------------
-void OpenInfraPlatform::Infrastructure::CrossSectionStatic::addDesignCrossSectionSurface(DesignCrossSectionSurface::Ptr csDesignSurface)
+void OpenInfraPlatform::Infrastructure::CrossSectionStatic::addDesignCrossSectionSurface(buw::ReferenceCounted<DesignCrossSectionSurface> csDesignSurface)
 {
 	if(csDesignSurface->closedArea)
 	{ 
@@ -54,7 +54,7 @@ int OpenInfraPlatform::Infrastructure::CrossSectionStatic::getDesignCrossSection
 	return static_cast<int>((closedDesignCrossSectSurfaceList_.size()+openDesignCrossSectSurfaceList_.size()));
 }
 
-buw::DesignCrossSectionSurface::Ptr OpenInfraPlatform::Infrastructure::CrossSectionStatic::getDesignCrossSectionSurface(const int index)
+buw::ReferenceCounted<buw::DesignCrossSectionSurface> OpenInfraPlatform::Infrastructure::CrossSectionStatic::getDesignCrossSectionSurface(const int index)
 {
 	if(index<closedDesignCrossSectSurfaceList_.size()) 
 		return closedDesignCrossSectSurfaceList_[index];
@@ -70,7 +70,7 @@ int OpenInfraPlatform::Infrastructure::CrossSectionStatic::getClosedDesignCrossS
 	return static_cast<int>(closedDesignCrossSectSurfaceList_.size());
 }
 
-buw::DesignCrossSectionSurface::Ptr OpenInfraPlatform::Infrastructure::CrossSectionStatic::getClosedDesignCrossSectionSurface(const int index)
+buw::ReferenceCounted<buw::DesignCrossSectionSurface> OpenInfraPlatform::Infrastructure::CrossSectionStatic::getClosedDesignCrossSectionSurface(const int index)
 {
 	return closedDesignCrossSectSurfaceList_[index];
 }
@@ -84,12 +84,12 @@ int OpenInfraPlatform::Infrastructure::CrossSectionStatic::getOpenDesignCrossSec
 	return static_cast<int>(openDesignCrossSectSurfaceList_.size());
 }
 
-buw::DesignCrossSectionSurface::Ptr OpenInfraPlatform::Infrastructure::CrossSectionStatic::getOpenDesignCrossSectionSurface(const int index)
+buw::ReferenceCounted<buw::DesignCrossSectionSurface> OpenInfraPlatform::Infrastructure::CrossSectionStatic::getOpenDesignCrossSectionSurface(const int index)
 {
 	return openDesignCrossSectSurfaceList_[index];
 }
 
-bool OpenInfraPlatform::Infrastructure::CrossSectionStatic::smallerStation(const CrossSectionStatic::Ptr& a, const CrossSectionStatic::Ptr& b)
+bool OpenInfraPlatform::Infrastructure::CrossSectionStatic::smallerStation(const buw::ReferenceCounted<CrossSectionStatic>& a, const buw::ReferenceCounted<CrossSectionStatic>& b)
 {
 	return a->stationing < b->stationing;
 }

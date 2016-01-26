@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Koordinate.h 2014-07-10 15:00:00 vogelsang $
+* $Id: Koordinate.h 2015-01-29 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -33,6 +33,9 @@
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-06-18 Initialisierung Koordinatenreferenzsystem wenn unbelegt
 * 2014-07-10 SQL-Anbindung vorbereiten
+* 2014-07-30 Geometrie in Gml wandeln
+* 2014-08-12 Geometrie in 2D wandeln
+* 2015-01-29 Koordinatenreferenzsystem nicht transportiert
 * 
 ****************************************************************************/
 #include "OklabiPackaging.h"
@@ -63,6 +66,8 @@ namespace Oklabi
 		friend class Umgebung;
 		friend class GeoPunkt;
 		friend class GeoLinie;
+		friend class GeoKreisbogen;
+		friend class GeoFlaeche;
 		friend class OGRTransformierer;
 #if defined(OKLABI_MEMOPT_2)
 		friend class PasIdentifizierer;
@@ -144,6 +149,7 @@ namespace Oklabi
 		size_t             GibDimension() const;
 		Text               GibText() const;
 		WKT                GibWKT() const;
+		Text               GibGML(const Text&) const;
 		bool               IstGleich(const Koordinate*) const;
 		double             X() const;
 		void               X(const double&);

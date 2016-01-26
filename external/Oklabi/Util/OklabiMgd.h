@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: OklabiMgd.h 2013-11-18 15:00:00 vogelsang $
+* $Id: OklabiMgd.h 2015-04-26 15:00:00 vogelsang $
 * $Paket: Oklabi-Util $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -30,6 +30,7 @@
 * 2013-01-24 Zeichenkodierung
 * 2013-02-04 Profile
 * 2013-11-18 Transformierer eingeführt
+* 2015-04-27 Formale Verbesserungen
 * 
 ****************************************************************************/
 #ifndef DEFOklabiMgd
@@ -128,7 +129,7 @@ extern "C"
 		Oklabi::FblVersion* (CALLBACK* fctGibFblVersion)(void*, void*, const char*, const char*),
 		Oklabi::TextListe* (CALLBACK* fctGibObjektarten)(void*, void*, const char*, const char*),
 		size_t (CALLBACK* fctGibAnzahlObjekte)(void*, void*, const char*, const char*, const Oklabi::Text&));
-	OKLABIUTIL_API void CALLBACK SetzeCallbackTransformiererJava(void* pObj,
+	OKLABIUTIL_API void SetzeCallbackTransformiererJava(void* pObj,
 		bool (CALLBACK* fctTransform)(void*, void*, const char*, const char*, Oklabi::Koordinate&, Oklabi::eKoordRefSys),
 		bool (CALLBACK* fctSRS)(void*, void*, const char*, const char*, Oklabi::eKoordRefSys));
 }

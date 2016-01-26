@@ -26,7 +26,7 @@ namespace OpenInfraPlatform
 			CurvatureScene(QObject *parent = 0);
 
 		protected:
-			void v_drawAlignment(buw::Alignment2DBased3D::Ptr a,
+			void v_drawAlignment(buw::ReferenceCounted<buw::Alignment2DBased3D> a,
 				std::map<buw::eHorizontalAlignmentType, QPainterPath>& horizontalPainter,
 				std::map<buw::eVerticalAlignmentType, QPainterPath>& verticalPainter) override;
 		};
@@ -41,7 +41,6 @@ namespace OpenInfraPlatform
 		public:
 			CurvatureWindow(QAction* act);
 
-			void setSelectedAlignment(int index);
 			void setHighlightDifferentAlignmentElements(bool checked);
 			void setDifferentColorsForVerticalAlignmentElements(bool checked);
 

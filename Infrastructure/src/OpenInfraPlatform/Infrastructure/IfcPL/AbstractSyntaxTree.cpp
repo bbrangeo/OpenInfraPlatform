@@ -8,7 +8,7 @@
 
 #include "AbstractSyntaxTree.h"
 
-std::ostream& OpenInfraPlatform::Infrastructure::operator << (std::ostream& os, AbstractSyntaxTree::Ptr& ast)
+std::ostream& OpenInfraPlatform::Infrastructure::operator << (std::ostream& os, buw::ReferenceCounted<AbstractSyntaxTree>& ast)
 {
 	ast->write(os);
 	return os;

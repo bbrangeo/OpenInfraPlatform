@@ -8,8 +8,8 @@
  */
 
 #pragma once
-#ifndef OpenInfraPlatform_Infrastructure_HorizontalAlignmentElement2DClothoid_047b3c91_bdc8_4695_9532_c1a0eae908a3_h
-#define OpenInfraPlatform_Infrastructure_HorizontalAlignmentElement2DClothoid_047b3c91_bdc8_4695_9532_c1a0eae908a3_h
+#ifndef OpenInfraPlatform_Infrastructure_HorizontalAlignmentElement2DClothoid_old_047b3c91_bdc8_4695_9532_c1a0eae908a3_h
+#define OpenInfraPlatform_Infrastructure_HorizontalAlignmentElement2DClothoid_old_047b3c91_bdc8_4695_9532_c1a0eae908a3_h
 
 #include "HorizontalAlignmentElement2D.h"
 #include "buw.BlueCore.class.h"
@@ -27,8 +27,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2DClothoid_old : public HorizontalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2DClothoid_old);
-
 			typedef BlueFramework::Core::Math::vector2d vector2d;
 
 			// Ctor which supports LandXML
@@ -159,7 +157,7 @@ namespace OpenInfraPlatform
 			bool		clockwise_;
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

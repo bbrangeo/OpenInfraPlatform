@@ -1,3 +1,11 @@
+/*! \verbatim
+ *  \copyright      Copyright (c) 2015 Technische Universität München
+ *                  Chair of Computational Modeling and Simulation. All rights reserved.
+ *  \author         Fabian Schöttl <fabian.schoettl@tum.de> (https://www.cms.bgu.tum.de/en/)
+ *  \brief          This file is part of the TUM Open Infra Platform.
+ *  \endverbatim
+ */
+
 #pragma once
 
 #include <boost/signals2.hpp>
@@ -15,7 +23,6 @@ namespace OpenInfraPlatform
 	{
 		Q_OBJECT;
 
-
 		struct AsyncStatus
 		{
 			AsyncStatus() :
@@ -32,14 +39,10 @@ namespace OpenInfraPlatform
 		};
 
 	public:
-		static AsyncJob& getInstance()
-		{
-			static AsyncJob job;
-			return job;
-		}
+		static AsyncJob& getInstance();
 
 		template<typename Function, typename ... Args>
-		int startJob(Function&& functionPtr, Args& ... args)
+		int startJob(Function&& functionPtr, const Args& ... args)
 		{
 			if (running_)
 				return -1;
@@ -51,55 +54,22 @@ namespace OpenInfraPlatform
 
 			status_ = AsyncStatus();
 
+			jobStarting();
 			thread_ = std::thread(&AsyncJob::run, this);
 			refreshTimer_->start();
 
 			return jobID_;
 		}
 
-		bool updateStatus(float progress, const std::string& message)
-		{
-			if (std::this_thread::get_id() != thread_.get_id())
-				return true;
+		bool updateStatus(float progress, const std::string& message);
 
-			statusMutex_.lock();
-			status_.progress_ = progress;
-			status_.message_ = message;
-			statusMutex_.unlock();
+		bool updateStatus(float progress);
 
-			return !cancel_;
-		}
+		bool updateStatus(const std::string& message);
 
-		bool updateStatus(float progress)
-		{
-			if (std::this_thread::get_id() != thread_.get_id())
-				return true;
+		void cancelJob();
 
-			statusMutex_.lock();
-			status_.progress_ = progress;
-			statusMutex_.unlock();
-
-			return !cancel_;
-		}
-
-		bool updateStatus(const std::string& message)
-		{
-			if (std::this_thread::get_id() != thread_.get_id())
-				return true;
-
-			statusMutex_.lock();
-			status_.message_ = message;
-			statusMutex_.unlock();
-
-			return !cancel_;
-		}
-
-		void cancelJob()
-		{
-			if (running_)
-				cancel_ = true;
-		}
-
+		boost::signals2::signal<void()> jobStarting;
 		boost::signals2::signal<void(int jobID)> jobStarted;
 		boost::signals2::signal<void(int jobID, float progress, const std::string& message)> jobRunning;
 		boost::signals2::signal<void(int jobID, bool completed)> jobFinishing;
@@ -107,7 +77,6 @@ namespace OpenInfraPlatform
 
 		Q_SIGNAL void finished();
 	
-
 	private:
 		AsyncJob()
 		{
@@ -119,40 +88,11 @@ namespace OpenInfraPlatform
 			connect(refreshTimer_, SIGNAL(timeout()), this, SLOT(checkThread()));
 		}
 
-		void run()
-		{
-			running_ = true;
-			job_();
-			running_ = false;
-			Q_EMIT finished();
-		}
-
-		
+		void run();
 	
 	private Q_SLOTS:
-		void checkThread()
-		{
-			if (first_)
-			{
-				jobStarted(jobID_);
-				first_ = false;
-			}
-			if (!running_)
-			{
-				thread_.join();
-				refreshTimer_->stop();
-				jobFinishing(jobID_, !cancel_);
-				jobFinished(jobID_, !cancel_);
-			}
-			else
-			{
-				statusMutex_.lock();
-				jobRunning(jobID_, status_.progress_, status_.message_);
-				statusMutex_.unlock();
-			}
-		}
+		void checkThread();
 		
-
 	private:
 		std::function<void()> job_;
 		int jobID_;

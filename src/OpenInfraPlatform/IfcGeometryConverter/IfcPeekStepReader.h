@@ -1,3 +1,11 @@
+/*! \verbatim
+ *  \copyright      Copyright (c) 2015 Technische Universität München
+ *                  Chair of Computational Modeling and Simulation. All rights reserved.
+ *  \author         Michael Kern <kernm@in.tum.de> (https://www.cms.bgu.tum.de/en/)
+ *  \brief          This file is part of the TUM Open Infra Platform.
+ *  \endverbatim
+ */
+
 // visual studio
 #pragma once
 // unix

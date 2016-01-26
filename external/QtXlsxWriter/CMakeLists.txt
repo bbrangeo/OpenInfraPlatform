@@ -57,4 +57,4 @@ target_link_libraries(QtXlsxWriter
 ) 
 
 # Use the Widgets module from Qt 5.
-qt5_use_modules(QtXlsxWriter Xml XmlPatterns Declarative)
+qt5_use_modules(QtXlsxWriter Xml XmlPatterns Widgets)

@@ -9,7 +9,7 @@
 #include "DeleteAlignment.h"
 #include "OpenInfraPlatform/DataManagement/Data.h"
 
-OpenInfraPlatform::DataManagement::Command::DeleteAlignment::DeleteAlignment(buw::IAlignment3D::Ptr alignment) :
+OpenInfraPlatform::DataManagement::Command::DeleteAlignment::DeleteAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment) :
 alignment_(alignment)
 {
 

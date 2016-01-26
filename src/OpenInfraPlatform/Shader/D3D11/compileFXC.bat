@@ -91,6 +91,26 @@
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_1 VertexCacheLine.hlsl /E PS_main /Fo VertexCacheLine_ps_4_1.cso
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_0 VertexCacheLine.hlsl /E PS_main /Fo VertexCacheLine_ps_4_0.cso
 
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_5_0 VertexCacheLineAlignment.hlsl /E VS_main_Alignment /Fo VertexCacheLineAlignment_vs_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_1 VertexCacheLineAlignment.hlsl /E VS_main_Alignment /Fo VertexCacheLineAlignment_vs_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_0 VertexCacheLineAlignment.hlsl /E VS_main_Alignment /Fo VertexCacheLineAlignment_vs_4_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_5_0 VertexCacheLineAlignment.hlsl /E GS_main /Fo VertexCacheLineAlignment_gs_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_4_1 VertexCacheLineAlignment.hlsl /E GS_main /Fo VertexCacheLineAlignment_gs_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_4_0 VertexCacheLineAlignment.hlsl /E GS_main /Fo VertexCacheLineAlignment_gs_4_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_5_0 VertexCacheLineAlignment.hlsl /E PS_main /Fo VertexCacheLineAlignment_ps_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_1 VertexCacheLineAlignment.hlsl /E PS_main /Fo VertexCacheLineAlignment_ps_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_0 VertexCacheLineAlignment.hlsl /E PS_main /Fo VertexCacheLineAlignment_ps_4_0.cso
+
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_5_0 VertexCacheLineAlignmentPick.hlsl /E VS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_vs_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_1 VertexCacheLineAlignmentPick.hlsl /E VS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_vs_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_0 VertexCacheLineAlignmentPick.hlsl /E VS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_vs_4_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_5_0 VertexCacheLineAlignmentPick.hlsl /E GS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_gs_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_4_1 VertexCacheLineAlignmentPick.hlsl /E GS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_gs_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  gs_4_0 VertexCacheLineAlignmentPick.hlsl /E GS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_gs_4_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_5_0 VertexCacheLineAlignmentPick.hlsl /E PS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_ps_5_0.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_1 VertexCacheLineAlignmentPick.hlsl /E PS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_ps_4_1.cso
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  ps_4_0 VertexCacheLineAlignmentPick.hlsl /E PS_main_AlignmentPick /Fo VertexCacheLineAlignmentPick_ps_4_0.cso
+
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_5_0 VertexCacheTriangle.hlsl /E VS_main /Fo VertexCacheTriangle_vs_5_0.cso
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_1 VertexCacheTriangle.hlsl /E VS_main /Fo VertexCacheTriangle_vs_4_1.cso
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\fxc.exe" /T  vs_4_0 VertexCacheTriangle.hlsl /E VS_main /Fo VertexCacheTriangle_vs_4_0.cso

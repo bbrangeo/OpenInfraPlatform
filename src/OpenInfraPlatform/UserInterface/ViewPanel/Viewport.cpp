@@ -8,6 +8,7 @@
 #include "Viewport.h"
 
 #include "OpenInfraPlatform/DataManagement/Data.h"
+#include "OpenInfraPlatform/DataManagement/Command/SelectAlignment.h"
 #include "TerrainMeshBuilder.h"
 #include "CoordinateSystem.h"
 #include "OpenInfraPlatform/Infrastructure/Import/LandXmlImport.h"
@@ -62,7 +63,8 @@ blueMap_(nullptr),
 enableBlueMap_(false),
 pickColor(0, 0, 0, 1),
 selectedAlignmentIndex_(0),
-bHighlightSelectedAlignmentSegment_(false),
+hoveredAlignmentIndex_(-1),
+bHighlightSelectedAlignmentSegment_(true),
 skybox_(nullptr),
 bShowViewCube_(true),
 pointSize_(3),
@@ -104,15 +106,15 @@ bShowFrameTimes_(false)
 	vertexCacheAlignmentTriangle_ = std::make_shared<buw::VertexCacheTriangle>(renderSystem_, triangleShader_, 1000000);
 	vertexCacheAlignmentTriangle_->setColor(0.0f, 1.0f, 0.0f);
 
-	vertexCacheIfcGeometry_ = std::make_shared<buw::VertexCacheTriangleT<VertexLayout>>(renderSystem_, triangleShader_, 2000000);
-	vertexCacheIfcPolylines_ = std::make_shared<buw::RoadDesignVCL>(renderSystem_, "Shader/VertexCacheLine.be", 2000000);
+	vertexCacheIfcGeometry_ = std::make_shared<buw::VertexCacheTriangleT<VertexLayout>>(renderSystem_, triangleShader_, 10000000);
+	vertexCacheIfcPolylines_ = std::make_shared<buw::RoadDesignVCL>(renderSystem_, "Shader/VertexCacheLineAlignment.be","Shader/VertexCacheLineAlignmentPick.be", 2000000);
 	vertexCacheIfcPolylines_->setColor(1.0f, 1.0f, 1.0f);
 
 
 	triangleShaderP3C3N3UV2_ = renderSystem_->createShader("Shader/VertexCacheTriangleTextured.be");
 	triangleCacheP3C3N3UV2_ = std::make_shared<buw::VertexCacheTriangleT<buw::VertexPosition3Color3Normal3Texture2>>(renderSystem_, triangleShaderP3C3N3UV2_, 100000);
 
-	vertexCacheAlignmentLine_ = std::make_shared<buw::RoadDesignVCL>(renderSystem_, "Shader/VertexCacheLine.be", 2000000);
+	vertexCacheAlignmentLine_ = std::make_shared<buw::RoadDesignVCL>(renderSystem_, "Shader/VertexCacheLineAlignment.be", "Shader/VertexCacheLineAlignmentPick.be", 2000000);
 	vertexCacheAlignmentLine_->setColor(0.0f, 1.0f, 0.0f);
 
 	vertexCacheAlignmentPoint_ = std::make_shared<buw::RoadDesignVCP>(renderSystem_, "Shader/VertexCachePoint.be", 2000000);
@@ -121,7 +123,7 @@ bShowFrameTimes_(false)
 	shaderLaserScan_ = renderSystem_->createShader("Shader/LaserScanPoint.be");
 	shaderLaserScan_->setValue("bUseUniformPointColor", false);
 	shaderLaserScan_->setValue("bUseUniformPointSize", false);
-	vertexCachePointLaserScan_ = std::make_shared<buw::VertexCachePointT<buw::VertexPositionColor>>(renderSystem_, shaderLaserScan_, 100);
+	vertexCachePointLaserScan_ = std::make_shared<buw::VertexCachePointT<buw::VertexPosition3Color3>>(renderSystem_, shaderLaserScan_, 100);
 
 	bDrawTerrainWireframe_ = false;
 	bHideTerrain_ = false;
@@ -210,8 +212,8 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	renderContext_->setRenderTarget(renderTargetPickBuffer_);
 
 	// now render to pick buffer
-	float color2[] = { 1.0f, 0.5f, 0.9f, 0.0f };
-	renderContext_->clear(buw::eClearFlags::Color | buw::eClearFlags::Depth, color2);
+	clearPickColor = buw::vector4f(1.0f, 0.5f, 0.9f, 0.0f);
+	renderContext_->clear(buw::eClearFlags::Color | buw::eClearFlags::Depth, &(clearPickColor[0]));
 
 	renderContext_->setViewport(
 		(width() - 100),
@@ -229,7 +231,7 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	}
 
 	renderContext_->setViewport(width(), height());
-	vertexCacheAlignmentLine_->flush(vcsd);
+	vertexCacheAlignmentLine_->flushPickShader(vcsd);
 
 
 	//-------------------------------------------------------------------------
@@ -244,7 +246,7 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	}
 
 	// Store pick buffer as 
-	//buw::IDebugVisualizer::Ptr dv = renderSystem_->createDebugVisualizer();
+	//buw::ReferenceCounted<buw::IDebugVisualizer> dv = renderSystem_->createDebugVisualizer();
 	//dv->saveAs("test.png", renderTargetPickBuffer_);	
 
 	if (drawSkybox_)
@@ -277,9 +279,11 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 			renderContext_->setRasterizerState(rsSolidFill_);
 		}
 	}
+	
 
 	// draw alignment lines
-	vertexCacheAlignmentLine_->flush(vcsd);
+	int index = bHighlightSelectedAlignmentSegment_ ? selectedAlignmentIndex_ : -1;
+	vertexCacheAlignmentLine_->flush(vcsd, index, hoveredAlignmentIndex_);
 
 	// draw alignment points
 	vertexCacheAlignmentPoint_->flush(vcpsd);
@@ -295,7 +299,7 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	}
 
 	// draw ifc lines
-	vertexCacheIfcPolylines_->flush(vcsd);
+	vertexCacheIfcPolylines_->flush(vcsd, -1, -1);
 
 	// draw ifc triangles
 	if (vertexCacheIfcGeometry_->getMaxVerticesCount() > 0)
@@ -326,7 +330,7 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	if (bCreatePoints_)
 	{
 		vertexCacheAlignmentEditorPoint_->flush(vcpsd);
-		vertexCacheAlignmentEditorLine_->flush(vcsd);
+		vertexCacheAlignmentEditorLine_->flush(vcsd, -1, -1);
 	}
 
 	// draw laser scan points
@@ -354,7 +358,7 @@ void OpenInfraPlatform::UserInterface::Viewport::paintEvent(QPaintEvent * paintE
 	}
 
 	// draw breakLines
-	for (buw::VertexCacheLine::Ptr vcl : vertexCacheLineBreakLines_)
+	for (buw::ReferenceCounted<buw::VertexCacheLine> vcl : vertexCacheLineBreakLines_)
 	{
 		vcl->flush(vcsd);
 	}
@@ -545,43 +549,54 @@ void OpenInfraPlatform::UserInterface::Viewport::resizeEvent(QResizeEvent *)
 
 void OpenInfraPlatform::UserInterface::Viewport::onChange()
 {
+	onChange(OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getLatesChangeFlag());
+}
+
+void OpenInfraPlatform::UserInterface::Viewport::onChange(ChangeFlag changeFlag)
+{	
 	auto& data = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData();
 
-	gradientClear_ = data.isGradientClearEnabled();
-	bShowViewCube_ = data.isViewCubeEnabled();
+	if (changeFlag & ChangeFlag::Preferences)
+	{
+		gradientClear_ = data.isGradientClearEnabled();
+		bShowViewCube_ = data.isViewCubeEnabled();
+		drawSkybox_ = data.isSkyboxEnabled();
+		selectedAlignmentIndex_ = data.getSelectedAlignment();
 
-	this->showFrameTimes(data.showFrameTimes());
+		showFrameTimes(data.showFrameTimes());
 
-	fillVertexCacheUIElements();
+		fillVertexCacheUIElements();
+	}
 
-	createDigitalElevationModel();
+	if (changeFlag & ChangeFlag::DigitalElevationModel)
+	{
+		createDigitalElevationModel();
+	}
 
-	createAlignment();
+	if (changeFlag & ChangeFlag::AlignmentModel)
+	{
+		createAlignment();
+	}
 
-	drawSkybox_ = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().isSkyboxEnabled();
 
-	// fixme: Simple assumtion: Only update when point count changed - of course this does not work always
-	if (data.getPointCloudPointCount() != vertexCachePointLaserScan_->getCurrentVertexCount())
+	// fixme: Simple assumtion: Only update when point count changed - of course this does not work always -- Fixed
+	if (changeFlag & ChangeFlag::PointCloud)
 	{
 		vertexCachePointLaserScan_->clear();
 
-		vertexCachePointLaserScan_ = std::make_shared<buw::VertexCachePointT<buw::VertexPositionColor>>(renderSystem_, shaderLaserScan_, data.getPointCloudPointCount() + 100);
+		vertexCachePointLaserScan_ = std::make_shared<buw::VertexCachePointT<buw::VertexPosition3Color3>>(renderSystem_, shaderLaserScan_, data.getPointCloudPointCount() + 100);
 		const std::vector<buw::LaserPoint>& x = data.getPointCloud();
+		
+		buw::vector3d offset = getOffset();
 
-		int progressstep = data.getPointCloudPointCount() / 1000;
+		int progressstep = data.getPointCloudPointCount() / 100;
 
 		for (int i = 0; i < data.getPointCloudPointCount(); i++)
 		{
-			buw::VertexPositionColor point = buw::VertexPositionColor::create(
-				buw::vector3f(
-					x[i].position.x() - getOffset().x(),
-					x[i].position.y() - getOffset().y(),
-					x[i].position.z() - getOffset().z()), 
-				buw::vector3f(
-					x[i].color.r,
-					x[i].color.g,
-					x[i].color.b)
-				);
+			buw::VertexPosition3Color3 point;
+			point.position = buw::vector3f(x[i].position - offset);
+			point.color = x[i].color;
+
 			vertexCachePointLaserScan_->drawPoint(point);
 
 			if (i % progressstep == 0)
@@ -589,8 +604,11 @@ void OpenInfraPlatform::UserInterface::Viewport::onChange()
 		}
 	}
 
-	auto ifcGeometryModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getIfcGeometryModel();
-	if (ifcGeometryModel != nullptr) { createIfcGeometry(ifcGeometryModel); }
+	if (changeFlag & ChangeFlag::IfcGeometry)
+	{
+		auto ifcGeometryModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getIfcGeometryModel();
+		if (ifcGeometryModel != nullptr) { createIfcGeometry(ifcGeometryModel); }
+	}
 
 	forceRepaint();
 }
@@ -641,7 +659,7 @@ void OpenInfraPlatform::UserInterface::Viewport::createRenderSystem(const buw::r
 		rsd.miniorVersion = 0;
 		rsd.enableMultithreading = false;
 		rsd.enableDebugLayer = false;//true;//
-		rsd.renderSystem = buw::eRenderSystem::Direct3D;
+		rsd.renderSystem = buw::eRenderSystem::Direct3D11;
 		rsd.d3dFeatureLevel = buw::eD3D11FeatureLevel::FeatureLevel10_0;
 		rsd.windowed = true;
 
@@ -688,6 +706,14 @@ void OpenInfraPlatform::UserInterface::Viewport::mousePressEvent(QMouseEvent *ev
 				}
 			}
 		}
+		else
+		{
+			if (hoveredAlignmentIndex_ != -1 && hoveredAlignmentIndex_ != selectedAlignmentIndex_)
+			{
+				buw::ReferenceCounted<buw::SelectAlignment> actionSelectAlignment = std::make_shared<buw::SelectAlignment>(hoveredAlignmentIndex_);
+				OpenInfraPlatform::DataManagement::DocumentManager::getInstance().execute(actionSelectAlignment);
+			}
+		}
 	}
 
 	if (event->button() & Qt::RightButton)
@@ -726,8 +752,16 @@ void OpenInfraPlatform::UserInterface::Viewport::mouseMoveEvent(QMouseEvent *eve
 	toolManager_->mouseMoveEvent(event);
 
 	pickColor = getPickBufferColor(event->x(), event->y());
-
 	viewCube_->mouseMoveEvent(pickColor);
+
+	hoveredAlignmentIndex_ = -1;
+	if (pickColor != clearPickColor && bHighlightSelectedAlignmentSegment_)
+	{
+		if (pickColor.yzw() == buw::vector3f(0.f))
+		{
+			hoveredAlignmentIndex_ = (int)(pickColor.x() * 117);
+		}
+	}
 
 	if (bShowHud)
 	{
@@ -801,6 +835,13 @@ void OpenInfraPlatform::UserInterface::Viewport::keyPressEvent(QKeyEvent *event)
 		infraCamera_->frustum().nearPlane(nearPlane / 1.1);
 		forceRepaint();
 	}
+
+	if (event->key() == Qt::Key_U)
+	{
+		buw::ReferenceCounted<buw::IDebugVisualizer> debugTextureVisualizer = renderSystem_->createDebugVisualizer();
+
+		debugTextureVisualizer->saveAs("pickbuffer.bmp", renderTargetPickBuffer_);
+	}
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::keyReleaseEvent(QKeyEvent *event)
@@ -865,7 +906,7 @@ void OpenInfraPlatform::UserInterface::Viewport::createDigitalElevationModel()
 		// Create a vertex and index buffer for each chunk
 		buw::indexedMeshDescription imd;
 		imd.vertexLayout = vertexLayoutDigitalElevationModel_;
-		typedef buw::VertexPositionNormalTexture VFormat;
+		typedef buw::VertexPosition3Normal3Texture2 VFormat;
 
 		for (int i = 0; i < simpleMesh->GetVertexCount(); ++i)
 		{
@@ -889,12 +930,12 @@ void OpenInfraPlatform::UserInterface::Viewport::createDigitalElevationModel()
 			simpleMesh->GetIndexDataPointer(),
 			simpleMesh->GetIndexCount() * sizeof(std::uint32_t));
 
-		buw::IndexedMesh::Ptr im = std::make_shared<buw::IndexedMesh>(renderSystem_, imd);
+		buw::ReferenceCounted<buw::IndexedMesh> im = std::make_shared<buw::IndexedMesh>(renderSystem_, imd);
 
 		meshesDigitalElevationModel_.push_back(im);
 	} // end for
 
-	for (buw::VertexCacheLine::Ptr vcl : vertexCacheLineBreakLines_)
+	for (buw::ReferenceCounted<buw::VertexCacheLine> vcl : vertexCacheLineBreakLines_)
 	{
 		vcl->clear();
 	}
@@ -927,6 +968,9 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignment()
 	vertexCacheAlignmentLine_->clear();
 	vertexCacheAlignmentPoint_->clear();
 	triangleCacheP3C3N3UV2_->clear();
+
+	auto& data = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData();
+	vertexCacheAlignmentLine_->setWidth(data.getAlignmentLineWidth());
 
 	auto alignmentModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel();
 
@@ -992,7 +1036,9 @@ void OpenInfraPlatform::UserInterface::Viewport::createGraphicResources()
 	gBufferShader_ = renderSystem_->createShader("Shader/GBuffer.be");
 
 	vertexCacheAlignmentEditorLine_ = std::make_shared<buw::RoadDesignVCL>(renderSystem_,
-		"Shader/VertexCacheLine.be", 20000);
+		"Shader/VertexCacheLineAlignment.be",
+		"Shader/VertexCacheLineAlignmentPick.be",
+		20000);
 	vertexCacheAlignmentEditorPoint_ = std::make_shared<buw::RoadDesignVCP>(renderSystem_,
 		"Shader/VertexCachePoint.be");
 
@@ -1003,8 +1049,8 @@ void OpenInfraPlatform::UserInterface::Viewport::createGraphicResources()
 	vertexCacheLineDebug_ = std::make_shared<buw::VertexCacheLine>(renderSystem_, "Shader/VertexCacheLine.be");
 
 	vertexLayoutDigitalElevationModel_ = renderSystem_->createVertexLayout(
-		buw::VertexPositionNormalTexture::getVertexLayoutDescription(),
-		buw::VertexPositionNormalTexture::getVertexLayoutElementCount(),
+		buw::VertexPosition3Normal3Texture2::getVertexLayoutDescription(),
+		buw::VertexPosition3Normal3Texture2::getVertexLayoutElementCount(),
 		shaderDigitalElevationModel_);
 
 	buw::rasterizerStateDescription rsdSolidFill;
@@ -1038,7 +1084,7 @@ void OpenInfraPlatform::UserInterface::Viewport::createGraphicResources()
 	terrainTexture_ = buw::loadTexture(renderSystem_, "Data/terrain.jpg");
 
 	{
-		buw::Image_4f::Ptr image = buw::loadImageFromFile<buw::Image_4f>("Data/GradientRamp.png");
+		buw::ReferenceCounted<buw::Image_4f> image = buw::loadImageFromFile<buw::Image_4f>("Data/GradientRamp.png");
 
 		buw::texture1DDescription t1d;
 		t1d.format = buw::eTextureFormat::R32G32B32A32_Float;
@@ -1313,13 +1359,13 @@ void OpenInfraPlatform::UserInterface::Viewport::pick(int sx, int sy, buw::vecto
 void OpenInfraPlatform::UserInterface::Viewport::setHighlightDifferentAlignmentElements(const bool enable)
 {
 	bHighlightDifferentAlignmentElements_ = enable;
-	onChange();
+	onChange(ChangeFlag::AlignmentModel);
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::setHighlightSelectedAlignmentSegment(const bool enable)
 {
 	bHighlightSelectedAlignmentSegment_ = enable;
-	onChange();
+	forceRepaint();
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::setClearColor(const buw::color3f& color)
@@ -1344,7 +1390,7 @@ void OpenInfraPlatform::UserInterface::Viewport::saveAsScreenshot(const std::str
 {
 	forceRepaint();
 
-	buw::IDebugVisualizer::Ptr debugTextureVisualizer_ = renderSystem_->createDebugVisualizer();
+	buw::ReferenceCounted<buw::IDebugVisualizer> debugTextureVisualizer_ = renderSystem_->createDebugVisualizer();
 
 	auto backBufferTarget = renderSystem_->getImmediateContext()->getBackBufferRenderTarget();
 
@@ -1502,7 +1548,7 @@ buw::vector4f OpenInfraPlatform::UserInterface::Viewport::getPickBufferColor(con
 
 void OpenInfraPlatform::UserInterface::Viewport::storePickBuffer()
 {
-	buw::IDebugVisualizer::Ptr dtv = renderSystem_->createDebugVisualizer();
+	buw::ReferenceCounted<buw::IDebugVisualizer> dtv = renderSystem_->createDebugVisualizer();
 	dtv->saveAs("RenderTarget_0_PickBuffer.png", renderTargetPickBuffer_, 0);
 }
 
@@ -1546,7 +1592,7 @@ buw::vector4f OpenInfraPlatform::UserInterface::Viewport::getGBufferColor(const 
 
 void OpenInfraPlatform::UserInterface::Viewport::storeGBuffer()
 {
-	buw::IDebugVisualizer::Ptr dtv = renderSystem_->createDebugVisualizer();
+	buw::ReferenceCounted<buw::IDebugVisualizer> dtv = renderSystem_->createDebugVisualizer();
 	dtv->saveAs("RenderTarget_0_ColorBuffer.png", renderTargetGBuffer_, 0);
 	dtv->saveAs("RenderTarget_1_NormalBuffer.png", renderTargetGBuffer_, 1);
 	dtv->saveAs("RenderTarget_2_WorldPosition.png", renderTargetGBuffer_, 2);
@@ -1558,26 +1604,18 @@ void OpenInfraPlatform::UserInterface::Viewport::onViewCubeSelectionChanged(buw:
 	ViewCubeSelectionChanged(state);
 }
 
-void OpenInfraPlatform::UserInterface::Viewport::setInfraCameraController(buw::InfraCameraController::Ptr controller)
+void OpenInfraPlatform::UserInterface::Viewport::setInfraCameraController(buw::ReferenceCounted<buw::InfraCameraController> controller)
 {
 	infraCameraController_ = controller;
 }
 
-buw::InfraCameraController::Ptr OpenInfraPlatform::UserInterface::Viewport::getInfraCameraController()
+buw::ReferenceCounted<buw::InfraCameraController> OpenInfraPlatform::UserInterface::Viewport::getInfraCameraController()
 {
 	return infraCameraController_;
 }
 
-void OpenInfraPlatform::UserInterface::Viewport::setSelectedAlignment(const int index)
-{
-	selectedAlignmentIndex_ = index;
-
-	createAlignment();
-	forceRepaint();
-}
-
 void OpenInfraPlatform::UserInterface::Viewport::createAlignmentHorizontal(
-	 buw::AlignmentModel::Ptr alignmentModel)
+	 buw::ReferenceCounted<buw::AlignmentModel> alignmentModel)
 {
 	buw::vector3d offsetViewArea = getOffset();
 	buw::color3f c = buw::colorConstants3f::lightgreen();
@@ -1591,13 +1629,15 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentHorizontal(
 				continue;
 			}
 
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
+			vertexCacheAlignmentLine_->setID(alignmentIndex);
 
-			buw::HorizontalAlignment2D::Ptr h = a->getHorizontalAlignment();
+			buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
+
+			buw::ReferenceCounted<buw::HorizontalAlignment2D> h = a->getHorizontalAlignment();
 
 			for (int ei = 0; ei < h->getAlignmentElementCount(); ei++)
 			{
-				buw::HorizontalAlignmentElement2D::Ptr e = h->getAlignmentElementByIndex(ei);
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2D> e = h->getAlignmentElementByIndex(ei);
 
 				auto lastPosition = e->getPosition(0.0f);
 
@@ -1620,11 +1660,6 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentHorizontal(
 						break;
 					}
 
-					if (alignmentIndex == selectedAlignmentIndex_ && bHighlightSelectedAlignmentSegment_)
-					{
-						vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::blue());
-					}
-
 					vertexCacheAlignmentLine_->drawLine(lastPosition - offsetViewArea.xy(), position - offsetViewArea.xy());
 
 					lastPosition = position;
@@ -1643,10 +1678,11 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentHorizontal(
 			{
 				continue;
 			}
+			vertexCacheAlignmentLine_->setID(alignmentIndex);
 
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
+			buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
 
-			buw::HorizontalAlignment2D::Ptr h = a->getHorizontalAlignment();
+			buw::ReferenceCounted<buw::HorizontalAlignment2D> h = a->getHorizontalAlignment();
 
 			auto lastPosition = h->getPosition(h->getStartStation());
 
@@ -1657,11 +1693,6 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentHorizontal(
 				auto al = h->getLength();
 
 				vertexCacheAlignmentLine_->setColor(c);
-
-				if (alignmentIndex == selectedAlignmentIndex_ && bHighlightSelectedAlignmentSegment_)
-				{
-					vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::blue());
-				}
 
 				vertexCacheAlignmentLine_->drawLine(lastPosition - offsetViewArea.xy(), position - offsetViewArea.xy());
 
@@ -1683,7 +1714,9 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 	{
 		for (int alignmentIndex = 0; alignmentIndex < alignmentModel->getAlignmentCount(); alignmentIndex++)
 		{
-			buw::IAlignment3D::Ptr a = alignmentModel->getAlignment(alignmentIndex);
+			vertexCacheAlignmentLine_->setID(alignmentIndex);
+
+			buw::ReferenceCounted<buw::IAlignment3D> a = alignmentModel->getAlignment(alignmentIndex);
 
 			auto lastPosition = a->getPosition(a->getStartStation());
 
@@ -1721,11 +1754,6 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 					vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::lightblue());
 				}
 
-				if (alignmentIndex == selectedAlignmentIndex_ && bHighlightSelectedAlignmentSegment_)
-				{
-					vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::blue());
-				}
-
 				vertexCacheAlignmentLine_->drawLine(lastPosition - offsetViewArea, position - offsetViewArea);
 
 				vertexCacheAlignmentPoint_->setColor(buw::colorConstants3f::red());
@@ -1738,45 +1766,18 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 	{
 		for (int alignmentIndex = 0; alignmentIndex < alignmentModel->getAlignmentCount(); alignmentIndex++)
 		{
-			if (alignmentModel->getAlignment(alignmentIndex)->getType() != buw::e3DAlignmentType::e2DBased)
+			vertexCacheAlignmentLine_->setID(alignmentIndex);
+			vertexCacheAlignmentLine_->setColor(c);
+
+			buw::ReferenceCounted<buw::IAlignment3D> a = alignmentModel->getAlignment(alignmentIndex);
+
+			buw::vector3d lastPosition, position;
+			lastPosition = a->getPosition(a->getStartStation());
+			for (double s = a->getStartStation(); s <= a->getEndStation(); s += 0.8)
 			{
-				buw::IAlignment3D::Ptr a = alignmentModel->getAlignment(alignmentIndex);
-
-				auto lastPosition = a->getPosition(a->getStartStation());
-
-				vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::pink());
-
-				for (double s = a->getStartStation(); s < a->getEndStation(); s += 0.8)
-				{
-					auto position = a->getPosition(s);
-
-					vertexCacheAlignmentLine_->setColor(c);
+				position = a->getPosition(s);
+				if (position != lastPosition)
 					vertexCacheAlignmentLine_->drawLine(lastPosition - offsetViewArea, position - offsetViewArea);
-
-					vertexCacheAlignmentPoint_->setColor(buw::colorConstants3f::red());
-
-					lastPosition = position;
-				}
-			}
-
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(alignmentIndex));
-
-			auto lastPosition = a->getPosition(a->getStartStation());
-
-			for (double s = a->getStartStation(); s < a->getEndStation(); s += 0.8)
-			{
-				auto position = a->getPosition(s);
-
-				vertexCacheAlignmentLine_->setColor(c);
-
-				if (alignmentIndex == selectedAlignmentIndex_ && bHighlightSelectedAlignmentSegment_)
-				{
-					vertexCacheAlignmentLine_->setColor(buw::colorConstants3f::blue());
-				}
-
-				vertexCacheAlignmentLine_->drawLine(lastPosition - offsetViewArea, position - offsetViewArea);
-
-				vertexCacheAlignmentPoint_->setColor(buw::colorConstants3f::red());
 
 				lastPosition = position;
 			}
@@ -1787,7 +1788,7 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentThreeDimensional
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::createAlignmentVertical(
-	buw::AlignmentModel::Ptr alignmentModel)
+	buw::ReferenceCounted<buw::AlignmentModel> alignmentModel)
 {
 	// draw vertical alignment
 	buw::AxisAlignedBoundingBox3d aabb = alignmentModel->getVerticalAlignmentExtends();
@@ -1799,10 +1800,11 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentVertical(
 		{
 			continue;
 		}
+		vertexCacheAlignmentLine_->setID(i);
 
-		buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(selectedAlignmentIndex_));
+		buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignmentModel->getAlignment(selectedAlignmentIndex_));
 
-		buw::VerticalAlignment2D::Ptr v = a->getVerticalAlignment();
+		buw::ReferenceCounted<buw::VerticalAlignment2D> v = a->getVerticalAlignment();
 
 		if (v != nullptr)
 		{
@@ -1853,13 +1855,15 @@ void OpenInfraPlatform::UserInterface::Viewport::createAlignmentVertical(
 	}
 }
 
-void OpenInfraPlatform::UserInterface::Viewport::createIfcGeometry(OpenInfraPlatform::IfcGeometryConverter::IfcGeometryModel::Ptr ifcGeometryModel)
+void OpenInfraPlatform::UserInterface::Viewport::createIfcGeometry(buw::ReferenceCounted<OpenInfraPlatform::IfcGeometryConverter::IfcGeometryModel> ifcGeometryModel)
 {
 	vertexCacheIfcGeometry_->clear();
 	vertexCacheIfcPolylines_->clear();
 
 	auto& meshDescription = ifcGeometryModel->meshDescription_;
 	auto& polylineDescription = ifcGeometryModel->polylineDescription_;
+
+	buw::vector3f offset = (buw::vector3f)getOffset();
 
 	for (int i = 0; i < meshDescription.indices.size();)
 	{
@@ -1868,6 +1872,10 @@ void OpenInfraPlatform::UserInterface::Viewport::createIfcGeometry(OpenInfraPlat
 		VertexLayout v0 = meshDescription.vertices[meshDescription.indices[i++]];
 		VertexLayout v1 = meshDescription.vertices[meshDescription.indices[i++]];
 		VertexLayout v2 = meshDescription.vertices[meshDescription.indices[i++]];
+
+		v0.position -= offset;
+		v1.position -= offset;
+		v2.position -= offset;
 
 		vertexCacheIfcGeometry_->drawTriangleSafe(v0, v1, v2);
 	}
@@ -1878,6 +1886,9 @@ void OpenInfraPlatform::UserInterface::Viewport::createIfcGeometry(OpenInfraPlat
 
 		buw::vector3f v0 = polylineDescription.vertices[polylineDescription.indices[i++]];
 		buw::vector3f v1 = polylineDescription.vertices[polylineDescription.indices[i++]];
+
+		v0 -= offset;
+		v1 -= offset;
 
 		vertexCacheIfcPolylines_->drawLine(v0, v1);
 	}
@@ -1908,7 +1919,7 @@ void OpenInfraPlatform::UserInterface::Viewport::createSkyboxResources()
 	skyDesc.back = "Data/sky/back.png";
 	skyDesc.shaderFilename = "Shader/skyboxPT.be";
 
-	skybox_ = buw::Skybox::Ptr(new buw::Skybox(renderSystem_, skyDesc));
+	skybox_ = buw::ReferenceCounted<buw::Skybox>(new buw::Skybox(renderSystem_, skyDesc));
 }
 
 void OpenInfraPlatform::UserInterface::Viewport::reloadShader()

@@ -28,12 +28,12 @@ OpenInfraPlatform::UserInterface::CurvatureScene::CurvatureScene(QObject *parent
 }
 
 void OpenInfraPlatform::UserInterface::CurvatureScene::v_drawAlignment(
-	buw::Alignment2DBased3D::Ptr a,
+	buw::ReferenceCounted<buw::Alignment2DBased3D> a,
 	std::map<buw::eHorizontalAlignmentType, QPainterPath>& horizontalPainter,
 	std::map<buw::eVerticalAlignmentType, QPainterPath>& verticalPainter)
 {
-	buw::HorizontalAlignment2D::Ptr h = a->getHorizontalAlignment();
-	buw::VerticalAlignment2D::Ptr v = a->getVerticalAlignment();
+	buw::ReferenceCounted<buw::HorizontalAlignment2D> h = a->getHorizontalAlignment();
+	buw::ReferenceCounted<buw::VerticalAlignment2D> v = a->getVerticalAlignment();
 
 	bounds[0] = std::numeric_limits<double>().max();
 	bounds[1] = std::numeric_limits<double>().min();
@@ -45,9 +45,9 @@ void OpenInfraPlatform::UserInterface::CurvatureScene::v_drawAlignment(
 	for(int i=0; i<h->getAlignmentElementCount(); i++)
 	{
 		auto element = h->getAlignmentElementByIndex(i);
-		buw::HorizontalAlignmentElement2DLine::Ptr line;
-		buw::HorizontalAlignmentElement2DArc::Ptr arc;
-		buw::HorizontalAlignmentElement2DClothoid::Ptr clothoid;
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DLine> line;
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArc> arc;
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid> clothoid;
 
 		buw::eHorizontalAlignmentType type = element->getAlignmentType();
 
@@ -199,30 +199,39 @@ OpenInfraPlatform::UserInterface::CurvatureWindow::CurvatureWindow(QAction* act)
     ui_->curvatureView->setScene(scene_);
 
 	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().Change.connect(boost::bind(&CurvatureWindow::onChange, this));
-
-	onChange();
 }
 
 void OpenInfraPlatform::UserInterface::CurvatureWindow::onChange()
 {
-	auto alignmentModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel();
-	auto elevationModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getDigitalElevationModel();
+	auto& data = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData();
+	auto alignmentModel = data.getAlignmentModel();
+	auto elevationModel = data.getDigitalElevationModel();
 
-	if(alignmentModel->getAlignmentCount() <=0)
-		return;
+	OpenInfraPlatform::DataManagement::ChangeFlag flag = data.getLatesChangeFlag();
 
-	scene_->setAlignment(alignmentModel);
-	setSelectedAlignment(0);
+	if ((flag & OpenInfraPlatform::DataManagement::ChangeFlag::Preferences || flag & OpenInfraPlatform::DataManagement::ChangeFlag::AlignmentModel) && alignmentModel->getAlignmentCount() > 0)
+	{
+		scene_->setAlignment(alignmentModel);
+	}
+
+	if (flag & OpenInfraPlatform::DataManagement::ChangeFlag::Preferences)
+	{
+		int index = data.getSelectedAlignment();
+		if (index >= 0)
+		{
+			if (scene_)
+			{
+				scene_->setSelectedAlignment(index);
+			}
+			if (alignmentModel->getAlignmentCount() > 0)
+			{
+				QString name = QString::fromStdWString(alignmentModel->getAlignment(index)->getName().toWStdString());
+				setWindowTitle("Vertical Alignment - " + name);
+			}
+		}
+	}
 }
 
-void OpenInfraPlatform::UserInterface::CurvatureWindow::setSelectedAlignment(int index)
-{
-	if(scene_)
-		scene_->setSelectedAlignment(index);
-
-	QString name = QString::fromStdWString(OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel()->getAlignment(index)->getName().toWStdString());
-	setWindowTitle("Curvature - " + name);
-}
 
 void OpenInfraPlatform::UserInterface::CurvatureWindow::setHighlightDifferentAlignmentElements(bool checked)
 {

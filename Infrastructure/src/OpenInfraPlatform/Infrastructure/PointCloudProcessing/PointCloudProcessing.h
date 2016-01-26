@@ -22,10 +22,17 @@ namespace OpenInfraPlatform
 		struct LaserPoint
 		{
 			buw::vector3d position;
-			buw::color3f color;
+			buw::vector3f color;
 		};
 
-		BLUEINFRASTRUCTURE_API void importLASPointCloud(const char* filename, std::vector<LaserPoint>& pointCloud);
+		struct PointCloud
+		{
+			std::vector<LaserPoint> points;
+			buw::vector3d			minPos;
+			buw::vector3d			maxPos;
+		};
+
+		BLUEINFRASTRUCTURE_API void importLASPointCloud(const char* filename, PointCloud& pointCloud);
 	} // end namespace Infrastructure
 } // end namespace BlueFramework
 
@@ -33,6 +40,7 @@ namespace buw
 {
 	using OpenInfraPlatform::Infrastructure::importLASPointCloud;
 	using OpenInfraPlatform::Infrastructure::LaserPoint;
+	using OpenInfraPlatform::Infrastructure::PointCloud;
 }
 
 #endif // end define OpenInfraPlatform_Infrastructure_PointCloudProcessing_8b77c948_e060_457a_a3ef_7a546fad37c3_h

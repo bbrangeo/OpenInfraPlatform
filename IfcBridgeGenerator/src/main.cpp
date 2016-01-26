@@ -28,7 +28,7 @@ int main(int argc,char *argv[])
 	buw::LogManager::getInstance().LogGPUInfo();
 		
 	QApplication application(argc,argv);
-	std::string basePath = "Style/appleseed_mod.qss";
+	std::string basePath = "Style/blueform.qss";
 
 	QFile styleSheet(basePath.c_str());
 

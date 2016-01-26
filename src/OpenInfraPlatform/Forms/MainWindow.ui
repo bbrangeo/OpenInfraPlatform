@@ -28,7 +28,7 @@
   </property>
   <widget class="QDockWidget" name="centralWidget">
    <property name="features">
-    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetClosable</set>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
@@ -66,6 +66,9 @@
          <widget class="QCheckBox" name="checkBoxHighlightSelectedAlignmentSegment">
           <property name="text">
            <string>Highlight selected alignment segment</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -116,9 +119,15 @@
        <rect>
         <x>9</x>
         <y>70</y>
-        <width>101</width>
+        <width>121</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="text">
        <string>Delete Surface</string>
@@ -129,9 +138,15 @@
        <rect>
         <x>9</x>
         <y>15</y>
-        <width>47</width>
-        <height>13</height>
+        <width>71</width>
+        <height>16</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="text">
        <string>Surfaces</string>
@@ -146,6 +161,13 @@
       <property name="fieldGrowthPolicy">
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
       </property>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBoxUseUniformColor">
+        <property name="text">
+         <string>Use uniform color</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0">
        <widget class="QCheckBox" name="checkBoxUseUniformSize">
         <property name="text">
@@ -193,20 +215,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="ImportLASFile">
-        <property name="text">
-         <string>Import LAS File...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="checkBoxUseUniformColor">
-        <property name="text">
-         <string>Use uniform color</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -270,6 +278,13 @@
      <property name="title">
       <string>Export...</string>
      </property>
+     <widget class="QMenu" name="menuHorizontal_Alignment_and_Terrain_svg">
+      <property name="title">
+       <string>Horizontal Alignment and Terrain (*.svg)</string>
+      </property>
+      <addaction name="actionUsualSVG"/>
+      <addaction name="actionAdvancedSVG"/>
+     </widget>
      <addaction name="actionExportIfcAlignment"/>
      <addaction name="actionExportIfcZip"/>
      <addaction name="actionIfcAlignment_buildingSMART_P6_Excel_Comparison"/>
@@ -278,7 +293,7 @@
      <addaction name="actionLandXML"/>
      <addaction name="actionOkstra"/>
      <addaction name="separator"/>
-     <addaction name="actionSVG"/>
+     <addaction name="menuHorizontal_Alignment_and_Terrain_svg"/>
      <addaction name="actionExportVerticalAlignment"/>
      <addaction name="actionExportCurvature"/>
      <addaction name="separator"/>
@@ -305,12 +320,28 @@
      <addaction name="separator"/>
      <addaction name="actionClearMenu"/>
     </widget>
+    <widget class="QMenu" name="menuImport">
+     <property name="title">
+      <string>Import</string>
+     </property>
+     <addaction name="actionImport_OSM_File"/>
+    </widget>
+    <widget class="QMenu" name="menuMerge">
+     <property name="title">
+      <string>Merge</string>
+     </property>
+     <addaction name="actionMerge_XYZ_File"/>
+     <addaction name="actionMerge_Mesh"/>
+     <addaction name="separator"/>
+     <addaction name="actionMerge_LAS_File"/>
+    </widget>
     <addaction name="actionSaveAs"/>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionMerge"/>
-    <addaction name="actionImportFile"/>
     <addaction name="separator"/>
+    <addaction name="menuImport"/>
+    <addaction name="menuMerge"/>
     <addaction name="menuExport"/>
     <addaction name="menuRecentFiles"/>
     <addaction name="separator"/>
@@ -341,65 +372,16 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <widget class="QMenu" name="menuCreate_Line_Arc_Arc_Line">
-     <property name="title">
-      <string>Create Line Arc Arc Line</string>
-     </property>
-     <addaction name="actionDialog_Line_Arc_Arc_Line"/>
-     <addaction name="actionGenerate_Line_Arc_Arc_Line"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Line_Clothoid">
-     <property name="title">
-      <string>Create Line Clothoid</string>
-     </property>
-     <addaction name="actionDialog_Line_Clothoid"/>
-     <addaction name="actionGenerate_Line_Clothoid"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Arc_Clothoid_Clothoid_Arc">
-     <property name="title">
-      <string>Create Arc Clothoid Clothoid Arc</string>
-     </property>
-     <addaction name="actionDialog_Arc_Clothoid_Clothoid_Arc"/>
-     <addaction name="actionGenerate_Arc_Clothoid_Clothoid_Arc"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Line_Clothoid_Clothoid_Line">
-     <property name="title">
-      <string>Create Line Clothoid Clothoid Line</string>
-     </property>
-     <addaction name="actionDialog_Line_Clothoid_Clothoid_Line"/>
-     <addaction name="actionGenerate_Line_Clothoid_Clothoid_Line"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Line_Clothoid_Arc_Clothoid_Line">
-     <property name="title">
-      <string>Create Line Clothoid Arc Clothoid Line</string>
-     </property>
-     <addaction name="actionDialog_Line_Clothoid_Arc_Clothoid_Line"/>
-     <addaction name="actionGenerate_Line_Clothoid_Arc_Clothoid_Line"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Line_Arc_Arc_Arc_Line">
-     <property name="title">
-      <string>Create Line Arc Arc Arc Line</string>
-     </property>
-     <addaction name="actionDialog_Line_Arc_Arc_Arc_Line"/>
-     <addaction name="actionGenerate_Line_Arc_Arc_Arc_Line"/>
-    </widget>
-    <widget class="QMenu" name="menuCreate_Arc_Clothoid_Arc">
-     <property name="title">
-      <string>Create Arc Clothoid Arc</string>
-     </property>
-     <addaction name="actionDialog_Arc_Clothoid_Arc"/>
-     <addaction name="actionGenerate_Arc_Clothoid_Arc"/>
-    </widget>
     <addaction name="actionCreate_Alignment_Points"/>
     <addaction name="separator"/>
     <addaction name="actionCreate_Alignment"/>
-    <addaction name="menuCreate_Line_Clothoid"/>
-    <addaction name="menuCreate_Arc_Clothoid_Arc"/>
-    <addaction name="menuCreate_Arc_Clothoid_Clothoid_Arc"/>
-    <addaction name="menuCreate_Line_Clothoid_Clothoid_Line"/>
-    <addaction name="menuCreate_Line_Clothoid_Arc_Clothoid_Line"/>
-    <addaction name="menuCreate_Line_Arc_Arc_Line"/>
-    <addaction name="menuCreate_Line_Arc_Arc_Arc_Line"/>
+    <addaction name="actionCreate_Line_Clothoid"/>
+    <addaction name="actionCreate_Line_Clothoid_Clothoid_Line"/>
+    <addaction name="actionCreate_Line_Clothoid_Arc_Clothoid_Line"/>
+    <addaction name="actionCreate_Arc_Clothoid_Arc"/>
+    <addaction name="actionCreate_Arc_Clothoid_Arc2"/>
+    <addaction name="actionCreate_Arc_Clothoid_Clothoid_Arc"/>
+    <addaction name="actionCreate_Arc_Clothoid_Clothoid_Arc2"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -421,7 +403,6 @@
     <addaction name="actionTerrain_Gradient_Ramp"/>
     <addaction name="actionTerrain_Iso_Lines"/>
     <addaction name="separator"/>
-    <addaction name="actionTerrain_Import_XYZ_File"/>
     <addaction name="actionTerrain_Generate_Random_Terrain"/>
     <addaction name="actionTerrain_Create_Terrain_from_Heightmap"/>
    </widget>
@@ -655,11 +636,6 @@
     <string>Create Alignment</string>
    </property>
   </action>
-  <action name="actionSVG">
-   <property name="text">
-    <string>Horizontal Alignment and Terrain (*.svg)</string>
-   </property>
-  </action>
   <action name="actionPreferences">
    <property name="text">
     <string>Preferences</string>
@@ -774,9 +750,9 @@
     <string>Iso Lines</string>
    </property>
   </action>
-  <action name="actionTerrain_Import_XYZ_File">
+  <action name="actionMerge_XYZ_File">
    <property name="text">
-    <string>Import XYZ File</string>
+    <string>Merge XYZ File</string>
    </property>
   </action>
   <action name="actionTerrain_Generate_Random_Terrain">
@@ -916,12 +892,12 @@
   </action>
   <action name="actionDialog_Arc_Clothoid_Arc">
    <property name="text">
-    <string>Dialog for given arc-center, clothoid-point and A</string>
+    <string>Dialog for given arc-center, clothoid-point and clothoid-constant</string>
    </property>
   </action>
   <action name="actionGenerate_Arc_Clothoid_Arc">
    <property name="text">
-    <string>Generate for given arc-center, clothoid-point and A</string>
+    <string>Generate for given arc-center, clothoid-point and clothoid-constant</string>
    </property>
   </action>
   <action name="actionDialog_Clothoid_Parallel">
@@ -1009,6 +985,106 @@
   <action name="actionFfggdddf">
    <property name="text">
     <string>ffggdddf</string>
+   </property>
+  </action>
+  <action name="actionMerge_Mesh">
+   <property name="text">
+    <string>Merge Mesh</string>
+   </property>
+  </action>
+  <action name="actionUsualSVG">
+   <property name="text">
+    <string>Usual (every alignment-group selectable)</string>
+   </property>
+  </action>
+  <action name="actionAdvancedSVG">
+   <property name="text">
+    <string>Advanced (every alignment-element(line,arc...) selectable)</string>
+   </property>
+  </action>
+  <action name="actionDialog_AA">
+   <property name="text">
+    <string>Dialog</string>
+   </property>
+  </action>
+  <action name="actionGenerate_AA">
+   <property name="text">
+    <string>Generate</string>
+   </property>
+  </action>
+  <action name="actionDialog_AAA">
+   <property name="text">
+    <string>Dialog</string>
+   </property>
+  </action>
+  <action name="actionGenerate_AAA">
+   <property name="text">
+    <string>Generate</string>
+   </property>
+  </action>
+  <action name="actionDialog_for_given_arc_centers_ACA">
+   <property name="text">
+    <string>Dialog for given arc-centers</string>
+   </property>
+  </action>
+  <action name="actionGenerate_for_given_arc_centers_ACA">
+   <property name="text">
+    <string>Generate for given arc-centers</string>
+   </property>
+  </action>
+  <action name="actionDialog_for_given_arc_centers_ACCA">
+   <property name="text">
+    <string>Dialog for given arc-centers</string>
+   </property>
+  </action>
+  <action name="actionGenerate_for_given_arc_centers_ACCA">
+   <property name="text">
+    <string>Generate for given arc-centers</string>
+   </property>
+  </action>
+  <action name="actionImport_OSM_File">
+   <property name="text">
+    <string>Import OSM file</string>
+   </property>
+  </action>
+  <action name="actionMerge_LAS_File">
+   <property name="text">
+    <string>Merge LAS File</string>
+   </property>
+  </action>
+  <action name="actionCreate_Line_Clothoid">
+   <property name="text">
+    <string>Create Line Clothoid</string>
+   </property>
+  </action>
+  <action name="actionCreate_Line_Clothoid_Clothoid_Line">
+   <property name="text">
+    <string>Create Line Clothoid Clothoid Line</string>
+   </property>
+  </action>
+  <action name="actionCreate_Line_Clothoid_Arc_Clothoid_Line">
+   <property name="text">
+    <string>Create Line Clothoid Arc Clothoid Line</string>
+   </property>
+  </action>
+  <action name="actionCreate_Arc_Clothoid_Arc">
+   <property name="text">
+    <string>Create Arc Clothoid Arc (input one arc-center)</string>
+   </property>
+  </action>
+  <action name="actionCreate_Arc_Clothoid_Clothoid_Arc">
+   <property name="text">
+    <string>Create Arc Clothoid Clothoid Arc (input clothoid-startpoint)</string>
+   </property>
+  </action>
+  <action name="actionCreate_Arc_Clothoid_Clothoid_Arc2">
+   <property name="text">
+    <string>Create Arc Clothoid Clothoid Arc (input two arc-centers)</string>
+   </property>
+  </action>
+  <action name="actionCreate_Arc_Clothoid_Arc2">
+   <property name="text">
+    <string>Create Arc Clothoid Arc (input two arc-centers)</string>
    </property>
   </action>
  </widget>

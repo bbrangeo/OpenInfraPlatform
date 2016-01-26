@@ -66,7 +66,7 @@ namespace OpenInfraPlatform
 			QTranslator*			translator_;
 
 			OpenInfraPlatform::UserInterface::View* view_;
-			buw::InfraCameraController::Ptr	infraCameraController_;
+			buw::ReferenceCounted<buw::InfraCameraController>	infraCameraController_;
 
 		}; // end class PreferencesDialog
 	} // end namespace UserInterface

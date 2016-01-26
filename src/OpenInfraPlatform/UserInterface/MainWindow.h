@@ -3,6 +3,7 @@
  *                  Chair of Computational Modeling and Simulation. All rights reserved.
  *  \author         Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
  *  \author         Alexander Widner <ga96heq@mytum.de> (https://www.cms.bgu.tum.de/en)
+ *	\author			Daniel Below <daniel.below@tum.de>
  *  \brief          This file is part of the TUM Open Infra Platform.
  *  \endverbatim
  */
@@ -24,7 +25,6 @@
 #include "OpenInfraPlatform/UnitTesting/ImageTester.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateArcClothoidArcMeth2Dialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateArcClothoidClothoidArcMeth2Dialog.h"
-#include "OpenInfraPlatform/UserInterface/Tools/CreateClothoidParallelDialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateClothoidDialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateLineArcArcLineDialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateLineArcArcArcLineDialog.h"
@@ -32,6 +32,7 @@
 #include "OpenInfraPlatform/UserInterface/Tools/CreateLineClothoidClothoidLineDialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateArcClothoidArcDialog.h"
 #include "OpenInfraPlatform/UserInterface/Tools/CreateArcClothoidClothoidArcDialog.h"
+#include "OpenInfraPlatform/UserInterface/OSMImportDialog.h"
 
 #include "qsimpleupdater.h"
 
@@ -44,6 +45,8 @@
 #include <setjmp.h>
 
 #include "PrecisionTest.h"
+#include <QDropEvent>
+#include <qmimedata>
 
 namespace Ui 
 {
@@ -60,6 +63,8 @@ namespace OpenInfraPlatform
 		{
 			Q_OBJECT;
 			
+			typedef DataManagement::ChangeFlag ChangeFlag;
+
 		public:
 			//! Default constructor.
 			MainWindow(QWidget *parent = nullptr);
@@ -67,9 +72,10 @@ namespace OpenInfraPlatform
 			//! Virtual destructor.
 			virtual ~MainWindow();
 
+			void showEvent(QShowEvent* event);
 			void updateAlignmentUI();
-			void createClothoid_negY(double R, double A, buw::vector2d startPoint, buw::vector2d cloth_start_dir, bool clockwise);
-			void createClothoid_noInfinity(double R1, double R2, buw::vector2d startPoint, double A, buw::vector2d cloth_start_dir, bool clockwise);
+			void updateAlignmentElementsUI();
+			void emitPoints(QDialog*); // for the communication between menue/tools and MainWindow
 			void storeGBuffer();
 			virtual void changeEvent(QEvent* evt) override;
 
@@ -79,38 +85,30 @@ namespace OpenInfraPlatform
 			void on_actionNew_triggered();
 			void on_actionSave_triggered();
 			void on_actionSaveAs_triggered();
-			void on_actionImport_triggered();
+			//void on_actionImport_triggered();
+
+			void on_actionMerge_Mesh_triggered();
+
 			void on_actionOpen_triggered();
 			void on_actionUndo_triggered();
 			void on_actionRedo_triggered();
 			void on_actionViewport_as_screenshot_triggered();
 			void on_actionExit_triggered();
-			void on_actionSVG_triggered();
+			void on_actionUsualSVG_triggered();
+			void on_actionAdvancedSVG_triggered();
 			void on_actionExportIIfcRoad_triggered();
 			void on_actionAbout_triggered();
 			void on_actionCreate_Alignment_Points_triggered(bool checked);
 			void on_actionCreate_Alignment_triggered();
-			void on_actionGenerate_Arc_Clothoid_Arc_triggered();
-			void on_actionGenerate_Arc_Clothoid_Clothoid_Arc_triggered();
-			void on_actionGenerate_Line_Clothoid_Arc_Clothoid_Line_triggered();
-			void on_actionGenerate_Line_Clothoid_Clothoid_Line_triggered();
-			void on_actionGenerate_Line_Arc_Arc_Line_triggered();
-			void on_actionGenerate_Line_Arc_Arc_Arc_Line_triggered();
-			void on_actionGenerate_Line_Clothoid_triggered();
-			void on_actionGenerate_Arc_Clothoid_Arc_Meth2_triggered();
-			void on_actionGenerate_Arc_Clothoid_Clothoid_Arc_Meth2_triggered();
-			void on_actionGenerate_Parallel_Clothoid_triggered();
-
-			void on_actionDialog_Arc_Clothoid_Arc_Meth2_triggered();
-			void on_actionDialog_Arc_Clothoid_Clothoid_Arc_Meth2_triggered();
-			void on_actionDialog_Parallel_Clothoid_triggered();
-			void on_actionDialog_Line_Clothoid_triggered();
-			void on_actionDialog_Arc_Clothoid_Arc_triggered();
-			void on_actionDialog_Arc_Clothoid_Clothoid_Arc_triggered();
-			void on_actionDialog_Line_Clothoid_Arc_Clothoid_Line_triggered();
-			void on_actionDialog_Line_Clothoid_Clothoid_Line_triggered();
-			void on_actionDialog_Line_Arc_Arc_Line_triggered();
-			void on_actionDialog_Line_Arc_Arc_Arc_Line_triggered();
+			void on_actionCreate_Arc_Clothoid_Arc_triggered();
+			void on_actionCreate_Arc_Clothoid_Arc2_triggered();
+			void on_actionCreate_Arc_Clothoid_Clothoid_Arc_triggered();
+			void on_actionCreate_Arc_Clothoid_Clothoid_Arc2_triggered();
+			void on_actionCreate_Line_Clothoid_Arc_Clothoid_Line_triggered();
+			void on_actionCreate_Line_Clothoid_Clothoid_Line_triggered();
+			void on_actionCreate_Line_Arc_Arc_Line_triggered();
+			void on_actionCreate_Line_Arc_Arc_Arc_Line_triggered();
+			void on_actionCreate_Line_Clothoid_triggered();
 			void on_actionExportIfcAlignment_triggered();
 			/*new*/
 			void on_actionExportIfcZip_triggered();
@@ -131,7 +129,7 @@ namespace OpenInfraPlatform
 			void on_actionTerrain_Textured_triggered(bool checked);
 			void on_actionTerrain_Gradient_Ramp_triggered(bool checked);
 			void on_actionTerrain_Iso_Lines_triggered(bool checked);
-			void on_actionTerrain_Import_XYZ_File_triggered();
+			void on_actionMerge_XYZ_File_triggered();
 			void on_actionTerrain_Generate_Random_Terrain_triggered();
 			void on_actionTerrain_Create_Terrain_from_Heightmap_triggered();
 
@@ -163,7 +161,7 @@ namespace OpenInfraPlatform
 			void on_checkBoxHighlightSelectedAlignmentSegment_clicked(bool checked);
 
 			void on_comboBoxAlignment_currentIndexChanged( int index );
-			void on_ImportLASFile_clicked();
+			void on_actionMerge_LAS_File_triggered();
 			void on_comboBoxMapSize_currentIndexChanged( int index );
 
 			void on_variantEditor_currentItemChanged(QtBrowserItem * item);
@@ -174,6 +172,8 @@ namespace OpenInfraPlatform
 			void on_checkBoxUseUniformSize_clicked(bool checked);
 			void on_doubleSpinBoxPointSize_valueChanged(double value);
 			void on_horizontalSliderPointSize_sliderMoved(int value);
+
+			void on_actionImport_OSM_File_triggered();
 
 			// Recent files
 			void on_actionRecentFile1_triggered();
@@ -211,7 +211,7 @@ namespace OpenInfraPlatform
 			void aboutQt();
 
 		private:
-			void jobStarted(int id);
+			void jobStarting();
 			void jobRunning(int id, float progress, const std::string& message);
 			void jobFinishing(int id, bool completed);
 			void jobFinished(int id, bool completed);
@@ -221,7 +221,8 @@ namespace OpenInfraPlatform
 
 			void openRecentFileViaAction( QAction *actionRecentFile );
 
-			void onChange();
+			void	onChange();
+			void	onChange(ChangeFlag changeFlag);
 
 			void updateActionUndo( unsigned int numberOfUndoActions );
 
@@ -231,7 +232,12 @@ namespace OpenInfraPlatform
 		private:
 			// RegEx to parse the window title and capture the document state
 			// RegEx matches "TUM Open Infra Platform YYYY - [Filename]", and captures "Filename"
-			static const QRegExp		titleRegex;
+			const QRegExp				titleRegex = QRegExp { "^TUM Open Infra Platform \\d{4} \\(.*\\)\\s+-\\s+\\[(.*)\\]$" };
+
+			// URLs for QSimpleUpdater
+			const QString				changeLogUrl { "https://www.cms.bgu.tum.de/oip/update/change_log.txt" };
+			const QString				currentVersionUrl { "https://www.cms.bgu.tum.de/oip/update/current_version.txt" };
+			const QString				installerUrl { "https://www.cms.bgu.tum.de/oip/update/TUM%20Open%20Infra%20Platform.msi" };
 
 			std::unique_ptr<QSimpleUpdater> updater;
 
@@ -251,18 +257,18 @@ namespace OpenInfraPlatform
 			PreferencesDialog*			preferencesDialog_;
 			XYZImportDialog*			XYZImportDialog_;
 			GenerateTerrainDialog*		generateTerrainDialog_;
-			CreateLineArcArcLineDialog*	createLineArcArcLineDialog_;
-			CreateLineArcArcArcLineDialog* createLineArcArcArcLineDialog_;
-			CreateLineClothoidArcClothoidLineDialog* createLineClothoidArcClothoidLineDialog_;
-			CreateLineClothoidClothoidLineDialog* createLineClothoidClothoidLineDialog_;
-			CreateArcClothoidClothoidArcDialog* createArcClothoidClothoidArcDialog_;
-			CreateClothoidDialog* createClothoidDialog_;
-			CreateArcClothoidClothoidArcMeth2Dialog* createArcClothoidClothoidArcMeth2Dialog_;
-			CreateClothoidParallelDialog* createClothoidParallelDialog_;
-			CreateArcClothoidArcMeth2Dialog* createArcClothoidArcMeth2Dialog_;
-			CreateArcClothoidArcDialog* createArcClothoidArcDialog_;
+			CreateLineArcArcLineDialog*	LAAL_;
+			CreateLineArcArcArcLineDialog* LAAAL_;
+			CreateLineClothoidArcClothoidLineDialog* LCACL_;
+			CreateLineClothoidClothoidLineDialog* LCCL_;
+			CreateArcClothoidClothoidArcDialog* ACCA_;
+			CreateClothoidDialog*		LC_;
+			CreateArcClothoidClothoidArcMeth2Dialog* ACCA2_;
+			CreateArcClothoidArcMeth2Dialog* ACA2_;
+			CreateArcClothoidArcDialog* ACA_;
 			VerticalAlignmentWindow*	verticalAlignmentWindow_;
 			CurvatureWindow*			curvatureWindow_;
+			OSMImportDialog*			osmImportDialog_;
 
 			QProgressBar*				progressBar_;
 			QProgressDialog*			progressDialog_;
@@ -273,7 +279,15 @@ namespace OpenInfraPlatform
 			View*						view_;
 			Ui::MainWindow *			ui_;
 
+			bool						loaded_;
+
 			PrecisionTest				precisionTest_;
+
+			protected:
+				void dropEvent(QDropEvent *ev);
+				void dragEnterEvent(QDragEnterEvent *ev);
+			Q_SIGNALS:
+			void sendPoints(std::vector<buw::vector3d> , buw::vector2d );// for the communication with the tool-dialogs like CreateArcClothoidArcDialog
 		}; // end class MainWindow
 	} // end namespace UserInterface
 } // end namespace OpenInfraPlatform

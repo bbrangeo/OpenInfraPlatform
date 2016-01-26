@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Geometrie.h 2014-05-21 15:00:00 vogelsang $
+* $Id: Geometrie.h 2015-03-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -37,6 +37,12 @@
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-01-23 Koordinatenreihenfolge Transformierer
 * 2014-05-21 GeoRechteck im Interface verpacken
+* 2014-07-30 Geometrie in Gml wandeln
+* 2014-08-12 Geometrie in 2D wandeln
+* 2015-01-29 Koordinatenreferenzsystem nicht transportiert
+* 2015-02-18 Referenzielles Geometrieformat
+* 2015-02-24 Referenzielles Geometrieformat(2)
+* 2015-03-24 Unnötige virtual-Deklarationen beseitigt
 * 
 ****************************************************************************/
 #ifndef DEFGeometrie
@@ -77,6 +83,7 @@ namespace Oklabi
 	class OGRTransformierer : public Transformierer
 	{
 		friend class Umgebung;
+		friend class Geometrie;
 	public:
 		class lessEPSG : public OklabiRoot
 		{
@@ -102,8 +109,14 @@ namespace Oklabi
 	private:
 		OKLABI_API bool                   IstLatLong(eKoordRefSys) const;
 		OKLABI_API bool                   IstEastingNorthing(eKoordRefSys) const;
+		static OKLABI_API bool            KannSRS(eKoordRefSys);
+		static OGRSpatialReference*       GibSRS(eKoordRefSys, bool=true);
 	};
 
+	typedef const Geometrie*           GeometrieConstPtr;
+	typedef std::map<const Geometrie*, Geometrie*> MapRefGeoType;
+	typedef Menge< GeometrieConstPtr > GeometrieMengeConst;
+	typedef Liste< GeometrieConstPtr > GeometrieListeConst;
 	class OKLABI_API Geometrie : public OklabiObjekt
 	{
 #ifdef OKLABI_KERN
@@ -151,10 +164,14 @@ namespace Oklabi
 		friend class GeoKreisbogen;
 		friend class GeoSpline;
 		friend class GeoFlaeche;
+		friend class GeoVolumen;
+		friend class GeoRechteck;
 		friend class Umgebung;
 		friend class Profil;
 		friend class Transformierer;
 		friend class OGRTransformierer;
+		friend class XMLAusgabeKonverter;
+		friend class XMLEingabeKonverter;
 #ifdef OKLABI_KERN
 		friend class IsybauImporteur;
 #if defined(OKLABI_MEMOPT_2)
@@ -163,18 +180,21 @@ namespace Oklabi
 #endif
 	public:
 		static Geometrie*  Erzeuge(eGeoTyp, eKoordRefSys, const WKT& = "", eLinientyp = keine);
-		virtual Geometrie* Kopiere() const = 0;
+		virtual Geometrie* Kopiere(MapRefGeoType* = NULL) const = 0;
 		virtual Geometrie* Interpoliere(double) const;
 		virtual Geometrie* Transformiere(eKoordRefSys);
+		virtual Geometrie* Wandle2D() const = 0;
 		virtual eGeoTyp    GibGeometrietyp() const = 0;
 		eKoordRefSys       GibKoordRefSys() const;
 		virtual WKT        GibWKT() const = 0;
+		virtual Text       GibGML(const Text&) const = 0;
 		virtual void       SetzeWKT(const WKT&) = 0;
 		virtual Text       GibText() const = 0;
 		virtual bool       IstLeer() const;
 		virtual bool       IstVerbunden() const;
 		Enumerator*        GibEnumerator() const;
 		virtual eLinientyp GibLinientyp() const;
+		void               Vernichte() const;
 
 	public:
 		virtual void       BoundingBox(GeoPunkt&, GeoPunkt&) const;
@@ -193,23 +213,34 @@ namespace Oklabi
 		virtual ~Geometrie();
 		Geometrie(const Geometrie&);
 		Geometrie& operator=(const Geometrie&);
-		virtual void       HaengeAn(const Geometrie&, bool = false) = 0;
+		Geometrie(const Geometrie&, MapRefGeoType*);
+		virtual void       HaengeAn(const Geometrie&, bool, bool) = 0;
 		bool               KannVernichten() const;
+		bool               IstEnthalten(const Geometrie&, GeometrieMengeConst&) const;
+		bool               IstGebunden() const;
+		void               BindeEin(const Geometrie&);
 		void               SetzeKoordRefSys(eKoordRefSys);
 		WKT                WandleWKT() const;
+		Text               WandleGML(const Text&) const;
+		Text               GibGMLId(const char* = "") const;
+		Geometrie*         GibReferenz() const;
 		OGRGeometry*       GibKomponente(eGeoTyp, eLinientyp, bool, bool, bool = false) const;
 #ifdef OKLABI_KERN
-		virtual void       Verteile(eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
+		virtual void       Verteile(eKoordRefSys, eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
 		virtual void       Segmentiere(segmentListType&) const;
 #endif
 		virtual size_t     GibSekundaerSpeicherplatz() const;
 		size_t             GibGeometrieSpeicherplatz(OGRGeometry*) const;
-		static Geometrie*  Interpoliere(eLinientyp, double[2][5], double, Geometrie* = NULL);
+		static Geometrie*  Interpoliere(eKoordRefSys, eLinientyp, double[2][5], double, Geometrie* = NULL);
 		static void        Initialisiere();
+	private:
+		void               copyOrAssign(bool, const Geometrie&, MapRefGeoType*);
 
 	protected:
 		mutable OGRGeometry*           m_pGeometry;
 		mutable GeometrieListe*        m_pListGeo;
+		mutable GeometrieListe*        m_pListOwn;
+//		mutable UINT64                 m_nRef;
 		mutable eKoordRefSys           m_eCRS;
 		mutable bool                   m_bConnected;
 		mutable bool                   m_bExterior;
@@ -239,10 +270,13 @@ namespace Oklabi
 		static GeoPunkt*  Erzeuge(const double& x, const double& y, const float& z = f_undef, const eKoordRefSys& = Undefiniert);
 		void              Setze(const Koordinate&);
 		void              FuegeHinzu(const GeoPunkt&);
-		Geometrie*        Kopiere() const;
+		void              SetzeEin(const GeoPunkt&);
+		Geometrie*        Kopiere(MapRefGeoType* = NULL) const;
 		Geometrie*        Transformiere(eKoordRefSys);
+		Geometrie*        Wandle2D() const;
 		eGeoTyp           GibGeometrietyp() const;
 		WKT               GibWKT() const;
+		Text              GibGML(const Text&) const;
 		void              SetzeWKT(const WKT&);
 		Text              GibKlassenname() const;
 		Text              GibText() const;
@@ -259,8 +293,9 @@ namespace Oklabi
 		GeoPunkt& operator=(const GeoPunkt&);
 		GeoPunkt(const double&, const double&, const float& = f_undef, const eKoordRefSys& = Undefiniert);
 	private:
+		GeoPunkt(const GeoPunkt&, MapRefGeoType*);
 		void              SetzeLage(const double&, const double&, const float& = f_undef, const eKoordRefSys& = Undefiniert);
-		void              HaengeAn(const Geometrie&, bool = false);
+		void              HaengeAn(const Geometrie&, bool, bool);
 		size_t            GibSpeicherplatz() const;
 		bool operator==(const GeoPunkt&) const;
 		bool operator!=(const GeoPunkt& p) const;
@@ -277,10 +312,13 @@ namespace Oklabi
 		virtual bool     IstGeschlossen() const;
 		virtual void     Schliesse();
 		virtual void     Wandele();
+		void             FuegeHinzu(const GeoPfad&, bool = true);
+		void             SetzeEin(const GeoPfad&, bool = true);
 	protected:
 		GeoPfad();
 		~GeoPfad();
 		GeoPfad(const GeoPfad&);
+		GeoPfad(const GeoPfad&, MapRefGeoType*);
 		GeoPfad& operator=(const GeoPfad&);
 		bool             m_bGeschlossen;
 	};
@@ -304,17 +342,20 @@ namespace Oklabi
 #endif
 	public:
 		static GeoLinie* Erzeuge();
-		static GeoLinie* Erzeuge(const GeoPunkt&);
+		static GeoLinie* Erzeuge(const GeoPunkt&, bool = false);
 		static GeoLinie* Erzeuge(const AnyType&);
 		void             Setze(const GeoPunkt&);
 		void             Setze(const AnyType&);
 		void             FuegeHinzu(const GeoPunkt&, bool = false);
 		void             FuegeHinzu(const AnyType&, bool = false);
-		Geometrie*       Kopiere() const;
+		void             SetzeEin(const GeoPunkt&, bool = false);
+		Geometrie*       Kopiere(MapRefGeoType* = NULL) const;
 		Geometrie*       Transformiere(eKoordRefSys);
 		Geometrie*       Interpoliere(double) const;
+		Geometrie*       Wandle2D() const;
 		eGeoTyp          GibGeometrietyp() const;
 		WKT              GibWKT() const;
+		Text             GibGML(const Text&) const;
 		void             SetzeWKT(const WKT&);
 		Text             GibKlassenname() const;
 		Text             GibText() const;
@@ -323,25 +364,26 @@ namespace Oklabi
 		GeoPunkt         GibAnfangsPunkt() const;
 		GeoPunkt         GibEndPunkt() const;
 		double           GibLaenge() const;
-		virtual GeoPunkt GibPunktPerBogenlaenge(double) const;
-		virtual double   GibBogenlaengePerPunkt(const GeoPunkt&, double) const;
-		virtual GeoPunkt GibLotvektorPerBogenlaenge(const double&, bool = false) const;
-		virtual GeoPunkt GibTangentePerBogenlaenge(const double&, bool = false) const;
+		        GeoPunkt GibPunktPerBogenlaenge(double) const;
+		        double   GibBogenlaengePerPunkt(const GeoPunkt&, double) const;
+		        GeoPunkt GibLotvektorPerBogenlaenge(const double&, bool = false) const;
+		        GeoPunkt GibTangentePerBogenlaenge(const double&, bool = false) const;
 		virtual GeoLinie GibTeilgeometrieZwischen(double, double) const;
-		virtual GeoPunkt GibSchnittpunkt(const GeoLinie&) const;
+		        GeoPunkt GibSchnittpunkt(const GeoLinie&) const;
 		virtual GeoLinie GibParallele(bool, double) const;
-		virtual GeoLinie DreheUm() const;
+		        GeoLinie DreheUm() const;
 		GeoLinie();
 		~GeoLinie();
 		GeoLinie(const GeoLinie&);
 		GeoLinie& operator=(const GeoLinie&);
 
 	private:
-		void             HaengeAn(const Geometrie&, bool = false);
+		GeoLinie(const GeoLinie&, MapRefGeoType*);
+		void             HaengeAn(const Geometrie&, bool, bool);
 		void             HaengeAn(const AnyType&, const Text&, bool, bool);
 		const Geometrie* Enumeriere(bool&, GeometrieListe::const_iterator*&) const;
 #ifdef OKLABI_KERN
-		void             Verteile(eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
+		void             Verteile(eKoordRefSys, eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
 		void             Segmentiere(segmentListType&) const;
 #endif
 		size_t           GibSpeicherplatz() const;
@@ -373,10 +415,12 @@ namespace Oklabi
 #endif
 	public:
 		static GeoKreisbogen* Erzeuge();
-		static GeoKreisbogen* Erzeuge(const AnyType&);
+		static GeoKreisbogen* Erzeuge(const AnyType&, bool = false);
 		void                  Setze(const AnyType&);
-		Geometrie*            Kopiere() const;
+		Geometrie*            Kopiere(MapRefGeoType* = NULL) const;
 		Geometrie*            Interpoliere(double) const;
+		Geometrie*            Transformiere(eKoordRefSys);
+		Geometrie*            Wandle2D() const;
 		eLinientyp            GibLinientyp() const;
 		Text                  GibKlassenname() const;
 		GeoPunkt              GibZentrum() const;
@@ -392,13 +436,14 @@ namespace Oklabi
 		GeoKreisbogen& operator=(const GeoKreisbogen&);
 
 	private:
+		GeoKreisbogen(const GeoKreisbogen&, MapRefGeoType*);
 		void                  SetzeZentrum(const GeoPunkt&);
 		void                  SetzeRadius(const double&);
 		void                  SetzeRichtung(const bool&);
 		void                  SetzeTyp(const eKreisTyp&);
 		void                  Uebernimm(const GeoLinie*);
 #ifdef OKLABI_KERN
-		void                  Verteile(eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
+		void                  Verteile(eKoordRefSys, eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
 #endif
 		double                m_dRadius;
 		GeoPunkt              m_Zentrum;
@@ -448,14 +493,16 @@ namespace Oklabi
 #endif
 	public:
 		static GeoSpline*   Erzeuge();
-		static GeoSpline*   Erzeuge(const GeoPunkt&);
+		static GeoSpline*   Erzeuge(const GeoPunkt&, bool = false);
 		static GeoSpline*   Erzeuge(const AnyType&);
 		void                Setze(const GeoPunkt&);
 		void                Setze(const AnyType&);
 		void                FuegeHinzu(const GeoPunkt&);
 		void                FuegeHinzu(const AnyType&);
-		Geometrie*          Kopiere() const;
+		void                SetzeEin(const GeoPunkt&);
+		Geometrie*          Kopiere(MapRefGeoType* = NULL) const;
 		Geometrie*          Interpoliere(double) const;
+		Geometrie*          Wandle2D() const;
 		eLinientyp          GibLinientyp() const;
 		Text                GibKlassenname() const;
 		RandbedingungSpline GibStartbedingung() const;
@@ -471,9 +518,10 @@ namespace Oklabi
 		GeoSpline& operator=(const GeoSpline&);
 
 	private:
+		GeoSpline(const GeoSpline&, MapRefGeoType*);
 		void                Uebernimm(const GeoLinie*);
 #ifdef OKLABI_KERN
-		void                Verteile(eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
+		void                Verteile(eKoordRefSys, eOperation, const GeoPunkt*, double&, Geometrie*&, segmentListType*) const;
 #endif
 		RandbedingungSpline m_Start;
 		RandbedingungSpline m_Ende;
@@ -491,18 +539,22 @@ namespace Oklabi
 #endif
 	public:
 		static GeoFlaeche*  Erzeuge();
-		static GeoFlaeche*  Erzeuge(const GeoPfad&);
+		static GeoFlaeche*  Erzeuge(const GeoPfad&, bool = false);
 		void                FuegeHinzu(const GeoPfad&);
-		Geometrie*          Kopiere() const;
+		void                SetzeEin(const GeoPfad&);
+		Geometrie*          Kopiere(MapRefGeoType* = NULL) const;
+		Geometrie*          Transformiere(eKoordRefSys);
+		Geometrie*          Wandle2D() const;
 		eGeoTyp             GibGeometrietyp() const;
 		WKT                 GibWKT() const;
+		Text                GibGML(const Text&) const;
 		void                SetzeWKT(const WKT&);
 		Text                GibKlassenname() const;
 		Text                GibText() const;
 		size_t              GibAnzahlPunkte() const;
 		double              GibLaenge() const;
 	private:
-		void                HaengeAn(const Geometrie&, bool = false);
+		void                HaengeAn(const Geometrie&, bool, bool);
 		bool                IstAussenrand() const;
 		void                IstAussenrand(bool);
 		GeoPunkt            GibAnfangsPunkt() const;
@@ -511,6 +563,7 @@ namespace Oklabi
 		GeoFlaeche();
 		~GeoFlaeche();
 		GeoFlaeche(const GeoFlaeche&);
+		GeoFlaeche(const GeoFlaeche&, MapRefGeoType*);
 		GeoFlaeche& operator=(const GeoFlaeche&);
 	};
 
@@ -526,22 +579,25 @@ namespace Oklabi
 #endif
 	public:
 		static GeoVolumen*  Erzeuge();
-		static GeoVolumen*  Erzeuge(const GeoFlaeche&);
+		static GeoVolumen*  Erzeuge(const GeoFlaeche&, bool = false);
 		static GeoVolumen*  Erzeuge(const AnyType&);
 		void                Setze(const GeoFlaeche&);
 		void                Setze(const AnyType&);
 		void                FuegeHinzu(const GeoFlaeche&);
 		void                FuegeHinzu(const AnyType&);
-		Geometrie*          Kopiere() const;
+		void                SetzeEin(const GeoFlaeche&);
+		Geometrie*          Kopiere(MapRefGeoType* = NULL) const;
+		Geometrie*          Wandle2D() const;
 		eGeoTyp             GibGeometrietyp() const;
 		WKT                 GibWKT() const;
+		Text                GibGML(const Text&) const;
 		void                SetzeWKT(const WKT&);
 		Text                GibKlassenname() const;
 		Text                GibText() const;
 		size_t              GibAnzahlPunkte() const;
 		double              GibLaenge() const;
 	private:
-		void                HaengeAn(const Geometrie&, bool = false);
+		void                HaengeAn(const Geometrie&, bool, bool);
 		void                HaengeAn(const AnyType&, const Text&, bool);
 		GeoPunkt            GibAnfangsPunkt() const;
 		GeoPunkt            GibEndPunkt() const;
@@ -549,6 +605,7 @@ namespace Oklabi
 		GeoVolumen();
 		~GeoVolumen();
 		GeoVolumen(const GeoVolumen&);
+		GeoVolumen(const GeoVolumen&, MapRefGeoType*);
 		GeoVolumen& operator=(const GeoVolumen&);
 	};
 
@@ -566,9 +623,11 @@ namespace Oklabi
 		static GeoRechteck* Erzeuge();
 		static GeoRechteck* Erzeuge(const GeoPunkt&, const GeoPunkt&);
 		void                FuegeHinzu(const GeoPunkt&);
-		Geometrie*          Kopiere() const;
+		Geometrie*          Kopiere(MapRefGeoType* = NULL) const;
+		Geometrie*          Wandle2D() const;
 		eGeoTyp             GibGeometrietyp() const;
 		WKT                 GibWKT() const;
+		Text                GibGML(const Text&) const;
 		void                SetzeWKT(const WKT&);
 		Text                GibKlassenname() const;
 		Text                GibText() const;
@@ -577,7 +636,7 @@ namespace Oklabi
 		double              GibLaenge() const;
 	private:
 		size_t              GibAnzahlKomponenten() const;
-		void                HaengeAn(const Geometrie&, bool = false);
+		void                HaengeAn(const Geometrie&, bool, bool);
 	public:
 		GeoPunkt            GibAnfangsPunkt() const;
 		GeoPunkt            GibEndPunkt() const;
@@ -590,10 +649,11 @@ namespace Oklabi
 		GeoRechteck();
 		~GeoRechteck();
 		GeoRechteck(const GeoRechteck&);
+		GeoRechteck(const GeoRechteck&, MapRefGeoType*);
 		GeoRechteck& operator=(const GeoRechteck&);
 		void                Erweitere(double x, double y);
 #ifdef OKLABI_KERN
-		OGREnvelope         m_Envelope;
+		mutable OGREnvelope m_Envelope;
 #endif
 	};
 

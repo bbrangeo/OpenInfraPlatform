@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Fachobjekt.h 2014-06-06 15:00:00 vogelsang $
+* $Id: Fachobjekt.h 2015-05-07 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -44,6 +44,12 @@
 * 2014-04-15 Fachkennung nur im OKSTRA-Datenmodell
 * 2014-05-09 Iteration über Datenbestand beschleunigen
 * 2014-06-06 Benutzerattribut am Fachobjekt
+* 2014-08-06 Referenzen erkennen
+* 2014-10-06 Kontrolle von Geometriemeldungen
+* 2014-11-28 Überzählige Einträge durch inverse Relationen bei Listen
+* 2015-02-05 Identitätswechsel bei AnyType durch dynamische Vergrösserung
+* 2015-02-24 Referenzielles Geometrieformat(2)
+* 2015-05-07 Neue Methode für Fehlermeldung benötigt
 * 
 ****************************************************************************/
 #ifndef DEFFachobjekt
@@ -129,6 +135,7 @@ class OKLABI_API Fachobjekt : public OklabiObjekt
 	friend class Schema3;
 	friend class Schema;
 	friend class SchemaGeo;
+	friend class Geometrie;
 #if defined(OKLABI_MEMOPT_2)
 	friend class PasIdentifizierer;
 	friend class ObjektVertreter;
@@ -208,6 +215,7 @@ public:
 	FremdobjektMenge              GibFremdobjekte() const;
 	bool                          IstFixiert() const;
 	bool                          Fixiere(bool) const;
+	bool                          IstReferenz() const;
 	void                          SetzeBenutzerattribut(UINT64);
 	UINT64                        GibBenutzerattribut() const;
 
@@ -225,7 +233,6 @@ private:
 	~Fachobjekt();
 #ifdef OKLABI_INTERN
 	bool                          KannVernichten() const;
-	bool                          IstReferenz() const;
 	bool                          SetzeReferenz(bool) const;
 	bool                          IstVerwaltet() const;
 	bool                          SetzeVerwaltet(bool) const;
@@ -263,44 +270,27 @@ private:
 	void                          Gueltigkeitsintervall(Datum& von, Datum& bis) const;
 	Text                          NormIdErfragen(const Datum& dat) const;
 	void                          BoundingBoxErfragen( BoundingBox& BBox, const Datum& Stichtag = 0, FachobjektMengeImpl* pxosetcyc = NULL );
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str()); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, pstrP2, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), strP2->c_str()); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, pstrP2, pstrP3, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const Text& strP3) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), strP2->c_str(), strP3->c_str()); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3, const char* pstrP4) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, pstrP2, pstrP3, pstrP4, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const Text& strP3, Text& strP4) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), strP2->c_str(), strP3->c_str(), strP4->c_str()); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, nP1, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), nP1); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1, const size_t& nP2) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, nP1, nP2, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1, const size_t& nP2) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), nP1, nP2); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1, const size_t& nP2, const size_t& nP3) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, nP1, nP2, nP3, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1, const size_t& nP2, const size_t& nP3) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), nP1, nP2, nP3); };
-	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const size_t& nP1, const size_t& nP2, const size_t& nP3) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, pstrP1, pstrP2, nP1, nP2, nP3, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const size_t& nP1, const size_t& nP2, const size_t& nP3) const
-                                  { Fehlermeldung(strId->c_str(), strP1->c_str(), strP1->c_str(), nP1, nP2, nP3); };
-	void                          Fehlermeldung(const char* pstrId, const size_t& nP1) const
-                                  { Umgebung::Fehlermeldung(KlassennamenErfragen()->c_str(), pstrId, nP1, KennungErfragen()->c_str(), NULL); };
-	void                          Fehlermeldung(const Text& strId, const size_t& nP1) const
-                                  { Fehlermeldung(strId->c_str(), nP1); };
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const Text& strP3) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3, const char* pstrP4) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const Text& strP3, Text& strP4) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1, const size_t& nP2) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1, const size_t& nP2) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const size_t& nP1, const size_t& nP2, const size_t& nP3) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, const size_t& nP1, const size_t& nP2, const size_t& nP3) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const size_t& nP1, const size_t& nP2, const size_t& nP3) const;
+	void                          Fehlermeldung(const Text& strId, Text& strP1, Text& strP2, const size_t& nP1, const size_t& nP2, const size_t& nP3) const;
+	void                          Fehlermeldung(const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3, const char* pstrP4, const char* pstrP5) const;
+	void                          Fehlermeldung(const char* pstrId, const size_t& nP1) const;
+	void                          Fehlermeldung(const Text& strId, const size_t& nP1) const;
 
-	bool                          testElementInListe(const Text&, const Text&, FachobjektListeImpl&, Fachobjekt*);
+	bool                          testElementInListe(const Eigenschaft*, const Text&, const Text&, FachobjektListeImpl&, Fachobjekt*);
 
 	template<class T> void        LoescheWert(const Text& nam, const AnyType& wert, const T& w);
 	template<class T> void        PflegeWert(const Text& nam, eAggreg propAgg, bool bAdd, size_t off, const AnyType& val, T* dum);
@@ -326,6 +316,7 @@ private:
 
 	const AnyType*                Gib(const Eigenschaft*) const;
 	const AnyType*                Gib(const Text&, const Eigenschaft*, size_t&, const bool& = false) const;
+	const AnyType*                Suche(const size_t&) const;
 
 	static void                   Setze_Datum(const Version&, Datenbestand*, const Text&, AnyType&);
 	static void                   Setze_Koordinatensystem(const Version&, Datenbestand*, const Text&, AnyType&);

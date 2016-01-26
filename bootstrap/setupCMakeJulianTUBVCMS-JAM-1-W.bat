@@ -1,4 +1,0 @@
-mkdir C:\build\vs2013\OpenInfraPlatform
-cd C:\build\vs2013\OpenInfraPlatform
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -G"Visual Studio 12 2013 Win64" -HC:\dev\OpenInfraPlatform -BC:\build\vs2013\OpenInfraPlatform -DQT_DIR="C:\Qt\Qt5.4.0"  -DBOOST_ROOT="C:\thirdparty\vs2013\x64\boost_1_57_0" -DVLD_ROOT_DIR="C:\Program Files (x86)\Visual Leak Detector" -DCMAKE_PREFIX_PATH="C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5Core;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5Xml;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5XmlPatterns;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5Declarative;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5WebKit;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5WebKitWidgets;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5Svg;C:/Qt/Qt5.4.0/5.4/msvc2013_64/lib/cmake/Qt5PrintSupport" -DBLUEFRAMEWORK_ROOT_DIR="C:\dev\BlueFramework2"
-cd C:\dev\OpenInfraPlatform\bootstrap

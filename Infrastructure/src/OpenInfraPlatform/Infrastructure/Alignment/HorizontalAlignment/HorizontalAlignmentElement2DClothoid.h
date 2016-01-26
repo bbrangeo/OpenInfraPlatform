@@ -13,8 +13,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2DClothoid : public HorizontalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2DClothoid);
-
 			typedef BlueFramework::Core::Math::vector2d vector2d;
 			
 			HorizontalAlignmentElement2DClothoid(
@@ -76,7 +74,7 @@ namespace OpenInfraPlatform
 			double		endL_;
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

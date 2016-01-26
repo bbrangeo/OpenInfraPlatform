@@ -31,12 +31,13 @@
 
 using namespace OpenInfraPlatform::IfcRoad;
 
-class OpenInfraPlatform::Infrastructure::IfcRoadImport::IfcRoadImportImpl : private boost::noncopyable
+class OpenInfraPlatform::Infrastructure::IfcRoadImport::IfcRoadImportImpl : public Import
 {
 public:
 	std::map<int, shared_ptr<IfcRoadEntity> > map_entities;
 
-	IfcRoadImportImpl(const std::string& filename)
+	IfcRoadImportImpl(const std::string& filename) :
+		Import(filename)
 	{
 		const bool importTerrain = true;
 		const bool importAlignment = true;
@@ -71,7 +72,6 @@ public:
 		m_step_reader->readStreamHeader(buffer, m_ifc_model);
 		std::string file_schema_version = m_ifc_model->getFileSchema();
 		
-
 		try
 		{
 			m_step_reader->readStreamData(buffer, map_entities);
@@ -138,24 +138,9 @@ public:
 		return nullptr;
 	}
 
-	virtual ~IfcRoadImportImpl()
-	{
-
-	}
-	
-	int getAlignmentCount() const
-	{
-		return alignments_.size();
-	}
-
-	std::vector<buw::Alignment2DBased3D::Ptr> getAlignments()
-	{
-		return alignments_;
-	}
-
 	void createAlignment(std::shared_ptr<OpenInfraPlatform::IfcRoad::IfcAlignment> ifcAlignment)
 	{
-		buw::Alignment2DBased3D::Ptr alignment = std::make_shared<buw::Alignment2DBased3D>();
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::make_shared<buw::Alignment2DBased3D>();
 
 		// read name of alignment
 		if (ifcAlignment->m_Description != nullptr)
@@ -168,18 +153,18 @@ public:
 			alignment->setName(L"Alignment");
 		}
 		
-		buw::HorizontalAlignment2D::Ptr h = createHorizontalAlignment(ifcAlignment);
+		buw::ReferenceCounted<buw::HorizontalAlignment2D> h = createHorizontalAlignment(ifcAlignment);
 		alignment->setHorizontalAlignment(h);
 
 		if (alignment->hasHorizontalAlignment())
 		{
 			if (alignment->getHorizontalAlignment()->getAlignmentElementCount() > 0)
 			{
-				alignments_.push_back(alignment);
+				alignmentModel_->addAlignment(alignment);
 			}
 		}
 
-		buw::VerticalAlignment2D::Ptr v = createVerticalAlignment(ifcAlignment);
+		buw::ReferenceCounted<buw::VerticalAlignment2D> v = createVerticalAlignment(ifcAlignment);
 		if (v != nullptr)
 		{
 			alignment->setVerticalAlignment(v);
@@ -195,7 +180,7 @@ public:
 			{
 				auto cs = road->m_Body->m_CrossSections[i];
 
-				buw::CrossSectionStatic::Ptr css = std::make_shared<buw::CrossSectionStatic>();
+				buw::ReferenceCounted<buw::CrossSectionStatic> css = std::make_shared<buw::CrossSectionStatic>();
 				alignment->addCrossSection(css);
 				css->stationing = cs->m_Station->m_value;
 
@@ -203,11 +188,11 @@ public:
 				{
 					auto polyline = cs->m_Geometry->m_Geometry[pi];
 
-					buw::DesignCrossSectionSurface::Ptr dcs = std::make_shared<buw::DesignCrossSectionSurface>();
+					buw::ReferenceCounted<buw::DesignCrossSectionSurface> dcs = std::make_shared<buw::DesignCrossSectionSurface>();
 
 					for (int k = 0; k < polyline->m_Points.size(); k++)
 					{
-						buw::CrossSectionPoint::Ptr point = std::make_shared<buw::CrossSectionPoint>();
+						buw::ReferenceCounted<buw::CrossSectionPoint> point = std::make_shared<buw::CrossSectionPoint>();
 
 						buw::vector2d start;
 						start.x() = polyline->m_Points[k]->m_Coordinates[0]->m_value;
@@ -225,9 +210,9 @@ public:
 		}
 	}
 
-	buw::HorizontalAlignment2D::Ptr createHorizontalAlignment(std::shared_ptr<OpenInfraPlatform::IfcRoad::IfcAlignment> ifcAlignment)
+	buw::ReferenceCounted<buw::HorizontalAlignment2D> createHorizontalAlignment(std::shared_ptr<OpenInfraPlatform::IfcRoad::IfcAlignment> ifcAlignment)
 	{
-		buw::HorizontalAlignment2D::Ptr h = nullptr;
+		buw::ReferenceCounted<buw::HorizontalAlignment2D> h = nullptr;
 
 		if (ifcAlignment->m_Horizontal != nullptr)
 		{
@@ -269,7 +254,7 @@ public:
 		return h;
 	}
 
-	void createHorizontalLine(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::HorizontalAlignment2D::Ptr h)
+	void createHorizontalLine(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::ReferenceCounted<buw::HorizontalAlignment2D> h)
 	{
 		buw::vector2d start;
 		buw::vector2d end;
@@ -291,11 +276,11 @@ public:
 
 		end = start + segmentLength * direction.xy();
 
-		buw::HorizontalAlignmentElement2DLine::Ptr line = std::make_shared<buw::HorizontalAlignmentElement2DLine>(start.xy() + offset_.xy(), end + offset_.xy());
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DLine> line = std::make_shared<buw::HorizontalAlignmentElement2DLine>(start.xy() + offset_.xy(), end + offset_.xy());
 		h->addElement(line);
 	}
 	
-	void createHorizontalArc(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::HorizontalAlignment2D::Ptr h)
+	void createHorizontalArc(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::ReferenceCounted<buw::HorizontalAlignment2D> h)
 	{
 		std::shared_ptr<IfcCircularArcSegment2D> ifcArc = std::static_pointer_cast<IfcCircularArcSegment2D>(curveSegment);
 
@@ -331,7 +316,7 @@ public:
 			end = (buw::createRotationZ44d(-angle) * buw::vector3d(start - center, 0.0)).xy() + center;
 		}
 
-		buw::HorizontalAlignmentElement2DArc::Ptr arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArc> arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
 			center + offset_.xy(),
 			start + offset_.xy(),
 			end + offset_.xy(),
@@ -339,7 +324,7 @@ public:
 		h->addElement(arc);
 	}
 
-	void createHorizontalClothoid(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::HorizontalAlignment2D::Ptr h)
+	void createHorizontalClothoid(std::shared_ptr<IfcCurveSegment2D> curveSegment, buw::ReferenceCounted<buw::HorizontalAlignment2D> h)
 	{
 		std::shared_ptr<IfcClothoidalArcSegment2D> ifcClothoid = std::static_pointer_cast<IfcClothoidalArcSegment2D>(curveSegment);
 
@@ -375,8 +360,8 @@ public:
 		}
 
 		//---------------------------------------------------------------------------------------
-		buw::HorizontalAlignmentElement2DClothoid::Ptr clothoid = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
-			start,
+		buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid> clothoid = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
+			start + offset_.xy(),
 			startDirection,
 			startCurvature,
 			counterClockwise,
@@ -389,7 +374,7 @@ public:
 
 	void createTerrainSurface(std::shared_ptr<IfcTriangulatedFaceSet> triangluatedFaceSet)
 	{
-		buw::Surface::Ptr s = std::make_shared<buw::Surface>();
+		buw::ReferenceCounted<buw::Surface> s = std::make_shared<buw::Surface>();
 
 		// read position values
 		for (int i = 0; i < triangluatedFaceSet->m_Coordinates->m_CoordList.size(); i++)
@@ -419,12 +404,12 @@ public:
 			s->addTriangle(indices);
 		}
 
-		surfaces_.push_back(s);
+		digitalElevationModel_->addSurface(s);
 	}
 
-	buw::VerticalAlignment2D::Ptr createVerticalAlignment(std::shared_ptr<OpenInfraPlatform::IfcRoad::IfcAlignment> ifcAlignment)
+	buw::ReferenceCounted<buw::VerticalAlignment2D> createVerticalAlignment(std::shared_ptr<OpenInfraPlatform::IfcRoad::IfcAlignment> ifcAlignment)
 	{
-		buw::VerticalAlignment2D::Ptr v = nullptr;
+		buw::ReferenceCounted<buw::VerticalAlignment2D> v = nullptr;
 
 		if (ifcAlignment->m_Vertical != nullptr)
 		{
@@ -453,7 +438,7 @@ public:
 		return v;
 	}
 
-	void createVerticalAlignmentLine(shared_ptr<IfcAlignment2DVerticalSegment> vs, buw::VerticalAlignment2D::Ptr v)
+	void createVerticalAlignmentLine(shared_ptr<IfcAlignment2DVerticalSegment> vs, buw::ReferenceCounted<buw::VerticalAlignment2D> v)
 	{
 		std::shared_ptr<IfcAlignment2DVerSegLine> ifcLine = std::static_pointer_cast<IfcAlignment2DVerSegLine>(vs);
 
@@ -477,7 +462,7 @@ public:
 		v->addElement(std::make_shared<buw::VerticalAlignmentElement2DLine>(a, b));
 	}
 
-	void createVerticalAlignmentParabola(shared_ptr<IfcAlignment2DVerticalSegment> vs, buw::VerticalAlignment2D::Ptr v)
+	void createVerticalAlignmentParabola(shared_ptr<IfcAlignment2DVerticalSegment> vs, buw::ReferenceCounted<buw::VerticalAlignment2D> v)
 	{
 		std::shared_ptr<IfcAlignment2DVerSegParabolicArc> ifcLine = std::static_pointer_cast<IfcAlignment2DVerSegParabolicArc>(vs);
 		
@@ -507,53 +492,15 @@ public:
 
 		v->addElement(std::make_shared<buw::VerticalAlignmentElement2DParabola>(a, b, startGradient, g1));
 	}
-
-	std::vector<Surface::Ptr>	getSurfaces()
-	{
-		return surfaces_;
-	}
-
-	int						getSurfaceCount()
-	{
-		return surfaces_.size();
-	}
-
 private:
 	buw::vector3d									offset_;
-
-	std::vector<buw::Surface::Ptr>					surfaces_;
-	std::vector<buw::Alignment2DBased3D::Ptr>		alignments_;
 };
 	
 OpenInfraPlatform::Infrastructure::IfcRoadImport::IfcRoadImport(
  	const std::string& filename) :
+	Import(filename),
 impl_(new IfcRoadImportImpl(filename))
 {
-
-}
-
-OpenInfraPlatform::Infrastructure::IfcRoadImport::~IfcRoadImport()
-{
-
-}
-
-int OpenInfraPlatform::Infrastructure::IfcRoadImport::getAlignmentCount() const
-{
-	return impl_->getAlignmentCount();
-}
-
-std::vector<buw::Alignment2DBased3D::Ptr> OpenInfraPlatform::Infrastructure::IfcRoadImport::getAlignments()
-{
-	return impl_->getAlignments();
-}
-
-std::vector<buw::Surface::Ptr>
-OpenInfraPlatform::Infrastructure::IfcRoadImport::getSurfaces()
-{
-	return impl_->getSurfaces();
-}
-
-int OpenInfraPlatform::Infrastructure::IfcRoadImport::getSurfaceCount()
-{
-	return impl_->getSurfaceCount();
+	alignmentModel_ = impl_->getAlignmentModel();
+	digitalElevationModel_ = impl_->getDigitalElevationModel();
 }

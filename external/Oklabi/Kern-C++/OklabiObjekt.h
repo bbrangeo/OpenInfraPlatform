@@ -30,6 +30,7 @@
 * 2013-12-17 Instanzen für Wert-Objekte zulassen
 * 2014-01-13 Speicheroptimierungen beim Laden von OKSTRA-Daten
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
+* 2014-09-18 Speicherprobleme unter 32 Bit bei grossen Dateien
 * 
 ****************************************************************************/
 #ifndef DEFOklabiObjekt
@@ -67,6 +68,7 @@ class OklabiObjekt : public OklabiRoot
 	friend class ObjektVertreter;
 	friend class Fachobjekt;
 #endif
+	friend class OklabiSynchronisierer;
 public:
 	virtual void OKLABI_API Vernichte() const;
 	virtual Text OKLABI_API GibDokumentation() const;
@@ -139,13 +141,34 @@ public:
 	static void OKLABI_API       Report(size_t, bool = true);
 };
 
+// Diese Klasse dient dazu, die Synchronisierung für OklabiObjekte
+// bei der (De-)Referenzierung von aussen sicher zu stellen. Beim
+// Verlassen des Code-Blockes, in dem das Objekt angelegt wurde,
+// erfolgt die automatische Freigabe auch wenn der auslösende Anlass
+// eine Ausnahme ist.
+// Die Benutzung erfolgt durch simples Anlegen eines Objektes dieser
+// Klasse auf dem Stack (nicht per new!).
+class OKLABI_API OklabiSynchronisierer : public OklabiRoot
+{
+public:
+	OklabiSynchronisierer();
+	~OklabiSynchronisierer();
+private:
+#ifdef OKLABI_KERN
+	Sync::CriticalRegionOwnership*
+#else
+	void*
+#endif
+		 m_pSection;
+};
+
 // Diese Klasse dient dazu, OklabiObjekte am Ende eines Codeblockes
 // freizugeben, sobald der Block verlassen wird (auch im Falle von
 // Ausnahmen). Es werden nur Objekte vernichtet, die nicht geschützt
 // sind und vernichtet werden dürfen.
 // Bitte nur benutzen falls das Objekt wirklich nicht mehr gebraucht
 // wird, wenn der Codeblock verlassen wird!
-// Die Butzung erfolgt durch simples Anlegen eines Objektes dieser
+// Die Benutzung erfolgt durch simples Anlegen eines Objektes dieser
 // Klasse auf dem Stack (nicht per new!).
 class OKLABI_API ObjektFreigabe : public OklabiRoot
 {

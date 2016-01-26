@@ -8,7 +8,7 @@
 
 #include "Alignment2DBased3D.h"
 
-buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(Alignment2DBased3D::Ptr alignment)
+buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(buw::ReferenceCounted<Alignment2DBased3D> alignment)
 {
 	// we run along along all alignments an determine the corresponding position
 	// this my seem stupid at first glance, but in this way we have not to introduce
@@ -31,7 +31,7 @@ buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(Alig
 	return buw::AxisAlignedBoundingBox3d(min_, max_);
 }
 
-buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(std::vector<IAlignment3D::Ptr> alignments)
+buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(std::vector<buw::ReferenceCounted<IAlignment3D>> alignments)
 {
 	// we run along along all alignments an determine the corresponding position
 	// this my seem stupid at first glance, but in this way we have not to introduce
@@ -57,7 +57,7 @@ buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::getExtends(std:
 	return buw::AxisAlignedBoundingBox3d(min_, max_);
 }
 
-buw::CrossSectionStatic::Ptr OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getCrossSection( const int index )
+buw::ReferenceCounted<buw::CrossSectionStatic> OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getCrossSection(const int index)
 {
 	return crossSections_[index];
 }
@@ -67,7 +67,7 @@ int OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getCrossSectionCount(
 	return static_cast<int>(crossSections_.size());
 }
 
-void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::addCrossSection( buw::CrossSectionStatic::Ptr cs )
+void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::addCrossSection(buw::ReferenceCounted<buw::CrossSectionStatic> cs)
 {
 	crossSections_.push_back(cs);
 }
@@ -93,12 +93,12 @@ buw::AxisAlignedBoundingBox3d OpenInfraPlatform::Infrastructure::Alignment2DBase
 	return buw::AxisAlignedBoundingBox3d(min_, max_);
 }
 
-void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::setVerticalAlignment( VerticalAlignment2D::Ptr verticalAlignment )
+void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::setVerticalAlignment(buw::ReferenceCounted<VerticalAlignment2D> verticalAlignment)
 {
 	verticalAlignment_ = verticalAlignment;
 }
 
-OpenInfraPlatform::Infrastructure::VerticalAlignment2D::Ptr OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getVerticalAlignment() const
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::VerticalAlignment2D> OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getVerticalAlignment() const
 {
 	return verticalAlignment_;
 }
@@ -118,12 +118,12 @@ bool OpenInfraPlatform::Infrastructure::Alignment2DBased3D::hasVerticalAlignment
 	return (verticalAlignment_ != nullptr);
 }
 
-void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::setHorizontalAlignment( buw::HorizontalAlignment2D::Ptr horizontalAlignment )
+void OpenInfraPlatform::Infrastructure::Alignment2DBased3D::setHorizontalAlignment(buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment)
 {
 	horizontalAlignment_ = horizontalAlignment;
 }
 
-OpenInfraPlatform::Infrastructure::HorizontalAlignment2D::Ptr OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getHorizontalAlignment() const
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::HorizontalAlignment2D> OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getHorizontalAlignment() const
 {
 	return horizontalAlignment_;
 }
@@ -192,8 +192,8 @@ buw::vector3d OpenInfraPlatform::Infrastructure::Alignment2DBased3D::getPosition
 	return buw::vector3d(hp.x(), hp.y(), vp.y());
 }
 
-OpenInfraPlatform::Infrastructure::Alignment2DBased3D::Alignment2DBased3D( HorizontalAlignment2D::Ptr horizontalAlignment /*= nullptr*/,
-	VerticalAlignment2D::Ptr verticalAlignment /*= nullptr*/ ) :
+OpenInfraPlatform::Infrastructure::Alignment2DBased3D::Alignment2DBased3D(buw::ReferenceCounted<HorizontalAlignment2D> horizontalAlignment /*= nullptr*/,
+	buw::ReferenceCounted<VerticalAlignment2D> verticalAlignment /*= nullptr*/) :
 horizontalAlignment_(horizontalAlignment),
 verticalAlignment_(verticalAlignment),
 IAlignment3D(e3DAlignmentType::e2DBased)

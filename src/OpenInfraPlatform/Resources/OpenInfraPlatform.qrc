@@ -4,8 +4,19 @@
     <file>open.png</file>
     <file>redo.svg</file>
   </qresource>
+  <qresource prefix="images">
+    <file>splash.png</file>
+  </qresource>
   <qresource prefix="/">
-    <file>widgets/up_arrow_disabled.png</file>
+    <file>ACA.svg</file>
+    <file>ACA2.svg</file>
+    <file>ACCA.svg</file>
+    <file>ACCA2.svg</file>
+    <file>LAAL.svg</file>
+    <file>LAAAL.svg</file>
+    <file>LClothoid.svg</file>
+    <file>LCCL.svg</file>
+    <file>LCACL.svg</file>
     <file>widgets/up_arrow_disabled.png</file>
     <file>widgets/down_arrow.png</file>
     <file>widgets/up_arrow.png</file>

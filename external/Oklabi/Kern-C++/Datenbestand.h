@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Datenbestand.h 2014-07-10 15:00:00 vogelsang $
+* $Id: Datenbestand.h 2015-03-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -40,6 +40,8 @@
 * 2014-05-09 Iteration über Datenbestand beschleunigen
 * 2014-05-21 BoundingBox für Datenbestand erfragen
 * 2014-07-10 SQL-Anbindung vorbereiten
+* 2015-02-24 Referenzielles Geometrieformat(2)
+* 2015-03-24 Unnötige Befreundung entfernt
 * 
 ****************************************************************************/
 #ifndef DEFDatenbestand
@@ -105,6 +107,7 @@ class OKLABI_API Datenbestand : public OklabiObjekt
 	friend class Transaktion;
 	friend class DBImporteur;
 	friend class Profil;
+	friend class Geometrie;
 
 public:
 	static Datenbestand*		Erzeuge(const Version*);
@@ -147,10 +150,6 @@ public:
 		friend class Datenbestand;
 		friend class CTEAusgabeKonverter;
 		friend class XMLAusgabeKonverter;
-#ifdef OKLABI_KERN
-		friend class iterator;
-		friend class const_iterator;
-#endif
 	private:
 		ObjectCollection();
 		~ObjectCollection();
@@ -278,6 +277,7 @@ protected:
 	EingabeKonverter*			m_pInpCv;
 	AusgabeKonverter*			m_pOutCv;
 	const Profil*               m_pProfil;
+	MapRefGeoType*              m_pMapRefGeo;
 
 	bool                        m_bSort;
 	bool                        m_bVollstaendigesLoeschen;

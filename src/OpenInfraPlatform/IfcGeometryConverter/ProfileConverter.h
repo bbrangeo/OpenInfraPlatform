@@ -930,9 +930,9 @@ namespace OpenInfraPlatform
 				}
 
 				//not supported ProfileDef
-				std::stringstream strs;
-				strs << "IfcProfileDef not supported: " << profileDef->classname() << " ";// << __func__;
-				throw  std::runtime_error(strs.str().c_str());
+				std::stringstream sstr;
+				sstr << "IfcProfileDef not supported: " << profileDef->classname() << " #" << profileDef->getId();// << __func__;
+				throw std::runtime_error(sstr.str().c_str());
 			}
 
 			/*
@@ -1016,9 +1016,12 @@ namespace OpenInfraPlatform
 
 			void convertIfcArbitraryProfileWithVoids(const std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryProfileDefWithVoids>& profile_with_voids,
 				const std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryProfileDefWithVoids>& next_profile_with_voids,
+				const carve::math::Matrix& placement,
 				std::shared_ptr<ItemData> itemData,
-				const double abscissa, const double next_abscissa)
+				const carve::geom::vector<3>& abscissa, const carve::geom::vector<3>& next_abscissa)
 			{
+				const double lengthFactor = m_unitConverter->getLengthInMeterFactor();
+
 				std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef> outer_curve = 
 					dynamic_pointer_cast<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef>(profile_with_voids);
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCurve> > inner_curves = profile_with_voids->m_InnerCurves;
@@ -1026,12 +1029,13 @@ namespace OpenInfraPlatform
 				std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef> next_outer_curve = dynamic_pointer_cast<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef>(next_profile_with_voids);
 				std::vector<std::shared_ptr<typename IfcEntityTypesT::IfcCurve> > next_inner_curves = next_profile_with_voids->m_InnerCurves;
 
+				// if there is any outer curve (as closed profile) convert it to geometry first
 				if (outer_curve) 
 				{
-					convertIfcArbitraryClosedProfileDef(outer_curve, next_outer_curve, itemData, abscissa, next_abscissa);
+					convertIfcArbitraryClosedProfileDef(outer_curve, next_outer_curve, placement, itemData, abscissa, next_abscissa);
 				}
 
-
+				// then convert all inner curve profiles
 				for (int i = 0; i < inner_curves.size(); ++i)
 				{
 					//this inner curve
@@ -1064,16 +1068,21 @@ namespace OpenInfraPlatform
 							int h = (j + 1) % polyline->m_Points.size();
 
 							carve::geom::vector<3> position =
-								carve::geom::VECTOR(polyline->m_Points[j]->m_Coordinates[0]->m_value + abscissa,
-								polyline->m_Points[j]->m_Coordinates[1]->m_value,
-								polyline->m_Points[j]->m_Coordinates[2]->m_value);
+								carve::geom::VECTOR(polyline->m_Points[j]->m_Coordinates[0]->m_value * lengthFactor,
+								polyline->m_Points[j]->m_Coordinates[1]->m_value * lengthFactor,
+								polyline->m_Points[j]->m_Coordinates[2]->m_value * lengthFactor);
+
+							position += abscissa;
+							position = placement * position;
 
 							carve::geom::vector<3> nextPosition =
-								carve::geom::VECTOR(polyline->m_Points[h]->m_Coordinates[0]->m_value + abscissa,
-								polyline->m_Points[h]->m_Coordinates[1]->m_value,
-								polyline->m_Points[h]->m_Coordinates[2]->m_value);
+								carve::geom::VECTOR(polyline->m_Points[h]->m_Coordinates[0]->m_value * lengthFactor,
+								polyline->m_Points[h]->m_Coordinates[1]->m_value * lengthFactor,
+								polyline->m_Points[h]->m_Coordinates[2]->m_value * lengthFactor);
 
-							
+							nextPosition += abscissa;
+							nextPosition = placement * nextPosition;
+
 							polylineData->beginPolyline();
 
 							size_t i1 = polylineData->addVertex(position);
@@ -1083,17 +1092,23 @@ namespace OpenInfraPlatform
 
 							if (next_polyline)
 							{
-								if (polyline->m_Points.size() != next_polyline->m_Points.size()) return;
+								if (polyline->m_Points.size() != next_polyline->m_Points.size()) { return; }
 
 								carve::geom::vector<3> position2 =
-									carve::geom::VECTOR(next_polyline->m_Points[j]->m_Coordinates[0]->m_value + next_abscissa,
-									next_polyline->m_Points[j]->m_Coordinates[1]->m_value,
-									next_polyline->m_Points[j]->m_Coordinates[2]->m_value);
+									carve::geom::VECTOR(next_polyline->m_Points[j]->m_Coordinates[0]->m_value * lengthFactor,
+									next_polyline->m_Points[j]->m_Coordinates[1]->m_value * lengthFactor,
+									next_polyline->m_Points[j]->m_Coordinates[2]->m_value * lengthFactor);
+
+								position2 += next_abscissa;
+								position2 = placement * position2;
 
 								carve::geom::vector<3> nextPosition2 =
-									carve::geom::VECTOR(next_polyline->m_Points[h]->m_Coordinates[0]->m_value + next_abscissa,
-									next_polyline->m_Points[h]->m_Coordinates[1]->m_value,
-									next_polyline->m_Points[h]->m_Coordinates[2]->m_value);
+									carve::geom::VECTOR(next_polyline->m_Points[h]->m_Coordinates[0]->m_value * lengthFactor,
+									next_polyline->m_Points[h]->m_Coordinates[1]->m_value * lengthFactor,
+									next_polyline->m_Points[h]->m_Coordinates[2]->m_value * lengthFactor);
+
+								nextPosition2 += next_abscissa;
+								nextPosition2 = placement * nextPosition2;
 
 								// set string id and search for existing vertex in polygon
 								std::stringstream vID, vID2, vID3, vID4;
@@ -1134,9 +1149,11 @@ namespace OpenInfraPlatform
 
 			void convertIfcArbitraryClosedProfileDef(const std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef>& profile,
 				const std::shared_ptr<typename IfcEntityTypesT::IfcArbitraryClosedProfileDef>& next_profile,
+				const carve::math::Matrix& placement,
 				std::shared_ptr<ItemData> itemData,
-				double abscissa, double next_abscissa) const
+				const carve::geom::vector<3>& abscissa, const carve::geom::vector<3>& next_abscissa) const
 			{
+				const double lengthFactor = m_unitConverter->getLengthInMeterFactor();
 
 				std::shared_ptr<typename IfcEntityTypesT::IfcCurve> outer_curve = profile->m_OuterCurve;
 				std::shared_ptr<typename IfcEntityTypesT::IfcPolyline> polyline = 
@@ -1160,14 +1177,20 @@ namespace OpenInfraPlatform
 						int j = (i + 1) % polyline->m_Points.size();
 
 						carve::geom::vector<3> position =
-							carve::geom::VECTOR(polyline->m_Points[i]->m_Coordinates[0]->m_value + abscissa,
-							polyline->m_Points[i]->m_Coordinates[1]->m_value,
-							polyline->m_Points[i]->m_Coordinates[2]->m_value);
+							carve::geom::VECTOR(polyline->m_Points[i]->m_Coordinates[0]->m_value * lengthFactor,
+							polyline->m_Points[i]->m_Coordinates[1]->m_value * lengthFactor,
+							polyline->m_Points[i]->m_Coordinates[2]->m_value * lengthFactor);
+
+						position += abscissa;
+						position = placement * position;
 
 						carve::geom::vector<3> nextPosition =
-							carve::geom::VECTOR(polyline->m_Points[j]->m_Coordinates[0]->m_value + abscissa,
-							polyline->m_Points[j]->m_Coordinates[1]->m_value,
-							polyline->m_Points[j]->m_Coordinates[2]->m_value);
+							carve::geom::VECTOR(polyline->m_Points[j]->m_Coordinates[0]->m_value * lengthFactor,
+							polyline->m_Points[j]->m_Coordinates[1]->m_value * lengthFactor,
+							polyline->m_Points[j]->m_Coordinates[2]->m_value * lengthFactor);
+
+						nextPosition += abscissa;
+						nextPosition = placement * nextPosition;
 
 						polylineData->beginPolyline();
 
@@ -1178,17 +1201,23 @@ namespace OpenInfraPlatform
 
 						if (next_polyline)
 						{
-							if (polyline->m_Points.size() != next_polyline->m_Points.size()) return;
+							if (polyline->m_Points.size() != next_polyline->m_Points.size()) { return; }
 
 							carve::geom::vector<3> position2 =
-								carve::geom::VECTOR(next_polyline->m_Points[i]->m_Coordinates[0]->m_value + next_abscissa,
-								next_polyline->m_Points[i]->m_Coordinates[1]->m_value,
-								next_polyline->m_Points[i]->m_Coordinates[2]->m_value);
+								carve::geom::VECTOR(next_polyline->m_Points[i]->m_Coordinates[0]->m_value * lengthFactor,
+								next_polyline->m_Points[i]->m_Coordinates[1]->m_value * lengthFactor,
+								next_polyline->m_Points[i]->m_Coordinates[2]->m_value * lengthFactor);
+
+							position2 += next_abscissa;
+							position2 = placement * position2;
 
 							carve::geom::vector<3> nextPosition2 =
-								carve::geom::VECTOR(next_polyline->m_Points[j]->m_Coordinates[0]->m_value + next_abscissa,
-								next_polyline->m_Points[j]->m_Coordinates[1]->m_value,
-								next_polyline->m_Points[j]->m_Coordinates[2]->m_value);
+								carve::geom::VECTOR(next_polyline->m_Points[j]->m_Coordinates[0]->m_value * lengthFactor,
+								next_polyline->m_Points[j]->m_Coordinates[1]->m_value * lengthFactor,
+								next_polyline->m_Points[j]->m_Coordinates[2]->m_value * lengthFactor);
+
+							nextPosition2 += next_abscissa;
+							nextPosition2 = placement * nextPosition2;
 
 							// set string id and search for existing vertex in polygon
 							std::stringstream vID, vID2, vID3, vID4;
@@ -1198,11 +1227,6 @@ namespace OpenInfraPlatform
 							vID4 << nextPosition2.x << " " << nextPosition2.y << " " << nextPosition2.z;
 
 							uint32_t index1, index2, index3, index4;
-
-							/*index1 = polygon->addVertex(position);
-							index2 = polygon->addVertex(position2);
-							index3 = polygon->addVertex(nextPosition);
-							index4 = polygon->addVertex(nextPosition2);*/
 
 							auto itFound = polygonIndices.find(vID.str());
 							if (itFound != polygonIndices.end()) { index1 = itFound->second; }

@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Protokollant.h 2010-04-30 15:00:00 vogelsang $
+* $Id: Protokollant.h 2012-10-01 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2012, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -21,6 +21,7 @@
 * Die Erklärungen zum Gewährleistungsausschluß und zur Haftungsbegrenzung 
 * befinden sich bei den Nutzungsbestimmungen.
 * 
+* 2012-10-01 Protokollant nutzt Ausgabe
 * 
 ****************************************************************************/
 #ifndef DEFProtokollant
@@ -41,13 +42,13 @@ namespace Oklabi
 	{
 		friend class Umgebung;
 	public:
-		virtual void Melde(int, const Text&, eMeldTyp) = 0;
+		virtual void            Melde(int, const Text&, eMeldTyp) = 0;
 	protected:
 		OKLABI_API Protokollant();
 		OKLABI_API ~Protokollant();
-		OKLABI_API bool KannVernichten() const;
+		OKLABI_API bool         KannVernichten() const;
 	private:
-		eProtokollTyp m_eInUse;
+		eProtokollTyp           m_eInUse;
 	};
 }// End of namespace Oklabi
 

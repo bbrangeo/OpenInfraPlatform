@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: SI-Geometrie.h 2014-01-17 13:56:43 vogelsang $
+* $Id: SI-Geometrie.h 2015-02-24 13:56:43 vogelsang $
 * $Paket: Oklabi-Kern Schema $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -25,6 +25,7 @@
 * 2012-10-31 Stationskorrektur bei Teilabschnitten
 * 2013-11-15 Geometriemethoden ergänzt
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
+* 2015-02-24 Referenzielles Geometrieformat(2)
 *
 ****************************************************************************/
 /* Change-Log:
@@ -41,7 +42,16 @@ class SchemaGeo : public SchemaGeoWrapper
 {
 friend class Schema;
 friend class SchemaGeoWrapper;
+friend class XMLAusgabeKonverter;
+friend class XMLEingabeKonverter;
+friend class XMLAdapter;
+private:
 static double KorrigiereStation(double stat, FachobjektPtr AoAPtr, const GeoLinie* pGeometrie);
+static bool IsRefGeo();
+static bool DelExpressGeo(FachobjektPtr);
+static void CollectRef(FachobjektPtr, const Text&, FachobjektPtr, FachobjektMengeImpl&, Geometrie*&);
+static size_t CollectPointRef(FachobjektPtr, FachobjektPtr, FachobjektMengeImpl&, Geometrie*&);
+static Geometrie* CollectGeo(FachobjektPtr, const Text&, Geometrie*);
 static bool LocalInit();
 static bool initialized;
 static const char* GibExpressVersion();

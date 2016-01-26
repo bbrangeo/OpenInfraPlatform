@@ -23,7 +23,7 @@ namespace OpenInfraPlatform
 		public:
 			BLUE_DEFINE_SHARED_POINTER(Hud);
 
-			Hud(buw::IRenderSystem::Ptr renderSystem, buw::IRenderContext::Ptr renderContext);
+			Hud(buw::ReferenceCounted<buw::IRenderSystem> renderSystem, buw::ReferenceCounted<buw::IRenderContext> renderContext);
 
 			virtual ~Hud();
 
@@ -32,19 +32,19 @@ namespace OpenInfraPlatform
 			void render(const int width, const int height);
 
 		private:
-			buw::IBlendState::Ptr				defaultBlendState_;
-			buw::IBlendState::Ptr				alphaBlendingState_;
+			buw::ReferenceCounted<buw::IBlendState>				defaultBlendState_;
+			buw::ReferenceCounted<buw::IBlendState>				alphaBlendingState_;
 
-			buw::IRenderSystem::Ptr				renderSystem_;
-			buw::IRenderContext::Ptr			renderContext_;
+			buw::ReferenceCounted<buw::IRenderSystem>				renderSystem_;
+			buw::ReferenceCounted<buw::IRenderContext>			renderContext_;
 
-			buw::ITexture2D::Ptr				textureMagnifier_;
-			buw::ITexture2D::Ptr				textureMagnifierHoverd_;
+			buw::ReferenceCounted<buw::ITexture2D>				textureMagnifier_;
+			buw::ReferenceCounted<buw::ITexture2D>				textureMagnifierHoverd_;
 			buw::vector2i						sizeMagnifier_;
 			buw::rectanglef						sourceRectangleMagnifier_;
 			bool								isHoveringMagnifier_;
 
-			buw::SpriteBatch::Ptr				spriteBatch_;
+			buw::ReferenceCounted<buw::SpriteBatch>				spriteBatch_;
 		};
 	} // end namespace UserInterface
 } // end namespace OpenInfraPlatform

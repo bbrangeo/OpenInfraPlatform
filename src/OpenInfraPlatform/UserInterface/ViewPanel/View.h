@@ -1,6 +1,7 @@
 /*! \verbatim
  *  \copyright      Copyright (c) 2015 Julian Amann. All rights reserved.
  *  \author         Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
+ *	\author			Daniel Below <daniel.below@tum.de>
  *  \brief          This file is part of the BlueFramework.
  *  \endverbatim
  */
@@ -29,8 +30,6 @@ namespace OpenInfraPlatform
 			View();
 
 			virtual ~View();
-
-			void setSelectedAlignment( const int index );
 
 			void enableBlueMap( const bool checked );
 			void applyBlueMapProperties( const buw::PropertySet& ps );
@@ -87,12 +86,17 @@ namespace OpenInfraPlatform
 			// Camera Control
 			//---------------------------------------------------------------------------//
 
-			void setInfraCameraController(buw::InfraCameraController::Ptr controller);
-			buw::InfraCameraController::Ptr getInfraCameraController() const;
+			void setInfraCameraController(buw::ReferenceCounted<buw::InfraCameraController> controller);
+			buw::ReferenceCounted<buw::InfraCameraController> getInfraCameraController() const;
 
 			void onViewCubeSelectionChanged(buw::eViewCubeOrientation::Enum state);
 
 			void LoadBridge();
+
+			virtual void changeEvent(QEvent* evt) override;
+
+		private:
+			void retranslateView();
 
 		private Q_SLOTS:
 			void on_actionPerspective();
@@ -108,8 +112,12 @@ namespace OpenInfraPlatform
 
 			void on_home();
 			void on_actionToggleControlMode();
-			
+
 		private:
+			QMenu* menuView_;
+			QMenu* menuAxonometric_;
+			QMenu* menuProjection_;
+
 			QAction* actionPerspective_;
 			QAction* actionOrthographic_;
 

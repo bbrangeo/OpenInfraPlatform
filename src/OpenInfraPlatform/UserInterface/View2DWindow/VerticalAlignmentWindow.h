@@ -27,7 +27,7 @@ namespace OpenInfraPlatform
 		public:
 			VerticalAlignmentScene(QObject *parent = 0);
 
-			void setDigitalElevationModel(buw::DigitalElevationModel::Ptr model);
+			void setDigitalElevationModel(buw::ReferenceCounted<buw::DigitalElevationModel> model);
 
 			void displayPoints(bool display);
 
@@ -37,7 +37,7 @@ namespace OpenInfraPlatform
 		protected:
 			void v_configureColors(A2D_DrawState state) override;
 
-			void v_drawAlignment(buw::Alignment2DBased3D::Ptr a,
+			void v_drawAlignment(buw::ReferenceCounted<buw::Alignment2DBased3D> a,
 				std::map<buw::eHorizontalAlignmentType, QPainterPath>& horizontalPainter,
 				std::map<buw::eVerticalAlignmentType, QPainterPath>& verticalPainter) override;
 			void v_drawDiagram(QPainterPath& diagPainter, QPainterPath& diagDashedPainter) override;
@@ -45,7 +45,7 @@ namespace OpenInfraPlatform
 			void v_addPaths() override;
 
 		private:
-			buw::DigitalElevationModel::Ptr model_;
+			buw::ReferenceCounted<buw::DigitalElevationModel> model_;
 
 			std::vector<std::tuple<int, buw::vector2d, buw::vector2d>> arcPoints;
 			std::vector<std::tuple<int, buw::vector2d, buw::vector2d, buw::vector2d>> parabolaPoints;
@@ -63,10 +63,8 @@ namespace OpenInfraPlatform
 			Q_OBJECT;
 
 		public:
-			VerticalAlignmentWindow(QAction* act);	
+			VerticalAlignmentWindow(QAction* act);
 
-			void setSelectedAlignment(int index);
-			int getSelectedAlignment();
 			void setDifferentColorsForHorizontalAlignmentElements(const bool checked);
 			void setDifferentColorsForVerticalAlignmentElements(const bool checked);
 

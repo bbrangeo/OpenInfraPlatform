@@ -1,3 +1,10 @@
+/*! \verbatim
+ *  \copyright      Copyright (c) 2015 Technische Universität München
+ *                  Chair of Computational Modeling and Simulation. All rights reserved.
+ *  \author         Michael Kern <kernm@in.tum.de> (https://www.cms.bgu.tum.de/en/)
+ *  \brief          This file is part of the TUM Open Infra Platform.
+ *  \endverbatim
+ */
 
 #include "IfcPeekStepReader.h"
 
@@ -91,14 +98,14 @@ IfcPeekStepReader::IfcSchema IfcPeekStepReader::parseIfcHeader(const std::string
 							{
 								return IfcSchema::IFC_2;
 							}
-							else if (schema.substr(0,4).compare("IFC4") == 0)
+
+							if (schema.substr(0,4).compare("IFC4") == 0)
 							{
 								return IfcSchema::IFC_4;
 							}
-							else
-							{
-								return IfcSchema::UNKNOWN;
-							}
+							
+							throw std::exception("IFC schema is not specified or could not be determined.");
+							//return IfcSchema::UNKNOWN;
 						}
 					}
 				}
@@ -107,7 +114,11 @@ IfcPeekStepReader::IfcSchema IfcPeekStepReader::parseIfcHeader(const std::string
 		else if (line.find("DATA") != std::string::npos)
 		{
 			ifcFile.close();
-			return IfcSchema::UNKNOWN;
+			throw std::exception("IFC schema is not specified or could not be determined.");
+			//return IfcSchema::UNKNOWN;
 		}
 	}
+
+	ifcFile.close();
+	throw std::exception("IFC schema is not specified or could not be determined.");
 }

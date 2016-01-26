@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: XMLAdapter.h 2014-07-17 15:00:00 vogelsang $
+* $Id: XMLAdapter.h 2015-02-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -35,6 +35,7 @@
 * 2014-03-27 XMLMultiEingabeKonverter eingeführt 
 * 2014-04-28 Express-Geometriemodell für Version 2.x
 * 2014-07-17 Umwandlung von Enum eKoordRefSys in Schlüsseltabellenwert
+* 2015-02-24 Referenzielles Geometrieformat(2)
 * 
 ****************************************************************************/
 // Zentrale Service-Klasse zur Überbrückung der Modellunterschiede
@@ -99,6 +100,7 @@ class OKLABI_API XMLAdapter : public OklabiObjekt
 	friend class CTEAusgabeKonverter;
 	friend class CTEEingabeKonverter;
 	friend class Profil;
+	friend class SchemaGeo;
 
 private:
 	XMLAdapter(bool = false);

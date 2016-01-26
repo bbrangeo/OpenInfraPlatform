@@ -10,12 +10,10 @@
 #ifndef OpenInfraPlatform_Infrastructure_IfcAlignmenBuildingSmartP6StepFileWriter_85a9dc90_3db8_49d4_a197_2ac34a429c2f_h
 #define OpenInfraPlatform_Infrastructure_IfcAlignmenBuildingSmartP6StepFileWriter_85a9dc90_3db8_49d4_a197_2ac34a429c2f_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
+#include "OpenInfraPlatform/Infrastructure/Export/Export.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
 
 #include "BlueFramework/Core/class.h"
-#include <boost/noncopyable.hpp>
 #include <vector>
 #include <memory>
 
@@ -23,39 +21,44 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
+		enum class eIfcSchemaVersion
+		{
+			IFC2x3,
+			IFC4,
+			IFC4x1
+		};
+		
 		struct ifcAlignmentExportDescription
 		{
+			eIfcSchemaVersion schemaVersion = eIfcSchemaVersion::IFC4x1;
 			bool exportTerrain = true;
 			bool exportAlignment = true;
 			bool useRadiansInsteadOfDegrees = true;
+			bool useFixedEntityIdForGeometry = false;
+			int startId = 4000;
 		};
 
-		class BLUEINFRASTRUCTURE_API IfcAlignmentExport : private boost::noncopyable
+		class BLUEINFRASTRUCTURE_API IfcAlignmentExport : public Export
 		{
-		public:
-			
+		public:			
 			BLUE_DEFINE_SHARED_POINTER(IfcAlignmentExport);
 
 			//! Default constructor.
-			IfcAlignmentExport();
+			IfcAlignmentExport(const ifcAlignmentExportDescription& desc, buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename);
 
 			//! Virtual destructor.
 			virtual ~IfcAlignmentExport();
-			
-			void convert(const ifcAlignmentExportDescription& desc, 
-				buw::DigitalElevationModel::Ptr dem,
-				std::vector<buw::IAlignment3D::Ptr> alignments, 
-				const std::string& filename);
 
 		private:
 			class IfcAlignmentP6ExportImpl;						// Forward declaration of internal class
-			std::shared_ptr<IfcAlignmentP6ExportImpl> impl_;	// Opaque pointer to implementation
+			buw::ReferenceCounted<IfcAlignmentP6ExportImpl> impl_;	// Opaque pointer to implementation
 		}; // end class IfcAlignmenBuildingSmartP6StepFileWriter
 	} // end namespace Infrastructure
 } // end namespace BlueFramework
 
 namespace buw
 {
+	using OpenInfraPlatform::Infrastructure::eIfcSchemaVersion;
 	using OpenInfraPlatform::Infrastructure::IfcAlignmentExport;
 	using OpenInfraPlatform::Infrastructure::ifcAlignmentExportDescription;
 }

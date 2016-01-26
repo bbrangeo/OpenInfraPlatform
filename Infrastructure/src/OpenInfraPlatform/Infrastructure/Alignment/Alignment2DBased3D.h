@@ -27,13 +27,11 @@ namespace OpenInfraPlatform
 		//! is used as a container object.
 		class BLUEINFRASTRUCTURE_API Alignment2DBased3D : public IAlignment3D
 		{
-		public:
-			BLUE_DEFINE_SHARED_POINTER(Alignment2DBased3D);
-				
+		public:				
 			static Alignment2DBased3D* createFlatCopy(const Alignment2DBased3D& src);
 
-			Alignment2DBased3D(HorizontalAlignment2D::Ptr horizontalAlignment = nullptr, 
-				VerticalAlignment2D::Ptr verticalAlignment = nullptr);
+			Alignment2DBased3D(buw::ReferenceCounted<HorizontalAlignment2D> horizontalAlignment = nullptr,
+				buw::ReferenceCounted<VerticalAlignment2D> verticalAlignment = nullptr);
 
 			virtual ~Alignment2DBased3D() {}
 
@@ -61,9 +59,9 @@ namespace OpenInfraPlatform
 			//! Computes the 2d position in the horizontal alignment given a stationing.
 			buw::vector2d				getHorizontalPosition(const buw::Stationing station ) const;
 
-			HorizontalAlignment2D::Ptr	getHorizontalAlignment() const;
+			buw::ReferenceCounted<HorizontalAlignment2D>	getHorizontalAlignment() const;
 
-			void						setHorizontalAlignment(buw::HorizontalAlignment2D::Ptr horizontalAlignment);
+			void						setHorizontalAlignment(buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment);
 
 			//---------------------------------------------------------------------------//
 			// Vertical Alignment
@@ -73,9 +71,9 @@ namespace OpenInfraPlatform
 
 			buw::vector2d				getVerticalPosition(const Stationing station ) const;
 
-			VerticalAlignment2D::Ptr	getVerticalAlignment() const;
+			buw::ReferenceCounted<VerticalAlignment2D>	getVerticalAlignment() const;
 
-			void						setVerticalAlignment(VerticalAlignment2D::Ptr verticalAlignment);
+			void						setVerticalAlignment(buw::ReferenceCounted<VerticalAlignment2D> verticalAlignment);
 
 			buw::AxisAlignedBoundingBox3d getVerticalAlignmentExtends() const;
 			
@@ -83,22 +81,22 @@ namespace OpenInfraPlatform
 			// Cross Section
 			//---------------------------------------------------------------------------//
 
-			void						addCrossSection(buw::CrossSectionStatic::Ptr cs);
+			void						addCrossSection(buw::ReferenceCounted<buw::CrossSectionStatic> cs);
 			void						sortCrossSectionsByStation();
 
 			int								getCrossSectionCount();
-			buw::CrossSectionStatic::Ptr	getCrossSection(const int index);
+			buw::ReferenceCounted<buw::CrossSectionStatic>	getCrossSection(const int index);
 
 		private:
-			std::vector<buw::CrossSectionStatic::Ptr>	crossSections_;
-			HorizontalAlignment2D::Ptr					horizontalAlignment_;
-			VerticalAlignment2D::Ptr					verticalAlignment_;
+			std::vector<buw::ReferenceCounted<buw::CrossSectionStatic>>	crossSections_;
+			buw::ReferenceCounted<HorizontalAlignment2D>				horizontalAlignment_;
+			buw::ReferenceCounted<VerticalAlignment2D>					verticalAlignment_;
 		};
 
-		BLUEINFRASTRUCTURE_API buw::AxisAlignedBoundingBox3d getExtends(Alignment2DBased3D::Ptr alignment);
-		BLUEINFRASTRUCTURE_API buw::AxisAlignedBoundingBox3d getExtends(std::vector<IAlignment3D::Ptr> alignments);
+		BLUEINFRASTRUCTURE_API buw::AxisAlignedBoundingBox3d getExtends(buw::ReferenceCounted<Alignment2DBased3D> alignment);
+		BLUEINFRASTRUCTURE_API buw::AxisAlignedBoundingBox3d getExtends(std::vector<buw::ReferenceCounted<IAlignment3D>> alignments);
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

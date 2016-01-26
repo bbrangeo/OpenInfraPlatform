@@ -112,7 +112,7 @@ namespace OpenInfraPlatform
 			std::shared_ptr<ExcelReportImpl> impl_;	// Opaque pointer to implementation
 		}; // end class ExcelReport2
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

@@ -7,11 +7,13 @@
  */
 
 #include "ImportXYZ.h"
-#include "../Data.h"
+#include "OpenInfraPlatform/DataManagement/Data.h"
 
-OpenInfraPlatform::DataManagement::Command::ImportXYZ::ImportXYZ(const std::vector<buw::vector3d>& positions)
+OpenInfraPlatform::DataManagement::Command::ImportXYZ::ImportXYZ(const std::string& filename, const buw::vector2d& start, const buw::vector2d& end)
 {
-	positions_ = positions;
+	filename_ = filename;
+	start_ = start;
+	end_ = end;
 }
 
 OpenInfraPlatform::DataManagement::Command::ImportXYZ::~ImportXYZ()
@@ -21,7 +23,7 @@ OpenInfraPlatform::DataManagement::Command::ImportXYZ::~ImportXYZ()
 
 void OpenInfraPlatform::DataManagement::Command::ImportXYZ::execute()
 {
-	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().importXYZ(positions_);
+	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().importXYZ(filename_, start_, end_);
 }
 
 void OpenInfraPlatform::DataManagement::Command::ImportXYZ::unexecute()

@@ -107,7 +107,7 @@ void OpenInfraPlatform::UserInterface::Alignment2DScene::drawAlignmentScene()
 
 	if (alignment_->getAlignment(selectedAlignmentIndex_)->getType() == buw::e3DAlignmentType::e2DBased)
 	{
-		buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment_->getAlignment(selectedAlignmentIndex_));
+		buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment_->getAlignment(selectedAlignmentIndex_));
 
 		v_drawAlignment(a, horizontalPainter, verticalPainter);
 	}
@@ -426,7 +426,7 @@ void OpenInfraPlatform::UserInterface::Alignment2DScene::exportToFile(QWidget* p
 	}
 }
 
-void OpenInfraPlatform::UserInterface::Alignment2DScene::setAlignment(OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr alignment)
+void OpenInfraPlatform::UserInterface::Alignment2DScene::setAlignment(buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> alignment)
 {
 	alignment_ = alignment;
 }

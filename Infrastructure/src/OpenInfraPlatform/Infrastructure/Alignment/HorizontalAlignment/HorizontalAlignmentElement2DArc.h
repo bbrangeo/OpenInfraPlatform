@@ -22,8 +22,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2DArc : public HorizontalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2DArc);
-
 			typedef BlueFramework::Core::Math::vector2d vector2d;
 
 			HorizontalAlignmentElement2DArc(
@@ -60,7 +58,7 @@ namespace OpenInfraPlatform
 			bool			clockWise_;
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

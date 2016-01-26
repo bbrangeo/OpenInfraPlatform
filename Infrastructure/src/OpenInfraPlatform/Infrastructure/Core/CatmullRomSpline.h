@@ -81,7 +81,7 @@ namespace OpenInfraPlatform
 				// Relative (local) time 
 				ScalarType lt = (t - delta_t*(ScalarType)p) / delta_t;
 				// Interpolate
-				return Eq(lt, vp[p0], vp[p1], vp[p2], vp[p3]);
+				return  Eq(lt, vp[p0], vp[p1], vp[p2], vp[p3]);
 			}
 			
 			int GetNumPoints() const

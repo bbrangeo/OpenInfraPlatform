@@ -21,7 +21,7 @@ namespace OpenInfraPlatform
 		{
 			// todo: do not add duplicates
 			vertexbuffer.push_back(
-				buw::VertexPositionNormalTexture::create(
+				buw::VertexPosition3Normal3Texture2::create(
 				position, normal, uv)
 				);
 		//	static int indexCount = 0;
@@ -29,16 +29,16 @@ namespace OpenInfraPlatform
 			return static_cast<int>(vertexbuffer.size() - 1);
 		}
 
-		std::vector<buw::VertexPositionNormalTexture> vertexbuffer;
+		std::vector<buw::VertexPosition3Normal3Texture2> vertexbuffer;
 	};
 
-	BlueFramework::Engine::SimpleMesh::Ptr
+	buw::ReferenceCounted<BlueFramework::Engine::SimpleMesh>
 		ConvertToSimpleMesh( 
 		const buw::Surface* s ) 
 	{
 		VertexAndIndexBufferCreator vbc;
 
-		BlueFramework::Engine::SimpleMesh::Ptr sm = 
+		buw::ReferenceCounted<BlueFramework::Engine::SimpleMesh> sm = 
 			std::make_shared<BlueFramework::Engine::SimpleMesh>();
 
 		std::vector< std::uint32_t > indices;

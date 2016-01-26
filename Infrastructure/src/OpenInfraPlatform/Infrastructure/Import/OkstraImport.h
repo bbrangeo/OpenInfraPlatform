@@ -10,9 +10,7 @@
 #ifndef OpenInfraPlatform_Infrastructure_OkstraImport_10fa5edb_cffa_4650_b56c_4ff3c1851c8d_h
 #define OpenInfraPlatform_Infrastructure_OkstraImport_10fa5edb_cffa_4650_b56c_4ff3c1851c8d_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
+#include "OpenInfraPlatform/Infrastructure/Import/Import.h"
 
 #include <buw.BlueCore.h>
 #include <boost/noncopyable.hpp>
@@ -21,20 +19,11 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		class BLUEINFRASTRUCTURE_API OkstraImport
+		class BLUEINFRASTRUCTURE_API OkstraImport : public Import
 		{
 		public:
 			//! Default constructor.
 			OkstraImport(const std::string& filename);
-
-			//! Virtual destructor.
-			virtual ~OkstraImport();
-
-			std::vector<buw::IAlignment3D::Ptr> getAlignments();
-
-			int	getAlignmentCount();
-
-			buw::DigitalElevationModel::Ptr getDigitalElevationModel();
 
 		private:
 			class OkstraImportImpl;						// Forward declaration of internal class
@@ -42,7 +31,7 @@ namespace OpenInfraPlatform
 		}; // end class OkstraImport
 
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

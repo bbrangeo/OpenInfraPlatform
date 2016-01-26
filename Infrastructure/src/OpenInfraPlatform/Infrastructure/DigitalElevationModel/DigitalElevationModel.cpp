@@ -21,7 +21,7 @@ OpenInfraPlatform::Infrastructure::DigitalElevationModel::~DigitalElevationModel
 
 }
 
-void OpenInfraPlatform::Infrastructure::DigitalElevationModel::addSurface(buw::Surface::Ptr surface)
+void OpenInfraPlatform::Infrastructure::DigitalElevationModel::addSurface(buw::ReferenceCounted<buw::Surface> surface)
 {
 	surfaces_.push_back(surface);
 }
@@ -31,9 +31,14 @@ int OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfaceCount() 
 	return static_cast<int>(surfaces_.size());
 }
 
-buw::Surface::Ptr OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurface(const int index) const
+buw::ReferenceCounted<buw::Surface> OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurface(const int index) const
 {
 	return surfaces_[index];
+}
+
+const std::vector<buw::ReferenceCounted<buw::Surface>>& OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfaces() const
+{
+	return surfaces_;
 }
 
 void OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfacesExtend(
@@ -69,14 +74,14 @@ void OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfacesExtend
 }
 
 std::vector<std::pair<double, double>> 
-OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfaceProfile(buw::IAlignment3D::Ptr a) const
+OpenInfraPlatform::Infrastructure::DigitalElevationModel::getSurfaceProfile(buw::ReferenceCounted<buw::IAlignment3D> a) const
 {
 	std::vector<std::pair<double, double>> profile;
 
 	for (double s = a->getStartStation(); s < a->getEndStation(); s+=0.5)
 	{
 		buw::vector2d position = a->getPosition(s).xy();
-		for(buw::Surface::Ptr surface : surfaces_)
+		for(buw::ReferenceCounted<buw::Surface> surface : surfaces_)
 		{
 			if(surface->contains(position))
 			{
@@ -94,7 +99,7 @@ double OpenInfraPlatform::Infrastructure::DigitalElevationModel::getHeightAtPosi
 {
 	double z = 0;
 
-	for (buw::Surface::Ptr surface : surfaces_)
+	for (buw::ReferenceCounted<buw::Surface> surface : surfaces_)
 	{
 		if (surface->contains(position))
 		{
@@ -148,7 +153,7 @@ buw::vector3d OpenInfraPlatform::Infrastructure::DigitalElevationModel::getCente
 	return extendMinimum + 0.5 * (extendMaximum - extendMinimum);
 }
 
-void OpenInfraPlatform::Infrastructure::DigitalElevationModel::deleteSurface(buw::Surface::Ptr s)
+void OpenInfraPlatform::Infrastructure::DigitalElevationModel::deleteSurface(buw::ReferenceCounted<buw::Surface> s)
 {
 	auto iterator = std::find(surfaces_.begin(), surfaces_.end(), s);
 
@@ -191,10 +196,10 @@ extern "C" {
 #include "libqhull/qset.h"
 }
 
-OpenInfraPlatform::Infrastructure::Surface::Ptr
+buw::ReferenceCounted<buw::Surface>
 OpenInfraPlatform::Infrastructure::createSurfaceFromXYZPoints(const std::vector<buw::vector3d>& positions)
 {
-	OpenInfraPlatform::Infrastructure::Surface::Ptr s = std::make_shared<buw::Surface>();
+	buw::ReferenceCounted<buw::Surface> s = std::make_shared<buw::Surface>();
 
 	buw::vector2d min(std::numeric_limits<double>::max());
 	for (auto& pos : positions)

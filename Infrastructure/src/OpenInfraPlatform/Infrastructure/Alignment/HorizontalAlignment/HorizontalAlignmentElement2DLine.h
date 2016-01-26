@@ -22,8 +22,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2DLine : public HorizontalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2DLine);
-
 			typedef BlueFramework::Core::Math::vector2d vector2d;
 
 		public:
@@ -48,7 +46,7 @@ namespace OpenInfraPlatform
 			vector2d end_;
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

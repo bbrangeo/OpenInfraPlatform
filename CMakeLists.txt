@@ -1,15 +1,15 @@
-# Copyright (c) 2015 Julian Amann <vertexwahn@gmx.de>
-cmake_minimum_required(VERSION 3.1.0)
+# Copyright (c) 2015 Julian Amann <julian.amann@tum.de>
+cmake_minimum_required(VERSION 3.4.1)
 
 option(OIP_USE_PREBUILD_EARLYBINDING_LIBS "Set to OFF to build early binding by yourself" OFF)
 
 project(OpenInfraPlatform)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_definitions(-D_UNICODE # Unicode rules; No qt keywords; Export bluecore
-				-DQT_NO_KEYWORDS 
-				-D_VARIADIC_MAX=10 # Visual Studio 2012 set VARIDAIC_MAX default to 5 which is not enough for googletest to build
-				)  # -DNOMINMAX does not work because GDI+ needs these macros
+add_definitions(-D_UNICODE 			# Unicode rules
+				-DQT_NO_KEYWORDS 	# No qt keywords
+				-D_VARIADIC_MAX=10 	# Visual Studio 2012 set VARIDAIC_MAX default to 5 which is not enough for googletest to build
+				) # -DNOMINMAX does not work because GDI+ needs these macros
 				
 # Compiler settings			
 if (WIN32)
@@ -22,7 +22,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 
 # Visual Studio expected
 set(Boost_USE_STATIC_LIBS   ON)
-find_package(Boost				1.57.0 COMPONENTS signals system filesystem thread program_options python3 REQUIRED)
+find_package(Boost				1.57.0 COMPONENTS signals system filesystem thread program_options python REQUIRED)
 find_package(VLD 					   REQUIRED)
 find_package(BlueFramework 			   REQUIRED)
 
@@ -30,17 +30,14 @@ find_package(PythonLibs 		3.4.2  REQUIRED)
 
 # Find the QtWidgets library
 cmake_policy(SET CMP0020 NEW)
-find_package( Qt5Core 			5.4.0 REQUIRED)
-find_package( Qt5Xml 			5.4.0 REQUIRED)
-find_package( Qt5XmlPatterns 	5.4.0 REQUIRED)
-find_package( Qt5Declarative 	5.4.0 REQUIRED)
-find_package( Qt5WebKit		 	5.4.0 REQUIRED)
-find_package( Qt5WebKitWidgets 	5.4.0 REQUIRED)
-find_package( Qt5Widgets	 	5.4.0 REQUIRED)
-find_package( Qt5Network	 	5.4.0 REQUIRED)
-find_package( Qt5Svg		 	5.4.0 REQUIRED)
-find_package( Qt5PrintSupport 	5.4.0 REQUIRED)
-find_package( Qt5LinguistTools	5.4.0 REQUIRED)
+find_package( Qt5Core 			5.6.0 REQUIRED)
+find_package( Qt5Xml 			5.6.0 REQUIRED)
+find_package( Qt5XmlPatterns 	5.6.0 REQUIRED)
+find_package( Qt5Widgets	 	5.6.0 REQUIRED)
+find_package( Qt5Network	 	5.6.0 REQUIRED)
+find_package( Qt5Svg		 	5.6.0 REQUIRED)
+find_package( Qt5PrintSupport 	5.6.0 REQUIRED)
+find_package( Qt5LinguistTools	5.6.0 REQUIRED)
 
 # macro for precompiled header - see also http://stackoverflow.com/questions/148570/using-pre-compiled-headers-with-cmake
 #MACRO(ADD_MSVC_PRECOMPILED_HEADER PrecompiledHeader PrecompiledSource SourcesVar)
@@ -60,13 +57,8 @@ find_package( Qt5LinguistTools	5.4.0 REQUIRED)
 #  ENDIF(MSVC)
 #ENDMACRO(ADD_MSVC_PRECOMPILED_HEADER)
 
-# BUWFramework Copy Binaries
+# BlueFramework Copy Binaries
 BLUEFRAMEWORK_COPY_BINARIES2(${CMAKE_BINARY_DIR})
-
-# Fervor: Simple multiplatform (Qt-based) application update tool inspired by Sparkle
-set(FERVOR_APP_NAME "TUM Open Infra Platform 2015")
-set(FERVOR_APP_VERSION "0.1.0")
-add_subdirectory(external/fervor)
 
 # QtXlsxWriter
 add_subdirectory(external/QtXlsxWriter)
@@ -139,12 +131,11 @@ if(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		IfcAlignment/src
 		IfcBridge/src
 		IfcRoad/src
-		ExpressBinding/src
 		IfcTunnel/src
 	)	
 	
 	link_directories(	
-		prebuild_libs/vs2013/x64
+		prebuild_libs/vs2015/x64
 	)	
 else(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 	# add Ifc2x3
@@ -167,20 +158,20 @@ else(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 	add_subdirectory(IfcRoad)
 	include_directories(IfcRoad/src)
 	
-	# add ExpressBinding
-	add_subdirectory(ExpressBinding)
-	include_directories(ExpressBinding/src)
-	
 	# add IfcTunnel
 	add_subdirectory(IfcTunnel)
 	include_directories(IfcTunnel/src)
 endif(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 
+# add ExpressBinding
+add_subdirectory(ExpressBinding)
+include_directories(ExpressBinding/src)
+
 # add source directory
 add_subdirectory(Infrastructure)
 include_directories(Infrastructure/src)
 
-add_subdirectory(UnitTesting)
+add_subdirectory(UnitTests)
 
 add_definitions(-DNOMINMAX)
 
@@ -250,7 +241,6 @@ include_directories(
 	${Boost_INCLUDE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR} # Qt generated files will be located here
 	${VLD_INCLUDE_DIR}
-	external/fervor
 	src
 	external/QtXlsxWriter/src/xlsx
 	external/QSimpleUpdater/src
@@ -285,9 +275,9 @@ set(OpenInfraPlatform_UIS
 	src/OpenInfraPlatform/Forms/CreateLineArcArcArcLine.ui
 	src/OpenInfraPlatform/Forms/CreateArcClothoidArc.ui
 	src/OpenInfraPlatform/Forms/CreateArcClothoidClothoidArc.ui
-	src/OpenInfraPlatform/Forms/CreateClothoidParallel.ui
 	src/OpenInfraPlatform/Forms/CreateArcClothoidArcMeth2.ui
 	src/OpenInfraPlatform/Forms/CreateArcClothoidClothoidArcMeth2.ui
+	src/OpenInfraPlatform/Forms/OSMImportDialog.ui
 	
 	external/QSimpleUpdater/src/dialogs/download_dialog.ui
 ) 
@@ -324,9 +314,10 @@ add_executable(OpenInfraPlatform.UI
 	${BlueFramework_GraphicsEngine_Source}
 	${BlueFramework_Core_Source}
 )
+
 set(CMAKE_DEBUG_POSTFIX "d")
 # Use the Widgets module from Qt 5.
-qt5_use_modules(OpenInfraPlatform.UI Widgets Xml XmlPatterns WebKit WebKitWidgets Svg PrintSupport)
+qt5_use_modules(OpenInfraPlatform.UI Widgets Xml XmlPatterns Svg PrintSupport)
 
 if(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 
@@ -390,8 +381,7 @@ if(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		${BLUEFRAMEWORK_BLUEENGINE_LIBRARY}
 		${BLUEFRAMEWORK_BLUEGL4XRENDERER_LIBRARY}
 		${BLUEFRAMEWORK_BLUEAPPLICATION_LIBRARY}
-		# External libs
-		Fervor
+		# External libs		
 		QtXlsxWriter
 		QSimpleUpdater
 		liblas
@@ -406,6 +396,7 @@ elseif(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		OpenInfraPlatform.Infrastructure
 		# Early bindings
 		OpenInfraPlatform.Ifc2x3
+		OpenInfraPlatform.Ifc4
 		OpenInfraPlatform.IfcAlignment
 		OpenInfraPlatform.IfcBridge
 		OpenInfraPlatform.IfcRoad
@@ -418,8 +409,7 @@ elseif(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		${BLUEFRAMEWORK_BLUEENGINE_LIBRARY}
 		${BLUEFRAMEWORK_BLUEGL4XRENDERER_LIBRARY}
 		${BLUEFRAMEWORK_BLUEAPPLICATION_LIBRARY}
-		# External libs
-		Fervor
+		# External libs		
 		QtXlsxWriter
 		QSimpleUpdater
 		liblas
@@ -437,6 +427,7 @@ target_link_libraries( OpenInfraPlatform.UI
 	OpenInfraPlatform.IfcRoad
 	OpenInfraPlatform.IfcAlignment
 	OpenInfraPlatform.Ifc2x3
+	OpenInfraPlatform.Ifc4
 	Qt5::WinMain  # New target available via find_package ( Qt5Core )
 	# BlueFramework
 	${BLUEFRAMEWORK_BLUECORE_LIBRARY}
@@ -446,7 +437,6 @@ target_link_libraries( OpenInfraPlatform.UI
 	${BLUEFRAMEWORK_BLUEGL4XRENDERER_LIBRARY}
 	${BLUEFRAMEWORK_BLUEAPPLICATION_LIBRARY}
 	# External libs
-	Fervor
 	QtXlsxWriter
 	QSimpleUpdater
 	liblas
@@ -470,13 +460,36 @@ add_custom_target(OklabiCopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiKern1264.dll		${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiProj1264.dll		${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiZlib1264.dll		${CMAKE_BINARY_DIR}/Release
+
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiGdal1264.dll		${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiGeos1264_c.dll	${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiKern1264.dll		${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiProj1264.dll		${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/OklabiZlib1264.dll		${CMAKE_BINARY_DIR}/RelWithDebInfo
 	
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/res			${CMAKE_BINARY_DIR}/res
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/schema		${CMAKE_BINARY_DIR}/schema
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/fbliste		${CMAKE_BINARY_DIR}/fbliste
+
+	# Unit Test are executed in the Debug or Release folders
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/res			${CMAKE_BINARY_DIR}/Debug/res
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/schema		${CMAKE_BINARY_DIR}/Debug/schema
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/fbliste		${CMAKE_BINARY_DIR}/Debug/fbliste
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/res			${CMAKE_BINARY_DIR}/Release/res
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/schema		${CMAKE_BINARY_DIR}/Release/schema
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi/fbliste		${CMAKE_BINARY_DIR}/Release/fbliste
 	
 	# Output Message
 	COMMENT "Copying Oklabi binaries from ' ${CMAKE_CURRENT_SOURCE_DIR}/external/Oklabi' to '${CMAKE_BINARY_DIR}'" VERBATIM
+)
+
+# Pyhton35
+add_custom_target(Pyhton35CopyBinaries
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/deploy/python/python35.dll		${CMAKE_BINARY_DIR}/Debug
+	COMMAND	${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/deploy/python/python35.dll		${CMAKE_BINARY_DIR}/Release
+
+	# Output Message
+	COMMENT "Copying Pyhton35 binaries from ' ${CMAKE_CURRENT_SOURCE_DIR}/deploy/python' to '${CMAKE_BINARY_DIR}'" VERBATIM
 )
 
 # QtCopyBinaries
@@ -486,8 +499,7 @@ add_custom_target(Qt5CopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libEGLd.dll				${CMAKE_BINARY_DIR}/Debug	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libGLESv2d.dll				${CMAKE_BINARY_DIR}/Debug	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Cored.dll 				${CMAKE_BINARY_DIR}/Debug	
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Guid.dll 				${CMAKE_BINARY_DIR}/Debug	
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Declaratived.dll 		${CMAKE_BINARY_DIR}/Debug			
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Guid.dll 				${CMAKE_BINARY_DIR}/Debug			
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Networkd.dll 			${CMAKE_BINARY_DIR}/Debug		
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5OpenGLd.dll 			${CMAKE_BINARY_DIR}/Debug		
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Scriptd.dll 			${CMAKE_BINARY_DIR}/Debug		
@@ -495,9 +507,7 @@ add_custom_target(Qt5CopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Widgetsd.dll 			${CMAKE_BINARY_DIR}/Debug		
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Xmld.dll 				${CMAKE_BINARY_DIR}/Debug	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5XmlPatternsd.dll 		${CMAKE_BINARY_DIR}/Debug
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebChanneld.dll			${CMAKE_BINARY_DIR}/Debug
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebKitd.dll				${CMAKE_BINARY_DIR}/Debug	
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebKitWidgetsd.dll		${CMAKE_BINARY_DIR}/Debug			
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebChanneld.dll			${CMAKE_BINARY_DIR}/Debug		
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Multimediad.dll			${CMAKE_BINARY_DIR}/Debug		
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5MultimediaWidgetsd.dll	${CMAKE_BINARY_DIR}/Debug				
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5PrintSupportd.dll		${CMAKE_BINARY_DIR}/Debug			
@@ -506,16 +516,15 @@ add_custom_target(Qt5CopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Qmld.dll				${CMAKE_BINARY_DIR}/Debug	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Positioningd.dll		${CMAKE_BINARY_DIR}/Debug	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Svgd.dll				${CMAKE_BINARY_DIR}/Debug
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icudt53.dll 				${CMAKE_BINARY_DIR}/Debug
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuin53.dll 				${CMAKE_BINARY_DIR}/Debug
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuuc53.dll 				${CMAKE_BINARY_DIR}/Debug
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icudt54.dll 				${CMAKE_BINARY_DIR}/Debug
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuin54.dll 				${CMAKE_BINARY_DIR}/Debug
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuuc54.dll 				${CMAKE_BINARY_DIR}/Debug
 	
 	# release version
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libEGL.dll 				${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libGLESv2.dll				${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Core.dll 				${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Gui.dll 				${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Declarative.dll 		${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Network.dll 			${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5OpenGL.dll 				${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Script.dll 				${CMAKE_BINARY_DIR}/Release
@@ -524,8 +533,6 @@ add_custom_target(Qt5CopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Xml.dll 				${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5XmlPatterns.dll 		${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebChannel.dll			${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebKit.dll				${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebKitWidgets.dll		${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Multimedia.dll			${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5MultimediaWidgets.dll	${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5PrintSupport.dll		${CMAKE_BINARY_DIR}/Release
@@ -534,10 +541,37 @@ add_custom_target(Qt5CopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Qml.dll					${CMAKE_BINARY_DIR}/Release
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Positioning.dll			${CMAKE_BINARY_DIR}/Release	
 	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Svg.dll					${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icudt53.dll 				${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuin53.dll 				${CMAKE_BINARY_DIR}/Release
-	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuuc53.dll 				${CMAKE_BINARY_DIR}/Release
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icudt54.dll 				${CMAKE_BINARY_DIR}/Release
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuin54.dll 				${CMAKE_BINARY_DIR}/Release
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuuc54.dll 				${CMAKE_BINARY_DIR}/Release
+
+	# RelWithDebInfo version
+	#COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libEGL.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	#COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/libGLESv2.dll				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Core.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Gui.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Network.dll 			${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5OpenGL.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Script.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Sql.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Widgets.dll 			${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Xml.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5XmlPatterns.dll 		${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5WebChannel.dll			${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Multimedia.dll			${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5MultimediaWidgets.dll	${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5PrintSupport.dll		${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Sensors.dll				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Quick.dll				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Qml.dll					${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Positioning.dll			${CMAKE_BINARY_DIR}/RelWithDebInfo	
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/Qt5Svg.dll					${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icudt54.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuin54.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
+	COMMAND	${CMAKE_COMMAND} -E copy ${Qt5Core_DIR}/../../../bin/icuuc54.dll 				${CMAKE_BINARY_DIR}/RelWithDebInfo
 	
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${Qt5Core_DIR}/../../../plugins/imageformats		${CMAKE_BINARY_DIR}/Release/plugins/imageformats
+
 	# Output Message
 	COMMENT "Copying Ot binaries from '${Qt5Core_DIR}/../../bin/' to '${CMAKE_BINARY_DIR}'" VERBATIM
 )
@@ -557,7 +591,7 @@ add_custom_target(CopyOpenInfraPlatformUIResources
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/UnitTesting								${CMAKE_BINARY_DIR}/UnitTesting
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Data										${CMAKE_BINARY_DIR}/Data
 	COMMAND	${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/testdata									${CMAKE_BINARY_DIR}/testdata
-	COMMAND	${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Data/DesignAutomation						${CMAKE_BINARY_DIR}/UnitTesting/Data/DesignAutomation
+	COMMAND	${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Data/DesignAutomation						${CMAKE_BINARY_DIR}/UnitTests/Data/DesignAutomation
 		
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Deutsch.qm								${CMAKE_BINARY_DIR}/Data/translations/Deutsch.qm
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/English.qm								${CMAKE_BINARY_DIR}/Data/translations/English.qm
@@ -572,23 +606,41 @@ add_custom_target(CopyOpenInfraPlatformUIResources
 add_custom_target(DirectXCopyBinaries
 	COMMAND	${CMAKE_COMMAND} -E copy "C:/Program Files (x86)/Windows Kits/8.1/Redist/D3D/x64/d3dcompiler_47.dll" ${CMAKE_BINARY_DIR}/Debug
 	COMMAND	${CMAKE_COMMAND} -E copy "C:/Program Files (x86)/Windows Kits/8.1/Redist/D3D/x64/d3dcompiler_47.dll" ${CMAKE_BINARY_DIR}/Release
+	COMMAND	${CMAKE_COMMAND} -E copy "C:/Program Files (x86)/Windows Kits/8.1/Redist/D3D/x64/d3dcompiler_47.dll" ${CMAKE_BINARY_DIR}/RelWithDebInfo
 )
 
 # QSimpleUpdater
 add_custom_target(QSimpleUpdaterCopyBinaries
 	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/libeay32.dll	${CMAKE_BINARY_DIR}/Debug
 	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/libeay32.dll	${CMAKE_BINARY_DIR}/Release
+	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/libeay32.dll	${CMAKE_BINARY_DIR}/RelWithDebInfo
 	
 	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/ssleay32.dll	${CMAKE_BINARY_DIR}/Debug
 	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/ssleay32.dll	${CMAKE_BINARY_DIR}/Release
+	COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/external/QSimpleUpdater/ssleay32.dll	${CMAKE_BINARY_DIR}/RelWithDebInfo
 	
 )
+
+# Create Debug and Release folder if they do not exist
+if(EXISTS ${CMAKE_BINARY_DIR}/Debug)
+else()
+	file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Debug)
+endif()
+
+if(EXISTS ${CMAKE_BINARY_DIR}/Release)
+else()
+	file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
+endif()
+
+if(EXISTS ${CMAKE_BINARY_DIR}/RelWithDebInfo)
+else()
+	file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Release)
+endif()
 
 add_subdirectory(EXPRESS2Source)
 add_subdirectory(RoadXMLViewer)
 add_subdirectory(LandXMLViewer)
-add_subdirectory(IfcBridgeGenerator)
-add_subdirectory(IfcTunnelGenerator)
+
 add_subdirectory(oip)
 
 if (WIN32)
@@ -611,6 +663,7 @@ set_target_properties(BlueFrameworkCopyBinaries 				PROPERTIES FOLDER "Copy")
 set_target_properties(Qt5CopyBinaries			 				PROPERTIES FOLDER "Copy")
 set_target_properties(DirectXCopyBinaries		 				PROPERTIES FOLDER "Copy")
 set_target_properties(QSimpleUpdaterCopyBinaries				PROPERTIES FOLDER "Copy")
+set_target_properties(Pyhton35CopyBinaries						PROPERTIES FOLDER "Copy")
 endif (WIN32)
 
 # http://annealingtechnologies.blogspot.de/2010/02/wix-and-cpack-integration.html
@@ -646,14 +699,14 @@ if(WIN32)
 				COMMENT "Copying BlueFramework Libraries ..." VERBATIM
 			)	
 				
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Release/OpenInfraPlatform.Infrastructure.dll 			${BIN_DIR}OpenInfraPlatform.Infrastructure.dll VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Release/OpenInfraPlatform.Infrastructure.exp 			${LIB_DIR}OpenInfraPlatform.Infrastructure.exp VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Release/OpenInfraPlatform.Infrastructure.lib 			${LIB_DIR}OpenInfraPlatform.Infrastructure.lib VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy   ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.dll 		${BIN_DIR}OpenInfraPlatform.Infrastructured.dll VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy   ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.exp 		${LIB_DIR}OpenInfraPlatform.Infrastructured.exp VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy   ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.ilk 		${LIB_DIR}OpenInfraPlatform.Infrastructured.ilk VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy   ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.lib 		${LIB_DIR}OpenInfraPlatform.Infrastructured.lib VERBATIM)
-			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy   ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.pdb 		${LIB_DIR}OpenInfraPlatform.Infrastructured.pdb VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Release/OpenInfraPlatform.Infrastructure.dll 						${BIN_DIR}OpenInfraPlatform.Infrastructure.dll VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Release/OpenInfraPlatform.Infrastructure.exp 		${LIB_DIR}OpenInfraPlatform.Infrastructure.exp VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Release/OpenInfraPlatform.Infrastructure.lib 		${LIB_DIR}OpenInfraPlatform.Infrastructure.lib VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Debug/OpenInfraPlatform.Infrastructured.dll 						${BIN_DIR}OpenInfraPlatform.Infrastructured.dll VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Debug/OpenInfraPlatform.Infrastructured.exp 		${LIB_DIR}OpenInfraPlatform.Infrastructured.exp VERBATIM)
+			#add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Debug/OpenInfraPlatform.Infrastructured.ilk 						${LIB_DIR}OpenInfraPlatform.Infrastructured.ilk VERBATIM)
+			add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Debug/OpenInfraPlatform.Infrastructured.lib 		${LIB_DIR}OpenInfraPlatform.Infrastructured.lib VERBATIM)
+			#add_custom_command(TARGET UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/Infrastructure/Debug/OpenInfraPlatform.Infrastructured.pdb 		${LIB_DIR}OpenInfraPlatform.Infrastructured.pdb VERBATIM)
 			
 			add_dependencies(UpdateOpenInfraPlatformLibsDebugSymbolsAndDLLs
 				OpenInfraPlatform.Infrastructure
@@ -667,7 +720,6 @@ endif()
 if (WIN32)
 	set_target_properties(QtXlsxWriter							PROPERTIES FOLDER "ThirdParty")
 	set_target_properties(QSimpleUpdater						PROPERTIES FOLDER "ThirdParty")
-	set_target_properties(Fervor 								PROPERTIES FOLDER "ThirdParty")
 	set_target_properties(zlib								PROPERTIES FOLDER "ThirdParty/zlib")
 	set_target_properties(zlibstatic							PROPERTIES FOLDER "ThirdParty/zlib")
 	set_target_properties(example								PROPERTIES FOLDER "ThirdParty/zlib")
@@ -727,3 +779,6 @@ if (WIN32)
 	add_carve_target_to_thirdparty(tetrahedron)
 	add_carve_target_to_thirdparty(triangulate)
 endif (WIN32)
+
+add_subdirectory(IfcBridgeGenerator)
+add_subdirectory(IfcTunnelGenerator)

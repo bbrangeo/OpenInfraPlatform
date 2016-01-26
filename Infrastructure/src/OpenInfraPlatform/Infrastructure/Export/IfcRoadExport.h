@@ -10,12 +10,10 @@
 #ifndef OpenInfraPlatform_Infrastructure_IfcRoadStepFileWriter_h
 #define OpenInfraPlatform_Infrastructure_IfcRoadStepFileWriter_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
+#include "OpenInfraPlatform/Infrastructure/Export/Export.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
 
 #include "BlueFramework/Core/class.h"
-#include <boost/noncopyable.hpp>
 #include <vector>
 #include <memory>
 
@@ -30,26 +28,21 @@ namespace OpenInfraPlatform
 			bool useRadiansInsteadOfDegrees = true;
 		};
 
-		class BLUEINFRASTRUCTURE_API IfcRoadExport : private boost::noncopyable
+		class BLUEINFRASTRUCTURE_API IfcRoadExport : public Export
 		{
 		public:
 			
 			BLUE_DEFINE_SHARED_POINTER(IfcRoadExport);
 
 			//! Default constructor.
-			IfcRoadExport();
+			IfcRoadExport(const IfcRoadExportDescription& desc, buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename);
 
 			//! Virtual destructor.
 			virtual ~IfcRoadExport();
-			
-			void convert(const IfcRoadExportDescription& desc, 
-				buw::DigitalElevationModel::Ptr dem,
-				std::vector<buw::IAlignment3D::Ptr> alignments, 
-				const std::string& filename);
 
 		private:
 			class IfcRoadExportImpl;					// Forward declaration of internal class
-			std::shared_ptr<IfcRoadExportImpl> impl_;	// Opaque pointer to implementation
+			buw::ReferenceCounted<IfcRoadExportImpl> impl_;	// Opaque pointer to implementation
 		}; // end class IfcAlignmenBuildingSmartP6StepFileWriter
 	} // end namespace Infrastructure
 } // end namespace BlueFramework

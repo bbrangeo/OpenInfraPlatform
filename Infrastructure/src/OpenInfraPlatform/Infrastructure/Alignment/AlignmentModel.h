@@ -21,28 +21,22 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		//! \class AlignmentModel
-		//! \brief brief description
 		class BLUEINFRASTRUCTURE_API AlignmentModel
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(AlignmentModel)
-
-			//! Default constructor.
 			AlignmentModel();
 
-			//! Virtual destructor.
 			virtual ~AlignmentModel();
 
 			int getAlignmentCount() const;
 
-			buw::IAlignment3D::Ptr getAlignment( const int index ) const;
+			buw::ReferenceCounted<buw::IAlignment3D> getAlignment(const int index) const;
 
-			std::vector<buw::IAlignment3D::Ptr> getAlignments();
+			std::vector<buw::ReferenceCounted<buw::IAlignment3D>> getAlignments();
 
-			void addAlignment(buw::IAlignment3D::Ptr alignment);
+			void addAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment);
 
-			void deleteAlignment(buw::IAlignment3D::Ptr alignment);
+			void deleteAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment);
 
 			static AlignmentModel* createFlatCopy(const AlignmentModel& src);
 
@@ -51,10 +45,10 @@ namespace OpenInfraPlatform
 			buw::AxisAlignedBoundingBox3d getVerticalAlignmentExtends();
 
 		private:				
-			std::vector<buw::IAlignment3D::Ptr> alignments_;
+			std::vector<buw::ReferenceCounted<buw::IAlignment3D>> alignments_;
 		}; // end class AlignmentModel
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {
