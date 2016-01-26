@@ -37,7 +37,7 @@ namespace OpenInfraPlatform
 		public:
 			BLUE_DEFINE_SHARED_POINTER(Interpreter);
 
-			void execute(AbstractSyntaxTree::Ptr ast)
+			void execute(buw::ReferenceCounted<AbstractSyntaxTree> ast)
 			{
 				walk(ast->getRoot());
 			}
@@ -72,7 +72,7 @@ namespace OpenInfraPlatform
 				return 0;
 			}
 
-			void walk(AbstractSyntaxTreeNode::Ptr node)
+			void walk(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				if (node == nullptr)
 				{

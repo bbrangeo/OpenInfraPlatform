@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Text.h 2014-07-10 15:00:00 vogelsang $
+* $Id: Text.h 2014-11-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -35,6 +35,8 @@
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-06-27 Zugriff auf GDAL-Ressourcen für Tansformierer
 * 2014-07-10 SQL-Anbindung vorbereiten
+* 2014-07-30 Geometrie in Gml wandeln
+* 2014-11-24 Wrapper für atoi eingeführt
 * 
 ****************************************************************************/
 #ifndef DEFText
@@ -136,6 +138,7 @@ namespace Oklabi
 		friend class Schema2;
 		friend class Schema3;
 		friend class SchemaGeo;
+		friend class Geometrie;
 		friend class GeoPunkt;
 		friend class GeoLinie;
 		friend class GeoFlaeche;
@@ -241,6 +244,7 @@ namespace Oklabi
 			OKLABI_API Text transscript( bool bToISO ) const;
 			OKLABI_API Text upper() const;
 			OKLABI_API Text lower() const;
+			OKLABI_API int atoi() const;
 		private:
 			// Following methods are unsafe with different runtime libraries
 			OKLABI_API std::string& operator*();

@@ -27,7 +27,7 @@ namespace OpenInfraPlatform
 		public:
 			BLUE_DEFINE_SHARED_POINTER(Parser);
 
-			Parser(Lexer::Ptr lex) :
+			Parser(buw::ReferenceCounted<Lexer> lex) :
 				lexer(lex),
 				astRoot(nullptr)
 			{
@@ -38,7 +38,7 @@ namespace OpenInfraPlatform
 			{
 			}
 
-			AbstractSyntaxTree::Ptr parse()
+			buw::ReferenceCounted<AbstractSyntaxTree> parse()
 			{
 				token mainToken;
 				mainToken.type = eTokenType::PROGRAM;
@@ -46,7 +46,7 @@ namespace OpenInfraPlatform
 
 				ruleProgram();
 
-				AbstractSyntaxTree::Ptr ast = std::make_shared<AbstractSyntaxTree>(astRoot);
+				buw::ReferenceCounted<AbstractSyntaxTree> ast = std::make_shared<AbstractSyntaxTree>(astRoot);
 				return ast;
 			}
 
@@ -91,7 +91,7 @@ namespace OpenInfraPlatform
 			}
 
 			// Regel für Anweisung oder Anweisungsblock {...}
-			void ruleStatement(AbstractSyntaxTreeNode::Ptr node) 
+			void ruleStatement(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				if(lexer->peekToken().type == eTokenType::BRACE_OPEN)
 				{
@@ -110,7 +110,7 @@ namespace OpenInfraPlatform
 				}
 			}
 
-			void ruleStatementList(AbstractSyntaxTreeNode::Ptr node)
+			void ruleStatementList(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				auto stmnt = createStmntNode();
 				addChildNode(node, stmnt);
@@ -122,7 +122,7 @@ namespace OpenInfraPlatform
 				}
 			}
 
-			void  ruleExprStatement(AbstractSyntaxTreeNode::Ptr node) 
+			void  ruleExprStatement(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				ruleExpr();
 				auto child = operands.top();
@@ -356,7 +356,7 @@ namespace OpenInfraPlatform
 
 			// <FCallArgs> -> <Expr>
 			// <FCallArgs> -> ε
-			void ruleFCallArgs(AbstractSyntaxTreeNode::Ptr node) 
+			void ruleFCallArgs(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				auto token = lexer->peekToken();
 
@@ -369,7 +369,7 @@ namespace OpenInfraPlatform
 			}
 
 			// Regel für if-Anweisung
-			void ruleIf(AbstractSyntaxTreeNode::Ptr node) 
+			void ruleIf(buw::ReferenceCounted<AbstractSyntaxTreeNode> node)
 			{
 				auto ifNode = createNode(lexer->nextToken());
 				token conditionToken;
@@ -389,7 +389,7 @@ namespace OpenInfraPlatform
 				}
 			}
 
-			void addChildNode(AbstractSyntaxTreeNode::Ptr parent, AbstractSyntaxTreeNode::Ptr child)
+			void addChildNode(buw::ReferenceCounted<AbstractSyntaxTreeNode> parent, buw::ReferenceCounted<AbstractSyntaxTreeNode> child)
 			{
 				if(parent)
 				{
@@ -445,14 +445,14 @@ namespace OpenInfraPlatform
 			}
 
 			// Erstellt einen leeren AST-Knoten zur Aneinanderkettung von Anweisungen
-			AbstractSyntaxTreeNode::Ptr createStmntNode() 
+			buw::ReferenceCounted<AbstractSyntaxTreeNode> createStmntNode()
 			{
 				token statementToken;
 				statementToken.type = eTokenType::STMNT;
 				return createNode(statementToken);
 			}
 
-			AbstractSyntaxTreeNode::Ptr createNode(const token& t)
+			buw::ReferenceCounted<AbstractSyntaxTreeNode> createNode(const token& t)
 			{
 				return AbstractSyntaxTreeNode::create(t);
 			}
@@ -465,15 +465,15 @@ namespace OpenInfraPlatform
 				{
 					std::stringstream ss;
 					ss << "Expected type " << tokenToString(typ);
-					throw buw::Exception(ss.str());
+					throw buw::Exception(ss.str().c_str());
 				}
 			}
 
 		private:
-			std::stack<AbstractSyntaxTreeNode::Ptr> operators;
-			std::stack<AbstractSyntaxTreeNode::Ptr> operands;
-			AbstractSyntaxTreeNode::Ptr				astRoot;
-			Lexer::Ptr								lexer;
+			std::stack<buw::ReferenceCounted<AbstractSyntaxTreeNode>>	operators;
+			std::stack<buw::ReferenceCounted<AbstractSyntaxTreeNode>>	operands;
+			buw::ReferenceCounted<AbstractSyntaxTreeNode>				astRoot;
+			buw::ReferenceCounted<Lexer>								lexer;
 		};
 
 	} // end namespace Infrastructure

@@ -10,38 +10,24 @@
 #ifndef OpenInfraPlatform_Infrastructure_IfcRoadImport_793bf9e2_b78a_4b91_9fbf_7fe73a844d9f_h
 #define OpenInfraPlatform_Infrastructure_IfcRoadImport_793bf9e2_b78a_4b91_9fbf_7fe73a844d9f_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/surface.h"
-#include <boost/noncopyable.hpp>
+#include "OpenInfraPlatform/Infrastructure/Import/Import.h"
 
 namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		class BLUEINFRASTRUCTURE_API IfcRoadImport : private boost::noncopyable
+		class BLUEINFRASTRUCTURE_API IfcRoadImport : public Import
 		{
 		public:
 			//! Default constructor.
 			IfcRoadImport(const std::string& filename);
-
-			//! Virtual destructor.
-			virtual ~IfcRoadImport();
-
-			int	getAlignmentCount() const;
-
-			std::vector<buw::Alignment2DBased3D::Ptr> getAlignments();
-
-			std::vector<buw::Surface::Ptr>	getSurfaces();
-
-			int							getSurfaceCount();
 
 		private:
 			class IfcRoadImportImpl;					// Forward declaration of internal class
 			std::shared_ptr<IfcRoadImportImpl> impl_;	// Opaque pointer to implementation
 		}; // end class IfcRoadImport
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

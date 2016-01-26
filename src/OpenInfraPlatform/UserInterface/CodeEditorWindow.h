@@ -20,71 +20,21 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include "highlighter.h"
+#include "OpenInfraPlatform/UserInterface/CodeTextEdit.h"
 #include <iostream>
 
 namespace OpenInfraPlatform
 {
 	namespace UserInterface
 	{
-		class MyTextedit : public QTextEdit
-		{
-			Q_OBJECT;
-
-		public Q_SLOTS:
-			void makeDrag()
-			{
-
-			}
-
-		protected:
-			void dropEvent(QDropEvent *de)
-			{
-				if (de->mimeData()->hasUrls()) 
-				{
-					QString url = de->mimeData()->urls()[0].toString();
-					url = url.right( url.length() - 8 );
-
-					std::cout << url.toLatin1().data() << std::endl;
-
-					QFile file(url.toLatin1().data());
-					if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-						throw std::runtime_error("Could not open file.");
-
-					QTextStream in(&file);
-					QString line = in.readLine();
-					while (!line.isNull()) 
-					{
-						this->append(line);
-						line = in.readLine();
-					}
-				}
-			}
-			void dragMoveEvent(QDragMoveEvent *de)
-			{
-				// The event needs to be accepted here
-				de->accept();
-			}
-			void dragEnterEvent(QDragEnterEvent *event)
-			{
-				// Set the drop action to be the proposed action.
-				event->acceptProposedAction();
-			}
-		};
-
-		//! \class CodeEditorWindow
-		//! \brief brief description
 		class CodeEditorWindow : public QMainWindow
 		{
 			Q_OBJECT
 
 		public:
-			//! Default constructor.
 			CodeEditorWindow(QWidget *parent = nullptr);
 
-			//! Virtual destructor.
-			virtual ~CodeEditorWindow()
-			{
-			}
+			virtual ~CodeEditorWindow()	{}
 
 		public Q_SLOTS:
 			void on_actionExit_triggered();
@@ -100,10 +50,9 @@ namespace OpenInfraPlatform
 			void setupEditor();
 
 		private:
-			Ui::CodeEditorWindow *ui_;
-
-			MyTextedit *editor;
-			Highlighter *highlighter;
+			Ui::CodeEditorWindow*	ui_;
+			CodeTextEdit*			editor_;
+			Highlighter*			highlighter_;
 		private:
 		}; // end class CodeEditorWindow
 	} // end namespace UserInterface

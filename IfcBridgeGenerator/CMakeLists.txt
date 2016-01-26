@@ -41,8 +41,7 @@ if(OIP_USE_PREBUILD_EARLYBINDING_LIBS)
 		${BLUEFRAMEWORK_BLUEGL4XRENDERER_LIBRARY}
 		${BLUEFRAMEWORK_BLUEAPPLICATION_LIBRARY}
 	)
-
-elseif()
+else()
 	target_link_libraries(OpenInfraPlatform.IfcBridgeGenerator
 		Qt5::WinMain
 		OpenInfraPlatform.IfcBridge

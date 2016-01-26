@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: OklabiEnum.h 2014-06-27 15:00:00 vogelsang $
+* $Id: OklabiEnum.h 2015-02-24 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2012-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2012-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -33,6 +33,8 @@
 * 2014-05-20 Lagestatus für Koordinatenreferenzsysteme
 * 2014-06-27 Zugriff auf GDAL-Ressourcen für Tansformierer
 * 2014-07-17 Umwandlung von Enum eKoordRefSys in Schlüsseltabellenwert
+* 2014-10-06 Kontrolle von Geometriemeldungen
+* 2015-02-24 Referenzielles Geometrieformat(2)
 * 
 ****************************************************************************/
 #if !defined(DEFOklabiEnum) && !defined(OKLABI_MANAGED) && !defined(OKLABI_C)
@@ -626,7 +628,11 @@ namespace Oklabi
 		pExpressGeometrie                = 29,
 		pEntwickler                      = 30,
 		pProtokoll                       = 31,
-		pGdalData                        = 32
+		pGdalData                        = 32,
+		pGeometrieMeldungen              = 33,
+		pGeometrieFreigabe               = 34,
+		pHerstellungsDatum               = 35,
+		pReferenzGeometrie               = 36
 	};
 
 	// Element-Typen in XML

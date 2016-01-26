@@ -9,9 +9,6 @@
 #include "XYZImportDialog.h"
 
 #include "OpenInfraPlatform/DataManagement/Data.h"
-#include <iostream>
-#include "buw.BlueEngine.h"
-#include <vector>
 
 #include "OpenInfraPlatform/DataManagement/Command/ImportXYZ.h"
 
@@ -50,11 +47,10 @@ void OpenInfraPlatform::UserInterface::XYZImportDialog::on_pushButtonBrowse_clic
 
 void OpenInfraPlatform::UserInterface::XYZImportDialog::on_pushButtonImport_clicked()
 {
-    double x, y, z;
-    std::vector<buw::vector3d> positions;
 
 	bool useRestriction = ui_->restrict_radioButton->isChecked();
-	buw::vector2d start, end;
+	buw::vector2d start = buw::vector2d(std::numeric_limits<double>::min());
+	buw::vector2d end = buw::vector2d(std::numeric_limits<double>::max());
 
 	if (useRestriction)
 	{
@@ -65,66 +61,12 @@ void OpenInfraPlatform::UserInterface::XYZImportDialog::on_pushButtonImport_clic
 		end.y() = ui_->endY_LineEdit->text().toDouble();
 	}
 
-	// read the data
-    std::string utf8_text_file = ui_->lineEdit->text().toUtf8().constData();
+	std::string filename = ui_->lineEdit->text().toUtf8().constData();
 
-    buw::SimpleLexer sl(utf8_text_file.c_str());
-
-    if (!utf8_text_file.empty())
-    {
-        sl.SetIgnoreWhitespace(true);
-        buw::Token token;
-
-        // read token
-		bool eof = false;
-        while(sl.ReadToken(token))
-        {
-            while ( token.GetType() == buw::eTokenType::New_Line )
-            {
-                if(!sl.ReadToken(token))
-				{ 
-					eof = true;
-					break;
-				}
-            }
-
-			if (eof)
-			{
-				break;
-			}
-
-			BLUE_ASSERT(token.GetType() == buw::eTokenType::Float ||
-				token.GetType() == buw::eTokenType::Integer,
-				"Invalid token");
-			x = token.GetDoubleValue();
-
-            sl.ReadToken(token);
-			BLUE_ASSERT(token.GetType() == buw::eTokenType::Float ||
-				token.GetType() == buw::eTokenType::Integer,
-				"Invalid token");
-			y = token.GetDoubleValue();
-
-            sl.ReadToken(token);
-			BLUE_ASSERT(token.GetType() == buw::eTokenType::Float ||
-				token.GetType() == buw::eTokenType::Integer,
-				"Invalid token");
-			z = token.GetDoubleValue();
-
-			buw::vector3d tempv(x, y, z);
-			if (useRestriction)
-			{
-				if (tempv.x() < start.x() || tempv.y() < start.y() ||
-					tempv.x() > end.x() || tempv.y() > end.y())
-					continue;
-			}
-
-            positions.push_back(tempv);
-        }
-    }
-	
-	buw::ImportXYZ::Ptr ia = std::make_shared<buw::ImportXYZ>(positions);
+	buw::ReferenceCounted<buw::ImportXYZ> ia = std::make_shared<buw::ImportXYZ>(filename, start, end);
 	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().execute(ia);
 
 	hide();
+	
 }
 

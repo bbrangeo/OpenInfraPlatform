@@ -27,31 +27,18 @@
 
 using namespace OpenInfraPlatform::IfcAlignment;
 
-class OpenInfraPlatform::Infrastructure::IfcAlignmentExport::IfcAlignmentP6ExportImpl
+class OpenInfraPlatform::Infrastructure::IfcAlignmentExport::IfcAlignmentP6ExportImpl : public Export
 {
 public:
-	IfcAlignmentP6ExportImpl() :
+	IfcAlignmentP6ExportImpl(const ifcAlignmentExportDescription& desc, buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename) :
+		Export(am, dem, filename),
 		entityId_(1),
 		model_(nullptr)
 	{
 		// create model
 		model_ = shared_ptr<IfcAlignmentModel>(new IfcAlignmentModel());
-	}
 
-	virtual ~IfcAlignmentP6ExportImpl()
-	{
 
-	}
-	
-	shared_ptr<IfcDimensionalExponents> zeroDimExp_ = nullptr;
-	shared_ptr<IfcGeometricRepresentationSubContext> subcontextAxis = nullptr;
-
-	void convert(
-		const ifcAlignmentExportDescription& desc,
-		buw::DigitalElevationModel::Ptr dem,
-		std::vector<buw::IAlignment3D::Ptr> alignments,
-		const std::string& filename)
-	{
 		settings_ = desc;
 
 		try
@@ -108,14 +95,14 @@ public:
 			model_->insertEntity(lengthUnit);
 			lengthUnit->m_UnitType = std::make_shared<IfcUnitEnum>(IfcUnitEnum::ENUM_LENGTHUNIT);
 			lengthUnit->m_Name = std::make_shared<IfcSIUnitName>(IfcSIUnitName::ENUM_METRE);
-			
+
 			projectedCRS->m_MapUnit = lengthUnit;
 
 			buw::vector3d centerOffset;
-			if (alignments.size() > 0)
-				centerOffset = alignments[0]->getPosition(0);
+			if (alignmentModel_->getAlignmentCount() > 0)
+				centerOffset = alignmentModel_->getAlignment(0)->getPosition(0);
 			else
-				centerOffset = dem->getCenterPoint();
+				centerOffset = digitalElevationModel_->getCenterPoint();
 
 			// connect site and project with IfcRelAggregates
 			shared_ptr<IfcRelAggregates> connection = std::make_shared<IfcRelAggregates>(createEntityId());
@@ -153,133 +140,16 @@ public:
 
 			if (desc.exportTerrain)
 			{
-				exportTerrain(dem, centerOffset, geometricRepresentationContext, c2);
+				exportTerrain(digitalElevationModel_, centerOffset, geometricRepresentationContext, c2);
 			}
 
 			// export alignments
-			if (desc.exportAlignment)
+			if (desc.exportAlignment && desc.schemaVersion == eIfcSchemaVersion::IFC4x1)
 			{
-				for (int ai = 0; ai < alignments.size(); ai++)
-				{
-					if (alignments[ai]->getType() == buw::e3DAlignmentType::e3DBased)
-					{
-						// marker
-						if (subcontextAxis == nullptr)
-						{
-							subcontextAxis = std::make_shared<IfcGeometricRepresentationSubContext>(createEntityId());
-							model_->insertEntity(subcontextAxis);
-							subcontextAxis->m_ContextIdentifier = std::make_shared<IfcLabel>("Axis");
-							subcontextAxis->m_ContextType = std::make_shared<IfcLabel>("Model");
-							subcontextAxis->m_CoordinateSpaceDimension = std::make_shared<IfcDimensionCount>(3);
-							subcontextAxis->m_WorldCoordinateSystem = site_axisPlacement;
-							subcontextAxis->m_ParentContext = geometricRepresentationContext;
-							subcontextAxis->m_TargetView = std::make_shared<IfcGeometricProjectionEnum>(IfcGeometricProjectionEnum::ENUM_MODEL_VIEW);
-							subcontextAxis->m_Precision = std::make_shared<IfcReal>(1e-5);
-						}
-
-						shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment = 
-							std::make_shared<OpenInfraPlatform::IfcAlignment::IfcAlignment>(createEntityId());
-						model_->insertEntity(ifcAlignment);
-
-						ifcAlignment->m_GlobalId = createGlobalId();
-
-						// set name of alignment
-						std::string name = alignments[ai]->getName().toStdString();
-						ifcAlignment->m_Description = std::make_shared<IfcText>(name);
-
-						shared_ptr<IfcCartesianPointList3D> pointList = std::make_shared<IfcCartesianPointList3D>(createEntityId());
-						model_->insertEntity(pointList);
-						
-						buw::Alignment3DBased3D::Ptr alignment = std::static_pointer_cast<buw::Alignment3DBased3D>(alignments[ai]);
-
-						for (double s = alignment->getStartStation(); s < alignment->getEndStation(); s += 1.0)
-						{
-							auto position = alignment->getPosition(s) - centerOffset;
-
-							std::vector<shared_ptr<IfcLengthMeasure>> coordinates;
-							for (int i = 0; i < 3; i++)
-							{
-								coordinates.push_back(std::make_shared<IfcLengthMeasure>(position[i]));
-							}
-							
-							pointList->m_CoordList.push_back(coordinates);
-						}
-						
-						shared_ptr<IfcIndexedPolyCurve> indexedPolyCurve = std::make_shared<IfcIndexedPolyCurve>(createEntityId());
-						model_->insertEntity(indexedPolyCurve);
-						indexedPolyCurve->m_SelfIntersect = std::shared_ptr<IfcBoolean>(false);
-						indexedPolyCurve->m_Points = pointList;
-						
-						std::vector<shared_ptr<IfcRepresentation>> representation;
-						std::vector<shared_ptr<IfcRepresentationItem>> representationItems;
-						representationItems.push_back(indexedPolyCurve);
-						representation.push_back(createIfcShapeRepresentation(representationItems, geometricRepresentationContext, "Axis", "Curve3D"));
-						auto sr = createIfcProductDefinitionShape(representation);
-								
-						ifcAlignment->m_Representation = sr;
-					}
-					else
-					{
-						buw::Alignment2DBased3D::Ptr alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments[ai]);
-
-						shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment = 
-							std::make_shared<OpenInfraPlatform::IfcAlignment::IfcAlignment>(createEntityId());
-						model_->insertEntity(ifcAlignment);
-						ifcAlignment->m_GlobalId = createGlobalId();
-
-						// set name of alignment
-						std::string name = alignments[ai]->getName().toStdString();
-						ifcAlignment->m_Description = std::make_shared<IfcText>(name);
-
-						convertHorizontalAlignment(ifcAlignment, alignment, centerOffset);
-
-						convertVerticalAlignment(alignment, ifcAlignment);
-
-						// connect ifcAlignment with site
-						c2->m_RelatedElements.push_back(ifcAlignment);
-					}
-				}
+				exportAlignment(alignmentModel_->getAlignments(), site_axisPlacement, geometricRepresentationContext, centerOffset, c2);
 			}
 
-			// writer
-			shared_ptr<IfcStepWriter> step_writer = shared_ptr<IfcStepWriter>(new IfcStepWriter());
-			std::stringstream stream;
-
-			// write file header
-			{
-				std::stringstream strs;
-				strs << "ISO-10303-21;" << std::endl;
-				strs << "HEADER;" << std::endl;
-				strs << "FILE_DESCRIPTION(('" << "IFC4x1" << "'),'2;1');" << std::endl;
-				strs << "FILE_NAME('" << filename.c_str() << "','";
-
-				//2011-04-21T14:25:12
-				time_t rawtime;
-				struct tm timeinfo;
-				time(&rawtime);
-
-#ifdef _WIN32
-				errno_t err_time;
-				err_time = localtime_s(&timeinfo, &rawtime);
-#else
-				timeinfo = localtime(&rawtime);
-#endif
-
-				char buffer[80];
-				strftime(buffer, 80, "%Y-%m-%dT%H:%M:%S", &timeinfo);
-				strs << buffer;
-
-				strs << "',(''),('',''),'','IfcAlignment','');" << std::endl;
-				strs << "FILE_SCHEMA(('" << "IFC4x1" << "'));" << std::endl;
-				strs << "ENDSEC;" << std::endl;
-
-				model_->setFileHeader(strs.str());
-			}
-
-			step_writer->writeStream(stream, model_);
-
-			std::ofstream textFile(filename.c_str());
-			textFile << stream.str().c_str();
+			wirteStepFile(filename);
 		}
 		catch (const IfcAlignmentP6Exception& e)
 		{
@@ -287,9 +157,165 @@ public:
 		}
 	}
 
+	virtual ~IfcAlignmentP6ExportImpl()
+	{
+
+	}
+	
+	shared_ptr<IfcDimensionalExponents> zeroDimExp_ = nullptr;
+	shared_ptr<IfcGeometricRepresentationSubContext> subcontextAxis = nullptr;
+
+	void exportAlignment(std::vector<buw::ReferenceCounted<buw::IAlignment3D>>& alignments,
+		shared_ptr<IfcAxis2Placement3D> site_axisPlacement, 
+		shared_ptr<IfcGeometricRepresentationContext> geometricRepresentationContext, 
+		buw::vector3d centerOffset,
+		shared_ptr<IfcRelContainedInSpatialStructure> c2)
+	{
+		for (int ai = 0; ai < alignments.size(); ai++)
+		{
+			if (alignments[ai]->getType() == buw::e3DAlignmentType::e3DBased)
+			{
+				// marker
+				if (subcontextAxis == nullptr)
+				{
+					subcontextAxis = std::make_shared<IfcGeometricRepresentationSubContext>(createEntityId());
+					model_->insertEntity(subcontextAxis);
+					subcontextAxis->m_ContextIdentifier = std::make_shared<IfcLabel>("Axis");
+					subcontextAxis->m_ContextType = std::make_shared<IfcLabel>("Model");
+					subcontextAxis->m_CoordinateSpaceDimension = std::make_shared<IfcDimensionCount>(3);
+					subcontextAxis->m_WorldCoordinateSystem = site_axisPlacement;
+					subcontextAxis->m_ParentContext = geometricRepresentationContext;
+					subcontextAxis->m_TargetView = std::make_shared<IfcGeometricProjectionEnum>(IfcGeometricProjectionEnum::ENUM_MODEL_VIEW);
+					subcontextAxis->m_Precision = std::make_shared<IfcReal>(1e-5);
+				}
+
+				shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment =
+					std::make_shared<OpenInfraPlatform::IfcAlignment::IfcAlignment>(createEntityId());
+				model_->insertEntity(ifcAlignment);
+
+				ifcAlignment->m_GlobalId = createGlobalId();
+
+				// set name of alignment
+				std::string name = alignments[ai]->getName().toStdString();
+				ifcAlignment->m_Description = std::make_shared<IfcText>(name);
+
+				shared_ptr<IfcCartesianPointList3D> pointList = std::make_shared<IfcCartesianPointList3D>(createEntityId());
+				model_->insertEntity(pointList);
+
+				buw::ReferenceCounted<buw::Alignment3DBased3D> alignment = std::static_pointer_cast<buw::Alignment3DBased3D>(alignments[ai]);
+
+				for (double s = alignment->getStartStation(); s < alignment->getEndStation(); s += 1.0)
+				{
+					auto position = alignment->getPosition(s) - centerOffset;
+
+					std::vector<shared_ptr<IfcLengthMeasure>> coordinates;
+					for (int i = 0; i < 3; i++)
+					{
+						coordinates.push_back(std::make_shared<IfcLengthMeasure>(position[i]));
+					}
+
+					pointList->m_CoordList.push_back(coordinates);
+				}
+
+				shared_ptr<IfcIndexedPolyCurve> indexedPolyCurve = std::make_shared<IfcIndexedPolyCurve>(createEntityId());
+				model_->insertEntity(indexedPolyCurve);
+				indexedPolyCurve->m_SelfIntersect = std::shared_ptr<IfcBoolean>(false);
+				indexedPolyCurve->m_Points = pointList;
+
+				std::vector<shared_ptr<IfcRepresentation>> representation;
+				std::vector<shared_ptr<IfcRepresentationItem>> representationItems;
+				representationItems.push_back(indexedPolyCurve);
+				representation.push_back(createIfcShapeRepresentation(representationItems, geometricRepresentationContext, "Axis", "Curve3D"));
+				auto sr = createIfcProductDefinitionShape(representation);
+
+				ifcAlignment->m_Representation = sr;
+			}
+			else
+			{
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments[ai]);
+
+				shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment =
+					std::make_shared<OpenInfraPlatform::IfcAlignment::IfcAlignment>(createEntityId());
+				model_->insertEntity(ifcAlignment);
+				ifcAlignment->m_GlobalId = createGlobalId();
+
+				// set name of alignment
+				std::string name = alignments[ai]->getName().toStdString();
+				ifcAlignment->m_Description = std::make_shared<IfcText>(name);
+
+				convertHorizontalAlignment(ifcAlignment, alignment, centerOffset);
+
+				convertVerticalAlignment(alignment, ifcAlignment);
+
+				// connect ifcAlignment with site
+				c2->m_RelatedElements.push_back(ifcAlignment);
+			}
+		}
+	}
+
+	void wirteStepFile(const std::string &filename)
+	{
+		// writer
+		shared_ptr<IfcStepWriter> step_writer = shared_ptr<IfcStepWriter>(new IfcStepWriter());
+		std::stringstream stream;
+
+		std::string fileSchema = "IFC4x1";
+
+		switch (settings_.schemaVersion)
+		{
+		case  eIfcSchemaVersion::IFC2x3:
+			fileSchema = "IFC2x3";
+			break;
+		case  eIfcSchemaVersion::IFC4:
+			fileSchema = "IFC4";
+			break;
+		case eIfcSchemaVersion::IFC4x1:
+			fileSchema = "IFC4x1";
+			break;
+		default:
+			break;
+		}
+
+		// write file header
+				{
+					std::stringstream strs;
+					strs << "ISO-10303-21;" << std::endl;
+					strs << "HEADER;" << std::endl;
+					strs << "FILE_DESCRIPTION(('" << fileSchema << "'),'2;1');" << std::endl;
+					strs << "FILE_NAME('" << filename.c_str() << "','";
+
+					//2011-04-21T14:25:12
+					time_t rawtime;
+					struct tm timeinfo;
+					time(&rawtime);
+
+#ifdef _WIN32
+					errno_t err_time;
+					err_time = localtime_s(&timeinfo, &rawtime);
+#else
+					timeinfo = localtime(&rawtime);
+#endif
+
+					char buffer[80];
+					strftime(buffer, 80, "%Y-%m-%dT%H:%M:%S", &timeinfo);
+					strs << buffer;
+
+					strs << "',(''),('',''),'','IfcAlignment','');" << std::endl;
+					strs << "FILE_SCHEMA(('" << fileSchema << "'));" << std::endl;
+					strs << "ENDSEC;" << std::endl;
+
+					model_->setFileHeader(strs.str());
+				}
+
+				step_writer->writeStream(stream, model_);
+
+				std::ofstream textFile(filename.c_str());
+				textFile << stream.str().c_str();
+	}
+
 private:
 	void convertVerticalAlignment(
-		buw::Alignment2DBased3D::Ptr alignment,
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment,
 		shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment)
 	{
 		if (alignment->getType() != buw::e3DAlignmentType::e2DBased)
@@ -297,20 +323,20 @@ private:
 			return;
 		}
 
-		buw::Alignment2DBased3D::Ptr alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment);
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment);
 
 		if (!alignment2D->hasVerticalAlignment())
 		{
 			return;
 		}
 
-		shared_ptr<IfcAlignment2DVertical> ifcVerticalAlignment = std::make_shared<IfcAlignment2DVertical>(entityId_++);
+		buw::ReferenceCounted<IfcAlignment2DVertical> ifcVerticalAlignment = std::make_shared<IfcAlignment2DVertical>(entityId_++);
 		model_->insertEntity(ifcVerticalAlignment);
 		ifcAlignment->m_Vertical = ifcVerticalAlignment;
 
 		if (alignment->hasVerticalAlignment())
 		{
-			buw::VerticalAlignment2D::Ptr v = alignment->getVerticalAlignment();
+			buw::ReferenceCounted<buw::VerticalAlignment2D> v = alignment->getVerticalAlignment();
 			BLUE_ASSERT(v != nullptr, "Invalid vertical alignment");
 
 			for (int ai = 0; ai < v->getAlignmentElementCount(); ai++)
@@ -318,7 +344,7 @@ private:
 				if (v->getAlignmentElementByIndex(ai)->getAlignmentType() == buw::eVerticalAlignmentType::Line)
 				{
 					auto ve = v->getAlignmentElementByIndex(ai);
-					buw::VerticalAlignmentElement2DLine::Ptr line = std::static_pointer_cast<buw::VerticalAlignmentElement2DLine>(ve);
+					buw::ReferenceCounted<buw::VerticalAlignmentElement2DLine> line = std::static_pointer_cast<buw::VerticalAlignmentElement2DLine>(ve);
 
 					const buw::vector2d start	= ve->getStartPosition();
 					const buw::vector2d end		= ve->getEndPosition();
@@ -327,7 +353,7 @@ private:
 
 					const double startGradient	= line->getGradient();
 
-					std::shared_ptr<IfcAlignment2DVerSegLine> ifcLine = std::make_shared<IfcAlignment2DVerSegLine>(createEntityId());
+					buw::ReferenceCounted<IfcAlignment2DVerSegLine> ifcLine = std::make_shared<IfcAlignment2DVerSegLine>(createEntityId());
 					model_->insertEntity(ifcLine);
 					ifcVerticalAlignment->m_Segments.push_back(ifcLine);
 
@@ -346,7 +372,7 @@ private:
 					buw::vector2d start = ve->getStartPosition();
 					buw::vector2d end = ve->getEndPosition();
 	
-					std::shared_ptr<IfcAlignment2DVerSegCircularArc> arc = std::make_shared<IfcAlignment2DVerSegCircularArc>(createEntityId());
+					buw::ReferenceCounted<IfcAlignment2DVerSegCircularArc> arc = std::make_shared<IfcAlignment2DVerSegCircularArc>(createEntityId());
 					model_->insertEntity(arc);
 					ifcVerticalAlignment->m_Segments.push_back(arc);
 
@@ -377,7 +403,7 @@ private:
 				{
 					auto ve = v->getAlignmentElementByIndex(ai);
 
-					buw::VerticalAlignmentElement2DParabola::Ptr parabola = std::static_pointer_cast<buw::VerticalAlignmentElement2DParabola>(ve);
+					buw::ReferenceCounted<buw::VerticalAlignmentElement2DParabola> parabola = std::static_pointer_cast<buw::VerticalAlignmentElement2DParabola>(ve);
 
 					buw::vector2d start = parabola->getStartPosition();
 					buw::vector2d end = parabola->getEndPosition();
@@ -385,7 +411,7 @@ private:
 					buw::vector2d pvi;
 					ve->genericQuery(OpenInfraPlatform::Infrastructure::eAlignmentElementQueryId::PVI, &pvi);
 
-					std::shared_ptr<IfcAlignment2DVerSegParabolicArc> para = std::make_shared<IfcAlignment2DVerSegParabolicArc>(createEntityId());
+					buw::ReferenceCounted<IfcAlignment2DVerSegParabolicArc> para = std::make_shared<IfcAlignment2DVerSegParabolicArc>(createEntityId());
 					model_->insertEntity(para);
 					ifcVerticalAlignment->m_Segments.push_back(para);
 
@@ -419,7 +445,7 @@ private:
 
 	void convertHorizontalAlignment(
 		shared_ptr<OpenInfraPlatform::IfcAlignment::IfcAlignment> ifcAlignment,
-		buw::Alignment2DBased3D::Ptr alignment, 
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment,
 		buw::vector3d &centerOffset)
 	{
 		// create horizontal alignment model
@@ -602,71 +628,159 @@ private:
 	}
 
 	void exportTerrain(
-		buw::DigitalElevationModel::Ptr dem,
+		buw::ReferenceCounted<buw::DigitalElevationModel> dem,
 		buw::vector3d &centerOffset, 
 		shared_ptr<IfcGeometricRepresentationContext> geometricRepresentationContext, 
 		shared_ptr<IfcRelContainedInSpatialStructure> c2)
 	{
 		for (int i = 0; i < dem->getSurfaceCount(); i++)
 		{
-			buw::Surface::Ptr s = dem->getSurface(i);
+			buw::ReferenceCounted<buw::Surface> s = dem->getSurface(i);
 
-			shared_ptr<IfcTriangulatedFaceSet> triangluratedFaceSet = std::make_shared<IfcTriangulatedFaceSet>(createEntityId());
-			model_->insertEntity(triangluratedFaceSet);
-
-			triangluratedFaceSet->m_Closed = std::make_shared<IfcBoolean>(false);
-			triangluratedFaceSet->m_Coordinates = std::make_shared< IfcCartesianPointList3D >(createEntityId());
-			model_->insertEntity(triangluratedFaceSet->m_Coordinates);
-
-			// iterate over all points of the current surface element
-			for (int pointIndex = 0; pointIndex < s->getPointCount(); pointIndex++)
+			int tempId = getCurrentEntityId();
+			if (settings_.useFixedEntityIdForGeometry)
 			{
-				double x = s->getPoints()[pointIndex].x() - centerOffset.x();
-				double y = s->getPoints()[pointIndex].y() - centerOffset.y();
-				double z = s->getPoints()[pointIndex].z() - centerOffset.z();
-
-				std::vector<shared_ptr<IfcLengthMeasure>> coordinates;
-				coordinates.push_back(std::make_shared<IfcLengthMeasure>(x));
-				coordinates.push_back(std::make_shared<IfcLengthMeasure>(y));
-				coordinates.push_back(std::make_shared<IfcLengthMeasure>(z));
-
-				triangluratedFaceSet->m_Coordinates->m_CoordList.push_back(coordinates);
+				setCurrentEntityId(settings_.startId);
 			}
-
-			for (int faceIndex = 0; faceIndex < s->getTriangleCount(); faceIndex++)
+	
+			if (settings_.schemaVersion == eIfcSchemaVersion::IFC2x3)
 			{
-				std::vector<int> face_indices;
+				std::vector<shared_ptr<IfcFace>> faces;
 
-				// reverse order of faces
-				face_indices.push_back(s->getTriangeFaces()[faceIndex][0]);
-				face_indices.push_back(s->getTriangeFaces()[faceIndex][2]);
-				face_indices.push_back(s->getTriangeFaces()[faceIndex][1]);
+				for (int faceIndex = 0; faceIndex < s->getTriangleCount(); faceIndex++)
+				{
+					std::vector<int> face_indices;
 
-				triangluratedFaceSet->m_CoordIndex.push_back(face_indices);
+					// reverse order of faces
+					int i1 = s->getTriangeFaces()[faceIndex][0];
+					int i2 = s->getTriangeFaces()[faceIndex][2];
+					int i3 = s->getTriangeFaces()[faceIndex][1];
+
+					buw::vector3d v1 = s->getPoints()[i1] - centerOffset;
+					buw::vector3d v2 = s->getPoints()[i2] - centerOffset;
+					buw::vector3d v3 = s->getPoints()[i3] - centerOffset;
+				
+					std::vector<shared_ptr<IfcCartesianPoint>> points;
+
+					points.push_back(createIfcCartesianPoint(v1.x(), v1.y(), v1.z()));
+					points.push_back(createIfcCartesianPoint(v2.x(), v2.y(), v2.z()));
+					points.push_back(createIfcCartesianPoint(v3.x(), v3.y(), v3.z()));
+
+					shared_ptr<IfcPolyLoop> polyLoop = createIfcPolyLoop(points);
+					shared_ptr<IfcFaceOuterBound> outerBound = createIfcFaceOuterbound(polyLoop);
+					faces.push_back(createIfcFace(outerBound));
+				}
+
+				shared_ptr<IfcClosedShell> closedShell = createIfcClosedShell(faces);
+
+				
+				auto triangluratedFaceSet = createIfcFacetedBrep(closedShell);
+
+				if (settings_.useFixedEntityIdForGeometry)
+				{
+					setCurrentEntityId(tempId);
+				}
+		//---------------------------
+
+				std::vector<shared_ptr<IfcRepresentation>> representation;
+				std::vector<shared_ptr<IfcRepresentationItem>> representationItems;
+				representationItems.push_back(triangluratedFaceSet);
+				representation.push_back(createIfcShapeRepresentation(representationItems, geometricRepresentationContext));
+
+				shared_ptr<IfcAxis2Placement3D> axisPlacement = createIfcAxis2Placement3D(createIfcCartesianPoint(0, 0, 0));
+				shared_ptr<IfcLocalPlacement> localPlacement = createIfcLocalPlacement(axisPlacement);
+
+				auto sr = createIfcProductDefinitionShape(representation);
+
+				shared_ptr<IfcGeographicElement> geographicElement = std::make_shared<IfcGeographicElement>(createEntityId());
+				model_->insertEntity(geographicElement);
+				geographicElement->m_PredefinedType = std::make_shared<IfcGeographicElementTypeEnum>(IfcGeographicElementTypeEnum::ENUM_TERRAIN);
+				geographicElement->m_GlobalId = createGlobalId();
+				geographicElement->m_Name = std::make_shared<IfcLabel>("Terrain");
+				geographicElement->m_OwnerHistory = nullptr;// ownerHistory;
+				geographicElement->m_Representation = sr;
+				geographicElement->m_ObjectPlacement = localPlacement;
+
+				// connect GeographicElement with site
+				c2->m_RelatedElements.push_back(geographicElement);
 			}
+			else
+			{
+				shared_ptr<IfcTriangulatedFaceSet> triangluratedFaceSet = std::make_shared<IfcTriangulatedFaceSet>(createEntityId());
+				model_->insertEntity(triangluratedFaceSet);
 
-			std::vector<shared_ptr<IfcRepresentation>> representation;
-			std::vector<shared_ptr<IfcRepresentationItem>> representationItems;
-			representationItems.push_back(triangluratedFaceSet);
-			representation.push_back(createIfcShapeRepresentation(representationItems, geometricRepresentationContext));
+				triangluratedFaceSet->m_Closed = std::make_shared<IfcBoolean>(false);
+				triangluratedFaceSet->m_Coordinates = std::make_shared< IfcCartesianPointList3D >(createEntityId());
+				model_->insertEntity(triangluratedFaceSet->m_Coordinates);
 
-			shared_ptr<IfcAxis2Placement3D> axisPlacement = createIfcAxis2Placement3D(createIfcCartesianPoint(0, 0, 0));
-			shared_ptr<IfcLocalPlacement> localPlacement = createIfcLocalPlacement(axisPlacement);
+				// iterate over all points of the current surface element
+				for (int pointIndex = 0; pointIndex < s->getPointCount(); pointIndex++)
+				{
+					double x = s->getPoints()[pointIndex].x() - centerOffset.x();
+					double y = s->getPoints()[pointIndex].y() - centerOffset.y();
+					double z = s->getPoints()[pointIndex].z() - centerOffset.z();
 
-			auto sr = createIfcProductDefinitionShape(representation);
+					std::vector<shared_ptr<IfcLengthMeasure>> coordinates;
+					coordinates.push_back(std::make_shared<IfcLengthMeasure>(x));
+					coordinates.push_back(std::make_shared<IfcLengthMeasure>(y));
+					coordinates.push_back(std::make_shared<IfcLengthMeasure>(z));
 
-			shared_ptr<IfcGeographicElement> geographicElement = std::make_shared<IfcGeographicElement>(createEntityId());
-			model_->insertEntity(geographicElement);
-			geographicElement->m_PredefinedType = std::make_shared<IfcGeographicElementTypeEnum>(IfcGeographicElementTypeEnum::ENUM_TERRAIN);
-			geographicElement->m_GlobalId = createGlobalId();
-			geographicElement->m_Name = std::make_shared<IfcLabel>("Terrain");
-			geographicElement->m_OwnerHistory = nullptr;// ownerHistory;
-			geographicElement->m_Representation = sr;
-			geographicElement->m_ObjectPlacement = localPlacement;
+					triangluratedFaceSet->m_Coordinates->m_CoordList.push_back(coordinates);
+				}
 
-			// connect GeographicElement with site
-			c2->m_RelatedElements.push_back(geographicElement);
+				for (int faceIndex = 0; faceIndex < s->getTriangleCount(); faceIndex++)
+				{
+					std::vector<int> face_indices;
+
+					// reverse order of faces
+					face_indices.push_back(s->getTriangeFaces()[faceIndex][0]+1);
+					face_indices.push_back(s->getTriangeFaces()[faceIndex][2]+1);
+					face_indices.push_back(s->getTriangeFaces()[faceIndex][1]+1);
+
+					triangluratedFaceSet->m_CoordIndex.push_back(face_indices);
+				}
+
+				std::vector<shared_ptr<IfcRepresentation>> representation;
+				std::vector<shared_ptr<IfcRepresentationItem>> representationItems;
+				representationItems.push_back(triangluratedFaceSet);
+				representation.push_back(createIfcShapeRepresentation(representationItems, geometricRepresentationContext));
+
+				shared_ptr<IfcAxis2Placement3D> axisPlacement = createIfcAxis2Placement3D(createIfcCartesianPoint(0, 0, 0));
+				shared_ptr<IfcLocalPlacement> localPlacement = createIfcLocalPlacement(axisPlacement);
+
+				auto sr = createIfcProductDefinitionShape(representation);
+
+				shared_ptr<IfcGeographicElement> geographicElement = std::make_shared<IfcGeographicElement>(createEntityId());
+				model_->insertEntity(geographicElement);
+				geographicElement->m_PredefinedType = std::make_shared<IfcGeographicElementTypeEnum>(IfcGeographicElementTypeEnum::ENUM_TERRAIN);
+				geographicElement->m_GlobalId = createGlobalId();
+				geographicElement->m_Name = std::make_shared<IfcLabel>("Terrain");
+				geographicElement->m_OwnerHistory = nullptr;// ownerHistory;
+				geographicElement->m_Representation = sr;
+				geographicElement->m_ObjectPlacement = localPlacement;
+
+				// connect GeographicElement with site
+				c2->m_RelatedElements.push_back(geographicElement);
+			}
 		}
+	}
+	
+	shared_ptr<IfcFaceOuterBound> createIfcFaceOuterbound(shared_ptr<IfcPolyLoop> polyLoop)
+	{
+		shared_ptr<IfcFaceOuterBound> outerBound = std::make_shared<IfcFaceOuterBound>(createEntityId());
+		model_->insertEntity(outerBound);
+		outerBound->m_Bound = polyLoop;
+		outerBound->m_Orientation = std::make_shared<IfcBoolean>(true);
+		
+		return outerBound;
+	}
+
+	shared_ptr<IfcPolyLoop> createIfcPolyLoop(std::vector<shared_ptr<IfcCartesianPoint>> points)
+	{
+		shared_ptr<IfcPolyLoop> polyLoop = std::make_shared<IfcPolyLoop>(createEntityId());
+		polyLoop->m_Polygon = points;
+		model_->insertEntity(polyLoop);
+		return polyLoop;
 	}
 
 	shared_ptr<IfcShapeRepresentation>
@@ -796,6 +910,16 @@ private:
 		const buw::vector3d& positon)
 	{
 		return createIfcCartesianPoint(positon.x(), positon.y(), positon.z());
+	}
+
+	shared_ptr<IfcClosedShell> createIfcClosedShell(std::vector<shared_ptr<IfcFace>> faces)
+	{
+		shared_ptr<IfcClosedShell> shell = std::make_shared<IfcClosedShell>(createEntityId());
+		model_->insertEntity(shell);
+
+		shell->m_CfsFaces = faces;
+
+		return shell;
 	}
 
 	shared_ptr<IfcCartesianPoint> createIfcCartesianPoint(
@@ -993,6 +1117,16 @@ private:
 		return person;
 	}
 
+	int getCurrentEntityId() const
+	{
+		return entityId_;
+	}
+
+	void setCurrentEntityId(int id)
+	{
+		entityId_ = id;
+	}
+
 	int createEntityId()
 	{
 		return entityId_++;
@@ -1011,8 +1145,9 @@ private:
 	ifcAlignmentExportDescription	settings_;
 };
 
-OpenInfraPlatform::Infrastructure::IfcAlignmentExport::IfcAlignmentExport() :
-impl_(new IfcAlignmentP6ExportImpl())
+OpenInfraPlatform::Infrastructure::IfcAlignmentExport::IfcAlignmentExport(const ifcAlignmentExportDescription& desc, buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename) :
+Export(am, dem, filename),
+impl_(new IfcAlignmentP6ExportImpl(desc, am, dem, filename))
 {
 	
 }
@@ -1020,13 +1155,4 @@ impl_(new IfcAlignmentP6ExportImpl())
 OpenInfraPlatform::Infrastructure::IfcAlignmentExport::~IfcAlignmentExport()
 {
 
-}
-
-void OpenInfraPlatform::Infrastructure::IfcAlignmentExport::convert(
-	const ifcAlignmentExportDescription& desc,
-	buw::DigitalElevationModel::Ptr dem,
-	std::vector<buw::IAlignment3D::Ptr> alignments, 
-	const std::string& filename)
-{
-	impl_->convert(desc, dem, alignments, filename);
 }

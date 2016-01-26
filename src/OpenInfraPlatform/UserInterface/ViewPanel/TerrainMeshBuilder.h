@@ -16,7 +16,7 @@
 
 namespace OpenInfraPlatform
 {
-	BlueFramework::Engine::SimpleMesh::Ptr
+	buw::ReferenceCounted<BlueFramework::Engine::SimpleMesh>
 		ConvertToSimpleMesh( 
 		const buw::Surface* s );
 	

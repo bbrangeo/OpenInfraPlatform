@@ -46,7 +46,6 @@ namespace OpenInfraPlatform
 		   const char* what() const throw() { return s.c_str(); }
 		};
 
-
 		class GeomUtils
 		{
 		public:

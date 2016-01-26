@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Datum.h 2014-07-10 15:00:00 vogelsang $
+* $Id: Datum.h 2014-10-20 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -28,6 +28,7 @@
 * 2013-12-17 Instanzen für Wert-Objekte zulassen
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-07-10 SQL-Anbindung vorbereiten
+* 2014-10-20 Datumwandlung bei Migration
 * 
 ****************************************************************************/
 #ifndef DEFDatum
@@ -120,7 +121,7 @@ namespace Oklabi
 		Datum*         Plus(int);
 		int            Minus(const Datum*);
 		Text           GibText() const;
-		Text           GibDatum() const;
+		Text           GibDatum(bool = true) const;
 		Text           GibUhrzeit() const;
 		bool           IstGleich(const Datum*) const;
 		bool           IstGroesser(const Datum*) const;

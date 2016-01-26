@@ -36,25 +36,27 @@ namespace OpenInfraPlatform
 			//! Virtual destructor.
 			virtual ~DigitalElevationModel();
 
-			void addSurface(buw::Surface::Ptr surface);
+			void addSurface(buw::ReferenceCounted<buw::Surface> surface);
 			
 			//! A digital terrain model can 
 			int getSurfaceCount() const;
 
-			buw::Surface::Ptr getSurface(const int index) const;
+			buw::ReferenceCounted<buw::Surface> getSurface(const int index) const;
+
+			const std::vector<buw::ReferenceCounted<buw::Surface>> &getSurfaces() const;
 
 			void getSurfacesExtend( buw::vector3d& minimalPosition, buw::vector3d& maximalPosition ) const;
 
 			buw::vector3d getCenterPoint() const;
 
-			std::vector<std::pair<double, double>> getSurfaceProfile( buw::IAlignment3D::Ptr a ) const;
+			std::vector<std::pair<double, double>> getSurfaceProfile(buw::ReferenceCounted<buw::IAlignment3D> a) const;
 			double getHeightAtPosition(buw::vector2d position) const;
 
 			double getMinimumHeight() const;
 	
 			double getMaximumHeight() const;
 
-			void deleteSurface(buw::Surface::Ptr s);
+			void deleteSurface(buw::ReferenceCounted<buw::Surface> s);
 
 			void addBreakLine(const std::vector<buw::vector3d>& breakLine);
 
@@ -64,11 +66,11 @@ namespace OpenInfraPlatform
 			void updateMinMax( const buw::vector3d& position, buw::vector3d &minPos, buw::vector3d &maxPos ) const;
 		
 		private:
-			std::vector<buw::Surface::Ptr>			surfaces_;
+			std::vector<buw::ReferenceCounted<buw::Surface>>			surfaces_;
 			std::vector<std::vector<buw::vector3d>> breakLines_;
 		}; // end class DigitalElevationModel
 
-		BLUEINFRASTRUCTURE_API OpenInfraPlatform::Infrastructure::Surface::Ptr createSurfaceFromXYZPoints(const std::vector<buw::vector3d>& positions);
+		BLUEINFRASTRUCTURE_API buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::Surface> createSurfaceFromXYZPoints(const std::vector<buw::vector3d>& positions);
 	} // end namespace Data
 } // end namespace OpenInfraPlatform
 

@@ -58,7 +58,7 @@ namespace OpenInfraPlatform
 			buw::String					name_;
 		}; // end class IAlignment3D
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Umgebung.h 2014-06-27 15:00:00 vogelsang $
+* $Id: Umgebung.h 2015-05-07 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2014, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -48,6 +48,8 @@
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
 * 2014-04-28 Express-Geometriemodell für Version 2.x
 * 2014-06-27 Zugriff auf GDAL-Ressourcen für Tansformierer
+* 2014-10-06 Kontrolle von Geometriemeldungen
+* 2015-05-07 Neue Methode für Fehlermeldung benötigt
 * 
 ****************************************************************************/
 #ifndef DEFUmgebung
@@ -114,6 +116,7 @@ namespace Oklabi
 		friend class OklabiObjekt;
 		friend class Fachbedeutungsliste;
 		friend class Protokollant;
+		friend class SchemaGeo;
 #ifdef OKLABI_SCHEMADB
 		friend class SchemaDBAdapter;
 #endif
@@ -223,6 +226,8 @@ namespace Oklabi
 			const char* pObjId, const char* pstrCTX);
 		static void Fehlermeldung(const char* pxonam, const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3,
 			const char* pstrP4, const char* pObjId, const char* pstrCTX);
+		static void Fehlermeldung(const char* pxonam, const char* pstrId, const char* pstrP1, const char* pstrP2, const char* pstrP3,
+			const char* pstrP4, const char* pstrP5, const char* pObjId, const char* pstrCTX);
 		static void Fehlermeldung(const char* pxonam, const char* pstrId, const char* pstrP1, const size_t& nP1,
 			const char* pObjId, const char* pstrCTX);
 		static void Fehlermeldung(const char* pxonam, const char* pstrId, const char* pstrP1, const size_t& nP1, const size_t& nP2,
@@ -332,6 +337,9 @@ namespace Oklabi
 		static bool                   m_bXMLSchemaValidierung;
 		static bool                   m_bOgrTransformierer;
 		static bool                   m_bExpressGeometrie;
+		static bool                   m_bGeometrieMessages;
+		static bool                   m_bGeometrieDelete;
+		static bool                   m_bReferenzGeometrie;
 		static Text                   m_strSRSPrefix;
 		static Text                   m_strURNPrefix;
 		static Text                   m_strGdalData;

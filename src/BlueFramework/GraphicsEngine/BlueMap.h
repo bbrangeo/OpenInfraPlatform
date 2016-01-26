@@ -1,4 +1,4 @@
- /*! \verbatim
+/*! \verbatim
  *  \copyright	Copyright (c) 2015 Julian Amann. All rights reserved.
  *	\author		Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
  *	\brief		This file is part of the BlueFramework.
@@ -34,7 +34,7 @@ namespace BlueFramework
 		{
 			eTileStatus::Enum		status;
 			buw::vector2i			position;
-			buw::ITexture2D::Ptr	texture;
+			buw::ReferenceCounted<buw::ITexture2D>	texture;
 		};
 
 		class BlueMap : private boost::noncopyable
@@ -43,7 +43,7 @@ namespace BlueFramework
 			BLUE_DEFINE_SHARED_POINTER(BlueMap);
 			std::thread t1;
 
-			BlueMap(buw::IRenderSystem::Ptr renderSystem, buw::IRenderContext::Ptr renderContext_);
+			BlueMap(buw::ReferenceCounted<buw::IRenderSystem> renderSystem, buw::ReferenceCounted<buw::IRenderContext> renderContext_);
 
 			virtual ~BlueMap();
 
@@ -65,13 +65,13 @@ namespace BlueFramework
 			bool						stopThread_;
 			buw::vector2i				offset;
 
-			buw::Quad2::Ptr				quad_;
-			buw::IShader::Ptr			quadShader_;
-			buw::TextureRepository::Ptr	textureRepository_;
+			buw::ReferenceCounted<buw::Quad2>				quad_;
+			buw::ReferenceCounted<buw::IShader>			quadShader_;
+			buw::ReferenceCounted<buw::TextureRepository>	textureRepository_;
 
-			buw::IRenderSystem::Ptr		renderSystem_;
-			buw::IRenderContext::Ptr	renderContext_;
-			buw::ITexture2D::Ptr		loading_;
+			buw::ReferenceCounted<buw::IRenderSystem>		renderSystem_;
+			buw::ReferenceCounted<buw::IRenderContext>	renderContext_;
+			buw::ReferenceCounted<buw::ITexture2D>		loading_;
 			std::vector<mapTile>		tiles_;
 		}; // end class BlueMap
 	} // end namespace GraphicsEngine

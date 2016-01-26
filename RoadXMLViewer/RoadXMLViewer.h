@@ -169,12 +169,12 @@ namespace RoadXML
 
 		}
 
-		void addElement(XYCurveElement::Ptr element)
+		void addElement(buw::ReferenceCounted<XYCurveElement> element)
 		{
 			elements_.push_back(element);
 		}
 
-		void draw(buw::VertexCacheLine::Ptr vcl, buw::VertexCachePoint::Ptr vcp)
+		void draw(buw::ReferenceCounted<buw::VertexCacheLine> vcl, buw::ReferenceCounted<buw::VertexCachePoint> vcp)
 		{
 			// turtle movement
 			double		  currentDirectionAngle = direction;
@@ -199,7 +199,7 @@ namespace RoadXML
 					break;
 				case eXYCurveType::CircleArc:
 					{
-						CircleArc::Ptr arc = std::static_pointer_cast<CircleArc>(elements_[i]);
+						buw::ReferenceCounted<CircleArc> arc = std::static_pointer_cast<CircleArc>(elements_[i]);
 
 						std::cout << "radius " << arc->getRadius() << std::endl;
 
@@ -231,13 +231,13 @@ namespace RoadXML
 					break;				
 				case eXYCurveType::ClothoArc:
 					{
-						ClothoArc::Ptr c = std::static_pointer_cast<ClothoArc>(elements_[i]);
+						buw::ReferenceCounted<ClothoArc> c = std::static_pointer_cast<ClothoArc>(elements_[i]);
 
 						drawClothoid(vcl, currentStart, currentDirectionAngle, c->getStartCurvature(), c->getEndCurvature(), c->getLength());
 
 						vcp->drawPoint(currentStart.x(), currentStart.y());
 
-						buw::HorizontalAlignmentElement2DClothoid_old::Ptr pc = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
+						buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid_old> pc = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
 							currentStart, 
 							currentDirectionAngle, 
 							c->getStartCurvature(), 
@@ -257,7 +257,7 @@ namespace RoadXML
 
 	private:
 		void drawClothoid(
-			buw::VertexCacheLine::Ptr vcl,
+			buw::ReferenceCounted<buw::VertexCacheLine> vcl,
 			const buw::vector2d& start, 
 			const double direction,
 			const double startCurvature,
@@ -266,7 +266,7 @@ namespace RoadXML
 		{
 			vcl->setColor(buw::colorConstants3f::yellow());
 
-			buw::HorizontalAlignmentElement2DClothoid_old::Ptr a = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
+			buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid_old> a = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
 				start, 
 				direction,
 				startCurvature,
@@ -287,7 +287,7 @@ namespace RoadXML
 		}
 
 		void drawArc(
-			buw::VertexCacheLine::Ptr vcl,
+			buw::ReferenceCounted<buw::VertexCacheLine> vcl,
 			const buw::vector2d& center, 
 			const buw::vector2d& start,
 			const buw::vector2d& end, 
@@ -295,7 +295,7 @@ namespace RoadXML
 		{
 			vcl->setColor(buw::colorConstants3f::red());
 
-			buw::HorizontalAlignmentElement2DArc::Ptr a = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
+			buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArc> a = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
 				center,
 				start,
 				end,
@@ -315,13 +315,13 @@ namespace RoadXML
 		}
 
 		void drawLine(
-			buw::VertexCacheLine::Ptr vcl,
+			buw::ReferenceCounted<buw::VertexCacheLine> vcl,
 			const buw::vector2d& start,
 			const buw::vector2d& end ) 
 		{
 			vcl->setColor(buw::colorConstants3f::green());
 
-			buw::HorizontalAlignmentElement2DLine::Ptr a = std::make_shared<buw::HorizontalAlignmentElement2DLine>(
+			buw::ReferenceCounted<buw::HorizontalAlignmentElement2DLine> a = std::make_shared<buw::HorizontalAlignmentElement2DLine>(
 				start,
 				end);
 
@@ -342,7 +342,7 @@ namespace RoadXML
 		double direction;
 		buw::vector2d start;
 
-		std::vector<XYCurveElement::Ptr> elements_;
+		std::vector<buw::ReferenceCounted<XYCurveElement>> elements_;
 	};
 
 	class Track
@@ -350,7 +350,7 @@ namespace RoadXML
 	public:
 		BLUE_DEFINE_SHARED_POINTER(Track);
 
-		Track(const std::string& name, XYCurve::Ptr a) : 
+		Track(const std::string& name, buw::ReferenceCounted<XYCurve> a) : 
 			name(name),
 			horizontalAlignment(a)
 		{
@@ -363,7 +363,7 @@ namespace RoadXML
 		}
 
 	private:
-		XYCurve::Ptr horizontalAlignment;
+		buw::ReferenceCounted<XYCurve> horizontalAlignment;
 
 		std::string name;
 		std::string startNode;
@@ -406,7 +406,7 @@ public:
 				endCurvature(endCurvature),
 				length(length)
 			*/
-			buw::HorizontalAlignmentElement2DClothoid_old::Ptr	pc = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
+			buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid_old>	pc = std::make_shared<buw::HorizontalAlignmentElement2DClothoid_old>(
 				buw::vector2d(0, 0),
 				0,
 				0,
@@ -450,12 +450,12 @@ public:
 		if (trackId == 1)
 		{
 			// eight_with_intersection
-			RoadXML::XYCurve::Ptr curve1 = std::make_shared<RoadXML::XYCurve>(-1.57079, -0.000146928, -10);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve1 = std::make_shared<RoadXML::XYCurve>(-1.57079, -0.000146928, -10);
 			curve1->addElement( std::make_shared<RoadXML::Segment>(40) );
 			curve1->addElement( std::make_shared<RoadXML::CircleArc>(-0.02, 235.61) );
 			curve1->addElement( std::make_shared<RoadXML::Segment>(39.9998) );
 
-			RoadXML::XYCurve::Ptr curve2 = std::make_shared<RoadXML::XYCurve>(1.57061, -0.00735832, 10.0094);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve2 = std::make_shared<RoadXML::XYCurve>(1.57061, -0.00735832, 10.0094);
 			curve2->addElement( std::make_shared<RoadXML::Segment>(40) );
 			curve2->addElement( std::make_shared<RoadXML::CircleArc>(-0.02, 235.61) );
 			curve2->addElement( std::make_shared<RoadXML::Segment>(40.0002) );
@@ -469,30 +469,30 @@ public:
 			vertexCacheLine_->setColor(buw::colorConstants3f::orange());
 
 			// interchange
-			RoadXML::XYCurve::Ptr curve1 = std::make_shared<RoadXML::XYCurve>(-1.48316, -28.431, 358.999);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve1 = std::make_shared<RoadXML::XYCurve>(-1.48316, -28.431, 358.999);
 			curve1->addElement( std::make_shared<RoadXML::Segment>(127.485) );
 
-			RoadXML::XYCurve::Ptr curve2 = std::make_shared<RoadXML::XYCurve>(0.602425, -62.8889, 3.77778);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve2 = std::make_shared<RoadXML::XYCurve>(0.602425, -62.8889, 3.77778);
 			curve2->addElement( std::make_shared<RoadXML::Segment>(100.91) );
 
-			RoadXML::XYCurve::Ptr curve3 = std::make_shared<RoadXML::XYCurve>(1.75917, 50.0104, -83.2074);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve3 = std::make_shared<RoadXML::XYCurve>(1.75917, 50.0104, -83.2074);
 			curve3->addElement( std::make_shared<RoadXML::ClothoArc>(0, 8.009, -0.0309793) );
 			curve3->addElement( std::make_shared<RoadXML::ClothoArc>(0, 3.51943, 0.0143293) );
 			curve3->addElement( std::make_shared<RoadXML::CircleArc>(0.00105004, 128.811) );
 			curve3->addElement( std::make_shared<RoadXML::Segment>(2.7) );
 
-			RoadXML::XYCurve::Ptr curve4 = std::make_shared<RoadXML::XYCurve>(1.76353, 25.1084, 73.6863);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve4 = std::make_shared<RoadXML::XYCurve>(1.76353, 25.1084, 73.6863);
 			curve4->addElement( std::make_shared<RoadXML::CircleArc>(0.000302351, 35.4289) );
 			curve4->addElement( std::make_shared<RoadXML::CircleArc>(0.000358132, 96.945) );
 			curve4->addElement( std::make_shared<RoadXML::CircleArc>(-0.00497208, 29.6926) );
 
-			RoadXML::XYCurve::Ptr curve5 = std::make_shared<RoadXML::XYCurve>(0.60776, 30.6685, 69.0041);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve5 = std::make_shared<RoadXML::XYCurve>(0.60776, 30.6685, 69.0041);
 			curve5->addElement( std::make_shared<RoadXML::Segment>(148.069) );
 
-			RoadXML::XYCurve::Ptr curve6 = std::make_shared<RoadXML::XYCurve>(-1.30165, 41.2798, -86.6892);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve6 = std::make_shared<RoadXML::XYCurve>(-1.30165, 41.2798, -86.6892);
 			curve6->addElement( std::make_shared<RoadXML::Segment>(158.731) );
 
-			RoadXML::XYCurve::Ptr curve7 = std::make_shared<RoadXML::XYCurve>(-1.48316, -17.2321, 231.539);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve7 = std::make_shared<RoadXML::XYCurve>(-1.48316, -17.2321, 231.539);
 			curve7->addElement( std::make_shared<RoadXML::Segment>(79.732) );
 			curve7->addElement( std::make_shared<RoadXML::ClothoArc>(0.00316235, 114.795, 0) );
 			curve7->addElement( std::make_shared<RoadXML::Segment>(129.227) );
@@ -510,22 +510,22 @@ public:
 		{
 			// small_roundabout
 
-			RoadXML::XYCurve::Ptr curve1 = std::make_shared<RoadXML::XYCurve>(1.56587, -0.741206, 15.4613);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve1 = std::make_shared<RoadXML::XYCurve>(1.56587, -0.741206, 15.4613);
 			curve1->addElement( std::make_shared<RoadXML::Segment>(16.802) );
 
-			RoadXML::XYCurve::Ptr curve2 = std::make_shared<RoadXML::XYCurve>(-0.702165, 4.6275, 7.60126);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve2 = std::make_shared<RoadXML::XYCurve>(-0.702165, 4.6275, 7.60126);
 			curve2->addElement( std::make_shared<RoadXML::CircleArc>(-0.125333, 12.902) );
 
-			RoadXML::XYCurve::Ptr curve3 = std::make_shared<RoadXML::XYCurve>(0.925867, -6.90193, 6.30625);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve3 = std::make_shared<RoadXML::XYCurve>(0.925867, -6.90193, 6.30625);
 			curve3->addElement( std::make_shared<RoadXML::CircleArc>(-0.125333, 2.14) );
 
-			RoadXML::XYCurve::Ptr curve4 = std::make_shared<RoadXML::XYCurve>(3.12615, -13.4974, 1.59397);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve4 = std::make_shared<RoadXML::XYCurve>(3.12615, -13.4974, 1.59397);
 			curve4->addElement( std::make_shared<RoadXML::Segment>(24.695) );
 
-			RoadXML::XYCurve::Ptr curve5 = std::make_shared<RoadXML::XYCurve>(2.51434, -5.20871, -4.95001);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve5 = std::make_shared<RoadXML::XYCurve>(2.51434, -5.20871, -4.95001);
 			curve5->addElement( std::make_shared<RoadXML::CircleArc>(-0.125333, 2.534) );
 
-			RoadXML::XYCurve::Ptr curve6 = std::make_shared<RoadXML::XYCurve>(-1.57079, 0.0584924, -11.4272);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve6 = std::make_shared<RoadXML::XYCurve>(-1.57079, 0.0584924, -11.4272);
 			curve6->addElement( std::make_shared<RoadXML::Segment>(24.128) );
 
 			curve1->draw(vertexCacheLine_, vertexCachePoint_);
@@ -540,52 +540,52 @@ public:
 		{
 			// big_roundabout
 
-			RoadXML::XYCurve::Ptr curve1 = std::make_shared<RoadXML::XYCurve>(-2.90919, 23.9702, -49.8307);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve1 = std::make_shared<RoadXML::XYCurve>(-2.90919, 23.9702, -49.8307);
 			curve1->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 50.679) );
 
-			RoadXML::XYCurve::Ptr curve2 = std::make_shared<RoadXML::XYCurve>(-0.569454, 37.7794, -54.0162);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve2 = std::make_shared<RoadXML::XYCurve>(-0.569454, 37.7794, -54.0162);
 			curve2->addElement( std::make_shared<RoadXML::CircleArc>(-0.0127335, 27.843) );
 			curve2->addElement( std::make_shared<RoadXML::Segment>(102.83) );
 
-			RoadXML::XYCurve::Ptr curve3 = std::make_shared<RoadXML::XYCurve>(-1.72351, 35.7585, 143.183);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve3 = std::make_shared<RoadXML::XYCurve>(-1.72351, 35.7585, 143.183);
 			curve3->addElement( std::make_shared<RoadXML::Segment>(52.5975) );
 			curve3->addElement( std::make_shared<RoadXML::ClothoArc>(-0.0165407, 45.185, 0) );
 
-			RoadXML::XYCurve::Ptr curve4 = std::make_shared<RoadXML::XYCurve>(-0.125226, 19.2113, 38.8838);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve4 = std::make_shared<RoadXML::XYCurve>(-0.125226, 19.2113, 38.8838);
 			curve4->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 28.2189) );
 
-			RoadXML::XYCurve::Ptr curve5 = std::make_shared<RoadXML::XYCurve>(0.443651, -247.315, -93.7062);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve5 = std::make_shared<RoadXML::XYCurve>(0.443651, -247.315, -93.7062);
 			curve5->addElement( std::make_shared<RoadXML::ClothoArc>(0, 72.701, 0.000116682) );
 			curve5->addElement( std::make_shared<RoadXML::ClothoArc>(0, 84.491, -0.00239696) );
 			curve5->addElement( std::make_shared<RoadXML::ClothoArc>(0, 57.3569, 0.00407442) );
 			curve5->addElement( std::make_shared<RoadXML::CircleArc>(0.0284338, 11.4448) );
 
-			RoadXML::XYCurve::Ptr curve6 = std::make_shared<RoadXML::XYCurve>(1.89687, -29.1888, -20.3633);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve6 = std::make_shared<RoadXML::XYCurve>(1.89687, -29.1888, -20.3633);
 			curve6->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 15.454) );
 
-			RoadXML::XYCurve::Ptr curve7 = std::make_shared<RoadXML::XYCurve>(3.02747, -35.497, -28.2209);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve7 = std::make_shared<RoadXML::XYCurve>(3.02747, -35.497, -28.2209);
 			curve7->addElement( std::make_shared<RoadXML::CircleArc>(0.0272258, 15.6047) );
 			curve7->addElement( std::make_shared<RoadXML::CircleArc>(0.000369416, 206.03) );
 
-			RoadXML::XYCurve::Ptr curve8 = std::make_shared<RoadXML::XYCurve>(1.11296, -26.8913, 14.1511);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve8 = std::make_shared<RoadXML::XYCurve>(1.11296, -26.8913, 14.1511);
 			curve8->addElement( std::make_shared<RoadXML::CircleArc>(-0.0220226, 19.631) );
 			curve8->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 21.323) );
 
-			RoadXML::XYCurve::Ptr curve9 = std::make_shared<RoadXML::XYCurve>(-2.96051, 183.891, 38.0032);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve9 = std::make_shared<RoadXML::XYCurve>(-2.96051, 183.891, 38.0032);
 			curve9->addElement( std::make_shared<RoadXML::Segment>(104.881) );
 			curve9->addElement( std::make_shared<RoadXML::CircleArc>(-0.0166412, 18.9563) );
 
-			RoadXML::XYCurve::Ptr curve10 = std::make_shared<RoadXML::XYCurve>(-2.94513, 213.314, 26.456);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve10 = std::make_shared<RoadXML::XYCurve>(-2.94513, 213.314, 26.456);
 			curve10->addElement( std::make_shared<RoadXML::Segment>(129.775) );
 			curve10->addElement( std::make_shared<RoadXML::CircleArc>(0.0177558, 19.833) );
 
-			RoadXML::XYCurve::Ptr curve11 = std::make_shared<RoadXML::XYCurve>(-1.19341, 55.5376, 10.7303);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve11 = std::make_shared<RoadXML::XYCurve>(-1.19341, 55.5376, 10.7303);
 			curve11->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 12.4399) );
 
-			RoadXML::XYCurve::Ptr curve12 = std::make_shared<RoadXML::XYCurve>(-1.91205, 56.111, -21.0108);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve12 = std::make_shared<RoadXML::XYCurve>(-1.91205, 56.111, -21.0108);
 			curve12->addElement( std::make_shared<RoadXML::CircleArc>(-0.0221529, 30.0112) );
 
-			RoadXML::XYCurve::Ptr curve13 = std::make_shared<RoadXML::XYCurve>(-2.73613, -246.686, -97.2662);
+			buw::ReferenceCounted<RoadXML::XYCurve> curve13 = std::make_shared<RoadXML::XYCurve>(-2.73613, -246.686, -97.2662);
 			curve13->addElement( std::make_shared<RoadXML::Segment>(45.1606) );
 
 			curve1->draw(vertexCacheLine_, vertexCachePoint_);
@@ -758,9 +758,9 @@ public:
 private:
 	int trackId;
 	double cameraZPosition;
-	buw::VertexCacheTriangle::Ptr	vertexCacheTriangle_;
-	buw::VertexCacheLine::Ptr		vertexCacheLine_;
-	buw::VertexCachePoint::Ptr      vertexCachePoint_;
+	buw::ReferenceCounted<buw::VertexCacheTriangle>	vertexCacheTriangle_;
+	buw::ReferenceCounted<buw::VertexCacheLine>		vertexCacheLine_;
+	buw::ReferenceCounted<buw::VertexCachePoint>      vertexCachePoint_;
 			
 protected:
 	buw::Stopwatch					stopWatch_;

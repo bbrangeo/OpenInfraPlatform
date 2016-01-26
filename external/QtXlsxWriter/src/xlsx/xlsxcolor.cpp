@@ -4,6 +4,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QDataStream>
 #include <QDebug>
 
 namespace QXlsx {

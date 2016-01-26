@@ -10,25 +10,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
  * OpenSceneGraph Public License for more details.
 */
-// visual studio
+
 #pragma once
-// unix
 #ifndef STYLESCONVERTER_H
 #define STYLESCONVERTER_H
 
 #include "CarveHeaders.h"
 //#include "ReaderSettings.h"
-//
-//#ifdef IFC4_READER
-//
-////using namespace BlueFramework::Ifc4;
-//#endif
-//
-//#ifdef IFC2X3_READER
-//
-////using namespace OpenInfraPlatform::Ifc2x3;
-//
-//#endif
 
 namespace OpenInfraPlatform
 {

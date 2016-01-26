@@ -25,7 +25,7 @@ namespace OpenInfraPlatform
 			{
 			public:
 				//! Default constructor.
-				ImportXYZ(const std::vector<buw::vector3d>& positions);
+				ImportXYZ(const std::string& filename, const buw::vector2d& start, const buw::vector2d& end);
 
 				//! Virtual destructor.
 				virtual ~ImportXYZ();
@@ -37,7 +37,8 @@ namespace OpenInfraPlatform
 				virtual void unexecute();
 
 			private:
-				 std::vector<buw::vector3d> positions_;
+				std::string filename_;
+				buw::vector2d start_, end_;
 			}; // end class ImportXYZ
 		} // end namespace Action
 	} // end namespace DataManagement

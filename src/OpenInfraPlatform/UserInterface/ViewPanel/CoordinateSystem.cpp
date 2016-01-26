@@ -9,7 +9,7 @@
 #include "CoordinateSystem.h"
 
 void OpenInfraPlatform::UserInterface::drawCoordinateSystem(
-	buw::VertexCacheLine::Ptr vertexCacheLine,
+	buw::ReferenceCounted<buw::VertexCacheLine> vertexCacheLine,
 	float scale/* = 1.0f*/, 
 	eCoordinateSystemType type/* = eCoordinateSystemType::Autodesk*/)
 {
@@ -92,7 +92,7 @@ void OpenInfraPlatform::UserInterface::drawCoordinateSystem(
 }
 
 void OpenInfraPlatform::UserInterface::drawGrid( 
-	buw::VertexCacheLine::Ptr vertexCacheLine,
+	buw::ReferenceCounted<buw::VertexCacheLine> vertexCacheLine,
 	const buw::drawGridDescription& dgd )
 {
 	float fPGridRed = 61.0f/255.0f;

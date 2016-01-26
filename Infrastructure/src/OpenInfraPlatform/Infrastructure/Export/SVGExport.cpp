@@ -9,7 +9,7 @@
 
 #include "SVGExport.h"
 
-void OpenInfraPlatform::Infrastructure::SVGExport::outputToSVG(FILE *fp, buw::HorizontalAlignment2D::Ptr horizontalAlignment)
+void OpenInfraPlatform::Infrastructure::SVGExport::outputToSVG(FILE *fp, buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment)
 {
 	std::string output = "";
 	buw::vector2d start;
@@ -63,10 +63,8 @@ void OpenInfraPlatform::Infrastructure::SVGExport::addPath(FILE *fp, const buw::
 	fprintf(fp, "<path d=\"M %f,%f L %f,%f L %f,%f z\"/>\n", a.x(), -a.y(), b.x(), -b.y(), c.x(), -c.y());
 }
 
-void OpenInfraPlatform::Infrastructure::SVGExport::convert(
-	std::vector<buw::IAlignment3D::Ptr> alignments, 
-	OpenInfraPlatform::Infrastructure::DigitalElevationModel::Ptr digitalElevationModel_, 
-	const std::string& filename)
+OpenInfraPlatform::Infrastructure::SVGExport::SVGExport(buw::ReferenceCounted<buw::AlignmentModel> am, buw::ReferenceCounted<buw::DigitalElevationModel> dem, const std::string& filename) :
+	Export(am, dem, filename)
 {
 	FILE *fp = fopen(filename.c_str(), "w");
 
@@ -84,14 +82,14 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 	//the following code until the chapter "surfaces" determines the maximal positions of all alignments and surfaces.
 	//It is considered if alignments and surfaces were created or not
 
-	if (alignments.size() != 0)
+	if (alignmentModel_->getAlignmentCount() != 0)
 	{
-		Alignmentsmin = alignments[0]->getPosition(0);		Alignmentsmax = alignments[0]->getPosition(0);
-		for (int i = 0; i < alignments.size(); i++)
+		Alignmentsmin = alignmentModel_->getAlignment(0)->getPosition(0);		Alignmentsmax = alignmentModel_->getAlignment(0)->getPosition(0);
+		for (const auto& alignment : alignmentModel_->getAlignments())
 		{
-			for (double s = alignments[i]->getStartStation(); s < alignments[i]->getEndStation(); s += 1.0)
+			for (double s = alignment->getStartStation(); s < alignment->getEndStation(); s += 1.0)
 			{
-				auto p = alignments[i]->getPosition(s);
+				auto p = alignment->getPosition(s);
 				Alignmentsmin = buw::getMinimizedVector(Alignmentsmin, p);
 				Alignmentsmax = buw::getMaximizedVector(Alignmentsmax, p);
 			}
@@ -101,7 +99,7 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 	{
 		digitalElevationModel_->getSurfacesExtend(Surfacesmin, Surfacesmax);
 	}
-	if (digitalElevationModel_->getSurfaceCount() != 0 && alignments.size() != 0)
+	if (digitalElevationModel_->getSurfaceCount() != 0 && alignmentModel_->getAlignmentCount() != 0)
 	{
 		for (int i = 0; i < 2; i++)
 		{
@@ -117,15 +115,15 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 			else pmax[i] = Surfacesmax[i];
 		}
 	}
-	if (digitalElevationModel_->getSurfaceCount() != 0 && alignments.size() == 0)
+	if (digitalElevationModel_->getSurfaceCount() != 0 && alignmentModel_->getAlignmentCount() == 0)
 	{
 		pmin = Surfacesmin;	pmax = Surfacesmax;
 	}
-	if (digitalElevationModel_->getSurfaceCount() == 0 && alignments.size() != 0)
+	if (digitalElevationModel_->getSurfaceCount() == 0 && alignmentModel_->getAlignmentCount() != 0)
 	{
 		pmin = Alignmentsmin;		pmax = Alignmentsmax;
 	}
-	if (alignments.size() == 0 && digitalElevationModel_->getSurfaceCount() == 0)
+	if (alignmentModel_->getAlignmentCount() == 0 && digitalElevationModel_->getSurfaceCount() == 0)
 	{
 		Alignmentsmax = Alignmentsmin = Surfacesmin = Surfacesmax = pnull;
 	}
@@ -141,21 +139,21 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 		fprintf(fp, "<g id=\"Surfaces\">\n");
 		fprintf(fp, "<g id=\"SurfaceSet_\" class=\"surface\">\n");
 		fprintf(fp, "<g>");
-		buw::Surface::Ptr currentSurface = digitalElevationModel_->getSurface(i);
+		buw::ReferenceCounted<buw::Surface> currentSurface = digitalElevationModel_->getSurface(i);
 		int x = 0; // first point has always id 0 - old behaviour was differntly from this  //currentSurface.getPoints()[0].id;
 
-		//the following code until "gaps found" searches for gaps in the point ids
-		for (int j = 0; j < currentSurface->getTriangeFaces().size(); j++) //create unsortIDList
+		// the following code until "gaps found" searches for gaps in the point ids
+		for (int j = 0; j < currentSurface->getTriangeFaces().size(); j++) // create unsortIDList
 		{
 			for (int f = 0; f < 3; f++)
 			{
 				unsortIDList.push_back(currentSurface->getTriangeFaces()[j][f]);
 			}
 		}
-		unsortIDList.sort();//sort unsortIDList 
-		unsortIDList.unique();//deletes IDs that are more than one time in the list
+		unsortIDList.sort();// sort unsortIDList 
+		unsortIDList.unique();// deletes IDs that are more than one time in the list
 
-		//compare every input with a normal numeration and determine by this way the gaps
+		// compare every input with a normal numeration and determine by this way the gaps
 		for (iter1 = unsortIDList.begin(); iter1 != unsortIDList.end(); iter1++)
 		{
 			if (*iter1 != x)
@@ -164,7 +162,7 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 				x++;
 			}
 			x++;
-		}//gaps found
+		}// gaps found
 
 		for (int j = 0; j<currentSurface->getTriangeFaces().size(); j++)
 		{
@@ -172,7 +170,7 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 			int pointNo2 = currentSurface->getTriangeFaces()[j][1];
 			int pointNo3 = currentSurface->getTriangeFaces()[j][2];
 
-			//because of the gap the numeration has been changed, in the following loop this is corrected		
+			// because of the gap the numeration has been changed, in the following loop this is corrected		
 			for (int g = 0; g<missingPointsID.size(); g++)
 			{
 				if (currentSurface->getTriangeFaces()[j][0] > missingPointsID[g])
@@ -206,17 +204,17 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 		fprintf(fp, "</g>\n");
 	}
 	
-	//Horizontal alignment
+	// Horizontal alignment
 	fprintf(fp, "<g id=\"AlignmentSet_\" class=\"alignment\">\n");
 
-	for (int i = 0; i < alignments.size(); i++)
+	for (const auto& alignment : alignmentModel_->getAlignments())
 	{
-		if (alignments[i]->getType() != buw::e3DAlignmentType::e2DBased)
+		if (alignment->getType() != buw::e3DAlignmentType::e2DBased)
 		{
 			continue;
 		}
 
-		buw::Alignment2DBased3D::Ptr alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments[i]);
+		buw::ReferenceCounted<buw::Alignment2DBased3D> alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment);
 		std::string output = "";
 		outputToSVG(fp, alignment2D->getHorizontalAlignment());
 	}
@@ -224,9 +222,4 @@ void OpenInfraPlatform::Infrastructure::SVGExport::convert(
 	fprintf(fp, "</svg>\n");
 
 	fclose(fp);
-}
-
-OpenInfraPlatform::Infrastructure::SVGExport::SVGExport()
-{
-
 }

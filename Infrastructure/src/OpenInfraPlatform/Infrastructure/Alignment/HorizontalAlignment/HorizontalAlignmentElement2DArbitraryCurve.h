@@ -21,10 +21,7 @@ namespace OpenInfraPlatform
 	{
 		class BLUEINFRASTRUCTURE_API HorizontalAlignmentElement2DArbitraryCurve : public HorizontalAlignmentElement2D
 		{
-		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignmentElement2DArbitraryCurve);
-			
-			//! Default constructor.
+		public:			
 			HorizontalAlignmentElement2DArbitraryCurve(	const buw::vector2d& start, 
 				const buw::vector2d& end,
 				const buw::vector2d& pi,
@@ -33,7 +30,6 @@ namespace OpenInfraPlatform
 				const double radiusEnd,
 				const bool clockwise);
 
-			//! Virtual destructor.
 			virtual ~HorizontalAlignmentElement2DArbitraryCurve();
 
 			virtual buw::vector2d getPosition(const double lerpParameter ) const override;
@@ -53,7 +49,7 @@ namespace OpenInfraPlatform
 			std::unique_ptr<HorizontalAlignmentElement2DArbitraryCurveImpl> impl_;	// Opaque pointer to implementation
 		}; // end class HorizontalAlignmentElement2DArbitraryCurve
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

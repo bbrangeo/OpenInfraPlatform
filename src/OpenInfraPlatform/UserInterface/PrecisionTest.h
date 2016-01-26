@@ -107,9 +107,9 @@ namespace OpenInfraPlatform
 
 				state = ExportingIfc;
 
-				buw::HorizontalAlignment2D::Ptr horizontalAlignment = std::make_shared<buw::HorizontalAlignment2D>();
+				buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment = std::make_shared<buw::HorizontalAlignment2D>();
 				horizontalAlignment->addElement(tempClothoid);
-				buw::Alignment2DBased3D::Ptr alignment = std::make_shared<buw::Alignment2DBased3D>(horizontalAlignment);
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::make_shared<buw::Alignment2DBased3D>(horizontalAlignment);
 
 				OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().clear();
 				OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().addAlignment(alignment);
@@ -127,9 +127,9 @@ namespace OpenInfraPlatform
 				std::cout << "export okstra" << std::endl;
 				state = ExportingOkstra;
 
-				buw::HorizontalAlignment2D::Ptr horizontalAlignment = std::make_shared<buw::HorizontalAlignment2D>();
+				buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment = std::make_shared<buw::HorizontalAlignment2D>();
 				horizontalAlignment->addElement(tempClothoid);
-				buw::Alignment2DBased3D::Ptr alignment = std::make_shared<buw::Alignment2DBased3D>(horizontalAlignment);
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::make_shared<buw::Alignment2DBased3D>(horizontalAlignment);
 
 				OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().clear();
 				OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().addAlignment(alignment);
@@ -157,12 +157,12 @@ namespace OpenInfraPlatform
 
 			void importFinished()
 			{
-				buw::IAlignment3D::Ptr a = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel()->getAlignment(0);
+				buw::ReferenceCounted<buw::IAlignment3D> a = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel()->getAlignment(0);
 
-				buw::Alignment2DBased3D::Ptr alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(a);
-				buw::HorizontalAlignment2D::Ptr horizontalAlignment = alignment2D->getHorizontalAlignment();
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment2D = std::static_pointer_cast<buw::Alignment2DBased3D>(a);
+				buw::ReferenceCounted<buw::HorizontalAlignment2D> horizontalAlignment = alignment2D->getHorizontalAlignment();
 
-				buw::HorizontalAlignmentElement2D::Ptr element = horizontalAlignment->getAlignmentElementByIndex(0);
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2D> element = horizontalAlignment->getAlignmentElementByIndex(0);
 				tempClothoid = std::static_pointer_cast<buw::HorizontalAlignmentElement2DClothoid>(element);
 			}
 
@@ -317,7 +317,7 @@ namespace OpenInfraPlatform
 
 
 		private:
-			buw::HorizontalAlignmentElement2DClothoid::Ptr clothoid, tempClothoid;
+			buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid> clothoid, tempClothoid;
 			State state;
 
 			int iteration, totalIterations;

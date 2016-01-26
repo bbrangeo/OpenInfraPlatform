@@ -35,7 +35,7 @@
 #include "OpenInfraPlatform/Infrastructure/Import/OutputStreamLandXMLDataBuilder.h"
 #include "OpenInfraPlatform/Infrastructure/Import/IfcAlignmentImport.h"
 #include "OpenInfraPlatform/Infrastructure/Import/IfcRoadImport.h"
-#include "OpenInfraPlatform/Infrastructure/Import/RoadXMLParser.h"
+#include "OpenInfraPlatform/Infrastructure/Import/RoadXMLImport.h"
 #include "OpenInfraPlatform/Infrastructure/PointCloudProcessing/PointCloudProcessing.h"
 
 // Export

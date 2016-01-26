@@ -40,7 +40,7 @@ namespace OpenInfraPlatform
 			m_Name = other->m_Name;
 			m_Description = other->m_Description;
 			m_RelatingElement = other->m_RelatingElement;
-			m_RelatedOpening = other->m_RelatedOpening;
+			m_RelatedOpeningElement = other->m_RelatedOpeningElement;
 		}
 		void IfcRelVoidsElement::getStepLine( std::stringstream& stream ) const
 		{
@@ -55,7 +55,7 @@ namespace OpenInfraPlatform
 			stream << ",";
 			if( m_RelatingElement ) { stream << "#" << m_RelatingElement->getId(); } else { stream << "$"; }
 			stream << ",";
-			if( m_RelatedOpening ) { stream << "#" << m_RelatedOpening->getId(); } else { stream << "$"; }
+			if( m_RelatedOpeningElement ) { stream << "#" << m_RelatedOpeningElement->getId(); } else { stream << "$"; }
 			stream << ");";
 		}
 		void IfcRelVoidsElement::getStepParameter( std::stringstream& stream, bool ) const { stream << "#" << m_id; }
@@ -71,16 +71,16 @@ namespace OpenInfraPlatform
 			m_Name = IfcLabel::readStepData( args[2] );
 			m_Description = IfcText::readStepData( args[3] );
 			readEntityReference( args[4], m_RelatingElement, map );
-			readEntityReference( args[5], m_RelatedOpening, map );
+			readEntityReference( args[5], m_RelatedOpeningElement, map );
 		}
 		void IfcRelVoidsElement::setInverseCounterparts( shared_ptr<IfcBridgeEntity> ptr_self_entity )
 		{
 			IfcRelDecomposes::setInverseCounterparts( ptr_self_entity );
 			shared_ptr<IfcRelVoidsElement> ptr_self = dynamic_pointer_cast<IfcRelVoidsElement>( ptr_self_entity );
 			if( !ptr_self ) { throw IfcBridgeException( "IfcRelVoidsElement::setInverseCounterparts: type mismatch" ); }
-			if( m_RelatedOpening )
+			if( m_RelatedOpeningElement )
 			{
-				m_RelatedOpening->m_VoidsElements_inverse = ptr_self;
+				m_RelatedOpeningElement->m_VoidsElements_inverse = ptr_self;
 			}
 			if( m_RelatingElement )
 			{
@@ -90,12 +90,12 @@ namespace OpenInfraPlatform
 		void IfcRelVoidsElement::unlinkSelf()
 		{
 			IfcRelDecomposes::unlinkSelf();
-			if( m_RelatedOpening )
+			if( m_RelatedOpeningElement )
 			{
-				shared_ptr<IfcRelVoidsElement> self_candidate( m_RelatedOpening->m_VoidsElements_inverse );
+				shared_ptr<IfcRelVoidsElement> self_candidate( m_RelatedOpeningElement->m_VoidsElements_inverse );
 				if( self_candidate->getId() == this->getId() )
 				{
-					weak_ptr<IfcRelVoidsElement>& self_candidate_weak = m_RelatedOpening->m_VoidsElements_inverse;
+					weak_ptr<IfcRelVoidsElement>& self_candidate_weak = m_RelatedOpeningElement->m_VoidsElements_inverse;
 					self_candidate_weak.reset();
 				}
 			}

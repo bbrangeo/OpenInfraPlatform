@@ -27,7 +27,7 @@ namespace OpenInfraPlatform
 			public:
 				BLUE_DEFINE_SHARED_POINTER(DeleteSurface);
 
-				DeleteSurface(buw::Surface::Ptr surface);
+				DeleteSurface(buw::ReferenceCounted<buw::Surface> surface);
 
 				virtual ~DeleteSurface();
 
@@ -38,7 +38,7 @@ namespace OpenInfraPlatform
 				virtual void unexecute();
 
 			private:
-				buw::Surface::Ptr surface_;
+				buw::ReferenceCounted<buw::Surface> surface_;
 
 			}; // end class DeleteSurface
 		} // end namespace Command

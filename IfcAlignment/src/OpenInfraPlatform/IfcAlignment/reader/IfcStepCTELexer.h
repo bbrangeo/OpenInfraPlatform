@@ -88,7 +88,7 @@ namespace IfcStepCTE
 		}
 
 	private:
-		Lexer::Ptr lexer_;
+		ReferenceCounted<Lexer> lexer_;
 	};*/
 
 	void readListOfListOfIntegers(const std::string& str, std::vector<std::vector<int>>& vec);

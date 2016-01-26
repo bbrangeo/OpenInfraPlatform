@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: msg.h 2011-11-17 15:00:00 vogelsang $
+* $Id: msg.h 2012-06-25 15:00:00 vogelsang $
 * $Paket: Oklabi-Dienst $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2011, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2012, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -22,6 +22,7 @@
 * befinden sich bei den Nutzungsbestimmungen.
 * 
 * 2011-11-17 Formale Verbesserungen
+* 2012-06-25 Zweite Sprache nicht gefunden
 * 
 ****************************************************************************/
 // msg.h

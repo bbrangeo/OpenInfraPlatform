@@ -45,7 +45,8 @@ void OpenInfraPlatform::UserInterface::ExportIfcAlignmentDialog::on_pushButtonEx
 		this,
 		tr("Save Document"),
 		QDir::currentPath(),
-		tr("IfcAlignment BuildingSmart P6 Step File (*.ifc);;Zip compressed IfcAlignment BuildingSmart P6 Step File (*.ifczip)"));
+		tr("IfcAlignment BuildingSmart P6 Step File (*.ifc);;Zip compressed IfcAlignment BuildingSmart P6 Step File (*.ifczip)")
+	);
 
 	if (!filename.isNull())
 	{
@@ -54,24 +55,45 @@ void OpenInfraPlatform::UserInterface::ExportIfcAlignmentDialog::on_pushButtonEx
 		desc.exportAlignment = ui_->checkBoxExportAlignment->isChecked();
 		desc.useRadiansInsteadOfDegrees = true;
 
+		if (ui_->comboBoxIfcSchemaVersion->currentText() == QString("IFC4x1"))
+		{
+			desc.schemaVersion = buw::eIfcSchemaVersion::IFC4x1;
+		}
+
+		if (ui_->comboBoxIfcSchemaVersion->currentText() == QString("IFC4"))
+		{
+			desc.schemaVersion = buw::eIfcSchemaVersion::IFC4;
+		}
+
+		if (ui_->comboBoxIfcSchemaVersion->currentText() == QString("IFC2x3"))
+		{
+			desc.schemaVersion = buw::eIfcSchemaVersion::IFC2x3;
+		}
+
 		if (ui_->comboBoxAngleMeasurement->currentText() == QString("Degree"))
 		{
 			desc.useRadiansInsteadOfDegrees = false;
 		}
+
+		desc.useFixedEntityIdForGeometry = ui_->checkBoxUseFixedEntityIdForGeometry->isChecked();
+		desc.startId = ui_->lineEditStartId->text().toInt();
 		
-		if (filename.endsWith(".ifc")) {
+		if (filename.endsWith(".ifc")) 
+		{
 			OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().exportIfcAlignment(
 				desc,
-				filename.toStdString());
+				filename.toStdString()
+			);
 		}
-
-		else if (filename.endsWith("zip")) {
+		else if (filename.endsWith("zip"))
+		{
 			QUuid tempName = QUuid::createUuid();
 			QString tempFilename = QDir::currentPath().append(QString("/").append(tempName.toString().append(".ifc")));
 
 			OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().exportIfcAlignment(
 				desc,
-				tempFilename.toStdString());
+				tempFilename.toStdString()
+			);
 
 			OpenInfraPlatform::DataManagement::IfcZipper* ExportZipper = new OpenInfraPlatform::DataManagement::IfcZipper(nullptr, QString(filename.data()), tempFilename, DEFL);
 

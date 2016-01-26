@@ -54,30 +54,6 @@ void OpenInfraPlatform::UserInterface::ExportExcelDialog::on_pushButtonExport_cl
 
 	if (filename.isNull() == false)
 	{
-		buw::ifcAlignmentExportDescription desc;
-		desc.exportAlignment = true;
-		desc.exportTerrain = true;
-		desc.useRadiansInsteadOfDegrees = true;
-
-		if (ui_->comboBoxAngleMeasurement->currentText() == QString("Degree"))
-		{
-			desc.useRadiansInsteadOfDegrees = false;
-		}
-
-		QUuid id = QUuid::createUuid();
-		QString tempIfcFilename = QDir::currentPath().append(QString("/").append(id.toString().append(".ifc")));
-		QString tempLandXMLFilename = QDir::currentPath().append(QString("/").append(id.toString().append(".xml")));
-		
-		std::string ifcFilename = tempIfcFilename.toStdString(); // "alignment.ifc"; //"C:/Users/no68koc/Desktop/alignment.ifc";//
-		std::string landXMLFilename = tempLandXMLFilename.toStdString(); //  "alignment.xml"; //"C:/Users/no68koc/Desktop/alignment.xml";//
-
-		OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().exportIfcAlignment(desc, ifcFilename.c_str());
-		OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().exportLandXML(landXMLFilename.c_str());
-
-		buw::ExcelReport ec(
-			filename.toStdString().c_str(),
-			landXMLFilename.c_str(),
-			ifcFilename.c_str()
-		);
+		DataManagement::DocumentManager::getInstance().getData().createExcelReport(filename.toStdString(), ui_->comboBoxAngleMeasurement->currentText() == QString("Degree"));
 	}
 }

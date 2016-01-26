@@ -109,8 +109,8 @@ def calculateGlobalRotation():
 	localEndX = computeX(greaterLength, A)-computeX(smallerLength,A)
 	localEndY = signY * (computeY(greaterLength, A)-computeY(smallerLength,A))
 	
-	print("python: localEndX = " + str(localEndX))
-	print("python: localEndY = " + str(localEndY))
+	#print("python: localEndX = " + str(localEndX))
+	#print("python: localEndY = " + str(localEndY))
 	
 	# transfer coordinates in global system
 	calculatedEnd = Vector2(localEndX,localEndY) + start;
@@ -118,8 +118,8 @@ def calculateGlobalRotation():
 	# calculate angle between expected StartEnd and calculated StartEnd vector
 	globalRotationAngle = pi * 2.0 - calculateAngleBetweenVectors(end-start, calculatedEnd-start);
 
-	print("python: ergebnis = " + str(calculateAngleBetweenVectors(end-start, calculatedEnd-start)))
-	print("python: globalRotationAngle = " + str(globalRotationAngle))
+	#print("python: ergebnis = " + str(calculateAngleBetweenVectors(end-start, calculatedEnd-start)))
+	#print("python: globalRotationAngle = " + str(globalRotationAngle))
 	
 	# rotate by 180° if endCurvature<startCurvature
 	if endCurvature<startCurvature:
@@ -159,7 +159,7 @@ def getPosition(lerpParameter):
 	rotation = Matrix4()
 	rotation = rotation.rotatez(calculateGlobalRotation())
 	
-	print("python: " + str(calculateGlobalRotation()))
+	#print("python: " + str(calculateGlobalRotation()))
 	
 	# rotate point with global rotation angle
 	tP_3 = rotation.transform(Vector3(localX,localY,0))

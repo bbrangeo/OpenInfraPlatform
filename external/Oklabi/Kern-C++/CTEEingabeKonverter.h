@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: CTEEingabeKonverter.h 2013-09-24 15:00:00 vogelsang $
+* $Id: CTEEingabeKonverter.h 2015-02-03 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010-2013, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2015, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -26,6 +26,7 @@
 * 2013-02-04 Profile
 * 2013-09-24 Sondebehandlungen beim Laden von direct_position
 * 2013-11-18 Transformierer eingeführt
+* 2015-02-03 CTE String im Header dekodieren
 * 
 ****************************************************************************/
 #ifndef DEFCTEInputCv
@@ -83,7 +84,7 @@ private:
 	bool						CTEToProp( const Text&, const Eigenschaft*, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE );
 	bool						CTEToRel( const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE, const Text& );
 	bool						CTEToNumber( const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE, eTyp eT, bool bSig );
-	bool						CTEToStr( const eAggreg&, const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE );
+	bool						CTEToStr( const eAggreg&, const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE, bool = true );
 	bool						CTEToBinary( const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE );
 	bool						CTEToDate( const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE );
 	bool						CTEToBool( const Text&, const char* pstrWork, size_t& nWAnf, size_t& nWEnd, valCTEType& valCTE );
@@ -101,7 +102,7 @@ private:
 	bool						Extract(char del);
 	char*						ExtractUpTo(char del);
 	bool						ExtractNumber(int& nr);
-	bool						ExtractString(Text& strVal);
+	bool						ExtractString(Text& strVal, bool = true, bool = true);
 	bool						ExtractStringList(TextListe& strlist);
 	int	                        ExtractVersion();
 	bool						ReadHeader( bool bVersLog );

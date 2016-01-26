@@ -40,12 +40,12 @@ void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::v_configureColors
 }
 
 void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::v_drawAlignment(
-	buw::Alignment2DBased3D::Ptr a, 
+	buw::ReferenceCounted<buw::Alignment2DBased3D> a, 
 	std::map<buw::eHorizontalAlignmentType, QPainterPath>& horizontalPainter,
 	std::map<buw::eVerticalAlignmentType, QPainterPath>& verticalPainter)
 {
-	buw::HorizontalAlignment2D::Ptr h = a->getHorizontalAlignment();
-	buw::VerticalAlignment2D::Ptr v = a->getVerticalAlignment();
+	buw::ReferenceCounted<buw::HorizontalAlignment2D> h = a->getHorizontalAlignment();
+	buw::ReferenceCounted<buw::VerticalAlignment2D> v = a->getVerticalAlignment();
 
 	if (v != nullptr)
 	{
@@ -166,7 +166,7 @@ void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::loadSurfaceProfil
 
 	auto alignment = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel();
 
-	buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment->getAlignment(selectedAlignmentIndex_));
+	buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment->getAlignment(selectedAlignmentIndex_));
 
 	auto profile = model_->getSurfaceProfile(a);
 
@@ -262,7 +262,7 @@ void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::v_addPaths()
 	addPath(scaledPainterPath(&terrainPainter,scalingX, scalingY), terrainPen, transparentBrush);
 }
 
-void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::setDigitalElevationModel(buw::DigitalElevationModel::Ptr model)
+void OpenInfraPlatform::UserInterface::VerticalAlignmentScene::setDigitalElevationModel(buw::ReferenceCounted<buw::DigitalElevationModel> model)
 {
 	model_ = model;
 }
@@ -293,39 +293,45 @@ OpenInfraPlatform::UserInterface::VerticalAlignmentWindow::VerticalAlignmentWind
 	ui_->verticalAlignmentView->setScene(scene_);
 	
 	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().Change.connect(boost::bind(&VerticalAlignmentWindow::onChange, this));
-
-	onChange();
 }
 
 void OpenInfraPlatform::UserInterface::VerticalAlignmentWindow::onChange()
 {
-	auto alignmentModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel();
-	auto elevationModel = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getDigitalElevationModel();
+	auto& data = OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData();
+	auto alignmentModel = data.getAlignmentModel();
+	auto elevationModel = data.getDigitalElevationModel();
 
-	if(alignmentModel->getAlignmentCount() <=0)
-		return;
+	OpenInfraPlatform::DataManagement::ChangeFlag flag = data.getLatesChangeFlag();
 
-	scene_->setAlignment(alignmentModel);
-	setSelectedAlignment(0);
-
-	scene_->setDigitalElevationModel(elevationModel);
-}
-
-void OpenInfraPlatform::UserInterface::VerticalAlignmentWindow::setSelectedAlignment(int index)
-{
-	if(scene_)
+	if ((flag & OpenInfraPlatform::DataManagement::ChangeFlag::Preferences || flag & OpenInfraPlatform::DataManagement::ChangeFlag::AlignmentModel) && alignmentModel->getAlignmentCount() > 0)
 	{
-		scene_->clearSurfaceProfile();
-		scene_->setSelectedAlignment(index)	;	
+		scene_->setAlignment(alignmentModel);
 	}
-	QString name = QString::fromStdWString(OpenInfraPlatform::DataManagement::DocumentManager::getInstance().getData().getAlignmentModel()->getAlignment(index)->getName().toWStdString());
-	setWindowTitle("Vertical Alignment - " + name);
+
+	if (flag & OpenInfraPlatform::DataManagement::ChangeFlag::DigitalElevationModel)
+	{
+		scene_->setDigitalElevationModel(elevationModel);
+	}
+
+	if (flag & OpenInfraPlatform::DataManagement::ChangeFlag::Preferences)
+	{
+		int index = data.getSelectedAlignment();
+		if (index >= 0)
+		{
+			if (scene_)
+			{
+				scene_->clearSurfaceProfile();
+				scene_->setSelectedAlignment(index);
+			}
+			if (alignmentModel->getAlignmentCount() > 0)
+			{
+				QString name = QString::fromStdWString(alignmentModel->getAlignment(index)->getName().toWStdString());
+				setWindowTitle("Vertical Alignment - " + name);
+			}
+		}
+	}
 }
 
-int OpenInfraPlatform::UserInterface::VerticalAlignmentWindow::getSelectedAlignment()
-{
-	return scene_ ? scene_->getSelectedAlignment() : 0;
-}
 
 void OpenInfraPlatform::UserInterface::VerticalAlignmentWindow::setDifferentColorsForHorizontalAlignmentElements(const bool checked)
 {

@@ -19,7 +19,7 @@ bool OpenInfraPlatform::Infrastructure::VerticalAlignmentElement2D::genericQuery
 	return false;
 }
 
-std::ostream& OpenInfraPlatform::Infrastructure::operator<<(std::ostream& os, VerticalAlignmentElement2D::ConstPtr vae)
+std::ostream& OpenInfraPlatform::Infrastructure::operator<<(std::ostream& os, buw::ReferenceCounted<VerticalAlignmentElement2D> vae)
 {
 	os << "[";
 

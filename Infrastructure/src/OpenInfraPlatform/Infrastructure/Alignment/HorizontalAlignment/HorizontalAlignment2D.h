@@ -11,9 +11,10 @@
 #define OpenInfraPlatform_Infrastructure_HorizontalAlignment2D_fad49764_c3d4_45f4_8be4_8a6465f85631_h
 
 #include "../types.h"
-#include "../../BlueInfrastructure.h"
+#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
 #include "HorizontalAlignmentElement2D.h"
 #include "buw.BlueCore.class.h"
+#include "buw.h"
 #include <boost/noncopyable.hpp>
 
 namespace OpenInfraPlatform
@@ -24,8 +25,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API HorizontalAlignment2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(HorizontalAlignment2D)
-
 			HorizontalAlignment2D(const Stationing startStationing = 0.0);
 
 			//! Computes the 2d position in the horizontal alignment given a stationing.
@@ -35,11 +34,11 @@ namespace OpenInfraPlatform
 
 			//! Computes the length of the horizontal alignment
 			double getLength() const;
+			
+			buw::ReferenceCounted<HorizontalAlignmentElement2D> getAlignmentElementByIndex(int index);
 
-			HorizontalAlignmentElement2D::ConstPtr getAlignmentElementByIndex(int index);
-
-			//! Add an horizontal alginement segement.
-			void addElement(HorizontalAlignmentElement2D::Ptr he);
+			//! Add an horizontal alignment segment.
+			void addElement(buw::ReferenceCounted<HorizontalAlignmentElement2D> he);
 
 			//! Start stationing of nth horizontal alignment element
 			Stationing getStartStation(const int index = 0) const;
@@ -48,21 +47,21 @@ namespace OpenInfraPlatform
 			Stationing getEndStation() const;
 
 			//! station is assumed to be between [0;getLength]
-			HorizontalAlignmentElement2D::Ptr getAlignmentElementByStationing(
+			buw::ReferenceCounted<HorizontalAlignmentElement2D> getAlignmentElementByStationing(
 				const Stationing station, 
 				double* lerpParameter = nullptr) const;
 
-			bool hasSuccessor(HorizontalAlignmentElement2D::Ptr element);
+			bool hasSuccessor(buw::ReferenceCounted<HorizontalAlignmentElement2D> element);
 
 			//! Get the successor element if it exists, otherwise nullptr.
-			HorizontalAlignmentElement2D::Ptr getSuccessor(HorizontalAlignmentElement2D::Ptr element);
+			buw::ReferenceCounted<HorizontalAlignmentElement2D> getSuccessor(buw::ReferenceCounted<HorizontalAlignmentElement2D> element);
 
 		private:
-			Stationing										    startStationing_;
-			std::vector<HorizontalAlignmentElement2D::Ptr>		horizontalElements_;	// the order of the elements is important here
+			Stationing																startStationing_;
+			std::vector<buw::ReferenceCounted<HorizontalAlignmentElement2D>>		horizontalElements_;	// the order of the elements is important here
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

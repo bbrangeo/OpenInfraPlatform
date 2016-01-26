@@ -1148,7 +1148,7 @@ bool GeomUtils::checkMeshSet( const carve::mesh::MeshSet<3>* mesh_set,
 			double mesh_volume = mesh->volume();
 			object_volume += mesh_volume;
 		}
-		if( object_volume <= 0)
+		if (object_volume <= 0 && entity_id != -1)
 		{
 			err << "object_volume <= 0" << std::endl;
 		}

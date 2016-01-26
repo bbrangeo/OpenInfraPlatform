@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:okstra="http://schema.okstra.de/2016/okstra" xmlns:okstra-basis="http://schema.okstra.de/2016/okstra-basis" xmlns:okstra-typen="http://schema.okstra.de/2016/okstra-typen" elementFormDefault="qualified" targetNamespace="http://schema.okstra.de/2016/okstra" version="2.016.0">
-  <include schemaLocation="okstra.xsd"/>
   <import namespace="http://schema.okstra.de/2016/okstra-basis" schemaLocation="okstra-basis.xsd"/>
   <import namespace="http://schema.okstra.de/2016/okstra-typen" schemaLocation="okstra-typen.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="./gml/3.2.1/gml.xsd"/>
-  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <!--XML Schema document created by ShapeChange-->
   <element name="Abstand_Achse_Achse" substitutionGroup="gml:AbstractObject" type="okstra:Abstand_Achse_AchseType"/>
   <complexType name="Abstand_Achse_AchseType">
     <sequence>
@@ -51,7 +50,7 @@
   </complexType>
   <element name="Argument" substitutionGroup="gml:AbstractObject" type="okstra:ArgumentType"/>
   <complexType name="ArgumentType">
-    <sequence>
+    <choice>
       <element name="Datumsangabe" type="date"/>
       <element name="Uhrzeitangabe" type="time"/>
       <element name="Rechenzeichen" type="okstra-basis:KeyValuePropertyType"/>
@@ -62,7 +61,7 @@
       <element name="Zuordnungssummenreferenz" type="okstra:ZuordnungssummenreferenzPropertyType"/>
       <element name="Blattsummenreferenz" type="okstra:BlattsummenreferenzPropertyType"/>
       <element name="Konstantenreferenz" type="okstra:KonstantenreferenzPropertyType"/>
-    </sequence>
+    </choice>
   </complexType>
   <complexType name="ArgumentPropertyType">
     <sequence>
@@ -267,10 +266,10 @@
   </complexType>
   <element name="Formel" substitutionGroup="gml:AbstractObject" type="okstra:FormelType"/>
   <complexType name="FormelType">
-    <sequence>
+    <choice>
       <element name="Funktionsformel" type="okstra:FunktionsformelPropertyType"/>
       <element name="Freitextformel" type="okstra:FreitextformelPropertyType"/>
-    </sequence>
+    </choice>
   </complexType>
   <complexType name="FormelPropertyType">
     <sequence>
@@ -505,11 +504,11 @@
   </complexType>
   <element name="Multigeometrie" substitutionGroup="gml:AbstractObject" type="okstra:MultigeometrieType"/>
   <complexType name="MultigeometrieType">
-    <sequence>
+    <choice>
       <element name="Punktgeometrie" type="gml:PointPropertyType"/>
       <element name="Liniengeometrie" type="gml:CurvePropertyType"/>
       <element name="Flaechengeometrie" type="gml:SurfacePropertyType"/>
-    </sequence>
+    </choice>
   </complexType>
   <complexType name="MultigeometriePropertyType">
     <sequence>
@@ -936,10 +935,10 @@
   </complexType>
   <element name="Zeitraum" substitutionGroup="gml:AbstractObject" type="okstra:ZeitraumType"/>
   <complexType name="ZeitraumType">
-    <sequence>
+    <choice>
       <element name="ist_einfacher_Zeitraum" type="okstra:einfacher_ZeitraumPropertyType"/>
       <element name="ist_komplexer_Zeitraum" type="okstra:komplexer_ZeitraumPropertyType"/>
-    </sequence>
+    </choice>
   </complexType>
   <complexType name="ZeitraumPropertyType">
     <sequence>

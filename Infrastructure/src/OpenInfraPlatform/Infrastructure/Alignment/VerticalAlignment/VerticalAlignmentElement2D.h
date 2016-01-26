@@ -14,6 +14,7 @@
 #include "OpenInfraPlatform/Infrastructure/Core/IQueryable.h"
 #include "OpenInfraPlatform/Infrastructure/Core/Line2.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/types.h"
+#include "BlueFramework/Core/memory.h" //<buw.BlueCore.memory.h>
 #include <buw.BlueCore.class.h>
 #include <buw.BlueCore.Math.h>
 #include <buw.BlueCore.assert.h>
@@ -38,8 +39,6 @@ namespace OpenInfraPlatform
 		class BLUEINFRASTRUCTURE_API VerticalAlignmentElement2D : public OpenInfraPlatform::Infrastructure::IQueryable
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(VerticalAlignmentElement2D);
-
 			//! Get a point on the alignment element.
 			/*!
 				\param[in]	lerpParameter	A paramter of [0;1] where 0 
@@ -64,9 +63,9 @@ namespace OpenInfraPlatform
 			virtual bool							genericQuery (const int /*id*/, void* /*result*/) const;
 		};
 		
-		BLUEINFRASTRUCTURE_API std::ostream& operator<<(std::ostream& os, VerticalAlignmentElement2D::ConstPtr vae);
+		BLUEINFRASTRUCTURE_API std::ostream& operator<<(std::ostream& os, buw::ReferenceCounted<VerticalAlignmentElement2D> vae);
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

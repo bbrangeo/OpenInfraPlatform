@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: Profil.h 2013-12-05 15:00:00 vogelsang $
+* $Id: Profil.h 2014-11-05 15:00:00 vogelsang $
 * $Paket: Oklabi-Kern $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2013-2013, Bundesanstalt für Straßenwesen
+* Copyright (c) 2013-2014, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -24,6 +24,7 @@
 * 2013-02-04 Profile
 * 2013-05-17 Löschung verhindern wenn Profil benutzt wird
 * 2013-12-05 Standardprofil braucht Version
+* 2014-11-05 Erweiterbare Schlüsseltabellen können geschlossen werden
 * 
 ****************************************************************************/
 #ifndef DEFProfil
@@ -66,8 +67,9 @@ namespace Oklabi
 		ProfileFileType& operator=(const ProfileFileType&);
 		~ProfileFileType();
 	};
-	typedef std::map< const Text, Fachobjekt* > KeyMapType;
+	typedef std::map< const Text, FachobjektReferenz > KeyMapType;
 	typedef std::map< const Objektart*, std::pair< bool, KeyMapType > > KeytableMapType;
+	typedef std::map< const OklabiObjekt*, bool > ClosedExtendableMapType;
 	class PackageType : public OklabiRoot
 	{
 		friend class Profil;
@@ -146,6 +148,8 @@ namespace Oklabi
 		template <class T> OKLABI_API bool       IstZugelassen(T) const;
 		OKLABI_API bool                          IstZugelassen(const Fachobjekt*, const Eigenschaft*) const;
 		OKLABI_API bool                          IstZugelassen(const Objektart*, const Eigenschaft*) const;
+		OKLABI_API bool                          IstErweiterbar(const Objektart*) const;
+		OKLABI_API bool                          IstErweiterbar(const Eigenschaft*) const;
 		OKLABI_API bool                          IstStandardprofil() const;
 		OKLABI_API bool                          IstGueltig() const;
 		OKLABI_API void                          SetzeVersion(const Version*);
@@ -163,6 +167,7 @@ namespace Oklabi
 		static void                        ProfilpfadGeaendert();
 		static TextListe                   LiesProfilpfad();
 		static Profil*                     Traversiere(const Text&, const Version*);
+		static Text                        UnescapeSpecialChars(const std::string&);
 		bool                               Initialisiere(const Text&, const Text&, const Version*) const;
 		bool                               LazyInit() const;
 		bool                               PruefeKennung(const Objektart*, const Text&, const KeytableMapType*, const KeytableMapType*) const;
@@ -199,6 +204,7 @@ namespace Oklabi
 		mutable PropertyMapType            m_mapProperty;
 		mutable AnzahlMapType              m_mapAnzahlOa;
 		mutable DomainSetType              m_setDomain;
+		mutable ClosedExtendableMapType    m_mapClosedTables;
 		static ProfilMapType               m_mapProfile;
 		static int                         m_nGenerationCount;
 		static std::string

@@ -79,7 +79,7 @@ void OpenInfraPlatform::UserInterface::GenerateTerrainDialog::on_pushButtonGener
 	td.terrainSize = size;
 	td.tileSize = tileSize;
 
-	buw::CreateRandomTerrain::Ptr crt = std::make_shared<buw::CreateRandomTerrain>(td);
+	buw::ReferenceCounted<buw::CreateRandomTerrain> crt = std::make_shared<buw::CreateRandomTerrain>(td);
 	OpenInfraPlatform::DataManagement::DocumentManager::getInstance().execute(crt);
 	
 	hide();

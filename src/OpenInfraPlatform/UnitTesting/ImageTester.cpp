@@ -46,10 +46,10 @@ void OpenInfraPlatform::UnitTesting::ImageTester::createTest(const testDescripti
 
 bool OpenInfraPlatform::UnitTesting::ImageTester::testImage(const buw::Path& screenshotImageFilename, const buw::Path& referenceImageFilename, const buw::Path& differenceImageFilename)
 {
-	buw::Image_3b::Ptr screenshotImage = buw::loadImageFromFile<buw::Image_3b>(screenshotImageFilename);
-	buw::Image_3b::Ptr referenceImage = buw::loadImageFromFile<buw::Image_3b>(referenceImageFilename);
+	buw::ReferenceCounted<buw::Image_3b> screenshotImage = buw::loadImageFromFile<buw::Image_3b>(screenshotImageFilename);
+	buw::ReferenceCounted<buw::Image_3b> referenceImage = buw::loadImageFromFile<buw::Image_3b>(referenceImageFilename);
 	buw::color3b diffColor(255, 0, 0);
-	buw::Image_3b::Ptr diffImage = buw::createDifferenceImage(screenshotImage, referenceImage, &diffColor[0]);
+	buw::ReferenceCounted<buw::Image_3b> diffImage = buw::createDifferenceImage(screenshotImage, referenceImage, &diffColor[0]);
 
 	buw::storeImageAsFile(differenceImageFilename, diffImage.get());
 

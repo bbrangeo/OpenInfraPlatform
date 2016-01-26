@@ -59,7 +59,7 @@ OpenInfraPlatform::UserInterface::Hud::~Hud()
 
 }
 
-OpenInfraPlatform::UserInterface::Hud::Hud( buw::IRenderSystem::Ptr renderSystem, buw::IRenderContext::Ptr renderContext ) :
+OpenInfraPlatform::UserInterface::Hud::Hud( buw::ReferenceCounted<buw::IRenderSystem> renderSystem, buw::ReferenceCounted<buw::IRenderContext> renderContext ) :
 	renderSystem_(renderSystem),
 	renderContext_(renderContext)
 {
@@ -69,7 +69,7 @@ OpenInfraPlatform::UserInterface::Hud::Hud( buw::IRenderSystem::Ptr renderSystem
 		"Shader/SpriteBatch.be");
 
 	// load crosshairs
-	buw::Image_4b::Ptr imageCrosshairs = buw::loadImageFromFile<buw::Image_4b>("Data/zoomicons.png");
+	buw::ReferenceCounted<buw::Image_4b> imageCrosshairs = buw::loadImageFromFile<buw::Image_4b>("Data/zoomicons.png");
 	textureMagnifier_ = buw::loadTexture(renderSystem_, imageCrosshairs);
 	sizeMagnifier_.x() = imageCrosshairs->getWidth();
 	sizeMagnifier_.y() = imageCrosshairs->getHeight();

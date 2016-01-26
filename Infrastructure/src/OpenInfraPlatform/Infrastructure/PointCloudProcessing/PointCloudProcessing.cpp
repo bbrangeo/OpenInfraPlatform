@@ -11,7 +11,7 @@
 
 BLUEINFRASTRUCTURE_API void OpenInfraPlatform::Infrastructure::importLASPointCloud(
 	const char* filename,
-	std::vector<OpenInfraPlatform::Infrastructure::LaserPoint>& pointCloud)
+	buw::PointCloud& pointCloud)
 {
 	// see http://www.liblas.org/tutorial/cpp.html
 	std::ifstream ifs;
@@ -27,15 +27,34 @@ BLUEINFRASTRUCTURE_API void OpenInfraPlatform::Infrastructure::importLASPointClo
 	std::cout << "Signature: " << header.GetFileSignature() << '\n';
 	std::cout << "Points count: " << header.GetPointRecordsCount() << '\n';
 
+	buw::vector3d minv(0, 0, 0);
+	buw::vector3d maxv(0, 0, 0);
+
+	pointCloud.points.reserve(header.GetPointRecordsCount());
+
+	bool first = true;
 	while (reader.ReadNextPoint())
 	{
 		liblas::Point const& p = reader.GetPoint();
 
 		float colorRange = std::numeric_limits<liblas::Color::value_type>::max();
 		//p.GetColor()
-		pointCloud.push_back({
+		pointCloud.points.push_back({
 			buw::vector3d(p.GetX(), p.GetY(), p.GetZ()),
-			buw::color3f(p.GetColor().GetRed() / colorRange, p.GetColor().GetGreen() / colorRange, p.GetColor().GetBlue() / colorRange) });
+			buw::vector3f(p.GetColor().GetRed() / colorRange, p.GetColor().GetGreen() / colorRange, p.GetColor().GetBlue() / colorRange) });
 
+		if (first)
+		{
+			minv = maxv = pointCloud.points.back().position;
+			first = false;
+		}
+		else
+		{
+			minv = buw::getMinimizedVector(minv, pointCloud.points.back().position);
+			maxv = buw::getMaximizedVector(maxv, pointCloud.points.back().position);
+		}
 	}
+
+	pointCloud.minPos = minv;
+	pointCloud.maxPos = maxv;
 }

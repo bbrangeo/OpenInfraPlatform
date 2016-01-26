@@ -109,6 +109,7 @@ extern "C" {
 		friend class Fachobjekt;
 		friend class AnyType;
 		friend class SchemaGeo;
+		friend class Geometrie;
 		friend class XMLAdapter;
 		friend class XMLAusgabeKonverter;
 		friend class CTEAusgabeKonverter;

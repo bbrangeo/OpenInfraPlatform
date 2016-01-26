@@ -50,7 +50,7 @@ public:
 
 		buw::LandXmlImport parser("../testdata/LandXML/Mainbruecke_Klingenberg.xml");
 
-		std::vector<buw::IAlignment3D::Ptr> alignments = parser.getAlignments();
+		std::vector<buw::ReferenceCounted<buw::IAlignment3D>> alignments = parser.getAlignmentModel()->getAlignments();
 
 		buw::vector3d offset = alignments[0]->getPosition(alignments[0]->getStartStation());
 
@@ -61,7 +61,7 @@ public:
 				continue; // skip this element
 			}
 
-			buw::Alignment2DBased3D::Ptr alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments[i]);
+			buw::ReferenceCounted<buw::Alignment2DBased3D> alignment = std::static_pointer_cast<buw::Alignment2DBased3D>(alignments[i]);
 
 			auto he = alignment->getHorizontalAlignment()->getAlignmentElementByIndex(i);
 
@@ -184,8 +184,8 @@ public:
 	}
 
 private:
-	buw::VertexCacheTriangle::Ptr	vertexCacheTriangle_;
-	buw::VertexCacheLine::Ptr		vertexCacheLine_;
-	buw::VertexCachePoint::Ptr      vertexCachePoint_;
+	buw::ReferenceCounted<buw::VertexCacheTriangle>	vertexCacheTriangle_;
+	buw::ReferenceCounted<buw::VertexCacheLine>		vertexCacheLine_;
+	buw::ReferenceCounted<buw::VertexCachePoint>      vertexCachePoint_;
 };
 	

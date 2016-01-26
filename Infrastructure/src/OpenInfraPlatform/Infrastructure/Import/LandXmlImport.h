@@ -10,12 +10,8 @@
 #ifndef OpenInfraPlatform_Infrastructure_LandXmlParser_60c637f8_9478_44a4_bd52_cfa2ffa2dc4c_h
 #define OpenInfraPlatform_Infrastructure_LandXmlParser_60c637f8_9478_44a4_bd52_cfa2ffa2dc4c_h
 
+#include "OpenInfraPlatform/Infrastructure/Import/Import.h"
 #include "OpenInfraPlatform/Infrastructure/Import/LandXMLBaseTypes.h"
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment3DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/AlignmentModel.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
 #include "BlueFramework/Core/PropertySet.h"
 #include <buw.BlueCore.Math.h>
 #include "BlueFramework/Core/class.h"
@@ -207,48 +203,17 @@ namespace OpenInfraPlatform
 			const std::string& filename,
 			LandXMLDataBuilder* builder);
 
-		BLUEINFRASTRUCTURE_API buw::VerticalAlignment2D::Ptr createVerticalAlignmentFromProfAlign(const std::vector<profAlignElement>& profAlignElements_);
+		BLUEINFRASTRUCTURE_API buw::ReferenceCounted<buw::VerticalAlignment2D> createVerticalAlignmentFromProfAlign(const std::vector<profAlignElement>& profAlignElements_);
 
-		BLUEINFRASTRUCTURE_API std::vector<profAlignElement> createProfAlignElements(buw::VerticalAlignment2D::Ptr v);
+		BLUEINFRASTRUCTURE_API std::vector<profAlignElement> createProfAlignElements(buw::ReferenceCounted<buw::VerticalAlignment2D> v);
 
-		class BLUEINFRASTRUCTURE_API LandXmlImport
+		class BLUEINFRASTRUCTURE_API LandXmlImport : public Import
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(LandXmlImport);
-
 			LandXmlImport(const std::string& filename);
-
-			std::vector<buw::IAlignment3D::Ptr> getAlignments()
-			{
-				return alignmentModel_->getAlignments();
-			}
-
-			int	getAlignmentCount()
-			{
-				return static_cast<int>(alignmentModel_->getAlignmentCount());
-			}
-
-			static LandXmlImport* createFlatCopy(const LandXmlImport& src)
-			{
-				return new LandXmlImport(src);
-			}
-
-			OpenInfraPlatform::Infrastructure::AlignmentModel* getAlignmentModel()
-			{
-				return alignmentModel_;
-			}
-
-			buw::DigitalElevationModel* getDigitalElevationModel()
-			{
-				return digitalElevationModel_;
-			}
-
-		private:
-			buw::AlignmentModel*		alignmentModel_;
-			buw::DigitalElevationModel* digitalElevationModel_;
 		};
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

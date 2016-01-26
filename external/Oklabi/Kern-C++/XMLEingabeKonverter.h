@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: XMLEingabeKonverter.h 2014-03-27 15:57:11 vogelsang $
+* $Id: XMLEingabeKonverter.h 2014-09-18 15:57:11 vogelsang $
 *
 * Projekt:     OKSTRA Klassenbibliothek
 * Realisiert:  C++ API zum "Objektkatalog für das Straßen- und Verkehrswesen"
@@ -32,7 +32,9 @@
 * 2013-11-18 Transformierer eingeführt
 * 2013-12-12 Fremdobjekt für Nachbarstandards eingeführt
 * 2014-01-17 Speicheroptimierungen bei Fachobjekt und Datenbestand
-* 2014-03-27 XMLMultiEingabeKonverter eingeführt 
+* 2014-03-27 XMLMultiEingabeKonverter eingeführt
+* 2014-07-30 XML-Namespace Initialisierung zentralisiert
+* 2014-09-18 Speicherprobleme unter 32 Bit bei grossen Dateien
 * 
 ****************************************************************************/
 // Der XMLEingabeKonverter erzeugt aus einer OKSTRA-XML-Datei
@@ -141,6 +143,8 @@ protected:
 
 	bool                        m_bExtension;
 	bool                        m_bId;
+	Text                        m_strId;
+	size_t                      m_nFeatureCount;
 	Text                        m_strXSD;
 	Text                        m_strOKSTRA;
 	bool                        m_bRelEins;
@@ -158,7 +162,8 @@ protected:
 	// Rückgabewert false:
 	// Es wurde noch keine XML-Datei angegeben, oder das Laden des DOMNode der
 	// Meta-Info schlug fehl.
-	virtual bool                HeaderLaden();
+	virtual bool                HeaderLaden(bool = true);
+	void                        NamespaceReinit();
 
 	// der DOMNode für die Header Section
 	XercesXML::DOMNode*         m_pNodeMeta;
@@ -176,6 +181,7 @@ protected:
 	bool                        createSAXReader();
 	void                        finalizeSAXReader();
 	void                        resetSAXObjects();
+	void                        resetSAXReader(const Text&, const Text&);
 
 	// Parsen einer XML-Datei entweder über die DOM- oder über die SAX-Methode (default).
 	// Wenn 'useSAX' == false dann wird der DOM-Parser verwendet.

@@ -50,6 +50,10 @@ namespace OpenInfraPlatform
 			{
 				stream << ".SERVICESPACE.";
 			}
+			else if( m_enum == ENUM_TRACKSPACE )
+			{
+				stream << ".TRACKSPACE.";
+			}
 			else if( m_enum == ENUM_FLOORSPACE )
 			{
 				stream << ".FLOORSPACE.";
@@ -96,6 +100,10 @@ namespace OpenInfraPlatform
 			else if( _stricmp( arg.c_str(), ".SERVICESPACE." ) == 0 )
 			{
 				type_object->m_enum = IfcTunnelSpaceEnum::ENUM_SERVICESPACE;
+			}
+			else if( _stricmp( arg.c_str(), ".TRACKSPACE." ) == 0 )
+			{
+				type_object->m_enum = IfcTunnelSpaceEnum::ENUM_TRACKSPACE;
 			}
 			else if( _stricmp( arg.c_str(), ".FLOORSPACE." ) == 0 )
 			{

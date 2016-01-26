@@ -23,7 +23,7 @@ namespace OpenInfraPlatform
 		{
 			BLUE_DEFINE_SHARED_POINTER(AbstractSyntaxTreeNode);
 
-			static AbstractSyntaxTreeNode::Ptr create(const token& t)
+			static buw::ReferenceCounted<AbstractSyntaxTreeNode> create(const token& t)
 			{
 				return std::make_shared<AbstractSyntaxTreeNode>(t);
 			}
@@ -39,8 +39,8 @@ namespace OpenInfraPlatform
 
 			AbstractSyntaxTreeNode(
 				const token& t,
-				AbstractSyntaxTreeNode::Ptr left, 
-				AbstractSyntaxTreeNode::Ptr right)
+				buw::ReferenceCounted<AbstractSyntaxTreeNode> left,
+				buw::ReferenceCounted<AbstractSyntaxTreeNode> right)
 			{
 				this->token_ = t;
 				this->left = left;
@@ -54,8 +54,8 @@ namespace OpenInfraPlatform
 			}
 
 			//eTokenType::Enum			type;
-			AbstractSyntaxTreeNode::Ptr left;
-			AbstractSyntaxTreeNode::Ptr right;
+			buw::ReferenceCounted<AbstractSyntaxTreeNode> left;
+			buw::ReferenceCounted<AbstractSyntaxTreeNode> right;
 			bool						isUnary;
 
 			// needed by interpreter

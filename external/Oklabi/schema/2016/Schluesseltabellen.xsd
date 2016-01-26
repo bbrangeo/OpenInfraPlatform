@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:okstra="http://schema.okstra.de/2016/okstra" elementFormDefault="qualified" targetNamespace="http://schema.okstra.de/2016/okstra" version="2.016.0">
-  <include schemaLocation="okstra.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="./gml/3.2.1/gml.xsd"/>
-  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <!--XML Schema document created by ShapeChange-->
   <element name="Absorbtionsfaehigkeit_Konst" substitutionGroup="gml:AbstractFeature" type="okstra:Absorbtionsfaehigkeit_KonstType"/>
   <complexType name="Absorbtionsfaehigkeit_KonstType">
     <complexContent>

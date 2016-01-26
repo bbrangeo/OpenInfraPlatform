@@ -47,6 +47,8 @@ def deploy():
 	# OpenInfraPlatform
 	shutil.copy(build_dir + 'Release/OpenInfraPlatform.UI.exe', 					deploy_path + '/TUM Open Infra Platform.exe')
 	shutil.copy(build_dir + 'Release/OpenInfraPlatform.CommandLineUtilities.exe', 	deploy_path + '/OpenInfraPlatform.CommandLineUtilities.exe')
+	shutil.copy(build_dir + 'Release/OpenInfraPlatform.IfcBridgeGenerator.exe', 	deploy_path + '/OpenInfraPlatform.IfcBridgeGenerator.exe')
+	shutil.copy(build_dir + 'Release/OpenInfraPlatform.IfcTunnelGenerator.exe', 	deploy_path + '/OpenInfraPlatform.IfcTunnelGenerator.exe')
 	shutil.copy(build_dir + 'Release/OpenInfraPlatform.Infrastructure.dll',			deploy_path + '/OpenInfraPlatform.Infrastructure.dll')
 	
 	# BlueFramework
@@ -56,19 +58,16 @@ def deploy():
 	shutil.copy(build_dir + 'Release/BlueFramework.Engine.dll',				deploy_path + '/BlueFramework.Engine.dll')
 	shutil.copy(build_dir + 'Release/BlueFramework.Application.dll',		deploy_path + '/BlueFramework.Application.dll')			
 	shutil.copy(build_dir + 'Release/BlueFramework.D3D11RenderSystem.dll',	deploy_path + '/BlueFramework.D3D11RenderSystem.dll')
-	shutil.copy(build_dir + 'Release/BlueFramework.GL4xRenderSystem.dll',	deploy_path + '/BlueFramework.GL4xRenderSystem.dll')
+	shutil.copy(build_dir + 'Release/BlueFramework.GL4xRenderSystem.dll',	deploy_path + '/BlueFramework.GL4xRenderSystem.dll')	
+	shutil.copy(build_dir + 'Release/assimp-vc140-mt.dll',					deploy_path + '/assimp-vc140-mt.dll')
 	
 	# ThirdParty
 	shutil.copy(build_dir + 'Release/QtXlsxWriter.dll',						deploy_path + '/QtXlsxWriter.dll')
 	shutil.copy(build_dir + 'Release/liblas.dll',							deploy_path + '/liblas.dll')
 	
-	# Zlib
-	shutil.copy(build_dir + 'Release/zlib1.dll',							deploy_path + '/zlib1.dll')
-	
 	# Qt
 	shutil.copy(build_dir + 'Release/Qt5Core.dll',							deploy_path + '/Qt5Core.dll')
 	shutil.copy(build_dir + 'Release/Qt5Widgets.dll',						deploy_path + '/Qt5Widgets.dll')
-	shutil.copy(build_dir + 'Release/Qt5Declarative.dll',					deploy_path + '/Qt5Declarative.dll')
 	shutil.copy(build_dir + 'Release/Qt5Gui.dll',							deploy_path + '/Qt5Gui.dll')
 	shutil.copy(build_dir + 'Release/Qt5Network.dll',						deploy_path + '/Qt5Network.dll')
 	shutil.copy(build_dir + 'Release/Qt5OpenGL.dll',						deploy_path + '/Qt5OpenGL.dll')
@@ -77,8 +76,6 @@ def deploy():
 	shutil.copy(build_dir + 'Release/Qt5XmlPatterns.dll',					deploy_path + '/Qt5XmlPatterns.dll')
 	shutil.copy(build_dir + 'Release/Qt5Sql.dll',							deploy_path + '/Qt5Sql.dll')	
 	shutil.copy(build_dir + 'Release/Qt5WebChannel.dll',					deploy_path + '/Qt5WebChannel.dll')	
-	shutil.copy(build_dir + 'Release/Qt5WebKit.dll',						deploy_path + '/Qt5WebKit.dll')		
-	shutil.copy(build_dir + 'Release/Qt5WebKitWidgets.dll',					deploy_path + '/Qt5WebKitWidgets.dll')
 	shutil.copy(build_dir + 'Release/Qt5Multimedia.dll',					deploy_path + '/Qt5Multimedia.dll')
 	shutil.copy(build_dir + 'Release/Qt5MultimediaWidgets.dll',				deploy_path + '/Qt5MultimediaWidgets.dll')
 	shutil.copy(build_dir + 'Release/Qt5PrintSupport.dll',					deploy_path + '/Qt5PrintSupport.dll')
@@ -89,9 +86,25 @@ def deploy():
 	shutil.copy(build_dir + 'Release/Qt5Positioning.dll',					deploy_path + '/Qt5Positioning.dll')
 	shutil.copy(build_dir + 'Release/libGLESv2.dll',						deploy_path + '/libGLESv2.dll')
 	shutil.copy(build_dir + 'Release/libEGL.dll',                           deploy_path + '/libEGL.dll')
-	shutil.copy(build_dir + 'Release/icudt53.dll',							deploy_path + '/icudt53.dll')
-	shutil.copy(build_dir + 'Release/icuin53.dll',							deploy_path + '/icuin53.dll')
-	shutil.copy(build_dir + 'Release/icuuc53.dll',                          deploy_path + '/icuuc53.dll')
+	shutil.copy(build_dir + 'Release/icudt54.dll',							deploy_path + '/icudt54.dll')
+	shutil.copy(build_dir + 'Release/icuin54.dll',							deploy_path + '/icuin54.dll')
+	shutil.copy(build_dir + 'Release/icuuc54.dll',                          deploy_path + '/icuuc54.dll')
+	
+	os.mkdir(deploy_path + '/plugins')
+	os.mkdir(deploy_path + '/plugins/imageformats')
+	# don't copy debug files and don't copy pdb files
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qdds.dll',			deploy_path + '/plugins/imageformats/qdds.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qgif.dll',			deploy_path + '/plugins/imageformats/qgif.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qicns.dll',		deploy_path + '/plugins/imageformats/qicns.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qico.dll',			deploy_path + '/plugins/imageformats/qico.dll')
+	#shutil.copy(build_dir + 'Release/plugins/imageformats/qjp2.dll',			deploy_path + '/plugins/imageformats/qjp2.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qjpeg.dll',		deploy_path + '/plugins/imageformats/qjpeg.dll')
+	#shutil.copy(build_dir + 'Release/plugins/imageformats/qmng.dll',			deploy_path + '/plugins/imageformats/qmng.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qsvg.dll',			deploy_path + '/plugins/imageformats/qsvg.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qtga.dll',			deploy_path + '/plugins/imageformats/qtga.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qtiff.dll',		deploy_path + '/plugins/imageformats/qtiff.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qwbmp.dll',		deploy_path + '/plugins/imageformats/qwbmp.dll')
+	shutil.copy(build_dir + 'Release/plugins/imageformats/qwebp.dll',		deploy_path + '/plugins/imageformats/qwebp.dll')
 	
 	shutil.copytree(current_dir + 'platforms',								deploy_path + '/platforms')
 	
@@ -107,14 +120,14 @@ def deploy():
 	shutil.copytree(build_dir + 'fbliste',									deploy_path + '/fbliste')
 	
 	# Zlib
-	shutil.copy(build_dir + 'Release/zlib1.dll',							deploy_path + '/zlib1.dll')
+	#shutil.copy(build_dir + 'Release/zlib1.dll',							deploy_path + '/zlib1.dll')
 	
 	# DirectX
 	shutil.copy(current_dir + 'D3DRedist/D3D/x64/d3dcompiler_47.dll',						deploy_path + '/d3dcompiler_47.dll')
 	
 	# QSimpleUpdater
-	shutil.copy(build_dir + 'Release/libeay32.dll',								deploy_path + '/libeay32.dll')
-	shutil.copy(build_dir + 'Release/ssleay32.dll',								deploy_path + '/ssleay32.dll')
+	shutil.copy(current_dir + '../external/QSimpleUpdater/libeay32.dll',								deploy_path + '/libeay32.dll')
+	shutil.copy(current_dir + '../external/QSimpleUpdater/ssleay32.dll',								deploy_path + '/ssleay32.dll')
 	
 	# VS2013 Redist x64
 	shutil.copy(current_dir + 'VC2013/redist/x64/Microsoft.VC120.CRT/msvcp120.dll',		deploy_path + '/msvcp120.dll')		# Standard C++ library for native code
@@ -122,8 +135,16 @@ def deploy():
 	shutil.copy(current_dir + 'VC2013/redist/x64/Microsoft.VC120.CRT/vccorlib120.dll',	deploy_path + '/vccorlib120.dll')	# WinRT core library
 	shutil.copy(current_dir + 'VC2013/redist/x64/Microsoft.VC120.OpenMP/vcomp120.dll',	deploy_path + '/vcomp120.dll') 		# OpenMP
 	
+	# VS2015 Redist x64
+	shutil.copy(current_dir + 'VC2015/redist/x64/Microsoft.VC140.CRT/msvcp140.dll',		deploy_path + '/msvcp140.dll')		# Standard C++ library for native code
+	shutil.copy(current_dir + 'VC2015/redist/x64/Microsoft.VC140.CRT/vcruntime140.dll',	deploy_path + '/vcruntime140.dll')  # C runtime library (CRT) for native code
+	shutil.copy(current_dir + 'VC2015/redist/x64/Microsoft.VC140.CRT/vccorlib140.dll',	deploy_path + '/vccorlib140.dll')	# WinRT core library
+	shutil.copy(current_dir + 'VC2015/redist/x64/Microsoft.VC140.OpenMP/vcomp140.dll',	deploy_path + '/vcomp140.dll') 		# OpenMP
+	
 	# Python
-	shutil.copy(current_dir + 'python/python34.dll',										deploy_path + '/python34.dll') 
+	shutil.copy(current_dir + 'python/python35.dll',										deploy_path + '/python35.dll') 
+	shutil.copy(build_dir + 'Release/OpenInfraPlatform.Infrastructure.dll',			deploy_path + '/Infrastructure.pyd')
+	shutil.copy(current_dir + '../Infrastructure.Python/import.py',			deploy_path + '/import.py')
 	
 	# data, shaders, etc.
 	shutil.copytree(build_dir + 'Data', 									deploy_path + '/Data')
@@ -151,6 +172,8 @@ def deploy():
 	shutil.copy(build_dir + 'Shader/D3D11/VertexCachePoint.hlsl',				deploy_path + '/Shader/D3D11/VertexCachePoint.hlsl');
 	shutil.copy(build_dir + 'Shader/D3D11/VertexCacheTriangle.hlsl',			deploy_path + '/Shader/D3D11/VertexCacheTriangle.hlsl');
 	shutil.copy(build_dir + 'Shader/D3D11/VertexCacheTriangleTextured.hlsl',	deploy_path + '/Shader/D3D11/VertexCacheTriangleTextured.hlsl');
+	shutil.copy(build_dir + 'Shader/D3D11/VertexCacheLineAlignment.hlsl',		deploy_path + '/Shader/D3D11/VertexCacheLineAlignment.hlsl');
+	shutil.copy(build_dir + 'Shader/D3D11/VertexCacheLineAlignmentPick.hlsl',	deploy_path + '/Shader/D3D11/VertexCacheLineAlignmentPick.hlsl');
 	
 	shutil.copytree(build_dir + 'Shader/GL4x/',									deploy_path + '/Shader/GL4x')
 
@@ -179,6 +202,8 @@ def deploy():
 	os.remove(deploy_path + '/Shader/D3D11/VertexCacheTriangle.hlsl')
 	os.remove(deploy_path + '/Shader/D3D11/VertexCacheTriangleTextured.hlsl')
 	os.remove(deploy_path + '/Shader/D3D11/LaserScanPoint.hlsl')
+	os.remove(deploy_path + '/Shader/D3D11/VertexCacheLineAlignment.hlsl')
+	os.remove(deploy_path + '/Shader/D3D11/VertexCacheLineAlignmentPick.hlsl')
 	
 	# copy BlueEffect files.
 	shutil.copy(build_dir + 'Shader/DigitalElevationModel.be',				deploy_path + '/Shader/DigitalElevationModel.be');
@@ -187,6 +212,8 @@ def deploy():
 	shutil.copy(build_dir + 'Shader/VertexCacheLine.be',					deploy_path + '/Shader/VertexCacheLine.be');
 	shutil.copy(build_dir + 'Shader/VertexCachePoint.be',					deploy_path + '/Shader/VertexCachePoint.be');
 	shutil.copy(build_dir + 'Shader/VertexCacheTriangle.be',				deploy_path + '/Shader/VertexCacheTriangle.be');
+	shutil.copy(build_dir + 'Shader/VertexCacheLineAlignment.be',			deploy_path + '/Shader/VertexCacheLineAlignment.be');
+	shutil.copy(build_dir + 'Shader/VertexCacheLineAlignmentPick.be',		deploy_path + '/Shader/VertexCacheLineAlignmentPick.be');
 		
 	# Style folder
 	os.mkdir(deploy_path + '/Style')

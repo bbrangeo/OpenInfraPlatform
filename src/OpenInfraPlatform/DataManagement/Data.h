@@ -23,6 +23,8 @@
 
 #include "OpenInfraPlatform/IfcGeometryConverter/ConverterBuw.h"
 
+#include "OpenInfraPlatform/Infrastructure/Import/Import.h"
+#include "OpenInfraPlatform/Infrastructure/Export/Export.h"
 
 namespace OpenInfraPlatform
 {
@@ -31,27 +33,24 @@ namespace OpenInfraPlatform
 		class Data;
 		typedef BlueFramework::Application::DataManagement::DocumentManager<Data> DocumentManager;
 
-		enum DataModifierFlag : unsigned int
+		enum class ChangeFlag : unsigned int
 		{
 			None = 0,
-			AlignmentModel_READ = 1 << 0,
-			DigitalElevationModel_READ = 1 << 1,
-			IFCGeometry_READ = 1 << 2,
-			PointCloud_READ = 1 << 3,
-			AlignmentModel_WRITE = 1 << 4,
-			DigitalElevationModel_WRITE = 1 << 5,
-			IFCGeometry_WRITE = 1 << 6,
-			PointCloud_WRITE = 1 << 7
+			AlignmentModel = 1 << 0,
+			DigitalElevationModel = 1 << 1,
+			IfcGeometry = 1 << 2,
+			PointCloud = 1 << 3,
+			Preferences = 1 << 4
 		};
 
-		inline DataModifierFlag operator|(DataModifierFlag a, DataModifierFlag b)
+		inline ChangeFlag operator|(ChangeFlag a, ChangeFlag b)
 		{
-			return static_cast<DataModifierFlag>(static_cast<unsigned int>(a) | static_cast<unsigned int>(b));
+			return static_cast<ChangeFlag>(static_cast<unsigned int>(a) | static_cast<unsigned int>(b));
 		}
 
-		inline bool operator&(DataModifierFlag a, DataModifierFlag b)
+		inline bool operator&(ChangeFlag a, ChangeFlag b)
 		{
-			return (static_cast<unsigned int>(a) & static_cast<unsigned int>(b)) != 0;
+			return (static_cast<unsigned int>(a)& static_cast<unsigned int>(b)) != 0;
 		}
 
 		//! \class Data
@@ -75,6 +74,11 @@ namespace OpenInfraPlatform
 			void clear(const bool notifyObservers);
 			
 			void clear();
+
+
+			// alternative change methode
+			void pushChange(ChangeFlag flag);
+			ChangeFlag getLatesChangeFlag();
 
 			//Retrieve the name of the last imported files
 			QString recentFileName;
@@ -107,7 +111,10 @@ namespace OpenInfraPlatform
 			*/
 			void open(const std::string & filename);
 
-			void import(const std::string & filename, bool async = true);
+			void import(const std::string & filename);
+
+			void importOSM(const std::string& filename, const std::vector<std::string>& filter, int mode);
+
 
 			/*void importLandXML(const std::string &filename);
 			void importOKSTRA(const std::string &filename);
@@ -119,19 +126,22 @@ namespace OpenInfraPlatform
 
 			void importLAS(const std::string& filename);
 
+
 			void exportIfcRoadTUMProposal(const std::string & filename);
 			void exportIfcAlignment(const buw::ifcAlignmentExportDescription& desc, const std::string & filename);
+			void exportSVGAdvanced(const std::string& filename);
 			void exportSVG( const std::string& filename );
 			void exportLandXML( const std::string& filename );
 			void exportOkstra(const std::string& filename, const std::string& version);
 			void export3DAlignmentAsTextfile(const std::string& filename);
+			void createExcelReport(const std::string& filename, bool useDegree);
 			
 			//---------------------------------------------------------------------------//
 			// Alignment
 			//---------------------------------------------------------------------------//
 
-			void addAlignment(buw::IAlignment3D::Ptr alignment);
-			void deleteAlignment(buw::IAlignment3D::Ptr alignment);
+			void addAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment);
+			void deleteAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment);
 
 			void computeSurfaceProfile();
 
@@ -139,26 +149,27 @@ namespace OpenInfraPlatform
 			// Digital Elevation Model
 			//---------------------------------------------------------------------------//
 			
-			void addSurface(buw::Surface::Ptr surface);
-			void deleteSurface(buw::Surface::Ptr surface);
+			void addSurface(buw::ReferenceCounted<buw::Surface> surface);
+			void deleteSurface(buw::ReferenceCounted<buw::Surface> surface);
 
 			buw::vector3d getOffset() const;
 
 			void createRandomTerrain(const buw::terrainDescription& td);
 			void createTerrainFromHeightMap(const std::string& filename);
+			void createTerrainFromMesh(const std::string& filename);
 
-			void importXYZ( const std::vector<buw::vector3d>& positions );
+			void importXYZ(const std::string& filename, const buw::vector2d& start, const buw::vector2d& end);
 
-			OpenInfraPlatform::Infrastructure::DigitalElevationModel::Ptr getDigitalElevationModel() const;
+			buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::DigitalElevationModel> getDigitalElevationModel() const;
 
-			OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr getAlignmentModel() const;
+			buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> getAlignmentModel() const;
 
 
 			//---------------------------------------------------------------------------//
 			// IFCx Model
 			//---------------------------------------------------------------------------//
 
-			IfcGeometryConverter::IfcGeometryModel::Ptr getIfcGeometryModel() const;
+			buw::ReferenceCounted<IfcGeometryConverter::IfcGeometryModel> getIfcGeometryModel() const;
 
 			//---------------------------------------------------------------------------//
 			// Point Cloud
@@ -166,6 +177,7 @@ namespace OpenInfraPlatform
 			const int getPointCloudPointCount() const;
 
 			const std::vector<buw::LaserPoint>& getPointCloud() const;
+
 
 			//---------------------------------------------------------------------------//
 			// Preferences
@@ -190,21 +202,45 @@ namespace OpenInfraPlatform
 
 			bool isViewCubeEnabled();
 
-			void setAlignmentLineWidth(const int width);
-			float getAlignmentLineWidth() const { return alignmentLineWidth_; }
+			void setAlignmentLineWidth(const double width);
+			float getAlignmentLineWidth() const;
 
 			void setShowFrameTimes(const bool enable);
 
 			bool showFrameTimes() const;
 
+			void setSelectedAlignment(int selectedIndex);
+			int getSelectedAlignment();
+
 		private:
 			void createDigitalElevationModel( const buw::vector3d& offsetViewArea );
-			OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr readBICFile(const std::string & filename);
+			buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> readBICFile(const std::string & filename);
 
-			void prepareJob(DataModifierFlag flag);
 			void jobFinished(int jobID, bool completed);
+
+
+			void importJob(const std::string& filename);
+			void importOSMJob(const std::string& filename, const std::vector<std::string>& filter, int mode);
+			void exportIfcRoadTUMProposalJob(const std::string & filename);
+			void exportIfcAlignmentJob(const buw::ifcAlignmentExportDescription& desc, const std::string & filename);
+			void exportSVGAdvancedJob(const std::string& filename);
+			void exportSVGJob(const std::string& filename);
+			void exportLandXMLJob(const std::string& filename);
+			void exportOkstraJob(const std::string& filename, const std::string& version);
+			void export3DAlignmentAsTextfileJob(const std::string& filename);
+			void createExcelReportJob(const std::string& filename, bool useDegree);
+
+
+			void importLASJob(const std::string& filename);
+
+			void importXYZJob(const std::string& filename, const buw::vector2d& start, const buw::vector2d& end);
+			void createRandomTerrainJob(const buw::terrainDescription& td);
+			void createTerrainFromHeightMapJob(const std::string& filename);
+			void createTerrainFromMeshJob(const std::string& filename);
 			
-		private:	
+		private:
+			ChangeFlag		latestChangeFlag_;
+
 			// Preferences
 			buw::color3f	clearColor_;
 			bool			enableGradientClear_                = true;
@@ -214,36 +250,26 @@ namespace OpenInfraPlatform
 			bool			bShowViewCube_						= true;
 			bool			bShowFrameTime_						= false;
 			float			alignmentLineWidth_;
+			int				selectedAlignmentIndex_				= 0;
 			
 
-			buw::DigitalElevationModel::Ptr 					digitalElevationModel_;
-			buw::AlignmentModel::Ptr							alignmentModel_;
-			IfcGeometryConverter::IfcGeometryModel::Ptr			ifcGeometryModel_;
-
-			// class PointCloud
-			std::vector<buw::LaserPoint>*		pointCloud_;
-			int									chachedPointCloudCount_ = 0;
-			buw::vector3d						minPosPointCloud_;
-			buw::vector3d						maxPosPointCloud_;
+			buw::ReferenceCounted<buw::DigitalElevationModel> 				digitalElevationModel_;
+			buw::ReferenceCounted<buw::AlignmentModel>						alignmentModel_;
+			buw::ReferenceCounted<IfcGeometryConverter::IfcGeometryModel>	ifcGeometryModel_;
+			buw::PointCloud*												pointCloud_;
 
 
 
-			// temporary data for asynchronous opertations
-			buw::DigitalElevationModel::Ptr 					temporaryDigitalElevationModel_;
-			buw::AlignmentModel::Ptr							temporaryAlignmentModel_;
-			IfcGeometryConverter::IfcGeometryModel::Ptr			temporaryIfcGeometryModel_;
+			// temporary data for asynchronous operations
+			bool merge_;
+			buw::Import*													importer_;
+			buw::ReferenceCounted<IfcGeometryConverter::IfcGeometryModel>	tempIfcGeometryModel_;
+			buw::PointCloud*												tempPointCloud_;
 
-			std::vector<buw::LaserPoint>*		temporaryPointCloud_;
-			int									temporaryChachedPointCloudCount_ = 0;
-			buw::vector3d						temporaryMinPosPointCloud_;
-			buw::vector3d						temporaryMaxPosPointCloud_;
-
-
-			DataModifierFlag	modifierFlag_;
-			int					currentJobID_;
+			int																currentJobID_;
 
 			//! Determines the notification behavior of this class.
-			BlueFramework::Application::DataManagement::NotificationState *m_pNotifiactionState;
+			//BlueFramework::Application::DataManagement::NotificationState *m_pNotifiactionState;
 		}; // end class Data
 	} // end namespace DataManagement
 } // end namespace OpenInfraPlatform

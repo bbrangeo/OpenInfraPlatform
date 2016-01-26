@@ -53,7 +53,7 @@ namespace OpenInfraPlatform
 			// IfcRelVoidsElement -----------------------------------------------------------
 			// attributes:
 			shared_ptr<IfcElement>						m_RelatingElement;
-			shared_ptr<IfcFeatureElementSubtraction>		m_RelatedOpening;
+			shared_ptr<IfcFeatureElementSubtraction>		m_RelatedOpeningElement;
 		};
 	} // end namespace IfcBridge
 } // end namespace OpenInfraPlatform

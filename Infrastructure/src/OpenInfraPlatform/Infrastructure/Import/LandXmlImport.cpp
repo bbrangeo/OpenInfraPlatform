@@ -8,6 +8,7 @@
 
 #include "LandXmlImport.h"
 
+#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment3DBased3D.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/HorizontalAlignment/HorizontalAlignmentElement2DArc.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/HorizontalAlignment/HorizontalAlignmentElement2DLine.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/HorizontalAlignment/HorizontalAlignmentElement2DClothoid.h"
@@ -837,7 +838,7 @@ namespace OpenInfraPlatform
 			bool					endElement(const QString & /* unused */, const QString &name,
 				const QString& /* unused */);
 
-			std::vector<buw::IAlignment3D::Ptr> getAlignments();
+			std::vector<buw::ReferenceCounted<buw::IAlignment3D>> getAlignments();
 
 			int						getAlignmentCount();
 
@@ -906,10 +907,10 @@ namespace OpenInfraPlatform
 			double									dirStart_;
 			double									dirEnd_;
 
-			buw::CrossSectionPoint::Ptr				currentCrossSectionPoint_;
-			buw::CrossSectionStatic::Ptr			currentCrossSect_;
-			buw::CrossSectionSurface::Ptr			currentCrossSectSurface_;
-			buw::DesignCrossSectionSurface::Ptr		currentDesignCrossSectSurface_;
+			buw::ReferenceCounted<buw::CrossSectionPoint>				currentCrossSectionPoint_;
+			buw::ReferenceCounted<buw::CrossSectionStatic>			currentCrossSect_;
+			buw::ReferenceCounted<buw::CrossSectionSurface>			currentCrossSectSurface_;
+			buw::ReferenceCounted<buw::DesignCrossSectionSurface>		currentDesignCrossSectSurface_;
 
 			profAlignElement						currentProfAlignElement_;
 			std::vector<profAlignElement>			profAlignElements_;
@@ -917,18 +918,18 @@ namespace OpenInfraPlatform
 			LandXMLSurface							currentSurface_;
 			std::vector<LandXMLSurface>				surfaces_;
 
-			buw::HorizontalAlignment2D::Ptr			currentHorizontalAlignment_;
-			buw::Alignment2DBased3D::Ptr			currentAlignment2DBased3D_;
-			buw::Alignment3DBased3D::Ptr			currentAlignment3DBased3D_;
-			std::vector<buw::IAlignment3D::Ptr>		alignments_;
+			buw::ReferenceCounted<buw::HorizontalAlignment2D>			currentHorizontalAlignment_;
+			buw::ReferenceCounted<buw::Alignment2DBased3D>			currentAlignment2DBased3D_;
+			buw::ReferenceCounted<buw::Alignment3DBased3D>			currentAlignment3DBased3D_;
+			std::vector<buw::ReferenceCounted<buw::IAlignment3D>>		alignments_;
 
 			std::vector<std::vector<buw::vector3d>>	breakLines_;
 		};
 
-		buw::VerticalAlignment2D::Ptr createVerticalAlignmentFromProfAlign(
+		buw::ReferenceCounted<buw::VerticalAlignment2D> createVerticalAlignmentFromProfAlign(
 			const std::vector<profAlignElement>& profAlignElements_)
 		{
-			buw::VerticalAlignment2D::Ptr valignment = std::make_shared<buw::VerticalAlignment2D>();
+			buw::ReferenceCounted<buw::VerticalAlignment2D> valignment = std::make_shared<buw::VerticalAlignment2D>();
 
 			if (profAlignElements_.size() == 0)
 				return valignment;
@@ -1065,7 +1066,7 @@ namespace OpenInfraPlatform
 						valignment->addElement(std::make_shared<buw::VerticalAlignmentElement2DLine>(start, pvc));
 					}
 								
-					buw::VerticalAlignmentElement2DParabola::Ptr p = std::make_shared<buw::VerticalAlignmentElement2DParabola>(pvc, pvt, l1.getGradient(), l2.getGradient());
+					buw::ReferenceCounted<buw::VerticalAlignmentElement2DParabola> p = std::make_shared<buw::VerticalAlignmentElement2DParabola>(pvc, pvt, l1.getGradient(), l2.getGradient());
 
 					valignment->addElement(p);
 				}
@@ -1081,7 +1082,7 @@ namespace OpenInfraPlatform
 			return valignment;
 		}
 
-		std::vector<profAlignElement> createProfAlignElements(buw::VerticalAlignment2D::Ptr v)
+		std::vector<profAlignElement> createProfAlignElements(buw::ReferenceCounted<buw::VerticalAlignment2D> v)
 		{
 			std::vector<profAlignElement> list;
 
@@ -1102,8 +1103,8 @@ namespace OpenInfraPlatform
 
 			for( int i = 0; i < v->getAlignmentElementCount()-1; i++ )
 			{
-				buw::VerticalAlignmentElement2D::Ptr current = v->getAlignmentElementByIndex(i);
-				buw::VerticalAlignmentElement2D::Ptr next = v->getAlignmentElementByIndex(i+1);
+				buw::ReferenceCounted<buw::VerticalAlignmentElement2D> current = v->getAlignmentElementByIndex(i);
+				buw::ReferenceCounted<buw::VerticalAlignmentElement2D> next = v->getAlignmentElementByIndex(i+1);
 			
 				if (current->getAlignmentType() == buw::eVerticalAlignmentType::Line &&
 					next->getAlignmentType() == buw::eVerticalAlignmentType::Line)
@@ -1567,7 +1568,7 @@ namespace OpenInfraPlatform
 				buw::vector2d end(endPs_.getDouble("x"), endPs_.getDouble("y"));
 				buw::vector2d center(centerPs_.getDouble("x"), centerPs_.getDouble("y"));
 
-				buw::HorizontalAlignmentElement2DArc::Ptr arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArc> arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
 					center, 
 					start, 
 					end, 
@@ -1618,7 +1619,7 @@ namespace OpenInfraPlatform
 				buw::vector2d start(startPs_.getDouble("x"), startPs_.getDouble("y"));
 				buw::vector2d end(endPs_.getDouble("x"), endPs_.getDouble("y"));
 
-				buw::HorizontalAlignmentElement2DLine::Ptr line = std::make_shared<buw::HorizontalAlignmentElement2DLine>(
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2DLine> line = std::make_shared<buw::HorizontalAlignmentElement2DLine>(
 					start,
 					end);
 
@@ -1705,7 +1706,7 @@ namespace OpenInfraPlatform
 
 				if (bUseArbitraryCurve)
 				{
-					buw::HorizontalAlignmentElement2DArbitraryCurve::Ptr  c = std::make_shared<buw::HorizontalAlignmentElement2DArbitraryCurve>(
+					buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArbitraryCurve>  c = std::make_shared<buw::HorizontalAlignmentElement2DArbitraryCurve>(
 						start,
 						end,
 						pi,
@@ -1732,7 +1733,7 @@ namespace OpenInfraPlatform
 					bool entry = buw::HorizontalAlignmentElement2DClothoid::computeEntry(startCurvature, endCurvature);
 
 
-					buw::HorizontalAlignmentElement2DClothoid::Ptr  c = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
+					buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid>  c = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
 						start,
 						startDirection,
 						startCurvature,
@@ -1772,7 +1773,7 @@ namespace OpenInfraPlatform
 			return true;
 		}
 
-		std::vector<buw::IAlignment3D::Ptr> QLandXmlParser::getAlignments()
+		std::vector<buw::ReferenceCounted<buw::IAlignment3D>> QLandXmlParser::getAlignments()
 		{
 			return alignments_;
 		}
@@ -1960,7 +1961,7 @@ namespace OpenInfraPlatform
 				}
 			}
 
-			buw::VerticalAlignment2D::Ptr alignment = createVerticalAlignmentFromProfAlign(profAlignElements_);
+			buw::ReferenceCounted<buw::VerticalAlignment2D> alignment = createVerticalAlignmentFromProfAlign(profAlignElements_);
 
 			currentAlignment2DBased3D_->setVerticalAlignment(alignment);
 
@@ -2080,9 +2081,9 @@ namespace OpenInfraPlatform
 			std::vector<buw::vector3d> vertices_;
 		};
 			
-		buw::Surface::Ptr convertLandXMLSurfaceToSurface(const LandXMLSurface& lxSurface)
+		buw::ReferenceCounted<buw::Surface> convertLandXMLSurfaceToSurface(const LandXMLSurface& lxSurface)
 		{
-			buw::Surface::Ptr s = std::make_shared<buw::Surface>();
+			buw::ReferenceCounted<buw::Surface> s = std::make_shared<buw::Surface>();
 
 			s->setName(lxSurface.getName());
 
@@ -2112,12 +2113,10 @@ namespace OpenInfraPlatform
 			return s;
 		}
 
-		LandXmlImport::LandXmlImport(const std::string& filename)
+		LandXmlImport::LandXmlImport(const std::string& filename) :
+			Import(filename)
 		{
 			QLandXmlParser parser;
-
-			alignmentModel_ = new AlignmentModel();
-			digitalElevationModel_ = new DigitalElevationModel();
 
 			// Schema verification fails since official LandXML 1.2 schema is invalid!
 			//QFile schemaFile("C:/dev/OpenInfraPlatform/schema/LandXML-1.2.xsd");
@@ -2146,14 +2145,14 @@ namespace OpenInfraPlatform
 
 			for (int i = 0; i < parser.getAlignmentCount(); i++)
 			{
-				buw::IAlignment3D::Ptr a = parser.getAlignments()[i];
+				buw::ReferenceCounted<buw::IAlignment3D> a = parser.getAlignments()[i];
 				alignmentModel_->addAlignment(a);
 			}
 
 			// convert LandXMLSurface to Surface
 			for (int i = 0; i < parser.getSurfaceCount(); i++)
 			{
-				buw::Surface::Ptr s = convertLandXMLSurfaceToSurface(parser.getSurfaces()[i]);
+				buw::ReferenceCounted<buw::Surface> s = convertLandXMLSurfaceToSurface(parser.getSurfaces()[i]);
 
 				digitalElevationModel_->addSurface(s);
 			}

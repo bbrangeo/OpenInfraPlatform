@@ -31,7 +31,9 @@ namespace OpenInfraPlatform
 				if (dynamic_pointer_cast<typename IfcEntityTypesT::IfcAxis1Placement>(placement))
 				{
 					std::stringstream ss;
-					ss << "IfcAxis1Placement not implemented "; //<< __func__;
+#ifdef _DEBUG
+					ss << "Warning\t| IfcAxis1Placement not implemented "; //<< __func__;
+#endif
 					throw std::runtime_error(ss.str().c_str());
 				}
 				else if (dynamic_pointer_cast<typename IfcEntityTypesT::IfcAxis2Placement2D>(placement))
@@ -47,7 +49,7 @@ namespace OpenInfraPlatform
 				else
 				{
 					std::stringstream ss;
-					ss << "IfcPlacement is not IfcAxis2Placement2D or IfcAxis2Placement3D "; ///<< __func__;
+					ss << "Error\t| IfcPlacement is not IfcAxis2Placement2D or IfcAxis2Placement3D "; ///<< __func__;
 					throw std::runtime_error(ss.str().c_str());
 				}
 			}

@@ -1,15 +1,15 @@
 /*! \verbatim
  *  \copyright      Copyright (c) 2015 Technische Universität München
  *                  Chair of Computational Modeling and Simulation. All rights reserved.
- *  \author         Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
  *  \author         Alexander Widner <ga96heq@mytum.de> (https://www.cms.bgu.tum.de/en)
+ *  \author         Julian Amann <julian.amann@tum.de> (https://www.cms.bgu.tum.de/en/team/amann)
  *  \brief          This file is part of the TUM Open Infra Platform.
  *  \endverbatim
  */
 
 #pragma once
-#include <QDialog>
 #include "ui_CreateArcClothoidArc.h"
+#include "functions.h"
 
 namespace OpenInfraPlatform
 {
@@ -27,14 +27,20 @@ namespace OpenInfraPlatform
 
 			//! Virtual destructor.
 			virtual ~CreateArcClothoidArcDialog();
-
-			double R=50, A=50, phi1=50, phi2=50,L ;
-			bool Radius1=true;
-		private Q_SLOTS:
+			
+			private Q_SLOTS:
 			void on_pushButtonGenerate_clicked();
 			void on_pushButtonCancel_clicked();
 
+			public Q_SLOTS:
+			void takePoints(std::vector<buw::vector3d> givenPoints, buw::vector2d givenOffset)
+			{
+				points_ = givenPoints;
+				offset_ = givenOffset;
+			};
 		private:
+			std::vector<buw::vector3d> points_;
+			buw::vector2d offset_;
 			Ui::CreateArcClothoidArc *	ui_;
 		}; // end class CreateArcClothoidArcDialog 
 	} // end namespace UserInterface

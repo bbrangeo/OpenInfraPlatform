@@ -3,4 +3,7 @@
 #include "EMTIfc2x3EntityTypes.h"
 #include "EMTIfcBridgeEntityTypes.h"
 
-VertexMap OpenInfraPlatform::IfcGeometryConverter::ConverterBuwUtil::vertexMap_;
+//VertexMapTriangles OpenInfraPlatform::IfcGeometryConverter::ConverterBuwUtil::vertexMapTriangles_;
+//VertexMapLines OpenInfraPlatform::IfcGeometryConverter::ConverterBuwUtil::vertexMapLines_;
+
+std::mutex OpenInfraPlatform::IfcGeometryConverter::ConverterBuwUtil::s_geometryMutex;

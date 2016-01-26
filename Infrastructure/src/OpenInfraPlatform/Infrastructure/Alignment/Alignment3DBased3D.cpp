@@ -11,12 +11,22 @@
 
 void OpenInfraPlatform::Infrastructure::Alignment3DBased3D::addPoint( const buw::vector3d& p )
 {
-	crs_.AddSplinePoint(p);
+	if (type_ == Alignment3DBased3DType::Spline)
+		crs_.AddSplinePoint(p);
+	else if (type_ == Alignment3DBased3DType::Polyline)
+		polyline_.AddPoint(p);
+	else
+		assert(false);
 }
 
 double OpenInfraPlatform::Infrastructure::Alignment3DBased3D::getLength() const 
 {
-	return crs_.Length();
+	if (type_ == Alignment3DBased3DType::Spline)
+		return crs_.Length();
+	else if (type_ == Alignment3DBased3DType::Polyline)
+		return polyline_.Length();
+	else
+		assert(false);
 }
 
 buw::Stationing OpenInfraPlatform::Infrastructure::Alignment3DBased3D::getEndStation() const 
@@ -34,7 +44,12 @@ buw::vector3d OpenInfraPlatform::Infrastructure::Alignment3DBased3D::getPosition
 	double length = getEndStation() - getStartStation();
 	double t = station / length;
 	t = buw::clamp(t, 0.0, 1.0);
-	return crs_.GetInterpolatedSplinePoint(t);
+	if (type_ == Alignment3DBased3DType::Spline)
+		return crs_.GetInterpolatedSplinePoint(t);
+	else if (type_ == Alignment3DBased3DType::Polyline)
+		return polyline_.Interpolate(t);
+	else
+		return buw::vector3d(0.0);
 }
 
 OpenInfraPlatform::Infrastructure::Alignment3DBased3D::~Alignment3DBased3D()
@@ -42,9 +57,10 @@ OpenInfraPlatform::Infrastructure::Alignment3DBased3D::~Alignment3DBased3D()
 
 }
 
-OpenInfraPlatform::Infrastructure::Alignment3DBased3D::Alignment3DBased3D( const Stationing startSation ) :
+OpenInfraPlatform::Infrastructure::Alignment3DBased3D::Alignment3DBased3D(const Stationing startSation, Alignment3DBased3DType type) :
 	IAlignment3D(e3DAlignmentType::e3DBased),
-	startSation_(startSation)
+	startSation_(startSation),
+	type_(type)
 {
 
 }

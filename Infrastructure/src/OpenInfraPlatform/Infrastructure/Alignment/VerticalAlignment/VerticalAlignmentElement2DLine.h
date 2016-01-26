@@ -16,13 +16,10 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		//! \class VerticalAlignmentElement2DLine
-		//! \brief Line segment of a vertical alignment.
+		//! Line segment of a vertical alignment.
 		class BLUEINFRASTRUCTURE_API VerticalAlignmentElement2DLine : public VerticalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(VerticalAlignmentElement2DLine);
-
 			//! Creates a vertical alignment line segment
 			/*!
 				\param[in] start	X coordinates describes the start station and the Y coordinate the corresponding height		
@@ -30,7 +27,6 @@ namespace OpenInfraPlatform
 			*/
 			VerticalAlignmentElement2DLine(const buw::vector2d& start, const buw::vector2d& end);
 
-			//! Virtual destructor.
 			virtual ~VerticalAlignmentElement2DLine();
 
 			virtual buw::vector2d					getPosition(const Stationing station) const override;
@@ -54,7 +50,7 @@ namespace OpenInfraPlatform
 			buw::vector2d end_;
 		}; // end class VerticalAlignmentElement2DLine
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

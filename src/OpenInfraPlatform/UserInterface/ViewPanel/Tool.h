@@ -22,9 +22,9 @@ namespace OpenInfraPlatform
 		public:
 			BLUE_DEFINE_SHARED_POINTER(ToolManager);
 
-			ToolManager(buw::VertexCachePoint::Ptr vcp);
+			ToolManager(buw::ReferenceCounted<buw::VertexCachePoint> vcp);
 
-			void setCurrentTool(Tool::Ptr tool);
+			void setCurrentTool(buw::ReferenceCounted<Tool> tool);
 
 			void mousePressEvent(QMouseEvent *event);
 
@@ -33,7 +33,7 @@ namespace OpenInfraPlatform
 			void setTargetPoint(buw::vector3f targetPoint_);
 
 		private:
-			Tool::Ptr			tool_;
+			buw::ReferenceCounted<Tool>			tool_;
 			buw::vector3f		targetPoint_;
 		};
 	}

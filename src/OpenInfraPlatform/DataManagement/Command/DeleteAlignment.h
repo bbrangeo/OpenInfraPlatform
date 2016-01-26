@@ -10,6 +10,7 @@
 #ifndef OpenInfraPlatform_DataManagement_Command_DeleteAlignment_e71eafc3_7af8_4609_8b13_a1d1312a59fa_h
 #define OpenInfraPlatform_DataManagement_Command_DeleteAlignment_e71eafc3_7af8_4609_8b13_a1d1312a59fa_h
 
+#include "BlueFramework/Core/memory.h"
 #include "OpenInfraPlatform/Data/terrainDescription.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/IAlignment3D.h"
 #include "BlueFramework/Core/Math/vector.h"
@@ -29,7 +30,7 @@ namespace OpenInfraPlatform
 				BLUE_DEFINE_SHARED_POINTER(DeleteAlignment);
 
 				//! Default constructor.
-				DeleteAlignment(buw::IAlignment3D::Ptr alignment);
+				DeleteAlignment(buw::ReferenceCounted<buw::IAlignment3D> alignment);
 
 				//! Virtual destructor.
 				virtual ~DeleteAlignment();
@@ -41,7 +42,7 @@ namespace OpenInfraPlatform
 				virtual void unexecute();
 
 			private:
-				buw::IAlignment3D::Ptr alignment_;
+				buw::ReferenceCounted<buw::IAlignment3D> alignment_;
 			}; // end class DeleteAlignment
 		} // end namespace Action
 	} // end namespace DataManagement

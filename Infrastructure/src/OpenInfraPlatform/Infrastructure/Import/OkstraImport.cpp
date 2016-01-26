@@ -25,7 +25,7 @@
 
 std::string latinToUTF8(const std::string& str);
 
-class OpenInfraPlatform::Infrastructure::OkstraImport::OkstraImportImpl : private boost::noncopyable
+class OpenInfraPlatform::Infrastructure::OkstraImport::OkstraImportImpl : public Import
 {
 public:
 	enum class OKSTRA_PVI_Type
@@ -48,22 +48,8 @@ public:
 	};
 
 public:
-	std::vector<buw::IAlignment3D::Ptr> getAlignments()
-	{
-		return alignments_;
-	}
-
-	int	getAlignmentCount()
-	{
-		return alignments_.size();
-	}
-
-	buw::DigitalElevationModel::Ptr getDigitalElevationModel()
-	{
-		return digitalElevationModel_;
-	}
-
-	OkstraImportImpl(const std::string& filename)
+	OkstraImportImpl(const std::string& filename) : 
+		Import(filename)
 	{
 		Oklabi::Ausgabe *logFile = Oklabi::DateiAusgabe::Erzeuge(Oklabi::Text("oklabi.txt"));
 		Oklabi::Protokollant* logger = Oklabi::DateiProtokollant::Erzeuge(logFile);
@@ -146,7 +132,7 @@ public:
 		currentHorizontalAlignment_ = std::make_shared<HorizontalAlignment2D>(station);
 		currentVerticalAlignment_ = std::make_shared<VerticalAlignment2D>();
 		currentAlignment_ = std::make_shared<buw::Alignment2DBased3D>(currentHorizontalAlignment_, currentVerticalAlignment_);
-		alignments_.push_back(currentAlignment_);
+		alignmentModel_->addAlignment(currentAlignment_);
 
 		std::string strBezeichnung = achse->Gib("Bezeichnung")->Gib<Oklabi::Text>();
 		strBezeichnung = latinToUTF8(strBezeichnung);
@@ -158,9 +144,10 @@ public:
 			numElements++;
 			elementEnumerator->Weiter();
 		}
-		// probably a bug in oklabi, when importing OKSTRA 2.016 the enumerator lists every object twice
-		if (majorVersion == 2)
-			numElements *= 0.5;
+
+		// FIXED!!! not a bug anymore ---- 'probably a bug in oklabi, when importing OKSTRA 2.016 the enumerator lists every object twice'
+		//if (majorVersion == 2)
+		//	numElements *= 0.5;
 
 		elementEnumerator->ZumAnfang();
 
@@ -247,7 +234,7 @@ public:
 			Oklabi::Text type = elementTyp->Gib("Langtext")->Gib<Oklabi::Text>();
 			if (type == "Gerade")
 			{
-				buw::HorizontalAlignmentElement2DLine::Ptr line =
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2DLine> line =
 					std::make_shared<buw::HorizontalAlignmentElement2DLine>(start, end);
 
 				currentHorizontalAlignment_->addElement(line);
@@ -271,7 +258,7 @@ public:
 				bool isEntry = buw::HorizontalAlignmentElement2DClothoid::computeEntry(startCurvature, endCurvature);
 				bool clockwise = (startRadius > 0  && endRadius >=0 ) || (endRadius > 0 && startRadius >= 0);
 
-				buw::HorizontalAlignmentElement2DClothoid::Ptr clothoid = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2DClothoid> clothoid = std::make_shared<buw::HorizontalAlignmentElement2DClothoid>(
 					start,
 					startDirection,
 					startCurvature,
@@ -295,7 +282,7 @@ public:
 				buw::vector2d center = start - toCenter.xy() * radius;
 
 
-				buw::HorizontalAlignmentElement2DArc::Ptr arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
+				buw::ReferenceCounted<buw::HorizontalAlignmentElement2DArc> arc = std::make_shared<buw::HorizontalAlignmentElement2DArc>(
 					center,
 					start,
 					end,
@@ -432,7 +419,7 @@ public:
 
 	void besucheDGM(const Oklabi::Fachobjekt* dgm)
 	{
-		buw::Surface::Ptr surface = std::make_shared<buw::Surface>();
+		buw::ReferenceCounted<buw::Surface> surface = std::make_shared<buw::Surface>();
 
 		const Oklabi::AnyType* hat_Dreiecke = dgm->Gib("hat_Dreiecke");
 		Oklabi::Enumerator* dreieckEnumerator = hat_Dreiecke->GibEnumerator();
@@ -571,40 +558,21 @@ private:
 	}
 
 private:
-	std::vector<buw::IAlignment3D::Ptr> alignments_;
-	buw::Alignment2DBased3D::Ptr		currentAlignment_ = nullptr;
-	buw::HorizontalAlignment2D::Ptr		currentHorizontalAlignment_;
-	buw::VerticalAlignment2D::Ptr		currentVerticalAlignment_;
-	buw::DigitalElevationModel::Ptr		digitalElevationModel_;
+	buw::ReferenceCounted<buw::Alignment2DBased3D>		currentAlignment_ = nullptr;
+	buw::ReferenceCounted<buw::HorizontalAlignment2D>		currentHorizontalAlignment_;
+	buw::ReferenceCounted<buw::VerticalAlignment2D>		currentVerticalAlignment_;
 
 	int									majorVersion, minorVersion;
 };
 
 OpenInfraPlatform::Infrastructure::OkstraImport::OkstraImport(const std::string& filename) :
-impl_(new OkstraImportImpl(filename))
+	Import(filename),
+	impl_(new OkstraImportImpl(filename))
 {
-
+	alignmentModel_ = impl_->getAlignmentModel();
+	digitalElevationModel_ = impl_->getDigitalElevationModel();
 }
 
-OpenInfraPlatform::Infrastructure::OkstraImport::~OkstraImport()
-{
-
-}
-
-std::vector<buw::IAlignment3D::Ptr> OpenInfraPlatform::Infrastructure::OkstraImport::getAlignments()
-{
-	return impl_->getAlignments();
-}
-
-int OpenInfraPlatform::Infrastructure::OkstraImport::getAlignmentCount()
-{
-	return impl_->getAlignmentCount();
-}
-
-buw::DigitalElevationModel::Ptr OpenInfraPlatform::Infrastructure::OkstraImport::getDigitalElevationModel()
-{
-	return impl_->getDigitalElevationModel();
-}
 
 std::string latinToUTF8(const std::string& str)
 {

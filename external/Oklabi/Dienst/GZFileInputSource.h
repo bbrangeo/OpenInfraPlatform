@@ -1,5 +1,5 @@
 /*****************************************************************************
-* $Id: GZFileInputSource.h 2010-11-24 15:00:00 vogelsang $
+* $Id: GZFileInputSource.h 2011-11-11 11:11:11 vogelsang $
 * $Paket: Oklabi-Dienst $
 *
 * Projekt:     OKSTRA Klassenbibliothek
@@ -7,7 +7,7 @@
 * Autor:       Arnold Vogelsang, vogelsang@interactive-instruments.de
 *
 ******************************************************************************
-* Copyright (c) 2010, Bundesanstalt für Straßenwesen
+* Copyright (c) 2010-2011, Bundesanstalt für Straßenwesen
 *
 * Erstellt durch interactive instruments GmbH, Bonn
 *
@@ -22,6 +22,7 @@
 * befinden sich bei den Nutzungsbestimmungen.
 * 
 * 2010-11-24 Komprimierte XML-Dateien lesen
+* 2011-11-11 Umstellung auf Xerces-C-3.1.1
 * 
 ****************************************************************************/
 #ifndef GZFileInputSource_H

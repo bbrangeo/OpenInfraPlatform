@@ -10,52 +10,24 @@
 #ifndef OpenInfraPlatform_Infrastructure_OSMImport_cb390352_9e34_4971_a173_eab046fe8eec_h
 #define OpenInfraPlatform_Infrastructure_OSMImport_cb390352_9e34_4971_a173_eab046fe8eec_h
 
-#include "OpenInfraPlatform/Infrastructure/BlueInfrastructure.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/AlignmentModel.h"
-#include "OpenInfraPlatform/Infrastructure/Alignment/Alignment2DBased3D.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/surface.h"
-#include "OpenInfraPlatform/Infrastructure/DigitalElevationModel/DigitalElevationModel.h"
+#include "OpenInfraPlatform/Infrastructure/Import/Import.h"
 #include <boost/noncopyable.hpp>
 
 namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		struct OSMNode 
-		{
-			int id;
-			double lat;
-			double lon;
-		};
-
-		struct OSMWay
-		{
-			std::vector<int> ids;
-		};
-		
-		class OSMImport : private boost::noncopyable
+		class BLUEINFRASTRUCTURE_API OSMImport : public Import
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(OSMImport);
-
-			//! Default constructor.
-			OSMImport();
-
-			//! Virtual destructor.
-			virtual ~OSMImport();
+			OSMImport(const std::string& filename);
+			OSMImport(const std::string& filename, const std::vector<std::string>& filter, int mode);
 			
-			std::vector<buw::IAlignment3D::Ptr> getAlignments();
-
-			int	getAlignmentCount();
-
-			buw::DigitalElevationModel::Ptr getDigitalElevationModel();
-
-		private:
-			buw::AlignmentModel::Ptr		alignmentModel_;
-			buw::DigitalElevationModel::Ptr digitalElevationModel;
+			static std::vector<std::string> getDefaultFilter();
+			static std::vector<std::string> getModeNames();
 		}; // end class OSMImport
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

@@ -8,7 +8,7 @@
 
 #include "VerticalAlignment2D.h"
 
-OpenInfraPlatform::Infrastructure::VerticalAlignmentElement2D::Ptr
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::VerticalAlignmentElement2D>
 OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getAlignmentElementByStationing(const Stationing station) const
 {
 	if (verticalElements_.size() == 0)
@@ -28,7 +28,7 @@ OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getAlignmentElementBySta
 	return nullptr;
 }
 
-void OpenInfraPlatform::Infrastructure::VerticalAlignment2D::addElement(VerticalAlignmentElement2D::Ptr ve)
+void OpenInfraPlatform::Infrastructure::VerticalAlignment2D::addElement(buw::ReferenceCounted<VerticalAlignmentElement2D> ve)
 {
 	verticalElements_.push_back(ve);
 }
@@ -53,7 +53,7 @@ OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getStartStation() const
 	return verticalElements_[0]->getStartStation();
 }
 
-OpenInfraPlatform::Infrastructure::VerticalAlignmentElement2D::ConstPtr
+buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::VerticalAlignmentElement2D>
 OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getAlignmentElementByIndex(int index)
 {
 	BLUE_ASSERT(index >= 0, "Invalid index.");
@@ -68,7 +68,7 @@ int OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getAlignmentElementC
 
 buw::vector2d OpenInfraPlatform::Infrastructure::VerticalAlignment2D::getPosition(const Stationing station) const
 {
-	VerticalAlignmentElement2D::Ptr v = getAlignmentElementByStationing(station);
+	buw::ReferenceCounted<VerticalAlignmentElement2D> v = getAlignmentElementByStationing(station);
 
 	if (v == nullptr)
 	{

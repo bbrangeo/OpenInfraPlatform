@@ -16,19 +16,15 @@ namespace OpenInfraPlatform
 {
 	namespace Infrastructure
 	{
-		//! \class VerticalAlignmentElement2DParabola
-		//! \brief Parabola as a vertical alignment segment.
+		//! Parabola as a vertical alignment segment.
 		class BLUEINFRASTRUCTURE_API VerticalAlignmentElement2DParabola : public VerticalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(VerticalAlignmentElement2DParabola)
-
 			VerticalAlignmentElement2DParabola(const buw::vector2d& start, 
 				const buw::vector2d& end,
 				const double startGradient,
 				const double endGradient);
 
-			//! Virtual destructor.
 			virtual ~VerticalAlignmentElement2DParabola();
 
 			virtual buw::vector2d					getPosition(const Stationing station) const;

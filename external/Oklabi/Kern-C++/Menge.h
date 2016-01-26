@@ -228,7 +228,7 @@ public:
 			m_pIt = AggregatMengeTempl<T>::getCI()->assign(aufz);
 			AggregatMengeTempl<T>::getCI()->dispose(aufz);
 		};
-#if !defined(LINUX) && !defined(CYGWIN) && !defined(MSVC100)
+#if 0 && !defined(LINUX) && !defined(CYGWIN) && !defined(MSVC100)
 		explicit const_iterator( typename std::set<T, valcmp<T> >::iterator* aufz)
 		{
 			m_pIt = AggregatMengeTempl<T>::getCI()->assign(aufz);

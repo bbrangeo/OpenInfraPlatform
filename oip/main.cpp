@@ -18,7 +18,7 @@ void convertLandXMLtoIfcExcelComparison(const char* inputFilename, const char* o
 {
 	buw::LandXmlImport landxml_import(inputFilename);
 
-	buw::DigitalElevationModel::Ptr dem = std::make_shared<buw::DigitalElevationModel>();
+	buw::ReferenceCounted<buw::DigitalElevationModel> dem = std::make_shared<buw::DigitalElevationModel>();
 
 	if (landxml_import.getDigitalElevationModel())
 	{
@@ -31,8 +31,7 @@ void convertLandXMLtoIfcExcelComparison(const char* inputFilename, const char* o
 	buw::ifcAlignmentExportDescription desc;
 	desc.exportAlignment = true;
 	desc.exportTerrain = true;
-	buw::IfcAlignmentExport sfc;
-	sfc.convert(desc, dem, landxml_import.getAlignmentModel()->getAlignments(), "alignment.ifc");
+	buw::IfcAlignmentExport sfc(desc, landxml_import.getAlignmentModel(), dem, "alignment.ifc");
 
 	buw::ExcelReport ec(
 		outputFilename,
@@ -44,7 +43,7 @@ void convertLandXMLtoIfcAlignmentP6(const std::string& inputFilename, const std:
 {
 	buw::LandXmlImport parser(inputFilename);
 	
-	buw::DigitalElevationModel::Ptr dem = std::make_shared<buw::DigitalElevationModel>();
+	buw::ReferenceCounted<buw::DigitalElevationModel> dem = std::make_shared<buw::DigitalElevationModel>();
 	
 	if (parser.getDigitalElevationModel())
 	{
@@ -54,16 +53,14 @@ void convertLandXMLtoIfcAlignmentP6(const std::string& inputFilename, const std:
 		}
 	}
 
-	buw::IfcAlignmentExport ifcExport;
-
 	buw::ifcAlignmentExportDescription desc;
 	desc.exportTerrain = true;
 	desc.exportAlignment = true;
 
-	ifcExport.convert(
+	buw::IfcAlignmentExport ifcExport(
 		desc, 
-		dem, 
-		parser.getAlignments(),
+		parser.getAlignmentModel(),
+		dem,
 		outputFilename
 	);
 }
@@ -72,7 +69,7 @@ void convertLandXMLtoSVG(const std::string& inputFilename, const std::string& ou
 {
 	buw::LandXmlImport parser(inputFilename);
 
-	buw::DigitalElevationModel::Ptr dem = std::make_shared<buw::DigitalElevationModel>();
+	buw::ReferenceCounted<buw::DigitalElevationModel> dem = std::make_shared<buw::DigitalElevationModel>();
 
 	if (parser.getDigitalElevationModel())
 	{
@@ -82,8 +79,7 @@ void convertLandXMLtoSVG(const std::string& inputFilename, const std::string& ou
 		}
 	}
 
-	buw::SVGExport svgExport;
-	svgExport.convert(parser.getAlignments(), dem, outputFilename);
+	buw::SVGExport svgExport(parser.getAlignmentModel(), dem, outputFilename);
 }
 
 

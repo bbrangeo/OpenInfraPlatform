@@ -12,7 +12,7 @@ using namespace OpenInfraPlatform::Infrastructure;
 
 void compile()
 {
-	Lexer::Ptr lexer = std::make_shared<Lexer>(
+	buw::ReferenceCounted<Lexer> lexer = std::make_shared<Lexer>(
 		"C:/Users/no68koc/Desktop/code1.txt");
 
 	std::cout << "##### Tokens: " << "#######################################" << std::endl;
@@ -24,7 +24,7 @@ void compile()
 
 	auto tokens = lexer->getTokens();
 
-	Parser::Ptr parser = std::make_shared<Parser>(lexer);
+	buw::ReferenceCounted<Parser> parser = std::make_shared<Parser>(lexer);
 	auto ast = parser->parse();
 
 	std::cout << "##### Ast: " << "##########################################" << std::endl;
@@ -33,7 +33,7 @@ void compile()
 
 	std::cout << "##### Program Output: " << "###############################" << std::endl;
 
-	Interpreter::Ptr interpreter = std::make_shared<Interpreter>();
+	buw::ReferenceCounted<Interpreter> interpreter = std::make_shared<Interpreter>();
 	interpreter->execute(ast);
 
 	system("pause");

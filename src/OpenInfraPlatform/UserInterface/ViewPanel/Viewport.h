@@ -12,7 +12,8 @@
 #include "../../../BlueFramework/GraphicsEngine/BlueMap.h"
 #include "eView.h"
 #include "Hud.h"
-#include "RoadDesignVCL.h"
+#include "OpenInfraPlatform/UserInterface/ViewPanel/RoadDesignVCP.h"
+#include "OpenInfraPlatform/UserInterface/ViewPanel/RoadDesignVCL.h"
 #include "OpenInfraPlatform/Infrastructure/Alignment/AlignmentModel.h"
 #include "BlueFramework/Engine/ViewCube/ViewCube.h"
 #include "BlueFramework/Engine/Camera/InfraCamera.h"
@@ -23,6 +24,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include "OpenInfraPlatform/UserInterface/ViewPanel/Tool.h"
+#include "OpenInfraPlatform/DataManagement/Data.h"
 
 namespace OpenInfraPlatform
 {
@@ -31,6 +33,8 @@ namespace OpenInfraPlatform
 		class Viewport : public QWidget
 		{
 			Q_OBJECT;
+
+			typedef DataManagement::ChangeFlag ChangeFlag;
 
 		public:			
 			//---------------------------------------------------------------------------//
@@ -52,6 +56,7 @@ namespace OpenInfraPlatform
 			void	resizeEvent(QResizeEvent *);
 
 			void	onChange();
+			void	onChange(ChangeFlag changeFlag);
 			void	onClear();
 
 			void	forceRepaint();
@@ -140,10 +145,8 @@ namespace OpenInfraPlatform
 			void				viewDirection(const buw::vector3f& direction);
 			void				repositionCameraTarget();
 
-			void setInfraCameraController(buw::InfraCameraController::Ptr controller);
-			buw::InfraCameraController::Ptr getInfraCameraController();
-
-			void setSelectedAlignment( const int index );
+			void setInfraCameraController(buw::ReferenceCounted<buw::InfraCameraController> controller);
+			buw::ReferenceCounted<buw::InfraCameraController> getInfraCameraController();
 
 		public Q_SLOTS:
 
@@ -179,10 +182,10 @@ namespace OpenInfraPlatform
 			void			createDigitalElevationModel();
 
 			void			createAlignment();
-			void			createAlignmentHorizontal(buw::AlignmentModel::Ptr alignmentModel);
-			void			createAlignmentVertical(OpenInfraPlatform::Infrastructure::AlignmentModel::Ptr alignmentModel);
+			void			createAlignmentHorizontal(buw::ReferenceCounted<buw::AlignmentModel> alignmentModel);
+			void			createAlignmentVertical(buw::ReferenceCounted<OpenInfraPlatform::Infrastructure::AlignmentModel> alignmentModel);
 			void			createAlignmentThreeDimensional();
-			void			createIfcGeometry(IfcGeometryConverter::IfcGeometryModel::Ptr ifcGeometryModel);
+			void			createIfcGeometry(buw::ReferenceCounted<IfcGeometryConverter::IfcGeometryModel> ifcGeometryModel);
 			void			createBoundingBoxes(buw::vector3d min, buw::vector3d max);
 
 			void			createAlignmentThreeDimensional_CrossSection();
@@ -219,45 +222,48 @@ namespace OpenInfraPlatform
 
 			// road body
 			buw::matrix44d getGlobalRotationMatrixOnStation(
-				buw::Alignment2DBased3D::Ptr alignment, 
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment, 
 				buw::Stationing station);
 
 			void drawCrossSection(
-				buw::Alignment2DBased3D::Ptr alignment,
-				buw::CrossSectionStatic::Ptr cs, 
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment,
+				buw::ReferenceCounted<buw::CrossSectionStatic> cs, 
 				buw::vector3d offsetViewArea);
 
 			void drawRoadBodyBetweenStation(
-				buw::Alignment2DBased3D::Ptr alignment, 
-				buw::CrossSectionStatic::Ptr cs, 
-				buw::CrossSectionStatic::Ptr nextCs, 
+				buw::ReferenceCounted<buw::Alignment2DBased3D> alignment, 
+				buw::ReferenceCounted<buw::CrossSectionStatic> cs, 
+				buw::ReferenceCounted<buw::CrossSectionStatic> nextCs, 
 				buw::vector3d offsetViewArea);
 
 		private:
-			buw::SkinnedMesh::Ptr				mesh_;
+			buw::ReferenceCounted<buw::SkinnedMesh>				mesh_;
 
-			ToolManager::Ptr					toolManager_;
+			buw::ReferenceCounted<ToolManager>					toolManager_;
 
 			int									selectedAlignmentIndex_;
+			int									hoveredAlignmentIndex_;
 
 			// ViewCube
-			buw::ViewCube::Ptr					viewCube_;
-			buw::IDepthStencilState::Ptr		ddsDisableDepthTest_;
-			buw::IRasterizerState::Ptr          rsDefault_;
-			buw::IRasterizerState::Ptr			rsCullBackFaces_;
+			buw::ReferenceCounted<buw::ViewCube>					viewCube_;
+			buw::ReferenceCounted<buw::IDepthStencilState>		ddsDisableDepthTest_;
+			buw::ReferenceCounted<buw::IRasterizerState>          rsDefault_;
+			buw::ReferenceCounted<buw::IRasterizerState>			rsCullBackFaces_;
 			bool								bShowViewCube_;
 			bool								bContinuousRendering_;
 
 
-			buw::ITexture2D::Ptr				cpuReadTexture_;
+			buw::ReferenceCounted<buw::ITexture2D>				cpuReadTexture_;
 
 			// PickBuffer
 			buw::vector4f						pickColor;	// is updated by each mouse move event
-			buw::IRenderTargetTexture2D::Ptr	renderTargetPickBuffer_;
+			buw::vector4f						clearPickColor;
+			buw::ReferenceCounted<buw::IRenderTargetTexture2D>	renderTargetPickBuffer_;
+
 
 			// GBuffer
-			buw::IShader::Ptr					gBufferShader_;
-			buw::IRenderTargetTexture2D::Ptr	renderTargetGBuffer_;
+			buw::ReferenceCounted<buw::IShader>					gBufferShader_;
+			buw::ReferenceCounted<buw::IRenderTargetTexture2D>	renderTargetGBuffer_;
 
 			// LaserScan
 			bool								bUseUniformPointColor_;
@@ -265,17 +271,17 @@ namespace OpenInfraPlatform
 			float								pointSize_;
 
 			// BlueMap
-			buw::BlueMap::Ptr					blueMap_;
+			buw::ReferenceCounted<buw::BlueMap>					blueMap_;
 			bool								enableBlueMap_;
 			
-			Hud::Ptr							hud_;
+			buw::ReferenceCounted<Hud>							hud_;
 			static const bool					bShowHud = false;
 
 			// Clear
 			bool								gradientClear_;
-			buw::IDepthStencilState::Ptr		dssDefault_;
-			buw::IDepthStencilState::Ptr		ddsDisableDepthWrite_;
-			buw::IShader::Ptr					shaderGradientQuad_;
+			buw::ReferenceCounted<buw::IDepthStencilState>		dssDefault_;
+			buw::ReferenceCounted<buw::IDepthStencilState>		ddsDisableDepthWrite_;
+			buw::ReferenceCounted<buw::IShader>					shaderGradientQuad_;
 			buw::color3f						clearColor_;
 
 			bool								bHighlightDifferentAlignmentElements_;
@@ -283,74 +289,69 @@ namespace OpenInfraPlatform
 
 			// alignment editor
 			bool								bCreatePoints_;
-			buw::RoadDesignVCL::Ptr				vertexCacheAlignmentEditorLine_;
-			buw::RoadDesignVCP::Ptr				vertexCacheAlignmentEditorPoint_;
+			buw::ReferenceCounted<buw::RoadDesignVCL>				vertexCacheAlignmentEditorLine_;
+			buw::ReferenceCounted<buw::RoadDesignVCP>				vertexCacheAlignmentEditorPoint_;
 			std::vector<buw::vector3d>			alignmentEditorPoints_;
 
-			buw::VertexCachePointT<buw::VertexPositionColor>::Ptr	vertexCachePointLaserScan_;
-			buw::IShader::Ptr					shaderLaserScan_;
+			buw::ReferenceCounted<buw::VertexCachePointT<buw::VertexPosition3Color3>>	vertexCachePointLaserScan_;
+			buw::ReferenceCounted<buw::IShader>					shaderLaserScan_;
 
 			eView								view_;
 			buw::eProjectionType::Enum			projectionType_;
 			
-			buw::IRenderSystem::Ptr				renderSystem_;
-			buw::IRenderContext::Ptr			renderContext_;
+			buw::ReferenceCounted<buw::IRenderSystem>				renderSystem_;
+			buw::ReferenceCounted<buw::IRenderContext>			renderContext_;
 
-			buw::VertexCacheTriangle::Ptr		vertexCacheAlignmentTriangle_;
-			buw::IShader::Ptr					triangleShader_;
-			buw::RoadDesignVCL::Ptr				vertexCacheAlignmentLine_;
-			buw::RoadDesignVCP::Ptr				vertexCacheAlignmentPoint_;
+			buw::ReferenceCounted<buw::VertexCacheTriangle>		vertexCacheAlignmentTriangle_;
+			buw::ReferenceCounted<buw::IShader>					triangleShader_;
+			buw::ReferenceCounted<buw::RoadDesignVCL>				vertexCacheAlignmentLine_;
+			buw::ReferenceCounted<buw::RoadDesignVCP>				vertexCacheAlignmentPoint_;
 
-			buw::VertexCacheTriangleT<VertexLayout>::Ptr vertexCacheIfcGeometry_;
-			buw::VertexCacheLine::Ptr			vertexCacheIfcPolylines_;
+			buw::ReferenceCounted<buw::VertexCacheTriangleT<VertexLayout>> vertexCacheIfcGeometry_;
+			buw::ReferenceCounted<buw::RoadDesignVCL>				vertexCacheIfcPolylines_;
 
-			buw::VertexCacheLine::Ptr			vertexCacheLineUIElements;
-			buw::VertexCachePoint::Ptr			vertexCachePointDebug_;
-			buw::VertexCacheLine::Ptr			vertexCacheLineDebug_;
+			buw::ReferenceCounted<buw::VertexCacheLine>			vertexCacheLineUIElements;
+			buw::ReferenceCounted<buw::VertexCachePoint>			vertexCachePointDebug_;
+			buw::ReferenceCounted<buw::VertexCacheLine>			vertexCacheLineDebug_;
 			
-			std::vector<buw::VertexCacheLine::Ptr>	vertexCacheLineBreakLines_;
+			std::vector<buw::ReferenceCounted<buw::VertexCacheLine>>	vertexCacheLineBreakLines_;
 
-			buw::IRasterizerState::Ptr			rsSolidFill_;
-			buw::IRasterizerState::Ptr			rsWireframeFill_;
-			buw::ISamplerState::Ptr				sampler_;
+			buw::ReferenceCounted<buw::IRasterizerState>			rsSolidFill_;
+			buw::ReferenceCounted<buw::IRasterizerState>			rsWireframeFill_;
+			buw::ReferenceCounted<buw::ISamplerState>				sampler_;
 
 			// DigitalElevationModel
 			bool								bTerrainTextured_;
 			bool								bTerrainUseColorRamp_;
 			bool								bTerrainDisplayIsoLines_;
-			buw::ITexture2D::Ptr				terrainTexture_;
-			buw::ITexture1D::Ptr				gradientRampTexture_;
+			buw::ReferenceCounted<buw::ITexture2D>				terrainTexture_;
+			buw::ReferenceCounted<buw::ITexture1D>				gradientRampTexture_;
 			bool								bHideTerrain_;
 			bool								bDrawTerrainWireframe_;
 			buw::vector2f						heightRange_;
 
-			buw::ISamplerState::Ptr				colorRampSampler_;
+			buw::ReferenceCounted<buw::ISamplerState>				colorRampSampler_;
 			
-			std::vector<buw::IndexedMesh::Ptr>	meshesDigitalElevationModel_;
-			buw::IShader::Ptr					shaderDigitalElevationModel_;
-			buw::IShader::Ptr					shaderDigitalElevationModelColorRamp_;
-			buw::IVertexLayout::Ptr				vertexLayoutDigitalElevationModel_;
+			std::vector<buw::ReferenceCounted<buw::IndexedMesh>>	meshesDigitalElevationModel_;
+			buw::ReferenceCounted<buw::IShader>					shaderDigitalElevationModel_;
+			buw::ReferenceCounted<buw::IShader>					shaderDigitalElevationModelColorRamp_;
+			buw::ReferenceCounted<buw::IVertexLayout>				vertexLayoutDigitalElevationModel_;
 
 			//  Text
-			buw::SignedDistanceFont::Ptr		signedDistanceFont_;
-			buw::Text::Ptr						text_;
-			
-			//---------------------------------------------------------------------------//
-			// Preferences
-			//---------------------------------------------------------------------------//
-			float alignmentLineWidth_;
+			buw::ReferenceCounted<buw::SignedDistanceFont>		signedDistanceFont_;
+			buw::ReferenceCounted<buw::Text>						text_;
 
 			//---------------------------------------------------------------------------//
 			// Camera control
 			//---------------------------------------------------------------------------//
-			buw::InfraCamera::Ptr				infraCamera_;
-			buw::InfraCameraController::Ptr		infraCameraController_;
+			buw::ReferenceCounted<buw::InfraCamera>				infraCamera_;
+			buw::ReferenceCounted<buw::InfraCameraController>		infraCameraController_;
 			unsigned long						lastTick_;
 			buw::vector2f						lastMousePos_;
 
 			// Skybox
 			bool								drawSkybox_;
-			buw::Skybox::Ptr					skybox_;
+			buw::ReferenceCounted<buw::Skybox>					skybox_;
 
 			//---------------------------------------------------------------------------//
 			// CrossSections
@@ -361,9 +362,9 @@ namespace OpenInfraPlatform
 			bool								doSolidCrossSections_;
 			bool								drawRoadTexture_;
 
-			buw::ITexture2D::Ptr															roadTexture_;
-			buw::VertexCacheTriangleT<buw::VertexPosition3Color3Normal3Texture2>::Ptr		triangleCacheP3C3N3UV2_;
-			buw::IShader::Ptr																triangleShaderP3C3N3UV2_;
+			buw::ReferenceCounted<buw::ITexture2D>															roadTexture_;
+			buw::ReferenceCounted<buw::VertexCacheTriangleT<buw::VertexPosition3Color3Normal3Texture2>>		triangleCacheP3C3N3UV2_;
+			buw::ReferenceCounted<buw::IShader>																triangleShaderP3C3N3UV2_;
 
 			//---------------------------------------------------------------------------//
 			// Diagnostics

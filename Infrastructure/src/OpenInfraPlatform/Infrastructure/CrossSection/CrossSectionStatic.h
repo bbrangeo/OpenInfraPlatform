@@ -51,7 +51,7 @@ namespace OpenInfraPlatform
 			
 			std::string								name;
 			bool									closedArea = false;
-			std::vector<CrossSectionPoint::Ptr>		crossSectionsPoints;
+			std::vector<buw::ReferenceCounted<CrossSectionPoint>>		crossSectionsPoints;
 			eDesignCrossSectionSide					side;			
 		};
 
@@ -76,32 +76,32 @@ namespace OpenInfraPlatform
 			virtual ~CrossSectionStatic() {};
 
 			double										stationing;
-			void										addCrossSectionSurface(CrossSectionSurface::Ptr csSurface);
+			void										addCrossSectionSurface(buw::ReferenceCounted<CrossSectionSurface> csSurface);
 			int											getCrossSectionSurfaceCount();
-			CrossSectionSurface::Ptr					getCrossSectionSurface(const int index);
+			buw::ReferenceCounted<CrossSectionSurface>	getCrossSectionSurface(const int index);
 
-			void										addDesignCrossSectionSurface(DesignCrossSectionSurface::Ptr csDesignSurface);
+			void										addDesignCrossSectionSurface(buw::ReferenceCounted<DesignCrossSectionSurface> csDesignSurface);
 			int											getDesignCrossSectionSurfaceCount();
 			int											getClosedDesignCrossSectionSurfaceCount();
 			int											getOpenDesignCrossSectionSurfaceCount();
 
 			//! All design cross sections
-			DesignCrossSectionSurface::Ptr				getDesignCrossSectionSurface(const int index);
+			buw::ReferenceCounted<DesignCrossSectionSurface>		getDesignCrossSectionSurface(const int index);
 			
 			//! Filtered cross sections. Only closed design cross sections
-			DesignCrossSectionSurface::Ptr				getClosedDesignCrossSectionSurface(const int index);
+			buw::ReferenceCounted<DesignCrossSectionSurface>		getClosedDesignCrossSectionSurface(const int index);
 
 			//!  Filtered cross sections. Only open cross sections (ground, etc.).
-			DesignCrossSectionSurface::Ptr				getOpenDesignCrossSectionSurface(const int index);
+			buw::ReferenceCounted<DesignCrossSectionSurface>		getOpenDesignCrossSectionSurface(const int index);
 
-			static bool smallerStation (const CrossSectionStatic::Ptr& a, const  CrossSectionStatic::Ptr& b);
+			static bool smallerStation(const buw::ReferenceCounted<CrossSectionStatic>& a, const  buw::ReferenceCounted<CrossSectionStatic>& b);
 
 		private:
-			std::vector<CrossSectionSurface::Ptr>		crossSectSurfaceList_;
+			std::vector<buw::ReferenceCounted<CrossSectionSurface>>		crossSectSurfaceList_;
 
 			// Filtered lists
-			std::vector<DesignCrossSectionSurface::Ptr>	closedDesignCrossSectSurfaceList_;
-			std::vector<DesignCrossSectionSurface::Ptr>	openDesignCrossSectSurfaceList_;
+			std::vector<buw::ReferenceCounted<DesignCrossSectionSurface>>	closedDesignCrossSectSurfaceList_;
+			std::vector<buw::ReferenceCounted<DesignCrossSectionSurface>>	openDesignCrossSectSurfaceList_;
 		};
 	}
 }

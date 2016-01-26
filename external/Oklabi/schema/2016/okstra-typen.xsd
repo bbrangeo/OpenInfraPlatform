@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="iso-8859-1" ?>
 <schema targetNamespace="http://schema.okstra.de/2016/okstra-typen"
     xmlns="http://www.w3.org/2001/XMLSchema"
     xmlns:okstra-typen="http://schema.okstra.de/2016/okstra-typen"
@@ -21,7 +21,8 @@
         <simpleContent>
             <extension base="gml:MeasureType"/>
         </simpleContent>
-    </complexType>    <complexType name="ForceType">
+    </complexType>
+    <complexType name="ForceType">
         <simpleContent>
             <extension base="gml:MeasureType"/>
         </simpleContent>
@@ -56,28 +57,28 @@
             <extension base="gml:MeasureType"/>
         </simpleContent>
     </complexType>
+    <simpleType name="Anzahl">
+        <restriction base="integer"/>
+    </simpleType>
+    <simpleType name="Anzahl_einstellig">
+        <restriction base="integer"/>
+    </simpleType>
+    <simpleType name="Anzahl_Klassen">
+        <restriction base="integer"/>
+    </simpleType>
+    <simpleType name="Anzahl_zweistellig">
+        <restriction base="integer"/>
+    </simpleType>
     <simpleType name="AOA_Kennung">
         <restriction base="string"/>
     </simpleType>
     <simpleType name="ASB_ING_Schluessel">
         <restriction base="string"/>
     </simpleType>
-    <simpleType name="Anzahl">
-        <restriction base="integer"/>
-    </simpleType>
-    <simpleType name="Anzahl_Klassen">
-        <restriction base="integer"/>
-    </simpleType>
-    <simpleType name="Anzahl_einstellig">
-        <restriction base="integer"/>
-    </simpleType>
-    <simpleType name="Anzahl_zweistellig">
-        <restriction base="integer"/>
-    </simpleType>
-    <complexType name="DM">
+    <complexType name="cd_pro_Quadratmeter">
         <simpleContent>
-            <restriction base="okstra-typen:CurrencyType">
-                <attribute name="uom" type="gml:UomSymbol" fixed="DM" use="required"/>
+            <restriction base="gml:MeasureType">
+                <attribute name="uom" type="gml:UomSymbol" fixed="cd%2Fm%B2" use="required"/>
             </restriction>
         </simpleContent>
     </complexType>
@@ -88,13 +89,16 @@
             </restriction>
         </simpleContent>
     </complexType>
-    <complexType name="EURO">
+    <complexType name="DM">
         <simpleContent>
             <restriction base="okstra-typen:CurrencyType">
-                <attribute name="uom" type="gml:UomSymbol" fixed="EUR" use="required"/>
+                <attribute name="uom" type="gml:UomSymbol" fixed="DM" use="required"/>
             </restriction>
         </simpleContent>
     </complexType>
+    <simpleType name="dpi">
+        <restriction base="integer"/>
+    </simpleType>
     <complexType name="Eins_zu_N">
         <simpleContent>
             <restriction base="okstra-typen:SlopeType">
@@ -102,11 +106,15 @@
             </restriction>
         </simpleContent>
     </complexType>
+    <complexType name="EURO">
+        <simpleContent>
+            <restriction base="okstra-typen:CurrencyType">
+                <attribute name="uom" type="gml:UomSymbol" fixed="EUR" use="required"/>
+            </restriction>
+        </simpleContent>
+    </complexType>
     <simpleType name="Farbtiefe">
         <restriction base="integer"/>
-    </simpleType>
-    <simpleType name="GUID">
-        <restriction base="string"/>
     </simpleType>
     <complexType name="Gon">
         <simpleContent>
@@ -138,6 +146,9 @@
     </complexType>
     <simpleType name="Groesse">
         <restriction base="double"/>
+    </simpleType>
+    <simpleType name="GUID">
+        <restriction base="string"/>
     </simpleType>
     <complexType name="Hektar">
         <simpleContent>
@@ -236,6 +247,9 @@
             </restriction>
         </simpleContent>
     </complexType>
+    <simpleType name="lfd_NK_Nummer">
+        <restriction base="string"/>
+    </simpleType>
     <complexType name="Liter_pro_Sekunde_und_Meter">
         <simpleContent>
             <restriction base="gml:MeasureType">
@@ -383,9 +397,6 @@
             </restriction>
         </simpleContent>
     </complexType>
-    <simpleType name="RGB_Farbwert">
-        <restriction base="integer"/>
-    </simpleType>
     <complexType name="Radiant">
         <simpleContent>
             <restriction base="gml:AngleType">
@@ -393,6 +404,9 @@
             </restriction>
         </simpleContent>
     </complexType>
+    <simpleType name="RGB_Farbwert">
+        <restriction base="integer"/>
+    </simpleType>
     <simpleType name="Schadensbewertung">
         <restriction base="integer"/>
     </simpleType>
@@ -433,9 +447,6 @@
             </restriction>
         </simpleContent>
     </complexType>
-    <simpleType name="TK25_Blattnummer">
-        <restriction base="string"/>
-    </simpleType>
     <simpleType name="Tag">
         <restriction base="integer"/>
     </simpleType>
@@ -446,6 +457,9 @@
             </restriction>
         </simpleContent>
     </complexType>
+    <simpleType name="TK25_Blattnummer">
+        <restriction base="string"/>
+    </simpleType>
     <complexType name="Tonnen">
         <simpleContent>
             <restriction base="okstra-typen:WeightType">
@@ -453,17 +467,17 @@
             </restriction>
         </simpleContent>
     </complexType>
-    <complexType name="Unfaelle_pro_Mio_Kfz_km">
-        <simpleContent>
-            <restriction base="gml:MeasureType">
-                <attribute name="uom" type="gml:UomSymbol" fixed="1%2Fkm" use="required"/>
-            </restriction>
-        </simpleContent>
-    </complexType>
     <complexType name="Unfaelle_pro_km_und_Jahr">
         <simpleContent>
             <restriction base="gml:MeasureType">
                 <attribute name="uom" type="gml:UomSymbol" fixed="1%2F(kma)" use="required"/>
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <complexType name="Unfaelle_pro_Mio_Kfz_km">
+        <simpleContent>
+            <restriction base="gml:MeasureType">
+                <attribute name="uom" type="gml:UomSymbol" fixed="1%2Fkm" use="required"/>
             </restriction>
         </simpleContent>
     </complexType>
@@ -485,19 +499,6 @@
         </simpleContent>
     </complexType>
     <simpleType name="Zusatzbuchstabe">
-        <restriction base="string"/>
-    </simpleType>
-    <complexType name="cd_pro_Quadratmeter">
-        <simpleContent>
-            <restriction base="gml:MeasureType">
-                <attribute name="uom" type="gml:UomSymbol" fixed="cd%2Fm%B2" use="required"/>
-            </restriction>
-        </simpleContent>
-    </complexType>
-    <simpleType name="dpi">
-        <restriction base="integer"/>
-    </simpleType>
-    <simpleType name="lfd_NK_Nummer">
         <restriction base="string"/>
     </simpleType>
 </schema>

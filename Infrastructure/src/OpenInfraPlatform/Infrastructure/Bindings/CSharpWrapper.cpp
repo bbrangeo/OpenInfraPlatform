@@ -24,21 +24,20 @@ extern "C"
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	BLUEINFRASTRUCTURE_API buw::LandXmlImport* LandXmlParser_Create(char* fileName)
 	{
-		buw::LandXmlImport parser(fileName);
-		buw::LandXmlImport *p = buw::LandXmlImport::createFlatCopy(parser);
-		return p;
+		buw::LandXmlImport* parser = new buw::LandXmlImport(fileName);
+		return parser;
 	}
 
 	BLUEINFRASTRUCTURE_API buw::DigitalElevationModel* LandXmlParser_GetDigitalElevationModel(buw::LandXmlImport* p)
 	{
-		buw::DigitalElevationModel* digitalElevationModel = p->getDigitalElevationModel();
+		buw::DigitalElevationModel* digitalElevationModel = p->getDigitalElevationModel().get();
 		buw::DigitalElevationModel *dm = buw::DigitalElevationModel::createFlatCopy(*digitalElevationModel);
 		return dm;
 	}
 
 	BLUEINFRASTRUCTURE_API buw::AlignmentModel* LandXmlParser_GetAlignmentModel(buw::LandXmlImport* p)
 	{
-		buw::AlignmentModel* alignmentModel = p->getAlignmentModel();
+		buw::AlignmentModel* alignmentModel = p->getAlignmentModel().get();
 		buw::AlignmentModel *a = buw::AlignmentModel::createFlatCopy(*alignmentModel);
 		return a;
 	}
@@ -85,11 +84,11 @@ extern "C"
 
 	BLUEINFRASTRUCTURE_API buw::Alignment2DBased3D* AlignmentModel_GetAlignmentByIndex(buw::AlignmentModel* a, int index)
 	{
-		buw::IAlignment3D::Ptr alignment3d = a->getAlignments()[index];
+		buw::ReferenceCounted<buw::IAlignment3D> alignment3d = a->getAlignments()[index];
 
 		if (alignment3d->getType() == buw::e3DAlignmentType::e2DBased)
 		{
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment3d);
+			buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment3d);
 
 			buw::Alignment2DBased3D *ap = buw::Alignment2DBased3D::createFlatCopy(*a.get());
 
@@ -110,7 +109,7 @@ extern "C"
 
 	BLUEINFRASTRUCTURE_API buw::Surface* DigitalElevationModel_GetSurface(buw::DigitalElevationModel* d, int index)
 	{
-		buw::Surface::Ptr surface = d->getSurface(index);
+		buw::ReferenceCounted<buw::Surface> surface = d->getSurface(index);
 		buw::Surface *s = buw::Surface::createFlatCopy(*surface.get());
 
 		return s;
@@ -157,11 +156,11 @@ extern "C"
 	{
 		buw::LandXmlImport parser("C:/Users/Dominic/Desktop/Studium/MA4/Master-Thesis/Implementierung/OpenInfraPlatform/testdata/LandXML/Mainbruecke_Klingenberg.xml");
 
-		buw::IAlignment3D::Ptr alignment3d = parser.getAlignments()[0];
+		buw::ReferenceCounted<buw::IAlignment3D> alignment3d = parser.getAlignmentModel()->getAlignments()[0];
 		
 		if (alignment3d->getType() == buw::e3DAlignmentType::e2DBased)
 		{
-			buw::Alignment2DBased3D::Ptr a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment3d);
+			buw::ReferenceCounted<buw::Alignment2DBased3D> a = std::static_pointer_cast<buw::Alignment2DBased3D>(alignment3d);
 
 			buw::Alignment2DBased3D *ap = buw::Alignment2DBased3D::createFlatCopy(*a.get());
 		

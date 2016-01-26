@@ -19,11 +19,8 @@ namespace OpenInfraPlatform
 		class VerticalAlignmentElement2DArc : public VerticalAlignmentElement2D
 		{
 		public:
-			BLUE_DEFINE_SHARED_POINTER(VerticalAlignmentElement2DArc);
-
 			typedef buw::vector2d vector2d;
 
-			//! Default constructor.
 			VerticalAlignmentElement2DArc(
 				const buw::vector2d& start,
 				const buw::vector2d& end,
@@ -31,7 +28,6 @@ namespace OpenInfraPlatform
 				const double startGradient,
 				const bool isConvex);
 
-			//! Virtual destructor.
 			virtual ~VerticalAlignmentElement2DArc();
 
 			virtual vector2d					getPosition(const Stationing station) const override;
@@ -60,7 +56,7 @@ namespace OpenInfraPlatform
 			bool            isConvex_;
 		}; // end class VerticalAlignmentElement2DArc
 	} // end namespace Infrastructure
-} // end namespace BlueFramework
+} // end namespace OpenInfraPlatform
 
 namespace buw
 {

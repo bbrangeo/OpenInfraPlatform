@@ -5,14 +5,18 @@
 #define CONVERTERBUW_H
 
 #include <unordered_map>
+#include <thread>
+#include <mutex>
 
 #include <buw.BlueEngine.h>
 #include "CarveHeaders.h"
+#include "GeometryInputData.h"
 
 /***********************************************************************************************/
 
 typedef buw::VertexPosition3Color3Normal3 VertexLayout;
-typedef std::unordered_map<std::string, uint32_t> VertexMap;
+typedef std::unordered_map<std::string, uint32_t> VertexMapTriangles;
+typedef std::unordered_map<std::string, uint32_t> VertexMapLines;
 
 namespace OpenInfraPlatform
 {
@@ -30,8 +34,8 @@ namespace OpenInfraPlatform
 		{
 			//BLUE_DEFINE_SHARED_POINTER(PolylineDescription);
 
-			std::vector<uint32_t>					indices;
-			std::vector<buw::vector3f> vertices;
+			std::vector<uint32_t>		indices;
+			std::vector<buw::vector3f>	vertices;
 		};
 
 		struct IfcGeometryModel
@@ -50,14 +54,17 @@ namespace OpenInfraPlatform
 			ConverterBuwUtil() {}
 			~ConverterBuwUtil() {}
 
-			static VertexMap vertexMap_;
+			// static caches for vertices (for triangle and line geometry)
+			//static VertexMapTriangles vertexMapTriangles_;
+			//static VertexMapLines vertexMapLines_;
+			static std::mutex s_geometryMutex;
 		};
 
 		template <
 			class IfcEntityTypesT
 		>
 		class ConverterBuwT
-		{
+		{	
 		public:
 			//static const float FullyOpaqueAlphaThreshold;
 			//static const float FullyTransparentAlphaThreshold;
@@ -99,14 +106,7 @@ namespace OpenInfraPlatform
 					edge = edge->next;
 				}
 
-				uint32_t indexOffset = vertices.size();
-
-				buw::vector3f normal = (faceVertices[1] - faceVertices[0])
-					^ (faceVertices[2] - faceVertices[0]);
-
-				//normal.normalize();
-
-
+				buw::vector3f normal(face->plane.N.x, face->plane.N.y, face->plane.N.z);
 
 				// omit spaces
 				if (dynamic_pointer_cast<typename IfcEntityTypesT::IfcSpace>(product))
@@ -122,26 +122,7 @@ namespace OpenInfraPlatform
 					v1 = VertexLayout::create(faceVertices[1], color, normal);
 					v2 = VertexLayout::create(faceVertices[2], color, normal);
 
-					std::string keyV0 = createVertexKey(v0);
-					std::string keyV1 = createVertexKey(v1);
-					std::string keyV2 = createVertexKey(v2);
-
-					if (ConverterBuwUtil::vertexMap_.find(keyV0) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v0);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV0, indexOffset++));
-					}
-					if (ConverterBuwUtil::vertexMap_.find(keyV1) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v1);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV1, indexOffset++));
-					}
-					if (ConverterBuwUtil::vertexMap_.find(keyV2) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v2);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV2, indexOffset++));
-					}
-
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV1]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
+					insertTriangleIntoBuffers(v0, v1, v2, vertices, indices);
 				}
 
 				else if (numVertices == 4)
@@ -153,38 +134,42 @@ namespace OpenInfraPlatform
 					v2 = VertexLayout::create(faceVertices[2], color, normal);
 					v3 = VertexLayout::create(faceVertices[3], color, normal);
 
-					std::string keyV0 = createVertexKey(v0);
-					std::string keyV1 = createVertexKey(v1);
-					std::string keyV2 = createVertexKey(v2);
-					std::string keyV3 = createVertexKey(v3);
-
-					if (ConverterBuwUtil::vertexMap_.find(keyV0) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v0);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV0, indexOffset++));
-					}
-					if (ConverterBuwUtil::vertexMap_.find(keyV1) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v1);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV1, indexOffset++));
-					}
-					if (ConverterBuwUtil::vertexMap_.find(keyV2) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v2);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV2, indexOffset++));
-					}
-					if (ConverterBuwUtil::vertexMap_.find(keyV3) == ConverterBuwUtil::vertexMap_.end()) {
-						vertices.push_back(v3);
-						ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV3, indexOffset++));
-					}
-
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV1]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
-
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
-					indices.push_back(ConverterBuwUtil::vertexMap_[keyV3]);
+					insertQuadIntoBuffers(v0, v1, v2, v3, vertices, indices);
 				}
 
 				return true;//color.w() <= FullyOpaqueAlphaThreshold;
+			}
+
+			static bool insertTriangleIntoBuffers(const VertexLayout& vertexA, 
+				const VertexLayout& vertexB,
+				const VertexLayout& vertexC,
+				std::vector<VertexLayout>& vertices,
+				std::vector<uint32_t>& indices)
+			{
+				uint32_t indexOffset = vertices.size();
+
+				vertices.push_back(vertexA);
+				vertices.push_back(vertexB);
+				vertices.push_back(vertexC);
+
+				indices.push_back(indexOffset++);
+				indices.push_back(indexOffset++);
+				indices.push_back(indexOffset);
+
+				return true;
+			}
+
+			static bool insertQuadIntoBuffers(const VertexLayout& vertexA,
+				const VertexLayout& vertexB,
+				const VertexLayout& vertexC,
+				const VertexLayout& vertexD,
+				std::vector<VertexLayout>& vertices,
+				std::vector<uint32_t>& indices)
+			{
+				insertTriangleIntoBuffers(vertexA, vertexB, vertexC, vertices, indices);
+				insertTriangleIntoBuffers(vertexA, vertexC, vertexD, vertices, indices);
+
+				return true;
 			}
 
 			static bool insertMeshIntoBuffers(const std::shared_ptr<typename IfcEntityTypesT::IfcProduct>& product,
@@ -254,7 +239,6 @@ namespace OpenInfraPlatform
 					if (numIndices == 3)
 					{
 						VertexLayout v0, v1, v2;
-
 						buw::vector3f* pos0, *pos1, *pos2;
 
 						++it;
@@ -270,32 +254,12 @@ namespace OpenInfraPlatform
 						v1 = VertexLayout::create(*pos1, color, normal);
 						v2 = VertexLayout::create(*pos2, color, normal);
 
-						std::string keyV0 = createVertexKey(v0);
-						std::string keyV1 = createVertexKey(v1);
-						std::string keyV2 = createVertexKey(v2);
-
-						if (ConverterBuwUtil::vertexMap_.find(keyV0) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v0);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV0, indexOffset++));
-						}
-						if (ConverterBuwUtil::vertexMap_.find(keyV1) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v1);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV1, indexOffset++));
-						}
-						if (ConverterBuwUtil::vertexMap_.find(keyV2) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v2);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV2, indexOffset++));
-						}
-
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV1]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
+						insertTriangleIntoBuffers(v0, v1, v2, vertices, indices);
 
 					}
 					else if (numIndices == 4)
 					{
 						VertexLayout v0, v1, v2, v3;
-
 						buw::vector3f* pos0, *pos1, *pos2, *pos3;
 
 						++it;
@@ -314,35 +278,7 @@ namespace OpenInfraPlatform
 						v2 = VertexLayout::create(*pos2, color, normal);
 						v3 = VertexLayout::create(*pos3, color, normal);
 
-						std::string keyV0 = createVertexKey(v0);
-						std::string keyV1 = createVertexKey(v1);
-						std::string keyV2 = createVertexKey(v2);
-						std::string keyV3 = createVertexKey(v3);
-
-						if (ConverterBuwUtil::vertexMap_.find(keyV0) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v0);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV0, indexOffset++));
-						}
-						if (ConverterBuwUtil::vertexMap_.find(keyV1) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v1);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV1, indexOffset++));
-						}
-						if (ConverterBuwUtil::vertexMap_.find(keyV2) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v2);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV2, indexOffset++));
-						}
-						if (ConverterBuwUtil::vertexMap_.find(keyV3) == ConverterBuwUtil::vertexMap_.end()) {
-							vertices.push_back(v3);
-							ConverterBuwUtil::vertexMap_.insert(std::pair<std::string, uint32_t>(keyV3, indexOffset++));
-						}
-
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV1]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
-
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV0]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV2]);
-						indices.push_back(ConverterBuwUtil::vertexMap_[keyV3]);
+						insertQuadIntoBuffers(v0, v1, v2, v3, vertices, indices);
 					}
 					else
 					{
@@ -372,13 +308,168 @@ namespace OpenInfraPlatform
 				return ret;
 			}
 
-			static bool insertPolylineIntoBuffers(const std::shared_ptr<typename IfcEntityTypesT::IfcProduct>& product,
-				const carve::input::PolylineSetData* polylineData,
-				std::vector<VertexLayout>& vertices,
+			static bool insertPolylineIntoBuffers(const std::shared_ptr<carve::input::PolylineSetData> polylineData,
+				std::vector<buw::vector3f>& vertices,
 				std::vector<uint32_t>& indices)
 			{
-				td::cout << "TODO: implement polyline visualization" << std::endl;
-				return false;
+				// global offset of inserted vertices
+				const uint32_t vertexOffset = vertices.size();
+
+				// temporary polyline vertex index to global index map
+				std::map<uint32_t, uint32_t> indexMap;
+				
+				// obtain number of vertices in the polyline data
+				const size_t vertexCount = polylineData->getVertexCount();
+				size_t indexOffset = vertices.size();
+
+				// create vertex buffer for polylines
+				for (auto i = 0; i < vertexCount; ++i)
+				{
+					carve::geom3d::Vector position = polylineData->getVertex(i);
+					buw::vector3f vertex(position[0], position[1], position[2]);
+
+					/*const std::string vKey = createVertexKeyLine(vertex);
+					
+					if (ConverterBuwUtil::vertexMapLines_.find(vKey) == ConverterBuwUtil::vertexMapLines_.end())
+					{
+						vertices.push_back(vertex);
+						ConverterBuwUtil::vertexMapLines_.insert(std::pair<std::string, uint32_t>(vKey, indexOffset));
+						indexMap[i] = indexOffset++;
+					}
+					else
+					{
+						indexMap[i] = ConverterBuwUtil::vertexMapLines_[vKey];
+					}*/
+
+					vertices.push_back(vertex);
+					indexMap[i] = indexOffset++;
+				}
+
+				// create index buffer for line lists
+				for (const auto& line : polylineData->polylines)
+				{
+					std::vector<int> pointIndexList = line.second;
+
+					for (auto i = 0; i < pointIndexList.size() - 1; ++i)
+					{
+						auto index = indexMap[pointIndexList[i]];
+						auto indexNext = indexMap[pointIndexList[i + 1]];
+
+						indices.push_back(index);
+						indices.push_back(indexNext);
+					}
+				}
+
+				return true;
+			}
+
+			static bool createGeometryModel(buw::ReferenceCounted<IfcGeometryModel> ifcGeometryModel,
+				std::map<int, std::shared_ptr<ShapeInputDataT<IfcEntityTypesT>>>& shapeDatas)
+			{
+				std::cout << "Info\t| IfcGeometryConverter.ConverterBuw: Create geometry model from meshsets for BlueFramework API" << std::endl;
+				//! NOTE (mk): Could be optimized if we omit cache building and just add triangles (with redundant vertices)
+
+				// clear all descriptions
+				auto& meshDescription = ifcGeometryModel->meshDescription_;
+				meshDescription.vertices.clear();
+				meshDescription.indices.clear();
+
+				auto& polylineDescription = ifcGeometryModel->polylineDescription_;
+				polylineDescription.vertices.clear();
+				polylineDescription.indices.clear();
+
+				// obtain maximum number of threads supported by machine
+				const unsigned int maxNumThreads = std::thread::hardware_concurrency();
+
+				// gather tasks for all threads
+				std::vector<std::vector<std::shared_ptr<ShapeInputDataT<IfcEntityTypesT>>>> tasks(maxNumThreads);
+
+				uint32_t counter = 0;
+				for (auto it = shapeDatas.begin(); it != shapeDatas.end(); ++it)
+				{
+					std::shared_ptr<ShapeInputDataT<IfcEntityTypesT>> shapeData = it->second;
+					tasks[counter % maxNumThreads].push_back(shapeData);
+					counter++;
+				}
+
+				// create threads and start creation job
+				std::vector<std::thread> threads(maxNumThreads);
+				// every thread gets its local triangle/polyline pool
+				for (unsigned int k = 0; k < maxNumThreads; ++k)
+				{
+					threads[k] = std::thread(&ConverterBuwT<IfcEntityTypesT>::createTrianglesJob, tasks[k], k, &meshDescription, &polylineDescription);
+				}
+
+				// wait for all threads to be finished
+				for (unsigned int l = 0; l < maxNumThreads; ++l)
+				{
+					threads[l].join();
+				}
+
+				std::cout << "Info\t| IfcGeometryConverter.ConverterBuw: IFC model ready to be rendered" << std::endl;
+				return true;
+			}
+
+			// convert mesh and polyline descriptions to triangles/lines for BlueFramework
+			static void createTrianglesJob(const std::vector<std::shared_ptr<ShapeInputDataT<IfcEntityTypesT>>>& tasks, 
+				int threadID, IndexedMeshDescription* meshDesc, PolylineDescription* polyDesc)
+			{
+//#ifdef _DEBUG
+//				std::cout << "Info\t| IfcGeometryConverter.ConverterBuw: Starting thread " << threadID << " to create triangles and polylines" << std::endl;
+//#endif
+				IndexedMeshDescription threadMeshDesc;
+				PolylineDescription threadLineDesc;
+				threadMeshDesc.vertices.clear();
+				threadMeshDesc.indices.clear();
+				threadLineDesc.vertices.clear();
+				threadLineDesc.indices.clear();
+
+
+				for (const auto& shapeData : tasks)
+				{
+					const std::shared_ptr<typename IfcEntityTypesT::IfcProduct>& product = shapeData->ifc_product;
+
+//#ifdef _DEBUG
+//					std::cout << "Info\t| IfcGeometryConverter.ConverterBuw: Create triangles and polylines for entity " << product->classname() << " #" << product->getId() << std::endl;
+//#endif
+
+					for (const auto& itemData : shapeData->vec_item_data)
+					{
+						// data for triangles
+						for (const auto& meshset : itemData->meshsets)
+						{
+							ConverterBuwT<IfcEntityTypesT>::insertMeshSetIntoBuffers(product, meshset.get(),
+								threadMeshDesc.vertices, threadMeshDesc.indices);
+						}
+
+						// data for polylines
+						for (const auto& polyline : itemData->polylines)
+						{
+							ConverterBuwT<IfcEntityTypesT>::insertPolylineIntoBuffers(polyline,
+								threadLineDesc.vertices, threadLineDesc.indices);
+						}
+					}
+				}
+
+				ConverterBuwUtil::s_geometryMutex.lock();
+
+				const uint64_t globalIndexOffsetMesh = meshDesc->vertices.size();
+				const uint64_t globalIndexOffsetLines = polyDesc->vertices.size();
+
+				std::for_each(threadMeshDesc.indices.begin(), threadMeshDesc.indices.end(),
+					[&](uint32_t& index) { index += globalIndexOffsetMesh; });
+				std::for_each(threadLineDesc.indices.begin(), threadLineDesc.indices.end(),
+					[&](uint32_t& index) { index += globalIndexOffsetLines; });
+
+				meshDesc->vertices.insert(meshDesc->vertices.end(), threadMeshDesc.vertices.begin(), threadMeshDesc.vertices.end());
+				meshDesc->indices.insert(meshDesc->indices.end(), threadMeshDesc.indices.begin(), threadMeshDesc.indices.end());
+				polyDesc->vertices.insert(polyDesc->vertices.end(), threadLineDesc.vertices.begin(), threadLineDesc.vertices.end());
+				polyDesc->indices.insert(polyDesc->indices.end(), threadLineDesc.indices.begin(), threadLineDesc.indices.end());
+				
+				ConverterBuwUtil::s_geometryMutex.unlock();
+//#ifdef _DEBUG
+//				std::cout << "Info\t| IfcGeometryConverter.ConverterBuw: Finished thread " << threadID << std::endl;
+//#endif
 			}
 
 		protected:
@@ -401,7 +492,7 @@ namespace OpenInfraPlatform
 				// ignore spaces!
 				else if (dynamic_pointer_cast<typename IfcEntityTypesT::IfcSpace>(product))
 				{
-					return buw::vector3f(0.1, 0.2f, 1.0f);//, 1.0f);
+					return buw::vector3f(0.1f, 0.2f, 1.0f);//, 1.0f);
 				}
 
 				else if (dynamic_pointer_cast<typename IfcEntityTypesT::IfcDoor>(product))
@@ -486,10 +577,15 @@ namespace OpenInfraPlatform
 				return buw::vector3f(1, 1, 1);//, 1);
 			}
 
-			static std::string createVertexKey(VertexLayout& v)
+			inline static std::string createVertexKeyTriangle(const VertexLayout& v)
 			{
 				return std::to_string(v.position.x()) + " " + std::to_string(v.position.y()) + " " + std::to_string(v.position.z()) + " "
 					+ std::to_string(v.normal.x()) + " " + std::to_string(v.normal.y()) + " " + std::to_string(v.normal.z());
+			};
+
+			inline static std::string createVertexKeyLine(const buw::vector3f& v)
+			{
+				return std::to_string(v.x()) + " " + std::to_string(v.y()) + " " + std::to_string(v.z());
 			};
 
 		};
